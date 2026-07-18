@@ -252,3 +252,12 @@
 - 实现checkpoint：`811956118dd33e05261a16479ac03272a0937180` — `feat: add grid map and core planning models`
 - 账本commit：本条与PROJECT_STATUS、HANDOFF及实施计划checkpoint表更新将以`docs: record stage 1 checkpoint`独立提交。
 - 下一任务：S2-T01 Dijkstra — Not Started；本轮不开始。
+
+## 2026-07-18 20:43 — Stage 1远程发布复核
+
+- 操作性质：只追加远程发布与恢复现场记录，不改变任务或验收状态。
+- 账本commit：`4a32073c9b3ca0499488438fe292d9cc6e9637d7` — `docs: record stage 1 checkpoint`
+- Push：普通`git push -u origin feature/path-planning-100`成功；未force；上游设置为`origin/feature/path-planning-100`。
+- 远程复核：推送后本地HEAD与`origin/feature/path-planning-100`一致；`main`与`origin/main`仍为`23f08f5a61b8317d6837c0157057904637a58447`；唯一remote及Fetch/Push URL未变化；无tag创建。
+- Git现场：发布复核时工作区干净；本条恢复状态修正将以独立文档commit提交并再次普通push。
+- 下一任务：S2-T01 Dijkstra — Not Started；本轮不开始。

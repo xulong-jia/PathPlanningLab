@@ -6,11 +6,11 @@
 
 ## 当前分支
 
-`feature/path-planning-100`，从`main`的`23f08f5a61b8317d6837c0157057904637a58447`创建；本轮获授权的最终push将设置远程上游为`origin/feature/path-planning-100`。
+`feature/path-planning-100`，从`main`的`23f08f5a61b8317d6837c0157057904637a58447`创建，上游为`origin/feature/path-planning-100`。
 
 ## Git状态
 
-S1实现已完成并通过阶段门禁；实现checkpoint为`811956118dd33e05261a16479ac03272a0937180`，当前仅待账本commit及本轮获授权的最终push。唯一远程仍为`origin`，Fetch/Push URL均为`git@github.com:xulong-jia/PathPlanningLab.git`；remote配置未修改，`main`与`origin/main`仍停留在`23f08f5a61b8317d6837c0157057904637a58447`。
+S1实现、阶段门禁、实现checkpoint、账本commit及远程发布均已完成；本记录提交后feature本地HEAD与远程上游一致且工作区干净。唯一远程仍为`origin`，Fetch/Push URL均为`git@github.com:xulong-jia/PathPlanningLab.git`；remote配置未修改，`main`与`origin/main`仍停留在`23f08f5a61b8317d6837c0157057904637a58447`。
 
 ## 当前阶段
 
@@ -50,6 +50,8 @@ S1建立工程依赖与`src`包骨架，完成只读旧材料哈希基线、Grid
 ## 最近checkpoint commit
 
 `811956118dd33e05261a16479ac03272a0937180` — `feat: add grid map and core planning models`
+
+账本commit：`4a32073c9b3ca0499488438fe292d9cc6e9637d7` — `docs: record stage 1 checkpoint`
 
 ## 未解决问题
 

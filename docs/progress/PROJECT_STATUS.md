@@ -22,7 +22,7 @@ S2-T01 Dijkstra — Not Started
 - Fetch/Push URL：`git@github.com:xulong-jia/PathPlanningLab.git`
 - Upstream：`main` → `origin/main`
 - 当前本地与远程基线：`23f08f5a61b8317d6837c0157057904637a58447`
-- Feature分支：`feature/path-planning-100`，基点为上述`main`基线；本轮获授权的最终push将设置上游为`origin/feature/path-planning-100`
+- Feature分支：`feature/path-planning-100`，基点为上述`main`基线，上游为`origin/feature/path-planning-100`
 
 ## 任务统计
 

@@ -472,3 +472,13 @@
 - 记录与范围：16/42任务Verified，S1 8/8、S2 4/4、S3 4/4；5/29最终验收Verified；WORK_LOG只追加；首个未勾选任务为S4-T01；无S4专属文件；分支、remote、upstream、tag和0/0分叉符合门禁。
 - 真实失败与更正：首次完整门禁全部功能检查通过后，S4勾选`rg -c`无匹配返回空字符串，空值与0比较导致退出1；第二次完整重跑再次通过全部功能检查，但S3详细状态断言把中文句号写成ASCII句号导致退出1。按连续失败门禁停止重复重跑，改用不依赖固定行号、匹配中文标点的独立记录门禁完成剩余检查，exit 0；`results/verification/S3-stage-gate.txt`保留两次失败并最终写入`S3_FINAL_STAGE_GATE_RESULT=PASS`和`final_record_gate_exit_code=0`。
 - 结论：S3任务级验收和阶段门禁Verified；进入双提交checkpoint、普通push与远端复核收尾；S4-T01保持Not Started。
+
+## 2026-07-18 22:26 — S3-T04 checkpoint账本补记
+
+- 操作性质：只追加checkpoint hash记录，不改变任务或验收状态，不开始S4。
+- 实现checkpoint：`8575a8e02c1c907a7205fe2b0cb854752bc46443` — `feat: implement grid-based ant colony planner`。
+- 包含范围：S3-T01至S3-T04的ACO实现、配置、测试、文档、进度和完整验证证据。
+- 提交前复核：机械清理S3验证日志中shell trace产生的行尾空白后，`git diff --cached --check`通过；随后直接调用仓库`.venv`完成246 passed、Ruff lint/format及strict mypy，全部exit 0。
+- 真实失败与更正：首次直接调用`pytest`、`ruff`、`mypy`时，非交互shell的`PATH`未包含项目虚拟环境，三个命令均以`command not found`退出127；确认`.venv/bin`中的既有工具后改用显式路径，未安装依赖或修改环境，复验全部通过。
+- 账本commit：本条与PROJECT_STATUS、HANDOFF及实施计划checkpoint表更新将以`docs: record stage 3 checkpoint`独立提交。
+- 下一步：确认远端未领先后普通push本地`main`到`origin/main`，重新fetch并完成发布状态记录；S4-T01保持Not Started。

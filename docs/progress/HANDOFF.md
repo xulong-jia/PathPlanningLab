@@ -10,7 +10,7 @@
 
 ## Git状态
 
-S1与S2已完整发布到`origin/main`。S3全部任务和预验收已Verified，实现checkpoint、hash账本commit和普通push待当前收尾步骤完成。当前仅保留本地`main`及远端`origin/main`；唯一remote仍为`origin`，Fetch/Push URL均为`git@github.com:xulong-jia/PathPlanningLab.git`，remote配置未修改，未创建tag或PR。
+S1与S2已完整发布到`origin/main`。S3全部任务和预验收已Verified，实现checkpoint已创建，hash账本commit和普通push待当前收尾步骤完成。当前仅保留本地`main`及远端`origin/main`；唯一remote仍为`origin`，Fetch/Push URL均为`git@github.com:xulong-jia/PathPlanningLab.git`，remote配置未修改，未创建tag或PR。
 
 ## 当前阶段
 
@@ -50,7 +50,7 @@ S3新增`aco.py`、ACO baseline配置、构路/信息素/Planner/集成/seed/leg
 
 ## 最近checkpoint commit
 
-S3实现checkpoint：待创建 — `feat: implement grid-based ant colony planner`。
+S3实现checkpoint：`8575a8e02c1c907a7205fe2b0cb854752bc46443` — `feat: implement grid-based ant colony planner`。
 
 S3账本commit：待创建 — `docs: record stage 3 checkpoint`。
 

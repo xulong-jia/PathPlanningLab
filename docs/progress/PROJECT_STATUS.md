@@ -24,7 +24,7 @@ S4-T01 GA 配置、DEAP 类型、初始化与适应度 — Not Started
 - S1原feature tip：`1e5a10debbb4eab4004f7fa9372ad046834fb4f8`，已通过fast-forward完整进入`main`
 - 分支现场：`main`跟踪`origin/main`；临时feature分支的本地与远端引用均已安全删除
 - S2实施方式：按本轮明确授权直接在`main`完成；实现checkpoint为`22f479342a7edf1b5329c45ace59ba91ba6b19b7`；hash账本commit为`1f820c331262f88eba697b836e24f0c26838fc66`
-- S3实施方式：按本轮明确授权直接在`main`完成；实现checkpoint和hash账本commit待阶段记录提交后补记
+- S3实施方式：按本轮明确授权直接在`main`完成；实现checkpoint为`8575a8e02c1c907a7205fe2b0cb854752bc46443`；hash账本commit待本次记录提交后补记
 - 发布状态：S1和S2已普通push到`origin/main`；S3待当前收尾步骤完成checkpoint、账本及普通push
 
 ## 任务统计
@@ -49,7 +49,7 @@ S4-T01 GA 配置、DEAP 类型、初始化与适应度 — Not Started
 
 ## 最近一个checkpoint commit
 
-S3实现checkpoint：待创建 — `feat: implement grid-based ant colony planner`
+S3实现checkpoint：`8575a8e02c1c907a7205fe2b0cb854752bc46443` — `feat: implement grid-based ant colony planner`
 
 S3账本commit：待创建 — `docs: record stage 3 checkpoint`
 

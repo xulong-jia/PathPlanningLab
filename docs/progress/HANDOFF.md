@@ -6,15 +6,15 @@
 
 ## 当前分支
 
-main
+`main`，跟踪`origin/main`。`feature/path-planning-100`尚未创建。
 
 ## Git状态
 
-本地Git仓库已初始化；计划基线commit和账本commit均已创建；没有远程仓库。
+项目目录与本地Git仓库均已创建，工作区在本次对齐前为干净状态，并将在两次文档提交后再次验证干净。唯一远程为`origin`，Fetch/Push URL均为`git@github.com:xulong-jia/PathPlanningLab.git`；计划基线已推送，`main`与`origin/main`一致。
 
 ## 当前阶段
 
-项目与计划基线落地。
+阶段1尚未开始。
 
 ## 已完成任务
 
@@ -41,15 +41,15 @@ S1-T01 至 S8-T06，共42项。
 
 ## 创建和修改的文件
 
-当前仅创建计划、进度、阶段0设计、README、TASKS和.gitignore；未创建工程代码。
+当前仅有计划、进度、阶段0设计、README、TASKS和.gitignore；未创建工程代码、虚拟环境或feature分支。
 
 ## 最近验证命令及结果
 
-2026-07-18 19:02 AEST完成只读完整性验证：当前路径和main分支正确；计划1951行；执行清单42项；详细任务42项；验收映射29项；禁止占位表达0处；要求文件全部存在；未创建src、tests、configs、maps、虚拟环境、pyproject.toml或requirements.lock；`git diff --check`通过。
+2026-07-18 19:23 AEST完成仓库状态对齐前置检查：路径和`main`正确；工作区干净；唯一远程为正确的`origin`；`main`跟踪`origin/main`；本地与远程hash均为`f2c9703ca6652843713efae28b59e6ab5ecbffd3`；42项任务和29项验收均未开始。
 
 ## 最近checkpoint commit
 
-`6a8224a064401c4f20abf0889f42421dca306a07` — `docs: add path planning implementation plan`
+`f2c9703ca6652843713efae28b59e6ab5ecbffd3` — `docs: record planning baseline checkpoint`
 
 ## 未解决问题
 
@@ -57,7 +57,7 @@ S1-T01 至 S8-T06，共42项。
 
 ## 风险
 
-Standard Benchmark 和调优耗时较长；目标路径冲突、依赖扩大、旧材料变化、同一方案连续失败两次或关键门禁无法通过时必须停止。
+Standard Benchmark 和调优耗时较长；现有`.git`、`origin`或`main`上游发生漂移，依赖扩大、旧材料变化、同一方案连续失败两次或关键门禁无法通过时必须停止。不得重新初始化仓库、替换`.git`、更换remote URL或强制推送。
 
 ## 下一步
 
@@ -65,11 +65,10 @@ Standard Benchmark 和调优耗时较长；目标路径冲突、依赖扩大、�
 
 ## 新会话恢复指令
 
-1. 进入 /Users/jiaxulong/Desktop/PathPlanningLab。
-2. 完整读取 docs/superpowers/plans/2026-07-18-path-planning-lab.md。
-3. 完整读取 docs/progress/PROJECT_STATUS.md。
-4. 完整读取 docs/progress/HANDOFF.md。
-5. 查看 docs/progress/WORK_LOG.md 最后一个记录。
-6. 执行 git branch --show-current、git status --short、git log -5 --oneline。
-7. 对照计划找到第一个未勾选、未阻塞且前置任务均为 Verified 的任务。
-8. 不依据聊天记忆推测进度。
+1. 执行`cd /Users/jiaxulong/Desktop/PathPlanningLab`。
+2. 完整读取`docs/superpowers/plans/2026-07-18-path-planning-lab.md`、`docs/progress/PROJECT_STATUS.md`和`docs/progress/HANDOFF.md`。
+3. 查看`docs/progress/WORK_LOG.md`最后一个记录。
+4. 执行`git branch --show-current`、`git status --short`、`git status -sb`、`git remote -v`、`git log --oneline -5`。
+5. 确认当前为`main`、工作区干净、唯一remote为正确的`origin`、上游为`origin/main`，且feature分支尚未创建。
+6. 对照计划找到第一个未勾选、未阻塞且前置任务均为Verified的任务；当前应为S1-T01。
+7. 不依据聊天记忆推测进度，不执行`git init`，不删除或替换`.git`，不修改remote。

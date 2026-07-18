@@ -2,6 +2,8 @@
 
 **状态：Verified。** 本轮只完成 Read 与 Plan。没有创建`PathPlanningLab`、安装依赖、执行旧代码、修改文件或运行Git写操作。
 
+> **历史说明：**上句“本轮”记录的是阶段0设计编制当时的事实。2026-07-18仓库基线对齐时，`PathPlanningLab`已作为计划基线仓库创建，唯一remote为`origin = git@github.com:xulong-jia/PathPlanningLab.git`，`main`跟踪`origin/main`，计划基线已经推送；42项实施任务和29项验收仍全部Not Started。
+
 # 1. 对目标的理解
 
 目标是新建一个与旧材料完全隔离的Python工程，以真实代码、自动化测试、结构化实验数据和可复现实验支撑四算法路径规划表述，而不是包装旧TSP脚本。
@@ -33,7 +35,7 @@
 
 | 检查 | 结果 |
 |---|---|
-| `/Users/jiaxulong/Desktop/PathPlanningLab` | **不存在，可以在批准后新建** |
+| `/Users/jiaxulong/Desktop/PathPlanningLab` | **阶段0设计时不存在；现已创建为计划基线仓库，不得重新初始化或替换`.git`** |
 | 系统Python | `/opt/homebrew/bin/python3`，Python 3.12.2 |
 | `venv`模块 | 可用 |
 | Git | `/opt/homebrew/bin/git`，2.51.0 |
@@ -561,23 +563,27 @@ PYTHONPYCACHEPREFIX="$PROJECT_ROOT/.pycache"
 
 创建：
 
-- `pyproject.toml`、`.gitignore`、`README.md`
+- `pyproject.toml`
 - `requirements.lock`
 - `src/path_planning/__init__.py`
 - `core/grid.py`、`movement.py`、`result.py`、`validation.py`、`metrics.py`
 - `maps/generation.py`、`io.py`、`suites.py`
 - 核心及地图测试
 - 6张手工地图
-- 批准后的设计及实施计划文档
 - `docs/legacy_baseline.md`
+
+修改：
+
+- 现有`.gitignore`、`README.md`
+- 已批准的设计、实施计划和进度记录文档
 
 流程：
 
-1. 目标路径仍不存在才创建。
-2. `git init -b main`。
-3. TDD完成最小包骨架并验证。
-4. 创建main初始化提交。
-5. 创建`feature/path-planning-100`。
+1. 验证现有仓库、`.git`、干净`main`、唯一正确`origin`和`origin/main`上游；不得执行`git init`、替换`.git`或修改remote。
+2. S1-T01只读复核旧材料并生成完整哈希基线，更新安全门禁记录。
+3. S1-T02确认更新后的`main`与`origin/main`一致，再从`main`创建`feature/path-planning-100`。
+4. TDD完成最小包骨架并验证。
+5. 在feature分支创建工程checkpoint；未经明确授权不push。
 6. TDD完成核心模型。
 7. 运行核心测试、Ruff、mypy、diff审查。
 8. 创建阶段1checkpoint。
@@ -759,7 +765,7 @@ export PYTHONPYCACHEPREFIX="$PWD/.pycache"
 
 | 风险 | 控制措施 |
 |---|---|
-| 目标目录在批准前被其他程序创建 | 阶段1第一步重新检查；存在即停止 |
+| 现有仓库`.git`、`origin`、`main`或upstream漂移 | 阶段1第一步验证；异常即停止，不通过重新初始化、reset、pull、merge、rebase或force修复 |
 | ACO在100×100地图运行过慢 | 明确计算预算、早停和工作量；不得删除复杂场景 |
 | GA难以在高密度地图稳定成功 | 合法路径初始化、局部修复、成功率优先调优 |
 | 过度依赖A*/Dijkstra辅助随机算法 | 只允许可达性预检；GA修复不调用最优搜索器 |
@@ -775,12 +781,13 @@ export PYTHONPYCACHEPREFIX="$PWD/.pycache"
 ## 回滚
 
 - 旧材料未修改，不需要回滚。
-- `main`保留初始化基线。
+- `main`保留已推送的计划基线并持续跟踪`origin/main`。
 - 每个Verified阶段有独立checkpoint。
-- 可通过`git switch main`查看空白基线。
+- 可通过`git switch main`查看计划基线；feature分支从更新后的`main`创建。
 - 单阶段回滚推荐`git revert <checkpoint>`，保留历史。
 - 不计划使用`reset --hard`、rebase或强制操作。
 - 阶段未提交而失败时保留现场并报告，不擅自删除或恢复文件。
+- 后续commit未经明确授权不push；不得创建第二个remote或修改现有`origin` URL。
 
 ---
 
@@ -812,11 +819,9 @@ export PYTHONPYCACHEPREFIX="$PWD/.pycache"
 6. Standard默认顺序执行；只有实测不可接受时才暂停讨论并行化。
 7. 把最终Standard原始数据、汇总、PNG和Markdown报告纳入本地Git。
 8. 结果如实报告，不保证tuned优于baseline，也不预设任何提升百分比。
-9. 最终停留在`feature/path-planning-100`，不merge、不push、不tag。
-10. 如果Git身份缺失、目标目录突然存在、需要未列出的直接依赖或实验规模异常，将按要求暂停。
+9. 最终停留在`feature/path-planning-100`，不merge、不tag；后续push须另获明确授权且不得force push。
+10. 如果Git身份缺失、现有仓库/remote/upstream漂移、需要未列出的直接依赖或实验规模异常，将按要求暂停。
 
-本轮没有创建或修改任何文件，也没有执行旧代码或Git写操作。
+阶段0编制本设计时没有创建或修改任何文件，也没有执行旧代码或Git写操作；该句仅记录当时事实。当前计划基线仓库已存在并连接GitHub，但实施仍未开始。
 
-如认可上述默认项及完整计划，请明确回复：
-
-**“批准该计划，按计划从阶段1开始执行。”**
+上述默认项和完整计划已经批准；当前下一任务为S1-T01，状态仍为Not Started，本轮仓库状态对齐不开始该任务。

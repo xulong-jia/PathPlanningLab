@@ -2,7 +2,7 @@
 
 ## 当前总体状态
 
-Not Started
+Planning Baseline Ready
 
 ## 当前分支
 
@@ -10,11 +10,19 @@ main
 
 ## 当前阶段
 
-项目与计划基线落地
+阶段1尚未开始
 
 ## 当前任务
 
 S1-T01 安全门禁与记录制度落地 — Not Started；本轮没有正式开始该任务。
+
+## Repository Status
+
+- Remote：`origin`
+- Fetch/Push URL：`git@github.com:xulong-jia/PathPlanningLab.git`
+- Upstream：`main` → `origin/main`
+- 已推送的计划基线：`f2c9703ca6652843713efae28b59e6ab5ecbffd3`
+- Feature分支：尚未创建
 
 ## 任务统计
 
@@ -34,11 +42,11 @@ S1-T01 安全门禁与记录制度落地 — Not Started；本轮没有正式开
 
 ## 最近一次验证
 
-2026-07-18 19:02 AEST完成计划基线落地检查：计划文件1951行；执行清单42项；详细任务42项；100%验收映射29项；禁止占位表达0处；要求文件全部非空；未创建工程、测试、虚拟环境、依赖或配置目录；`git diff --check`通过。
+2026-07-18 19:23 AEST完成仓库状态对齐前置检查：项目路径正确；当前分支为`main`；工作区干净；仅有`origin`且Fetch/Push URL均为`git@github.com:xulong-jia/PathPlanningLab.git`；`main`跟踪`origin/main`；本地HEAD与远程main均为`f2c9703ca6652843713efae28b59e6ab5ecbffd3`；42项任务与29项验收均未开始。
 
 ## 最近一个checkpoint commit
 
-`6a8224a064401c4f20abf0889f42421dca306a07` — `docs: add path planning implementation plan`
+`f2c9703ca6652843713efae28b59e6ab5ecbffd3` — `docs: record planning baseline checkpoint`
 
 ## 下一项任务
 

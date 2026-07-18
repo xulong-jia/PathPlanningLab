@@ -11,7 +11,7 @@
 ## 执行清单
 
 - [ ] S1-T01 安全门禁与记录制度落地
-- [ ] S1-T02 工程、环境和 Git 初始化
+- [ ] S1-T02 Python工程与 feature 分支初始化
 - [ ] S1-T03 GridMap 与移动规则
 - [ ] S1-T04 统一结果与 Planner 接口
 - [ ] S1-T05 路径验证与统一指标
@@ -61,7 +61,7 @@
 - 最终验收项：29 项。
 - 阶段：S1 至 S8。
 - 所有实施任务初始状态：`Not Started`。
-- 本轮风险：低；仅输出计划，没有文件写入。
+- 初始计划编制风险：低；当时仅输出计划，没有工程实施写入。
 - 后续实施风险：中；所有写入限于 `/Users/jiaxulong/Desktop/PathPlanningLab`，但包含依赖安装、长时间随机实验和本地 Git commit。
 - 旧目录 `/Users/jiaxulong/Desktop/论文与实习` 始终只读，旧 ACO/GA 不执行。
 - 不引入 React、FastAPI、数据库、Docker、ROS、CARLA、强化学习、神经网络或云部署。
@@ -71,6 +71,14 @@
 - 结果必须如实保存；调优版本没有提升时仍然视为有效实验结果，不修改指标或筛除失败样本。
 
 ### 全局执行约束
+
+#### Repository baseline（2026-07-18对齐）
+
+- `/Users/jiaxulong/Desktop/PathPlanningLab`是已经初始化的Git仓库；后续任务严禁再次执行`git init`，严禁删除、替换或重建`.git`。
+- 当前基线分支为`main`，上游为`origin/main`；唯一remote必须是`origin`，Fetch/Push URL必须保持为`git@github.com:xulong-jia/PathPlanningLab.git`。
+- 计划基线已经推送到GitHub。后续commit未经用户明确授权不得push；严禁force push、增加第二个remote、修改remote URL、merge、rebase或tag。
+- S1-T01只验证现有仓库和旧材料保护门禁，不创建或重新初始化仓库。
+- S1-T02在确认更新后的`main`干净且与`origin/main`一致后，从`main`创建`feature/path-planning-100`；不得从历史提交或其他分支创建。
 
 所有命令从项目根目录执行，并先设置项目内缓存：
 
@@ -309,8 +317,8 @@ flowchart LR
 
 | 任务ID | 阶段 | 任务名称 | 前置任务 | 主要产物 | 验证门禁 | 状态 | 完成证据 | Commit |
 |---|---|---|---|---|---|---|---|---|
-| S1-T01 | 1 | 安全门禁与记录制度落地 | 无 | 四个记录文件、设计文件、旧材料基线哈希 | 路径、Git、记录结构、旧哈希检查 | Not Started | `S1-T01.txt`、`legacy_hashes.before.sha256` | 不单独提交 |
-| S1-T02 | 1 | 工程、环境和 Git 初始化 | S1-T01 | `pyproject.toml`、`.venv`、lock、包骨架 | 安装、import、pip check、Ruff、mypy | Not Started | `S1-T02.txt` | `chore: initialize path planning lab` |
+| S1-T01 | 1 | 安全门禁与记录制度落地 | 无 | 旧材料基线哈希、安全门禁记录 | 路径、Git、记录结构、旧哈希检查 | Not Started | `S1-T01.txt`、`legacy_hashes.before.sha256` | 不单独提交 |
+| S1-T02 | 1 | Python工程与 feature 分支初始化 | S1-T01 | `pyproject.toml`、`.venv`、lock、包骨架、feature分支 | 安装、import、pip check、Ruff、mypy、分支基点 | Not Started | `S1-T02.txt` | `chore: initialize path planning lab` |
 | S1-T03 | 1 | GridMap 与移动规则 | S1-T02 | `types.py`、`grid.py`、`movement.py` | 单元测试、Ruff、mypy | Not Started | `S1-T03.txt` | 归入 S1-T08 |
 | S1-T04 | 1 | 统一结果与 Planner 接口 | S1-T03 | `result.py`、`base.py` | 结果不变量、JSON、import 测试 | Not Started | `S1-T04.txt` | 归入 S1-T08 |
 | S1-T05 | 1 | 路径验证与统一指标 | S1-T04 | `validation.py`、`metrics.py` | 合法/非法/无路径边界测试 | Not Started | `S1-T05.txt` | 归入 S1-T08 |
@@ -368,22 +376,26 @@ flowchart LR
 
 1. **任务编号：**S1-T01
 2. **任务名称：**安全门禁与记录制度落地
-3. **目的：**确认目标目录不存在、旧材料基线未漂移，并把本计划和恢复制度首先落入新仓库。
-4. **前置依赖：**阶段0设计已确认；收到本答复末尾的批准语句。
-5. **创建文件：**设计文件、计划文件、三个进度文件、`docs/audit/legacy_hashes.before.sha256`。
-6. **修改文件：**任务完成时更新刚创建的计划、状态和日志。
+3. **目的：**验证现有计划基线仓库、Git远程和旧材料只读边界完整，并生成旧材料完整哈希基线。
+4. **前置依赖：**阶段0设计与任务计划已确认；计划基线仓库已存在并推送。
+5. **创建文件：**`docs/audit/legacy_hashes.before.sha256`、`results/verification/S1-T01.txt`。
+6. **修改文件：**计划、PROJECT_STATUS、WORK_LOG、HANDOFF。
 7. **实施内容：**
-   - 先验证 `/Users/jiaxulong/Desktop/PathPlanningLab` 不存在；存在即 `Blocked`，不创建或覆盖。
+   - 验证当前路径为`/Users/jiaxulong/Desktop/PathPlanningLab`、`.git`存在、分支为`main`且工作区干净。
+   - 验证唯一remote为`origin`，Fetch/Push URL均为`git@github.com:xulong-jia/PathPlanningLab.git`，且`main`跟踪`origin/main`。
+   - 保留现有`.git`、remote和已推送计划基线；不执行`git init`，不删除或替换`.git`，不修改remote。
    - 复核旧目录文件数量和阶段0记录的三个关键 SHA-256。
-   - 创建新目录并执行 `git init -b main`。
-   - 完整写入已确认设计、本计划和三个进度文件。
    - 从项目根目录以相对路径 `../论文与实习` 只读生成完整文件哈希清单。
-   - 不创建远程、不设置全局 Git 配置。
+   - 更新四个记录文件，记录门禁结果；不设置全局Git配置，不创建feature分支。
 8. **先写测试：**无代码测试；先执行路径、哈希和记录结构 shell 断言。
 9. **验证命令：**
    ```bash
    test -d .git
    test "$(git branch --show-current)" = "main"
+   test -z "$(git status --porcelain)"
+   test "$(git remote get-url origin)" = "git@github.com:xulong-jia/PathPlanningLab.git"
+   test "$(git rev-parse --abbrev-ref '@{upstream}')" = "origin/main"
+   test "$(git remote | wc -l | tr -d ' ')" = "1"
    test -s docs/superpowers/plans/2026-07-18-path-planning-lab.md
    test -s docs/progress/PROJECT_STATUS.md
    test -s docs/progress/WORK_LOG.md
@@ -391,23 +403,25 @@ flowchart LR
    test -s docs/audit/legacy_hashes.before.sha256
    git diff --check
    ```
-10. **预期结果：**全部断言退出 0；分支为 `main`；旧目录零写入。
-11. **验收标准：**目标路径安全门禁有记录；四个记录文件可支持独立恢复；哈希清单为相对路径。
+10. **预期结果：**全部断言退出0；分支为`main`；唯一remote和upstream正确；旧目录零写入。
+11. **验收标准：**现有仓库、`.git`、`main`、`origin`和已推送计划基线保持完整；四个记录文件可支持独立恢复；哈希清单为相对路径。
 12. **证据路径：**`results/verification/S1-T01.txt`、`docs/audit/legacy_hashes.before.sha256`、WORK_LOG 首条记录。
-13. **风险和边界：**目标已存在、关键旧哈希变化或旧文件数量异常时立即 `Blocked`。
+13. **风险和边界：**仓库、remote、upstream或关键旧哈希漂移，或旧文件数量异常时立即`Blocked`；不得用重新初始化、pull、merge、rebase或force修复。
 14. **Checkpoint：**不允许；尚未建立质量工具。
 15. **Commit message：**由 S1-T02 纳入 `chore: initialize path planning lab`。
 16. **当前状态：**Not Started。
 
-### S1-T02 工程、环境和 Git 初始化
+### S1-T02 Python工程与 feature 分支初始化
 
 1. **编号：**S1-T02
-2. **名称：**工程、环境和 Git 初始化
-3. **目的：**建立可安装、可锁定、可静态检查的最小 Python 包。
+2. **名称：**Python工程与 feature 分支初始化
+3. **目的：**从已更新并验证的`main`创建实施feature分支，建立可安装、可锁定、可静态检查的最小Python包。
 4. **依赖：**S1-T01 Verified。
-5. **创建：**`pyproject.toml`、`requirements.lock`、`.gitignore`、`README.md`、全部包目录的 `__init__.py`、`tests/test_package_import.py`、`.venv/`。
-6. **修改：**三个记录文件。
+5. **创建：**`pyproject.toml`、`requirements.lock`、全部包目录的`__init__.py`、`tests/test_package_import.py`、`.venv/`、`feature/path-planning-100`分支。
+6. **修改：**`.gitignore`、`README.md`和三个记录文件。
 7. **实施：**
+   - 再次确认`main`工作区干净、唯一remote为正确的`origin`、上游为`origin/main`，且本地`main`与`origin/main`一致。
+   - 从该已验证的`main`执行`git switch -c feature/path-planning-100`；严禁执行`git init`或改动`.git`与remote。
    - `requires-python = ">=3.11"`；构建后端使用 setuptools。
    - runtime dependencies 仅为 NumPy、Matplotlib、pandas、PyYAML、DEAP。
    - dev extra 仅为 pytest、pytest-cov、Ruff、mypy。
@@ -415,7 +429,7 @@ flowchart LR
    - 创建 `.venv`，只在其中安装。
    - 用 `pip freeze --all --exclude-editable` 生成精确 lock。
    - 检查 Git identity；缺失时 `Blocked`，不修改全局配置。
-   - 验证后创建 main bootstrap commit，记录其 hash，再创建记录账本 commit，随后创建 `feature/path-planning-100`。
+   - 在feature分支验证并创建工程checkpoint，记录其hash，再创建记录账本commit；未经明确授权不push。
 8. **先写测试：**`test_package_import_has_no_side_effects`；RED 预期 `ModuleNotFoundError`，创建最小包后 PASS。
 9. **验证：**
    ```bash
@@ -425,12 +439,13 @@ flowchart LR
    .venv/bin/ruff check .
    .venv/bin/ruff format --check .
    .venv/bin/mypy src
+   test "$(git branch --show-current)" = "feature/path-planning-100"
    git diff --check
    ```
-10. **预期：**全部退出 0；import 不执行算法；当前分支最终为 feature 分支。
-11. **验收：**环境全部位于项目目录；lock 可复现；无未批准依赖；main 有初始化提交。
+10. **预期：**全部退出0；import不执行算法；当前分支为`feature/path-planning-100`且基点来自更新后的`main`。
+11. **验收：**现有main计划基线保留；feature从更新后的main创建；环境全部位于项目目录；lock可复现；无未批准依赖。
 12. **证据：**`S1-T02.txt`、`requirements.lock`、Git log、WORK_LOG。
-13. **风险：**安装同一方案失败两次、未批准依赖解析或 Git identity 缺失时停止。
+13. **风险：**main、origin/upstream或分支基点漂移，安装同一方案失败两次、未批准依赖解析或Git identity缺失时停止。
 14. **Checkpoint：**允许。
 15. **Commit：**`chore: initialize path planning lab`。
 16. **状态：**Not Started。
@@ -1507,7 +1522,7 @@ flowchart LR
    - 确认无 Critical/High、无 Blocked/Partially Verified。
    - 填写全部验收矩阵。
    - 创建最终 checkpoint，随后记录其 hash 并创建账本 commit。
-   - 最后现场运行 Git clean 和无 remote 检查。
+   - 最后现场运行Git clean、唯一remote和正确`origin` URL检查。
 8. **先写测试：**不新增生产测试；重复执行 S8-T02、Smoke manifest、Standard manifest 的关键门禁。
 9. **验证：**
    ```bash
@@ -1518,10 +1533,12 @@ flowchart LR
    .venv-verify/bin/mypy src
    git diff --check
    git status --porcelain
+   test "$(git remote | wc -l | tr -d ' ')" = "1"
+   test "$(git remote get-url origin)" = "git@github.com:xulong-jia/PathPlanningLab.git"
    git remote -v
    ```
-10. **预期：**`cmp` 退出 0；质量门禁退出 0；最终 `git status --porcelain` 和 `git remote -v` 无输出。
-11. **验收：**42/42 任务和29/29验收项均 Verified；旧材料未变化；工作区干净。
+10. **预期：**`cmp`和质量门禁退出0；最终`git status --porcelain`无输出；`git remote -v`仅显示正确的`origin` Fetch/Push URL。
+11. **验收：**42/42任务和29/29验收项均Verified；旧材料未变化；工作区干净；唯一remote仍为正确的`origin`。
 12. **证据：**`verification_report.md`、两个哈希清单、现场 Git 输出、最终 commit 列表。
 13. **风险：**任一哈希差异、High/Critical、缺失运行或 dirty 状态均禁止宣布100%。
 14. **Checkpoint：**允许。
@@ -1585,19 +1602,27 @@ flowchart LR
 
 ## 当前总体状态
 
-Not Started
+Planning Baseline Ready
 
 ## 当前分支
 
-尚未创建；计划先创建 `main`，再创建 `feature/path-planning-100`。
+`main`，跟踪`origin/main`；`feature/path-planning-100`尚未创建。
 
 ## 当前阶段
 
-阶段1：工程骨架、地图和核心模型
+阶段1尚未开始
 
 ## 当前任务
 
 S1-T01 安全门禁与记录制度落地 — Not Started
+
+## Repository Status
+
+- Remote：`origin`
+- Fetch/Push URL：`git@github.com:xulong-jia/PathPlanningLab.git`
+- Upstream：`main` → `origin/main`
+- 已推送的计划基线：`f2c9703ca6652843713efae28b59e6ab5ecbffd3`
+- Feature分支：尚未创建
 
 ## 任务统计
 
@@ -1617,11 +1642,11 @@ S1-T01 安全门禁与记录制度落地 — Not Started
 
 ## 最近一次验证
 
-阶段0仅完成只读设计和计划自检；尚未执行项目验证命令。
+计划基线已完成并推送；仓库、唯一origin、main upstream及本地/远程hash对齐；尚未执行任何实施任务验证命令。
 
 ## 最近一个checkpoint commit
 
-无；Git仓库尚未创建。
+`f2c9703ca6652843713efae28b59e6ab5ecbffd3` — `docs: record planning baseline checkpoint`
 
 ## 下一项任务
 
@@ -1697,7 +1722,7 @@ S1-T01 安全门禁与记录制度落地。
 
 ## 执行记录
 
-尚无项目实施记录。首条记录由 S1-T01 验证后追加。
+在S1-T01开始前可以追加计划基线、远程连接和仓库状态对齐等非任务记录；这些记录必须明确“是否属于42项任务：否”，不得改变任何任务状态。首条实施任务记录仍由S1-T01验证后追加。
 ```
 
 ### 6.4 `HANDOFF.md`
@@ -1711,19 +1736,19 @@ S1-T01 安全门禁与记录制度落地。
 
 ## 当前分支
 
-尚未创建。计划顺序为 `main`，随后 `feature/path-planning-100`。
+`main`，跟踪`origin/main`。`feature/path-planning-100`尚未创建。
 
 ## Git状态
 
-目标仓库尚未初始化；没有项目 Git 状态。
+本地Git仓库已初始化；唯一remote为`origin`，Fetch/Push URL均为`git@github.com:xulong-jia/PathPlanningLab.git`；计划基线已推送，`main`与`origin/main`一致。
 
 ## 当前阶段
 
-阶段1：工程骨架、地图和核心模型。
+阶段1尚未开始。
 
 ## 已完成任务
 
-无。
+42项实施任务均未开始。
 
 ## 当前任务
 
@@ -1746,27 +1771,27 @@ S1-T01 至 S8-T06，共42项。
 
 ## 创建和修改的文件
 
-尚未创建新项目文件。
+当前仅有计划、进度、阶段0设计、README、TASKS和.gitignore；未创建工程代码、虚拟环境或feature分支。
 
 ## 最近验证命令及结果
 
-尚未执行项目验证命令。阶段0只完成计划自检。
+已验证仓库路径、`main`、干净工作区、唯一正确`origin`、`origin/main`上游及本地/远程hash一致；尚未执行项目实施验证命令。
 
 ## 最近checkpoint commit
 
-无。
+`f2c9703ca6652843713efae28b59e6ab5ecbffd3` — `docs: record planning baseline checkpoint`
 
 ## 未解决问题
 
-无执行期问题；等待计划批准。
+无；任务计划已批准，等待明确授权开始S1-T01。
 
 ## 风险
 
-Standard Benchmark 和调优耗时较长；目标路径已存在、依赖扩大、旧材料变化、连续两次同方案失败或关键门禁无法通过时必须停止。
+Standard Benchmark和调优耗时较长；现有`.git`、`origin`或`main`上游漂移，依赖扩大、旧材料变化、连续两次同方案失败或关键门禁无法通过时必须停止。
 
 ## 下一步
 
-收到批准后执行 S1-T01；首先检查目标路径，确认不存在后才创建新项目。
+下一任务为S1-T01；开始时验证现有仓库与旧材料门禁，不重新初始化仓库。
 
 ## 新会话恢复指令
 
@@ -1775,9 +1800,10 @@ Standard Benchmark 和调优耗时较长；目标路径已存在、依赖扩大�
 3. 完整读取 `docs/progress/PROJECT_STATUS.md`。
 4. 完整读取 `docs/progress/HANDOFF.md`。
 5. 查看 `docs/progress/WORK_LOG.md` 最后一个任务记录。
-6. 执行 `git branch --show-current`、`git status --short`、`git log -5 --oneline`。
-7. 对照计划找到第一个未勾选、未阻塞且前置任务均 Verified 的任务。
-8. 不依据聊天记忆推测状态。
+6. 执行`git branch --show-current`、`git status -sb`、`git remote -v`、`git log -5 --oneline`。
+7. 确认当前为`main`、唯一remote为正确的`origin`、上游为`origin/main`且feature分支尚未创建。
+8. 对照计划找到第一个未勾选、未阻塞且前置任务均Verified的任务；不得执行`git init`或修改remote。
+9. 不依据聊天记忆推测状态。
 ```
 
 ---
@@ -1802,7 +1828,7 @@ Git commit 的 hash 取决于提交内容，因此不能在同一个 commit 中�
 
 | 阶段/任务 | 分支 | 实现checkpoint | 账本commit |
 |---|---|---|---|
-| S1-T02 | main | `chore: initialize path planning lab` | `docs: record bootstrap checkpoint` |
+| S1-T02 | feature/path-planning-100 | `chore: initialize path planning lab` | `docs: record bootstrap checkpoint` |
 | S1-T08 | feature/path-planning-100 | `feat: add grid map and core planning models` | `docs: record stage 1 checkpoint` |
 | S2-T04 | feature | `feat: implement dijkstra and astar planners` | `docs: record stage 2 checkpoint` |
 | S3-T04 | feature | `feat: implement grid-based ant colony planner` | `docs: record stage 3 checkpoint` |
@@ -1821,7 +1847,7 @@ Git commit 的 hash 取决于提交内容，因此不能在同一个 commit 中�
 - 任务记录已更新。
 - 阶段结束时 HANDOFF 已更新。
 - 无缓存、虚拟环境、构建目录、密钥、项目代码绝对路径或无关文件进入提交。
-- 不执行 push、merge、rebase、tag，不创建 remote。
+- 后续commit未经用户明确授权不得push；严禁force push、merge、rebase或tag；只保留现有唯一`origin`及其固定URL，不创建第二个remote，不修改remote URL。
 
 ---
 
@@ -1929,13 +1955,13 @@ git log -5 --oneline
 - 调优和最终评测 seeds、地图目录明确隔离。
 - 没有依赖旧目录测试或执行旧代码的步骤。
 - 所有写入路径均限于新项目目录。
-- 本轮没有创建目录、文件、虚拟环境或 Git 仓库；没有安装依赖、运行测试、运行 Benchmark 或修改旧材料。
+- 阶段0编制本计划时没有创建目录、文件、虚拟环境或Git仓库；该句仅记录当时事实。此后计划基线仓库已经创建、连接`origin`并推送，但仍未安装依赖、运行项目测试、运行Benchmark、修改旧材料或开始任何实施任务。
 
 ---
 
-## 11. 需要确认的事项
+## 11. 已确认的执行默认值
 
-批准本计划即表示继续采用阶段0已确认的以下执行默认值：
+本计划已经批准，继续采用阶段0确认的以下执行默认值：
 
 - 使用系统 Python 3.12.2 创建项目内 `.venv`。
 - 允许从 PyPI 安装列出的直接依赖、其传递依赖及构建后端 setuptools。
@@ -1943,9 +1969,7 @@ git log -5 --oneline
 - Standard Benchmark 使用21个任务、20个随机 seeds，默认串行。
 - 真实结果和 PNG/CSV/JSON/Markdown 在本地 Git 中留存。
 - tuned 没有改善时如实报告。
-- 最终停留在 `feature/path-planning-100`，不 merge、push、rebase 或 tag。
+- 最终停留在`feature/path-planning-100`，不merge、rebase或tag；任何后续push必须另获明确授权，且不得force push。
 - 使用“实现 checkpoint + hash 账本 commit”的双提交记录协议。
 
-如确认，请明确回复：
-
-**“批准任务计划和进度记录制度。现在创建新项目，先落地计划与记录文件，再从第一个未完成任务开始执行。”**
+当前下一任务为S1-T01，状态仍为Not Started；本轮仓库状态对齐不构成开始S1-T01的授权。

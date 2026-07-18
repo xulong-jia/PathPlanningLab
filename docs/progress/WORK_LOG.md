@@ -35,3 +35,36 @@
 - 计划完整性验证：2026-07-18 19:02 AEST通过；计划1951行、执行清单42项、详细任务42项、验收映射29项、禁止占位表达0处
 - Commit：`6a8224a064401c4f20abf0889f42421dca306a07` — `docs: add path planning implementation plan`
 - 下一任务：S1-T01
+
+## 仓库状态对齐记录
+
+- 时间：2026-07-18 19:23 AEST
+- 操作性质：计划与仓库基线对齐；不属于算法或工程实施
+- 是否属于42项任务：否
+- 项目目录：已经创建，路径为`/Users/jiaxulong/Desktop/PathPlanningLab`
+- 本地Git：已经初始化；保留现有`.git`
+- 当前分支：`main`
+- origin：已经连接，Fetch/Push URL均为`git@github.com:xulong-jia/PathPlanningLab.git`
+- main upstream：`origin/main`
+- 当前任务状态：42项全部Not Started
+- S1-T01状态：Not Started
+- 开始状态：Planning Baseline Ready；42项任务全部Not Started
+- 完成状态：Planning Baseline Ready；42项任务仍全部Not Started
+- 创建文件：无
+- 修改文件：`README.md`、阶段0设计、实施计划和三个进度记录文件
+- 实施内容：按实际Git状态纠正“仓库尚未创建、没有远程”等历史假设；记录唯一`origin`、`main`上游和已推送计划基线；把S1-T02调整为从更新后的`main`创建feature分支
+- RED命令：不适用；本次无生产代码
+- 执行命令：仓库路径、分支、工作区、提交历史、remote、upstream、本地与远程hash、任务计数和文档差异检查
+- 命令退出码：最终验证时记录；首轮仓库前置检查全部为0
+- 测试结果：不适用；未开始S1-T01，未运行项目测试
+- 算法代码修改：无
+- 依赖安装：无
+- 测试执行：无
+- Ruff结果：不适用；本次无Python代码
+- mypy结果：不适用；本次无Python代码
+- 覆盖率：不适用；本次无生产代码
+- Diff审查：待首次对齐commit前完成；范围必须仅限获准文档
+- 完成证据：Git现场输出、计划计数检查和最终干净工作区
+- Commit：待写入首次仓库状态对齐commit完整hash
+- 已知问题：无
+- 下一任务：S1-T01 安全门禁与记录制度落地（仍为Not Started，本轮不执行）

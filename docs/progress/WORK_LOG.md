@@ -710,3 +710,10 @@
 - 发布前：再次`git fetch origin`确认远端仍为基线`e73a1bef42b9bd06cabd28e4f37b5d03daaa3184`，本地仅ahead 2、远端ahead 0，基线为本地祖先。
 - 发布：执行普通`git push origin main`，无force、rebase、merge或tag；随后fetch复核本地与`origin/main`均为账本hash，分叉0/0。
 - 本记录：写回两笔完整hash和S4 published状态，将以独立publication commit提交并再次普通push；S5-T01保持Not Started。
+
+## 2026-07-19 01:35 — S4 publication状态措辞终审
+
+- 终审发现：S4 publication记录`6225b5cd5723088aacecadd5e58f8a36b881cf27`已普通push并0/0复核，但PROJECT_STATUS与HANDOFF各一行仍保留提交前的“待本条提交并再次push”语气。
+- 更正：仅将两处当前状态改为publication记录已发布，并写入其完整hash；不修改实现、测试、门禁、任务状态或验收统计。
+- 提交与发布：本措辞更正将作为独立文档commit普通push，随后重新执行最终clean/0/0/remote/S5/legacy现场审计。
+- S5边界：S5-T01保持Not Started，本轮不开始S5。

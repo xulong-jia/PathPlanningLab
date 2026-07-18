@@ -26,7 +26,7 @@ Stage 4 Verified and published — stopped before Stage 5
 - S2实施方式：按本轮明确授权直接在`main`完成；实现checkpoint为`22f479342a7edf1b5329c45ace59ba91ba6b19b7`；hash账本commit为`1f820c331262f88eba697b836e24f0c26838fc66`
 - S3实施方式：按本轮明确授权直接在`main`完成；实现checkpoint为`8575a8e02c1c907a7205fe2b0cb854752bc46443`；hash账本commit为`f62a720197ba8dd48e87ee3ce48bb90d0de8b820`
 - S4实施方式：按本轮明确授权直接在`main`完成；实现checkpoint为`733579b8d29d91bad6ae76e2c28ecd248ecff599`；hash账本commit为`ad2a107a7b9b5bb2cd312db68c19421b328f87cf`
-- 发布状态：S1至S4的实现checkpoint与hash账本commit均已普通push到`origin/main`；首次S4 push后本地与远端均为`ad2a107a7b9b5bb2cd312db68c19421b328f87cf`且0/0分叉，publication记录commit待本条提交并再次普通push
+- 发布状态：S1至S4的实现checkpoint与hash账本commit均已普通push到`origin/main`；S4 publication记录commit `6225b5cd5723088aacecadd5e58f8a36b881cf27`亦已普通push并完成0/0远端复核
 
 ## 任务统计
 

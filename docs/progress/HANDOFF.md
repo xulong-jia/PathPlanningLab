@@ -10,7 +10,7 @@
 
 ## Git状态
 
-S1至S4的实现checkpoint及hash账本commit已完整发布到`origin/main`。S4实现checkpoint为`733579b8d29d91bad6ae76e2c28ecd248ecff599`，hash账本commit为`ad2a107a7b9b5bb2cd312db68c19421b328f87cf`；首次S4 push后本地与远端均为账本hash且0/0分叉。当前仅保留本地`main`及远端`origin/main`；唯一remote仍为`origin`，Fetch/Push URL均为`git@github.com:xulong-jia/PathPlanningLab.git`，remote配置未修改，未创建tag或PR。publication记录commit待本条提交并再次普通push。
+S1至S4的实现checkpoint及hash账本commit已完整发布到`origin/main`。S4实现checkpoint为`733579b8d29d91bad6ae76e2c28ecd248ecff599`，hash账本commit为`ad2a107a7b9b5bb2cd312db68c19421b328f87cf`，publication记录commit为`6225b5cd5723088aacecadd5e58f8a36b881cf27`；三者均已普通push并完成0/0远端复核。当前仅保留本地`main`及远端`origin/main`；唯一remote仍为`origin`，Fetch/Push URL均为`git@github.com:xulong-jia/PathPlanningLab.git`，remote配置未修改，未创建tag或PR。
 
 ## 当前阶段
 

@@ -33,5 +33,5 @@
 - 依赖安装：无
 - 测试执行：无
 - 计划完整性验证：2026-07-18 19:02 AEST通过；计划1951行、执行清单42项、详细任务42项、验收映射29项、禁止占位表达0处
-- Commit：待创建本轮计划基线commit
+- Commit：`6a8224a064401c4f20abf0889f42421dca306a07` — `docs: add path planning implementation plan`
 - 下一任务：S1-T01

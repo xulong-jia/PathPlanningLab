@@ -10,7 +10,7 @@ main
 
 ## Git状态
 
-本地Git仓库已初始化；计划基线commit将在完整性验证后创建；没有远程仓库。
+本地Git仓库已初始化；计划基线commit和账本commit均已创建；没有远程仓库。
 
 ## 当前阶段
 
@@ -49,7 +49,7 @@ S1-T01 至 S8-T06，共42项。
 
 ## 最近checkpoint commit
 
-待创建本轮计划基线commit。
+`6a8224a064401c4f20abf0889f42421dca306a07` — `docs: add path planning implementation plan`
 
 ## 未解决问题
 

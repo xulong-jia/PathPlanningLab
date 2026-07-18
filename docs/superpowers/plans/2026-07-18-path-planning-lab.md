@@ -1969,7 +1969,7 @@ git log -5 --oneline
 - Standard Benchmark 使用21个任务、20个随机 seeds，默认串行。
 - 真实结果和 PNG/CSV/JSON/Markdown 在本地 Git 中留存。
 - tuned 没有改善时如实报告。
-- 最终停留在`feature/path-planning-100`，不merge、rebase或tag；任何后续push必须另获明确授权，且不得force push。
+- S1最初停留在临时`feature/path-planning-100`；经2026-07-18后续明确授权，已使用`--ff-only`完整整合至`main`并在远端复核后安全删除临时分支；全程未rebase、force push或创建tag。
 - 使用“实现 checkpoint + hash 账本 commit”的双提交记录协议。
 
-S1-T01至S1-T02已Verified；当前下一任务为S1-T03，状态为Not Started。
+S1-T01至S1-T08已Verified并完整位于`main`；当前下一任务为S2-T01，状态为Not Started。

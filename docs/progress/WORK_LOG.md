@@ -261,3 +261,16 @@
 - 远程复核：推送后本地HEAD与`origin/feature/path-planning-100`一致；`main`与`origin/main`仍为`23f08f5a61b8317d6837c0157057904637a58447`；唯一remote及Fetch/Push URL未变化；无tag创建。
 - Git现场：发布复核时工作区干净；本条恢复状态修正将以独立文档commit提交并再次普通push。
 - 下一任务：S2-T01 Dijkstra — Not Started；本轮不开始。
+
+## 2026-07-18 20:56 — S1分支fast-forward整合与清理
+
+- 操作性质：仅执行已授权的Git分支整合、远端复核和临时分支清理；不改变任务或验收状态，不开始S2。
+- 整合前：`main`/`origin/main`为`23f08f5a61b8317d6837c0157057904637a58447`；本地/远端`feature/path-planning-100`为`1e5a10debbb4eab4004f7fa9372ad046834fb4f8`；工作区干净；`main`为feature祖先，feature仅领先5个S1提交。
+- 合并方式：在`main`执行`git pull --ff-only origin main`，随后`git merge --ff-only feature/path-planning-100`；结果为纯fast-forward，无merge commit、rebase、squash、cherry-pick或历史改写。
+- main重新验证：完整pytest与S1 coverage gate各132 passed；core/maps分支覆盖率100.00%；Ruff、format、strict mypy、pip check、wheel build、`git diff --check`全部退出0；S1仍8/8 Verified，S2-T01仍Not Started。
+- 旧材料复核：只读重算75文件、21子目录、74,097,025字节，与before基线`cmp`退出0；聚合哈希仍为`f534b2543beb31e8f0253001b96494b0086b4b085a340d8d4ae4d33e10c91e8e`；未执行或修改旧材料。
+- 远端复核：普通push后本地`main`与`origin/main`均为原feature tip；原feature tip为`origin/main`祖先且两者树一致；Git远端默认分支仍为`main`，关键S1文件和8/8状态可从`origin/main`读取。
+- 分支清理：当前位于`main`；本地feature使用`git branch -d`安全删除，远端feature使用普通delete push删除；随后fetch/prune确认本地、remote-tracking及远端head均不存在该分支。
+- 发布约束：未force push，未创建PR或tag；唯一remote及URL未修改。
+- 文档更新：仅修正PROJECT_STATUS、HANDOFF及计划中已被本次明确授权替代的分支事实；本条只追加记录将在`main`以普通commit提交并push。
+- 下一任务：S2-T01 Dijkstra — Not Started；本轮不开始。

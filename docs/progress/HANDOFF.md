@@ -6,11 +6,11 @@
 
 ## 当前分支
 
-`feature/path-planning-100`，从`main`的`23f08f5a61b8317d6837c0157057904637a58447`创建，上游为`origin/feature/path-planning-100`。
+`main`，跟踪`origin/main`。S1原feature tip `1e5a10debbb4eab4004f7fa9372ad046834fb4f8`已通过fast-forward完整进入`main`；临时feature分支的本地和远端引用均已安全删除。
 
 ## Git状态
 
-S1实现、阶段门禁、实现checkpoint、账本commit及远程发布均已完成；本记录提交后feature本地HEAD与远程上游一致且工作区干净。唯一远程仍为`origin`，Fetch/Push URL均为`git@github.com:xulong-jia/PathPlanningLab.git`；remote配置未修改，`main`与`origin/main`仍停留在`23f08f5a61b8317d6837c0157057904637a58447`。
+S1实现、阶段门禁和主分支整合均已完成；`main`与`origin/main`一致并完整包含全部S1提交，工作区干净。当前仅保留本地`main`及远端`origin/main`；唯一remote仍为`origin`，Fetch/Push URL均为`git@github.com:xulong-jia/PathPlanningLab.git`，remote配置未修改，未创建tag或PR。
 
 ## 当前阶段
 
@@ -45,7 +45,7 @@ S1建立工程依赖与`src`包骨架，完成只读旧材料哈希基线、Grid
 
 ## 最近验证命令及结果
 
-2026-07-18 20:39 AEST完成Stage1门禁：132 passed、0 skipped/xfail，core/maps分支覆盖率100.00%；Ruff、format、strict mypy、pip check、wheel build、diff与记录完整性门禁退出0。旧材料75文件只读重算与before基线`cmp`退出0，聚合哈希仍为`f534b2543beb31e8f0253001b96494b0086b4b085a340d8d4ae4d33e10c91e8e`。证据见`results/verification/S1-stage-gate.txt`和`S1-coverage.json`。
+2026-07-18 20:54 AEST在fast-forward后的`main`重新完成Stage1门禁：完整pytest及coverage门禁各132 passed、0 skipped/xfail，core/maps分支覆盖率100.00%；Ruff、format、strict mypy、pip check、wheel build和diff门禁均退出0。旧材料75文件只读重算与before基线`cmp`退出0，聚合哈希仍为`f534b2543beb31e8f0253001b96494b0086b4b085a340d8d4ae4d33e10c91e8e`。
 
 ## 最近checkpoint commit
 
@@ -71,6 +71,6 @@ Standard Benchmark 和调优耗时较长；现有`.git`、`origin`或`main`上�
 2. 完整读取`docs/superpowers/plans/2026-07-18-path-planning-lab.md`、`docs/superpowers/specs/2026-07-18-four-algorithm-path-planning-design.md`、`docs/progress/PROJECT_STATUS.md`和`docs/progress/HANDOFF.md`。
 3. 查看`docs/progress/WORK_LOG.md`最后一个记录，并读取S1已有验证日志。
 4. 执行`git branch --show-current`、`git status --short`、`git status -sb`、`git remote -v`、`git log --oneline -5`。
-5. 确认当前为`feature/path-planning-100`、上游为`origin/feature/path-planning-100`、唯一remote为正确的`origin`、remote配置未修改，`main`基线仍为`23f08f5a61b8317d6837c0157057904637a58447`。
+5. 确认当前为`main`、上游为`origin/main`、唯一remote为正确的`origin`、remote配置未修改，且本地和远端均不存在`feature/path-planning-100`。
 6. 对照计划确认S1-T01至S1-T08已Verified；第一个未勾选任务应为S2-T01且状态必须仍为Not Started。
 7. 不依据聊天记忆推测进度，不执行`git init`，不删除或替换`.git`，不修改remote。

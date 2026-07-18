@@ -6,7 +6,7 @@ Stage 1 Verified — stopped before Stage 2
 
 ## 当前分支
 
-`feature/path-planning-100`
+`main`
 
 ## 当前阶段
 
@@ -21,8 +21,8 @@ S2-T01 Dijkstra — Not Started
 - Remote：`origin`
 - Fetch/Push URL：`git@github.com:xulong-jia/PathPlanningLab.git`
 - Upstream：`main` → `origin/main`
-- 当前本地与远程基线：`23f08f5a61b8317d6837c0157057904637a58447`
-- Feature分支：`feature/path-planning-100`，基点为上述`main`基线，上游为`origin/feature/path-planning-100`
+- S1原feature tip：`1e5a10debbb4eab4004f7fa9372ad046834fb4f8`，已通过fast-forward完整进入`main`
+- 分支现场：`main`跟踪`origin/main`；临时feature分支的本地与远端引用均已安全删除
 
 ## 任务统计
 
@@ -42,7 +42,7 @@ S2-T01 Dijkstra — Not Started
 
 ## 最近一次验证
 
-2026-07-18 20:39 AEST完成S1-T08验证：132 tests全部通过，core/maps分支覆盖率100.00%，Ruff、format、strict mypy、pip check、wheel build和diff门禁全部通过；6/9/4地图集合与42/42/29记录完整性通过；旧材料75文件只读重算与before基线逐字节一致。
+2026-07-18 20:54 AEST在fast-forward后的`main`重新完成S1验证：完整pytest及coverage门禁各132 passed，core/maps分支覆盖率100.00%，Ruff、format、strict mypy、pip check、wheel build和diff门禁全部通过；旧材料75文件只读重算与before基线逐字节一致。随后`origin/main`完整性复核通过，临时feature分支已从本地和远端安全删除。
 
 ## 最近一个checkpoint commit
 

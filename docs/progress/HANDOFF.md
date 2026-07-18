@@ -10,7 +10,7 @@
 
 ## Git状态
 
-S1、S2和S3的实现checkpoint及hash账本commit已完整发布到`origin/main`。S4 fresh review修复和新鲜门禁已完成但尚未commit/push：基线HEAD仍为`e73a1bef42b9bd06cabd28e4f37b5d03daaa3184`，与`origin/main`为0/0分叉；S4实现、测试、配置、文档和证据为dirty/untracked候选。当前仅保留本地`main`及远端`origin/main`；唯一remote仍为`origin`，Fetch/Push URL均为`git@github.com:xulong-jia/PathPlanningLab.git`，remote配置未修改，未创建tag或PR。
+S1、S2和S3的实现checkpoint及hash账本commit已完整发布到`origin/main`。S4实现checkpoint已创建：`733579b8d29d91bad6ae76e2c28ecd248ecff599`；本地`main`相对`origin/main`ahead 1，hash账本commit与普通push尚未完成。当前仅保留本地`main`及远端`origin/main`；唯一remote仍为`origin`，Fetch/Push URL均为`git@github.com:xulong-jia/PathPlanningLab.git`，remote配置未修改，未创建tag或PR。
 
 ## 当前阶段
 
@@ -51,13 +51,13 @@ S4新增`src/path_planning/algorithms/genetic.py`、`configs/ga_baseline.yaml`�
 
 ## 最近checkpoint commit
 
-S3实现checkpoint：`8575a8e02c1c907a7205fe2b0cb854752bc46443` — `feat: implement grid-based ant colony planner`。
+S4实现checkpoint：`733579b8d29d91bad6ae76e2c28ecd248ecff599` — `feat: implement grid-based genetic planner`。
 
-S3账本commit：`f62a720197ba8dd48e87ee3ce48bb90d0de8b820` — `docs: record stage 3 checkpoint`。
+S4账本commit：待controller创建 — `docs: record stage 4 checkpoint`。
 
 ## 未解决问题
 
-fresh review两项Important已按TDD修复，`common_node`最坏复杂度文档已更正为`O(L^2)`，fresh re-review已Approved；当前无已知实现问题。S4实现checkpoint、hash账本commit和普通push均未创建；正式legacy after清单仍只允许由S8-T06生成。
+fresh review两项Important已按TDD修复，`common_node`最坏复杂度文档已更正为`O(L^2)`，fresh re-review已Approved；当前无已知实现问题。S4实现checkpoint已创建，hash账本commit和普通push尚未完成；正式legacy after清单仍只允许由S8-T06生成。
 
 ## 风险
 
@@ -65,7 +65,7 @@ S4候选仍未checkpoint或发布；controller提交前必须重新验证HEAD、
 
 ## 下一步
 
-由controller创建S4实现checkpoint与hash账本commit，普通push并远端复核；不得开始S5。
+由controller创建S4 hash账本commit，普通push并远端复核；不得开始S5。
 
 ## 新会话恢复指令
 

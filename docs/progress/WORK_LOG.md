@@ -696,3 +696,10 @@
 - 更正：仅对`S4-T02-red.txt`、`S4-T02.txt`、`S4-T03-red.txt`和`S4-start-gate.txt`机械删除行尾水平空白并规范EOF空行；测试输出文字和审计事实未改写。
 - 重试：`git diff --cached --check` exit 0；暂存白名单仍为24个S4文件，0未暂存、0未跟踪，无S5或temp/cache/build产物。
 - 状态：尚未创建commit或push，S5-T01保持Not Started。
+
+## 2026-07-19 01:31 — S4 实现checkpoint
+
+- 提交：`733579b8d29d91bad6ae76e2c28ecd248ecff599` — `feat: implement grid-based genetic planner`。
+- 范围：24个S4白名单文件，包含GA实现/导出、baseline配置、五个测试文件、算法文档、四份记录及S4任务/阶段证据；4617 insertions、58 deletions。
+- 提交后现场：工作树clean，本地`main`相对`origin/main`ahead 1；未push，remote URL未变，未创建branch/worktree/tag/PR，未开始S5。
+- 下一步：以独立`docs: record stage 4 checkpoint`提交记录实现hash，然后在再次fetch确认远端未漂移后普通push。

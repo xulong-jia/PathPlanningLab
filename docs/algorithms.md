@@ -1,12 +1,12 @@
 # Path-planning algorithms
 
-## Stage 2 scope
+## Deterministic planner scope
 
 Stage 2 implements the deterministic Dijkstra and A* planners. Both consume the
 shared `GridMap` and `MovementConfig`, expand neighbors only through
 `iter_neighbors()`, validate endpoints and reconstructed paths with the shared
-core validators, and return the stable `PlanningResult` schema. ACO and GA are
-outside this stage and remain unimplemented.
+core validators, and return the stable `PlanningResult` schema. Stage 3 adds the
+ACO planner documented below; later-stage algorithms remain unimplemented.
 
 ## Shared deterministic result semantics
 
@@ -81,18 +81,80 @@ A* has the same `O((V + E) log V)` worst-case time and `O(V)` memory bounds as
 Dijkstra. An admissible heuristic can change the number of expanded nodes, but
 Stage 2 does not make a measured runtime or expansion-reduction claim.
 
+## Ant Colony Optimization
+
+`AntColonyPlanner` stores pheromone on directed grid edges in a
+`rows × columns × movement_count` NumPy tensor. The last dimension follows the
+shared movement order and therefore has four entries for 4-way movement and
+eight for 8-way movement. Construction only consumes neighbors returned by
+`iter_neighbors()`, so obstacle, diagonal-cost, and corner-cutting rules remain
+shared with the deterministic planners.
+
+For a legal candidate neighbor `j`, the sampling weight is
+
+```text
+tau(i, j) ** alpha * (1 / (euclidean_distance(j, goal) + epsilon)) ** beta
+```
+
+Each ant owns a visited set, so its returned path contains no repeated cells.
+A dead end triggers bounded stack backtracking; an exhausted attempt may restart
+from the start. `max_steps`, `max_backtracks`, and `max_restarts` bound all such
+work. A shared reachability precheck runs before any ant and returns
+`failure_reason="no_path_precheck"` with zero evaluations when no legal route
+exists. The precheck is never used to construct or repair an ACO path.
+
+All ants in a round see the same pheromone tensor. After every ant finishes, the
+round update is strictly:
+
+```text
+tau = (1 - evaporation_rate) * tau
+for each successful path:
+    add pheromone_deposit / path_length to every forward and reverse edge
+add elite_weight * pheromone_deposit / global_best_length to global-best edges
+tau = clip(tau, min_pheromone, max_pheromone)
+```
+
+The planner retains the best validated path found across rounds. Its
+`convergence_history` is the best-so-far cost after each completed round and is
+`null` until a successful construction exists. A strict improvement resets the
+stagnation counter; `stagnation_iterations` consecutive non-improving rounds
+terminate the run early.
+
+### ACO result and reproducibility semantics
+
+- `evaluations` equals the number of attempted ant constructions.
+- `iterations` is the number of completed rounds and matches convergence-history
+  length.
+- `expanded_nodes` is `null`; ACO work is not presented as deterministic node
+  expansion.
+- Metadata records constructed/successful paths, forward construction steps,
+  backtracks, restarts, movement, every scalar ACO parameter, and a SHA-256
+  sampling-trajectory digest.
+- All sampling uses a local `numpy.random.Generator(seed)`. Equal seeds reproduce
+  every non-time result field; `runtime_ms` is intentionally excluded.
+- Every successful candidate and the returned global best pass the shared
+  `validate_path()` contract.
+
 ## Configuration
 
-`configs/dijkstra.yaml` and `configs/astar.yaml` record the default 4-way,
-no-corner-cutting movement rules. The A* configuration additionally records the
-Manhattan heuristic. Configuration parsing through the public CLI is assigned
-to a later stage; Stage 2 verifies the typed planner configurations directly.
+`configs/dijkstra.yaml`, `configs/astar.yaml`, and `configs/aco_baseline.yaml`
+record auditable defaults. The A* configuration additionally records the
+Manhattan heuristic; the ACO configuration records every construction,
+pheromone, iteration, and stagnation budget. Configuration parsing through the
+public CLI is assigned to a later stage, so these stages verify typed planner
+configurations directly.
 
 ## Verified boundaries and limitations
 
-The Stage 2 matrix covers all six handcrafted maps with 4-way and 8-way
+The deterministic matrix covers all six handcrafted maps with 4-way and 8-way
 movement, allowed and forbidden corner cutting, compatible A* heuristics,
-custom diagonal costs, invalid endpoints, and explicit no-path scenarios.
-Movement costs are uniform cardinal/diagonal costs; weighted terrain, dynamic
-obstacles, incremental replanning, ACO, GA, benchmark performance, and CLI
-configuration loading are not implemented or claimed in Stage 2.
+custom diagonal costs, invalid endpoints, and explicit no-path scenarios. The
+Stage 3 ACO matrix directly covers tensor shape, probability exponents, complete
+bidirectional deposits, update order, every pheromone parameter, bounded dead
+ends, complex maps, seed behavior, global-RNG isolation, budgets, convergence,
+corner rules, and no-path prechecks.
+
+Movement costs remain uniform cardinal/diagonal costs. Weighted terrain,
+dynamic obstacles, incremental replanning, later-stage algorithms, benchmark
+performance, tuned ACO parameters, and CLI configuration loading are not
+implemented or claimed at the Stage 3 boundary.

@@ -1,0 +1,1200 @@
++zsh:5> gate_tmp=+zsh:5> mktemp -d .pytest-tmp/s3-stage-pre.XXXXXX
++zsh:5> gate_tmp=.pytest-tmp/s3-stage-pre.R97jd3
++zsh:6> TMPDIR=/Users/jiaxulong/Desktop/PathPlanningLab/.tmp PIP_CACHE_DIR=/Users/jiaxulong/Desktop/PathPlanningLab/.pip-cache XDG_CACHE_HOME=/Users/jiaxulong/Desktop/PathPlanningLab/.cache MPLCONFIGDIR=/Users/jiaxulong/Desktop/PathPlanningLab/.mplconfig PYTHONPYCACHEPREFIX=/Users/jiaxulong/Desktop/PathPlanningLab/.pycache MPLBACKEND=Agg .venv/bin/python -m pytest tests -q '--basetemp=.pytest-tmp/s3-stage-pre.R97jd3' '--cov=path_planning.algorithms.aco' --cov-branch '--cov-fail-under=90' '--cov-report=term-missing' '--cov-report=json:results/verification/S3-pre-coverage.json'
+
+==================================== ERRORS ====================================
+__________ ERROR collecting tests/integration/test_aco_integration.py __________
+ImportError while importing test module '/Users/jiaxulong/Desktop/PathPlanningLab/tests/integration/test_aco_integration.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/opt/homebrew/Cellar/python@3.12/3.12.2_1/Frameworks/Python.framework/Versions/3.12/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/integration/test_aco_integration.py:3: in <module>
+    import numpy as np
+.venv/lib/python3.12/site-packages/numpy/__init__.py:109: in <module>
+    from numpy.__config__ import show_config
+.venv/lib/python3.12/site-packages/numpy/__config__.py:4: in <module>
+    from numpy._core._multiarray_umath import (
+.venv/lib/python3.12/site-packages/numpy/_core/__init__.py:24: in <module>
+    from . import multiarray
+.venv/lib/python3.12/site-packages/numpy/_core/multiarray.py:11: in <module>
+    from . import _multiarray_umath, overrides
+E   ImportError: cannot load module more than once per process
+______ ERROR collecting tests/integration/test_deterministic_planners.py _______
+ImportError while importing test module '/Users/jiaxulong/Desktop/PathPlanningLab/tests/integration/test_deterministic_planners.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/opt/homebrew/Cellar/python@3.12/3.12.2_1/Frameworks/Python.framework/Versions/3.12/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/integration/test_deterministic_planners.py:4: in <module>
+    import numpy as np
+.venv/lib/python3.12/site-packages/numpy/__init__.py:109: in <module>
+    from numpy.__config__ import show_config
+.venv/lib/python3.12/site-packages/numpy/__config__.py:4: in <module>
+    from numpy._core._multiarray_umath import (
+.venv/lib/python3.12/site-packages/numpy/_core/__init__.py:24: in <module>
+    from . import multiarray
+.venv/lib/python3.12/site-packages/numpy/_core/multiarray.py:11: in <module>
+    from . import _multiarray_umath, overrides
+E   ImportError: cannot load module more than once per process
+____________ ERROR collecting tests/integration/test_map_suites.py _____________
+ImportError while importing test module '/Users/jiaxulong/Desktop/PathPlanningLab/tests/integration/test_map_suites.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/opt/homebrew/Cellar/python@3.12/3.12.2_1/Frameworks/Python.framework/Versions/3.12/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/integration/test_map_suites.py:4: in <module>
+    import numpy as np
+.venv/lib/python3.12/site-packages/numpy/__init__.py:109: in <module>
+    from numpy.__config__ import show_config
+.venv/lib/python3.12/site-packages/numpy/__config__.py:4: in <module>
+    from numpy._core._multiarray_umath import (
+.venv/lib/python3.12/site-packages/numpy/_core/__init__.py:24: in <module>
+    from . import multiarray
+.venv/lib/python3.12/site-packages/numpy/_core/multiarray.py:11: in <module>
+    from . import _multiarray_umath, overrides
+E   ImportError: cannot load module more than once per process
+________ ERROR collecting tests/regression/test_legacy_aco_failures.py _________
+ImportError while importing test module '/Users/jiaxulong/Desktop/PathPlanningLab/tests/regression/test_legacy_aco_failures.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/opt/homebrew/Cellar/python@3.12/3.12.2_1/Frameworks/Python.framework/Versions/3.12/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/regression/test_legacy_aco_failures.py:3: in <module>
+    import numpy as np
+.venv/lib/python3.12/site-packages/numpy/__init__.py:109: in <module>
+    from numpy.__config__ import show_config
+.venv/lib/python3.12/site-packages/numpy/__config__.py:4: in <module>
+    from numpy._core._multiarray_umath import (
+.venv/lib/python3.12/site-packages/numpy/_core/__init__.py:24: in <module>
+    from . import multiarray
+.venv/lib/python3.12/site-packages/numpy/_core/multiarray.py:11: in <module>
+    from . import _multiarray_umath, overrides
+E   ImportError: cannot load module more than once per process
+______________ ERROR collecting tests/regression/test_no_path.py _______________
+ImportError while importing test module '/Users/jiaxulong/Desktop/PathPlanningLab/tests/regression/test_no_path.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/opt/homebrew/Cellar/python@3.12/3.12.2_1/Frameworks/Python.framework/Versions/3.12/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/regression/test_no_path.py:3: in <module>
+    import numpy as np
+.venv/lib/python3.12/site-packages/numpy/__init__.py:109: in <module>
+    from numpy.__config__ import show_config
+.venv/lib/python3.12/site-packages/numpy/__config__.py:4: in <module>
+    from numpy._core._multiarray_umath import (
+.venv/lib/python3.12/site-packages/numpy/_core/__init__.py:24: in <module>
+    from . import multiarray
+.venv/lib/python3.12/site-packages/numpy/_core/multiarray.py:11: in <module>
+    from . import _multiarray_umath, overrides
+E   ImportError: cannot load module more than once per process
+_____________ ERROR collecting tests/regression/test_optimality.py _____________
+ImportError while importing test module '/Users/jiaxulong/Desktop/PathPlanningLab/tests/regression/test_optimality.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/opt/homebrew/Cellar/python@3.12/3.12.2_1/Frameworks/Python.framework/Versions/3.12/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/regression/test_optimality.py:5: in <module>
+    from path_planning.algorithms.astar import AStarConfig, AStarPlanner
+src/path_planning/algorithms/__init__.py:3: in <module>
+    from path_planning.algorithms.aco import ACOConfig, AntColonyPlanner
+src/path_planning/algorithms/aco.py:7: in <module>
+    import numpy as np
+.venv/lib/python3.12/site-packages/numpy/__init__.py:109: in <module>
+    from numpy.__config__ import show_config
+.venv/lib/python3.12/site-packages/numpy/__config__.py:4: in <module>
+    from numpy._core._multiarray_umath import (
+.venv/lib/python3.12/site-packages/numpy/_core/__init__.py:24: in <module>
+    from . import multiarray
+.venv/lib/python3.12/site-packages/numpy/_core/multiarray.py:11: in <module>
+    from . import _multiarray_umath, overrides
+E   ImportError: cannot load module more than once per process
+___________ ERROR collecting tests/regression/test_result_schema.py ____________
+ImportError while importing test module '/Users/jiaxulong/Desktop/PathPlanningLab/tests/regression/test_result_schema.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/opt/homebrew/Cellar/python@3.12/3.12.2_1/Frameworks/Python.framework/Versions/3.12/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/regression/test_result_schema.py:7: in <module>
+    from path_planning.algorithms.base import Planner
+src/path_planning/algorithms/__init__.py:3: in <module>
+    from path_planning.algorithms.aco import ACOConfig, AntColonyPlanner
+src/path_planning/algorithms/aco.py:7: in <module>
+    import numpy as np
+.venv/lib/python3.12/site-packages/numpy/__init__.py:109: in <module>
+    from numpy.__config__ import show_config
+.venv/lib/python3.12/site-packages/numpy/__config__.py:4: in <module>
+    from numpy._core._multiarray_umath import (
+.venv/lib/python3.12/site-packages/numpy/_core/__init__.py:24: in <module>
+    from . import multiarray
+.venv/lib/python3.12/site-packages/numpy/_core/multiarray.py:11: in <module>
+    from . import _multiarray_umath, overrides
+E   ImportError: cannot load module more than once per process
+________ ERROR collecting tests/regression/test_seed_reproducibility.py ________
+ImportError while importing test module '/Users/jiaxulong/Desktop/PathPlanningLab/tests/regression/test_seed_reproducibility.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/opt/homebrew/Cellar/python@3.12/3.12.2_1/Frameworks/Python.framework/Versions/3.12/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/regression/test_seed_reproducibility.py:1: in <module>
+    import numpy as np
+.venv/lib/python3.12/site-packages/numpy/__init__.py:109: in <module>
+    from numpy.__config__ import show_config
+.venv/lib/python3.12/site-packages/numpy/__config__.py:4: in <module>
+    from numpy._core._multiarray_umath import (
+.venv/lib/python3.12/site-packages/numpy/_core/__init__.py:24: in <module>
+    from . import multiarray
+.venv/lib/python3.12/site-packages/numpy/_core/multiarray.py:11: in <module>
+    from . import _multiarray_umath, overrides
+E   ImportError: cannot load module more than once per process
+_____________ ERROR collecting tests/unit/test_aco_construction.py _____________
+ImportError while importing test module '/Users/jiaxulong/Desktop/PathPlanningLab/tests/unit/test_aco_construction.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/opt/homebrew/Cellar/python@3.12/3.12.2_1/Frameworks/Python.framework/Versions/3.12/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/unit/test_aco_construction.py:3: in <module>
+    import numpy as np
+.venv/lib/python3.12/site-packages/numpy/__init__.py:109: in <module>
+    from numpy.__config__ import show_config
+.venv/lib/python3.12/site-packages/numpy/__config__.py:4: in <module>
+    from numpy._core._multiarray_umath import (
+.venv/lib/python3.12/site-packages/numpy/_core/__init__.py:24: in <module>
+    from . import multiarray
+.venv/lib/python3.12/site-packages/numpy/_core/multiarray.py:11: in <module>
+    from . import _multiarray_umath, overrides
+E   ImportError: cannot load module more than once per process
+______________ ERROR collecting tests/unit/test_aco_pheromone.py _______________
+ImportError while importing test module '/Users/jiaxulong/Desktop/PathPlanningLab/tests/unit/test_aco_pheromone.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/opt/homebrew/Cellar/python@3.12/3.12.2_1/Frameworks/Python.framework/Versions/3.12/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/unit/test_aco_pheromone.py:3: in <module>
+    import numpy as np
+.venv/lib/python3.12/site-packages/numpy/__init__.py:109: in <module>
+    from numpy.__config__ import show_config
+.venv/lib/python3.12/site-packages/numpy/__config__.py:4: in <module>
+    from numpy._core._multiarray_umath import (
+.venv/lib/python3.12/site-packages/numpy/_core/__init__.py:24: in <module>
+    from . import multiarray
+.venv/lib/python3.12/site-packages/numpy/_core/multiarray.py:11: in <module>
+    from . import _multiarray_umath, overrides
+E   ImportError: cannot load module more than once per process
+_______________ ERROR collecting tests/unit/test_aco_planner.py ________________
+ImportError while importing test module '/Users/jiaxulong/Desktop/PathPlanningLab/tests/unit/test_aco_planner.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/opt/homebrew/Cellar/python@3.12/3.12.2_1/Frameworks/Python.framework/Versions/3.12/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/unit/test_aco_planner.py:3: in <module>
+    import numpy as np
+.venv/lib/python3.12/site-packages/numpy/__init__.py:109: in <module>
+    from numpy.__config__ import show_config
+.venv/lib/python3.12/site-packages/numpy/__config__.py:4: in <module>
+    from numpy._core._multiarray_umath import (
+.venv/lib/python3.12/site-packages/numpy/_core/__init__.py:24: in <module>
+    from . import multiarray
+.venv/lib/python3.12/site-packages/numpy/_core/multiarray.py:11: in <module>
+    from . import _multiarray_umath, overrides
+E   ImportError: cannot load module more than once per process
+__________________ ERROR collecting tests/unit/test_astar.py ___________________
+ImportError while importing test module '/Users/jiaxulong/Desktop/PathPlanningLab/tests/unit/test_astar.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/opt/homebrew/Cellar/python@3.12/3.12.2_1/Frameworks/Python.framework/Versions/3.12/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/unit/test_astar.py:4: in <module>
+    import numpy as np
+.venv/lib/python3.12/site-packages/numpy/__init__.py:109: in <module>
+    from numpy.__config__ import show_config
+.venv/lib/python3.12/site-packages/numpy/__config__.py:4: in <module>
+    from numpy._core._multiarray_umath import (
+.venv/lib/python3.12/site-packages/numpy/_core/__init__.py:24: in <module>
+    from . import multiarray
+.venv/lib/python3.12/site-packages/numpy/_core/multiarray.py:11: in <module>
+    from . import _multiarray_umath, overrides
+E   ImportError: cannot load module more than once per process
+_________________ ERROR collecting tests/unit/test_dijkstra.py _________________
+ImportError while importing test module '/Users/jiaxulong/Desktop/PathPlanningLab/tests/unit/test_dijkstra.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/opt/homebrew/Cellar/python@3.12/3.12.2_1/Frameworks/Python.framework/Versions/3.12/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/unit/test_dijkstra.py:3: in <module>
+    import numpy as np
+.venv/lib/python3.12/site-packages/numpy/__init__.py:109: in <module>
+    from numpy.__config__ import show_config
+.venv/lib/python3.12/site-packages/numpy/__config__.py:4: in <module>
+    from numpy._core._multiarray_umath import (
+.venv/lib/python3.12/site-packages/numpy/_core/__init__.py:24: in <module>
+    from . import multiarray
+.venv/lib/python3.12/site-packages/numpy/_core/multiarray.py:11: in <module>
+    from . import _multiarray_umath, overrides
+E   ImportError: cannot load module more than once per process
+___________________ ERROR collecting tests/unit/test_grid.py ___________________
+ImportError while importing test module '/Users/jiaxulong/Desktop/PathPlanningLab/tests/unit/test_grid.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/opt/homebrew/Cellar/python@3.12/3.12.2_1/Frameworks/Python.framework/Versions/3.12/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/unit/test_grid.py:1: in <module>
+    import numpy as np
+.venv/lib/python3.12/site-packages/numpy/__init__.py:109: in <module>
+    from numpy.__config__ import show_config
+.venv/lib/python3.12/site-packages/numpy/__config__.py:4: in <module>
+    from numpy._core._multiarray_umath import (
+.venv/lib/python3.12/site-packages/numpy/_core/__init__.py:24: in <module>
+    from . import multiarray
+.venv/lib/python3.12/site-packages/numpy/_core/multiarray.py:11: in <module>
+    from . import _multiarray_umath, overrides
+E   ImportError: cannot load module more than once per process
+______________ ERROR collecting tests/unit/test_map_generation.py ______________
+ImportError while importing test module '/Users/jiaxulong/Desktop/PathPlanningLab/tests/unit/test_map_generation.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/opt/homebrew/Cellar/python@3.12/3.12.2_1/Frameworks/Python.framework/Versions/3.12/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/unit/test_map_generation.py:1: in <module>
+    import numpy as np
+.venv/lib/python3.12/site-packages/numpy/__init__.py:109: in <module>
+    from numpy.__config__ import show_config
+.venv/lib/python3.12/site-packages/numpy/__config__.py:4: in <module>
+    from numpy._core._multiarray_umath import (
+.venv/lib/python3.12/site-packages/numpy/_core/__init__.py:24: in <module>
+    from . import multiarray
+.venv/lib/python3.12/site-packages/numpy/_core/multiarray.py:11: in <module>
+    from . import _multiarray_umath, overrides
+E   ImportError: cannot load module more than once per process
+__________________ ERROR collecting tests/unit/test_map_io.py __________________
+ImportError while importing test module '/Users/jiaxulong/Desktop/PathPlanningLab/tests/unit/test_map_io.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/opt/homebrew/Cellar/python@3.12/3.12.2_1/Frameworks/Python.framework/Versions/3.12/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/unit/test_map_io.py:4: in <module>
+    import numpy as np
+.venv/lib/python3.12/site-packages/numpy/__init__.py:109: in <module>
+    from numpy.__config__ import show_config
+.venv/lib/python3.12/site-packages/numpy/__config__.py:4: in <module>
+    from numpy._core._multiarray_umath import (
+.venv/lib/python3.12/site-packages/numpy/_core/__init__.py:24: in <module>
+    from . import multiarray
+.venv/lib/python3.12/site-packages/numpy/_core/multiarray.py:11: in <module>
+    from . import _multiarray_umath, overrides
+E   ImportError: cannot load module more than once per process
+_________________ ERROR collecting tests/unit/test_metrics.py __________________
+ImportError while importing test module '/Users/jiaxulong/Desktop/PathPlanningLab/tests/unit/test_metrics.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/opt/homebrew/Cellar/python@3.12/3.12.2_1/Frameworks/Python.framework/Versions/3.12/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/unit/test_metrics.py:5: in <module>
+    from path_planning.core.metrics import (
+src/path_planning/core/__init__.py:3: in <module>
+    from path_planning.core.grid import GridMap
+src/path_planning/core/grid.py:3: in <module>
+    import numpy as np
+.venv/lib/python3.12/site-packages/numpy/__init__.py:109: in <module>
+    from numpy.__config__ import show_config
+.venv/lib/python3.12/site-packages/numpy/__config__.py:4: in <module>
+    from numpy._core._multiarray_umath import (
+.venv/lib/python3.12/site-packages/numpy/_core/__init__.py:24: in <module>
+    from . import multiarray
+.venv/lib/python3.12/site-packages/numpy/_core/multiarray.py:11: in <module>
+    from . import _multiarray_umath, overrides
+E   ImportError: cannot load module more than once per process
+_________________ ERROR collecting tests/unit/test_movement.py _________________
+ImportError while importing test module '/Users/jiaxulong/Desktop/PathPlanningLab/tests/unit/test_movement.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/opt/homebrew/Cellar/python@3.12/3.12.2_1/Frameworks/Python.framework/Versions/3.12/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/unit/test_movement.py:3: in <module>
+    import numpy as np
+.venv/lib/python3.12/site-packages/numpy/__init__.py:109: in <module>
+    from numpy.__config__ import show_config
+.venv/lib/python3.12/site-packages/numpy/__config__.py:4: in <module>
+    from numpy._core._multiarray_umath import (
+.venv/lib/python3.12/site-packages/numpy/_core/__init__.py:24: in <module>
+    from . import multiarray
+.venv/lib/python3.12/site-packages/numpy/_core/multiarray.py:11: in <module>
+    from . import _multiarray_umath, overrides
+E   ImportError: cannot load module more than once per process
+__________________ ERROR collecting tests/unit/test_result.py __________________
+ImportError while importing test module '/Users/jiaxulong/Desktop/PathPlanningLab/tests/unit/test_result.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/opt/homebrew/Cellar/python@3.12/3.12.2_1/Frameworks/Python.framework/Versions/3.12/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/unit/test_result.py:6: in <module>
+    from path_planning.core.result import PlanningResult
+src/path_planning/core/__init__.py:3: in <module>
+    from path_planning.core.grid import GridMap
+src/path_planning/core/grid.py:3: in <module>
+    import numpy as np
+.venv/lib/python3.12/site-packages/numpy/__init__.py:109: in <module>
+    from numpy.__config__ import show_config
+.venv/lib/python3.12/site-packages/numpy/__config__.py:4: in <module>
+    from numpy._core._multiarray_umath import (
+.venv/lib/python3.12/site-packages/numpy/_core/__init__.py:24: in <module>
+    from . import multiarray
+.venv/lib/python3.12/site-packages/numpy/_core/multiarray.py:11: in <module>
+    from . import _multiarray_umath, overrides
+E   ImportError: cannot load module more than once per process
+________________ ERROR collecting tests/unit/test_validation.py ________________
+ImportError while importing test module '/Users/jiaxulong/Desktop/PathPlanningLab/tests/unit/test_validation.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/opt/homebrew/Cellar/python@3.12/3.12.2_1/Frameworks/Python.framework/Versions/3.12/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/unit/test_validation.py:3: in <module>
+    import numpy as np
+.venv/lib/python3.12/site-packages/numpy/__init__.py:109: in <module>
+    from numpy.__config__ import show_config
+.venv/lib/python3.12/site-packages/numpy/__config__.py:4: in <module>
+    from numpy._core._multiarray_umath import (
+.venv/lib/python3.12/site-packages/numpy/_core/__init__.py:24: in <module>
+    from . import multiarray
+.venv/lib/python3.12/site-packages/numpy/_core/multiarray.py:11: in <module>
+    from . import _multiarray_umath, overrides
+E   ImportError: cannot load module more than once per process
+=========================== short test summary info ============================
+ERROR tests/integration/test_aco_integration.py
+ERROR tests/integration/test_deterministic_planners.py
+ERROR tests/integration/test_map_suites.py
+ERROR tests/regression/test_legacy_aco_failures.py
+ERROR tests/regression/test_no_path.py
+ERROR tests/regression/test_optimality.py
+ERROR tests/regression/test_result_schema.py
+ERROR tests/regression/test_seed_reproducibility.py
+ERROR tests/unit/test_aco_construction.py
+ERROR tests/unit/test_aco_pheromone.py
+ERROR tests/unit/test_aco_planner.py
+ERROR tests/unit/test_astar.py
+ERROR tests/unit/test_dijkstra.py
+ERROR tests/unit/test_grid.py
+ERROR tests/unit/test_map_generation.py
+ERROR tests/unit/test_map_io.py
+ERROR tests/unit/test_metrics.py
+ERROR tests/unit/test_movement.py
+ERROR tests/unit/test_result.py
+ERROR tests/unit/test_validation.py
+!!!!!!!!!!!!!!!!!!! Interrupted: 20 errors during collection !!!!!!!!!!!!!!!!!!!
+20 errors in 0.57s
+
+pre_stage_gate_exit_code=2
++zsh:5> gate_tmp=+zsh:5> mktemp -d .pytest-tmp/s3-stage-pre-corrected.XXXXXX
++zsh:5> gate_tmp=.pytest-tmp/s3-stage-pre-corrected.w7Cnm3
++zsh:6> TMPDIR=/Users/jiaxulong/Desktop/PathPlanningLab/.tmp PIP_CACHE_DIR=/Users/jiaxulong/Desktop/PathPlanningLab/.pip-cache XDG_CACHE_HOME=/Users/jiaxulong/Desktop/PathPlanningLab/.cache MPLCONFIGDIR=/Users/jiaxulong/Desktop/PathPlanningLab/.mplconfig PYTHONPYCACHEPREFIX=/Users/jiaxulong/Desktop/PathPlanningLab/.pycache MPLBACKEND=Agg .venv/bin/python -m pytest tests -q '--basetemp=.pytest-tmp/s3-stage-pre-corrected.w7Cnm3' '--cov=path_planning.algorithms' --cov-branch '--cov-fail-under=90' '--cov-report=term-missing' '--cov-report=json:results/verification/S3-pre-coverage.json'
+........................................................................ [ 29%]
+........................................................................ [ 58%]
+........................................................................ [ 87%]
+..............................                                           [100%]
+================================ tests coverage ================================
+_______________ coverage: platform darwin, python 3.12.2-final-0 _______________
+
+Name                                       Stmts   Miss Branch BrPart   Cover   Missing
+---------------------------------------------------------------------------------------
+src/path_planning/algorithms/__init__.py       5      0      0      0 100.00%
+src/path_planning/algorithms/aco.py          242     11     88     10  93.64%   147, 162, 202, 334, 336, 372, 422, 499, 502-503, 512
+src/path_planning/algorithms/astar.py         89      1     34      1  98.37%   101
+src/path_planning/algorithms/base.py          14      0      2      0 100.00%
+src/path_planning/algorithms/dijkstra.py      51      1     14      1  96.92%   56
+---------------------------------------------------------------------------------------
+TOTAL                                        401     13    138     12  95.36%
+Coverage JSON written to file results/verification/S3-pre-coverage.json
+Required test coverage of 90% reached. Total coverage: 95.36%
+246 passed in 5.79s
++zsh:7> .venv/bin/python -c 'import json; p="results/verification/S3-pre-coverage.json"; d=json.load(open(p, encoding="utf-8")); s=d["files"]["src/path_planning/algorithms/aco.py"]["summary"]; print(f"aco_percent_covered={s[\"percent_covered\"]:.2f}"); assert s["percent_covered"] >= 90'
+  File "<string>", line 1
+    import json; p="results/verification/S3-pre-coverage.json"; d=json.load(open(p, encoding="utf-8")); s=d["files"]["src/path_planning/algorithms/aco.py"]["summary"]; print(f"aco_percent_covered={s[\"percent_covered\"]:.2f}"); assert s["percent_covered"] >= 90
+                                                                                                                                                                                                        ^
+SyntaxError: unexpected character after line continuation character
+
+corrected_pre_stage_gate_exit_code=1
++zsh:5> jq -e '.files["src/path_planning/algorithms/aco.py"].summary.percent_covered >= 90' results/verification/S3-pre-coverage.json
+true
++zsh:6> .venv/bin/ruff check .
+All checks passed!
++zsh:7> .venv/bin/ruff format --check .
+41 files already formatted
++zsh:8> .venv/bin/mypy src
+Success: no issues found in 20 source files
++zsh:9> git diff --check
+
+pre_stage_remaining_gate_exit_code=0
++zsh:5> coverage_tmp=+zsh:5> mktemp -d .pytest-tmp/s3-extended-pre.XXXXXX
++zsh:5> coverage_tmp=.pytest-tmp/s3-extended-pre.gVU8IY
++zsh:6> TMPDIR=/Users/jiaxulong/Desktop/PathPlanningLab/.tmp PIP_CACHE_DIR=/Users/jiaxulong/Desktop/PathPlanningLab/.pip-cache XDG_CACHE_HOME=/Users/jiaxulong/Desktop/PathPlanningLab/.cache MPLCONFIGDIR=/Users/jiaxulong/Desktop/PathPlanningLab/.mplconfig PYTHONPYCACHEPREFIX=/Users/jiaxulong/Desktop/PathPlanningLab/.pycache MPLBACKEND=Agg .venv/bin/python -m pytest tests -q '--basetemp=.pytest-tmp/s3-extended-pre.gVU8IY' '--cov=path_planning.core' '--cov=path_planning.algorithms' --cov-branch '--cov-fail-under=90' '--cov-report=term-missing' '--cov-report=json:results/verification/S3-pre-core-algorithms-coverage.json'
+........................................................................ [ 29%]
+........................................................................ [ 58%]
+........................................................................ [ 87%]
+..............................                                           [100%]
+================================ tests coverage ================================
+_______________ coverage: platform darwin, python 3.12.2-final-0 _______________
+
+Name                                       Stmts   Miss Branch BrPart   Cover   Missing
+---------------------------------------------------------------------------------------
+src/path_planning/algorithms/__init__.py       5      0      0      0 100.00%
+src/path_planning/algorithms/aco.py          242     11     88     10  93.64%   147, 162, 202, 334, 336, 372, 422, 499, 502-503, 512
+src/path_planning/algorithms/astar.py         89      1     34      1  98.37%   101
+src/path_planning/algorithms/base.py          14      0      2      0 100.00%
+src/path_planning/algorithms/dijkstra.py      51      1     14      1  96.92%   56
+src/path_planning/core/__init__.py             7      0      0      0 100.00%
+src/path_planning/core/grid.py                45      0     12      0 100.00%
+src/path_planning/core/metrics.py             31      0     18      0 100.00%
+src/path_planning/core/movement.py            39      0     18      0 100.00%
+src/path_planning/core/result.py              62      0     30      0 100.00%
+src/path_planning/core/types.py               18      0     12      0 100.00%
+src/path_planning/core/validation.py          59      0     38      0 100.00%
+---------------------------------------------------------------------------------------
+TOTAL                                        662     13    266     12  97.31%
+Coverage JSON written to file results/verification/S3-pre-core-algorithms-coverage.json
+Required test coverage of 90% reached. Total coverage: 97.31%
+246 passed in 9.06s
++zsh:7> jq -r '.files | to_entries[] | select(.value.summary.num_statements > 0) | "\(.key)=\(.value.summary.percent_covered)"' results/verification/S3-pre-core-algorithms-coverage.json
+src/path_planning/algorithms/__init__.py=100.0
+src/path_planning/algorithms/aco.py=93.63636363636364
+src/path_planning/algorithms/astar.py=98.3739837398374
+src/path_planning/algorithms/base.py=100.0
+src/path_planning/algorithms/dijkstra.py=96.92307692307692
+src/path_planning/core/__init__.py=100.0
+src/path_planning/core/grid.py=100.0
+src/path_planning/core/metrics.py=100.0
+src/path_planning/core/movement.py=100.0
+src/path_planning/core/result.py=100.0
+src/path_planning/core/types.py=100.0
+src/path_planning/core/validation.py=100.0
++zsh:8> low_modules=+zsh:8> jq -r '.files | to_entries[] | select(.value.summary.num_statements > 0 and .value.summary.percent_covered < 90) | .key' results/verification/S3-pre-core-algorithms-coverage.json
++zsh:8> low_modules=''
++zsh:9> test -z ''
++zsh:10> .venv/bin/python -m pip check
+No broken requirements found.
++zsh:11> wheel_dir=+zsh:11> mktemp -d .tmp/s3-pre-wheel.XXXXXX
++zsh:11> wheel_dir=.tmp/s3-pre-wheel.WG6lwC
++zsh:12> install_dir=+zsh:12> mktemp -d .tmp/s3-pre-install.XXXXXX
++zsh:12> install_dir=.tmp/s3-pre-install.CgwnPN
++zsh:13> TMPDIR=/Users/jiaxulong/Desktop/PathPlanningLab/.tmp PIP_CACHE_DIR=/Users/jiaxulong/Desktop/PathPlanningLab/.pip-cache .venv/bin/python -m pip wheel . --no-deps --wheel-dir .tmp/s3-pre-wheel.WG6lwC
+Looking in indexes: http://mirrors.aliyun.com/pypi/simple/
+Processing /Users/jiaxulong/Desktop/PathPlanningLab
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Building wheels for collected packages: path-planning-lab
+  Building wheel for path-planning-lab (pyproject.toml): started
+  Building wheel for path-planning-lab (pyproject.toml): finished with status 'done'
+  Created wheel for path-planning-lab: filename=path_planning_lab-0.1.0-py3-none-any.whl size=22067 sha256=51fa3c3015572b99f991ba3590e54ccb99f23ba071c55d107595fda3c79961bc
+  Stored in directory: /Users/jiaxulong/Desktop/PathPlanningLab/.tmp/pip-ephem-wheel-cache-pvdds84q/wheels/2b/7c/be/6e4937c822bf5b41a63e10f7b5a1f9fc645f367b4703bc0243
+Successfully built path-planning-lab
+
+[notice] A new release of pip is available: 24.0 -> 26.1.2
+[notice] To update, run: /Users/jiaxulong/Desktop/PathPlanningLab/.venv/bin/python -m pip install --upgrade pip
++zsh:14> wheel_files=( .tmp/s3-pre-wheel.WG6lwC/path_planning_lab-0.1.0-py3-none-any.whl )
++zsh:15> test 1 -eq 1
++zsh:16> shasum -a 256 .tmp/s3-pre-wheel.WG6lwC/path_planning_lab-0.1.0-py3-none-any.whl
+51fa3c3015572b99f991ba3590e54ccb99f23ba071c55d107595fda3c79961bc  .tmp/s3-pre-wheel.WG6lwC/path_planning_lab-0.1.0-py3-none-any.whl
++zsh:17> TMPDIR=/Users/jiaxulong/Desktop/PathPlanningLab/.tmp PIP_CACHE_DIR=/Users/jiaxulong/Desktop/PathPlanningLab/.pip-cache .venv/bin/python -m pip install --no-deps --target .tmp/s3-pre-install.CgwnPN .tmp/s3-pre-wheel.WG6lwC/path_planning_lab-0.1.0-py3-none-any.whl
+Looking in indexes: http://mirrors.aliyun.com/pypi/simple/
+Processing ./.tmp/s3-pre-wheel.WG6lwC/path_planning_lab-0.1.0-py3-none-any.whl
+Installing collected packages: path-planning-lab
+Successfully installed path-planning-lab-0.1.0
+
+[notice] A new release of pip is available: 24.0 -> 26.1.2
+[notice] To update, run: /Users/jiaxulong/Desktop/PathPlanningLab/.venv/bin/python -m pip install --upgrade pip
++zsh:18> S3_INSTALL_DIR=.tmp/s3-pre-install.CgwnPN PYTHONPATH=.tmp/s3-pre-install.CgwnPN .venv/bin/python -c 'import os; from pathlib import Path; import numpy as np; import path_planning; from path_planning.algorithms import ACOConfig, AntColonyPlanner; from path_planning.core import GridMap, MovementConfig; root=Path(os.environ["S3_INSTALL_DIR"]).resolve(); module=Path(path_planning.__file__).resolve(); assert module.is_relative_to(root); c=ACOConfig(MovementConfig(4), 1, 1.0, 2.0, 0.2, 1.0, 1.0, 0.01, 10.0, 2, 20, 0, 20, 3); r=AntColonyPlanner().plan(GridMap(np.zeros((2, 2), dtype=bool)), (0, 0), (1, 1), c, seed=1); assert r.success; print(f"isolated_import={module} version={path_planning.__version__} aco_success={r.success}")'
+isolated_import=/Users/jiaxulong/Desktop/PathPlanningLab/.tmp/s3-pre-install.CgwnPN/path_planning/__init__.py version=0.1.0 aco_success=True
++zsh:19> legacy_root=../论文与实习
++zsh:20> legacy_files=+zsh:20> find ../论文与实习 -type f -print0
++zsh:20> legacy_files=+zsh:20> tr -cd '\000'
++zsh:20> legacy_files=+zsh:20> wc -c
++zsh:20> legacy_files=+zsh:20> tr -d ' '
++zsh:20> legacy_files=75
++zsh:21> legacy_directories=+zsh:21> find ../论文与实习 -mindepth 1 -type d -print0
++zsh:21> legacy_directories=+zsh:21> tr -cd '\000'
++zsh:21> legacy_directories=+zsh:21> wc -c
++zsh:21> legacy_directories=+zsh:21> tr -d ' '
++zsh:21> legacy_directories=21
++zsh:22> legacy_bytes=+zsh:22> find ../论文与实习 -type f -exec stat -f %z -- '{}' +
++zsh:22> legacy_bytes=+zsh:22> awk '{ total += $1 } END { printf "%.0f", total }'
++zsh:22> legacy_bytes=74097025
++zsh:23> legacy_manifest_sha256=+zsh:23> cd ../论文与实习
++zsh:23> legacy_manifest_sha256=+zsh:23> shasum -a 256
++zsh:23> find . -type f -print0
++zsh:23> legacy_manifest_sha256=+zsh:23> awk '{print $1}'
++zsh:23> LC_ALL=C sort -z
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 ./.DS_Store
++zsh:23> legacy_hash='a759cb4851d9bdd366ea5476f4e99286f7f2a63e97c2b2e71eb1c23eb37e0c0d  ./.DS_Store'
++zsh:23> printf '%s  %s\n' a759cb4851d9bdd366ea5476f4e99286f7f2a63e97c2b2e71eb1c23eb37e0c0d .DS_Store
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 ./实习/.DS_Store
++zsh:23> legacy_hash='970f81ae392ab64b603580297aad6cbcf0c2cc97cbf868adf721cb7265fce84b  ./实习/.DS_Store'
++zsh:23> printf '%s  %s\n' 970f81ae392ab64b603580297aad6cbcf0c2cc97cbf868adf721cb7265fce84b 实习/.DS_Store
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 ./实习/6.26-8.26.zip
++zsh:23> legacy_hash='c8aab6c9986c11437c733c71ca92d9cc18cfe2c0a993e29ec5f6d8617cf51472  ./实习/6.26-8.26.zip'
++zsh:23> printf '%s  %s\n' c8aab6c9986c11437c733c71ca92d9cc18cfe2c0a993e29ec5f6d8617cf51472 实习/6.26-8.26.zip
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 './实习/~$贾旭龙-简历.docx'
++zsh:23> legacy_hash='85f94d1742c7f083b5ac8924d467f7cc087bc8c9591d9bccf7eeca69b54f0847  ./实习/~$贾旭龙-简历.docx'
++zsh:23> printf '%s  %s\n' 85f94d1742c7f083b5ac8924d467f7cc087bc8c9591d9bccf7eeca69b54f0847 '实习/~$贾旭龙-简历.docx'
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 ./实习/结束/.DS_Store
++zsh:23> legacy_hash='245327cb5590d2237cb349365b9726c64727150234b14710f4d07a02f0301e31  ./实习/结束/.DS_Store'
++zsh:23> printf '%s  %s\n' 245327cb5590d2237cb349365b9726c64727150234b14710f4d07a02f0301e31 实习/结束/.DS_Store
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 './实习/结束/RL-贾旭龙Xulong Jia-Lingzhong Meng.docx'
++zsh:23> legacy_hash='3c84a9d7617dd9f74469cb41892eacd600c3365cd0d1ef04792b59fa4cf892ef  ./实习/结束/RL-贾旭龙Xulong Jia-Lingzhong Meng.docx'
++zsh:23> printf '%s  %s\n' 3c84a9d7617dd9f74469cb41892eacd600c3365cd0d1ef04792b59fa4cf892ef '实习/结束/RL-贾旭龙Xulong Jia-Lingzhong Meng.docx'
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 './实习/结束/截屏2023-09-12 22.04.10.png'
++zsh:23> legacy_hash='c2df61127fb40299efff0296db5d46b4ddc0e1a56a60d67b0c2eb06e51a36fb1  ./实习/结束/截屏2023-09-12 22.04.10.png'
++zsh:23> printf '%s  %s\n' c2df61127fb40299efff0296db5d46b4ddc0e1a56a60d67b0c2eb06e51a36fb1 '实习/结束/截屏2023-09-12 22.04.10.png'
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 ./实习/结束/贾旭龙-项目收获.docx
++zsh:23> legacy_hash='bbd347bad30bd1314b5798a690e40b31fc89bb70ca9c1dfb48de8f23bc4b088c  ./实习/结束/贾旭龙-项目收获.docx'
++zsh:23> printf '%s  %s\n' bbd347bad30bd1314b5798a690e40b31fc89bb70ca9c1dfb48de8f23bc4b088c 实习/结束/贾旭龙-项目收获.docx
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 ./实习/结束/贾旭龙实习证明.pdf
++zsh:23> legacy_hash='35358474a3062ba4c4e8161d3ff1f07dfc5ee8204c40cd4d7de3240b04342169  ./实习/结束/贾旭龙实习证明.pdf'
++zsh:23> printf '%s  %s\n' 35358474a3062ba4c4e8161d3ff1f07dfc5ee8204c40cd4d7de3240b04342169 实习/结束/贾旭龙实习证明.pdf
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 ./实习/过程/.DS_Store
++zsh:23> legacy_hash='8d4a37ad176cbfeeb9dc667264c273dbfad086eec70781bf0e10be127f3d1aa5  ./实习/过程/.DS_Store'
++zsh:23> printf '%s  %s\n' 8d4a37ad176cbfeeb9dc667264c273dbfad086eec70781bf0e10be127f3d1aa5 实习/过程/.DS_Store
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 ./实习/过程/基于深度学习的路径规划算法.docx
++zsh:23> legacy_hash='0cb81cd75e57b1f306c1d538ad64f6e0d8887d9bcff56740af9f76fbb18533d2  ./实习/过程/基于深度学习的路径规划算法.docx'
++zsh:23> printf '%s  %s\n' 0cb81cd75e57b1f306c1d538ad64f6e0d8887d9bcff56740af9f76fbb18533d2 实习/过程/基于深度学习的路径规划算法.docx
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 ./实习/过程/第1周6.26-7.2/.DS_Store
++zsh:23> legacy_hash='5dece3f5eedafb619c2fbeb7e8100279bd67c78b88943eeaf92b77e9a03ecf49  ./实习/过程/第1周6.26-7.2/.DS_Store'
++zsh:23> printf '%s  %s\n' 5dece3f5eedafb619c2fbeb7e8100279bd67c78b88943eeaf92b77e9a03ecf49 实习/过程/第1周6.26-7.2/.DS_Store
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 ./实习/过程/第1周6.26-7.2/实习周报——第一周.xlsx
++zsh:23> legacy_hash='e718dca962e8dde5dc1a9c9c5f1ddbe8512cbac706d1efec1b7ee43a048ee72b  ./实习/过程/第1周6.26-7.2/实习周报——第一周.xlsx'
++zsh:23> printf '%s  %s\n' e718dca962e8dde5dc1a9c9c5f1ddbe8512cbac706d1efec1b7ee43a048ee72b 实习/过程/第1周6.26-7.2/实习周报——第一周.xlsx
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 ./实习/过程/第2周7.3-7.9/实习周报——第二周.xlsx
++zsh:23> legacy_hash='4f219e5c376e8b8312aa4743aa0f29943bb397fcccd15095a9cb4feb18dc0b79  ./实习/过程/第2周7.3-7.9/实习周报——第二周.xlsx'
++zsh:23> printf '%s  %s\n' 4f219e5c376e8b8312aa4743aa0f29943bb397fcccd15095a9cb4feb18dc0b79 实习/过程/第2周7.3-7.9/实习周报——第二周.xlsx
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 ./实习/过程/第3周7.10-7.16/实习周报——第三周.xlsx
++zsh:23> legacy_hash='7fab6700437a31f215e9c7bde97f621d3678f3a4ae36445a2458939f9d0723d5  ./实习/过程/第3周7.10-7.16/实习周报——第三周.xlsx'
++zsh:23> printf '%s  %s\n' 7fab6700437a31f215e9c7bde97f621d3678f3a4ae36445a2458939f9d0723d5 实习/过程/第3周7.10-7.16/实习周报——第三周.xlsx
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 ./实习/过程/第3周7.10-7.16/蚁群算法.docx
++zsh:23> legacy_hash='3a4bbd00d413a06e7ee7075d19708613a2f6d8304895a079ad130bd6f304ade3  ./实习/过程/第3周7.10-7.16/蚁群算法.docx'
++zsh:23> printf '%s  %s\n' 3a4bbd00d413a06e7ee7075d19708613a2f6d8304895a079ad130bd6f304ade3 实习/过程/第3周7.10-7.16/蚁群算法.docx
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 ./实习/过程/第4周7.17-7.23/实习周报——第四周.xlsx
++zsh:23> legacy_hash='c31aa4532f1afba2d7163466a973b9a21c457513d3f4ca4329dcf13ab6085fbc  ./实习/过程/第4周7.17-7.23/实习周报——第四周.xlsx'
++zsh:23> printf '%s  %s\n' c31aa4532f1afba2d7163466a973b9a21c457513d3f4ca4329dcf13ab6085fbc 实习/过程/第4周7.17-7.23/实习周报——第四周.xlsx
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 ./实习/过程/第4周7.17-7.23/蚁群算法.docx
++zsh:23> legacy_hash='3a4bbd00d413a06e7ee7075d19708613a2f6d8304895a079ad130bd6f304ade3  ./实习/过程/第4周7.17-7.23/蚁群算法.docx'
++zsh:23> printf '%s  %s\n' 3a4bbd00d413a06e7ee7075d19708613a2f6d8304895a079ad130bd6f304ade3 实习/过程/第4周7.17-7.23/蚁群算法.docx
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 ./实习/过程/第5周7.24-7.30/实习周报——第五周.xlsx
++zsh:23> legacy_hash='0c80a2e2cb79d4ad678bd1a15f85b8dce5e7ef2f0f612e1dc03954362256af4a  ./实习/过程/第5周7.24-7.30/实习周报——第五周.xlsx'
++zsh:23> printf '%s  %s\n' 0c80a2e2cb79d4ad678bd1a15f85b8dce5e7ef2f0f612e1dc03954362256af4a 实习/过程/第5周7.24-7.30/实习周报——第五周.xlsx
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 ./实习/过程/第5周7.24-7.30/蚁群算法总结.docx
++zsh:23> legacy_hash='ae8f6137f310fabe443533f2b9f45ed34275c88a2bedb55d396b49ffb0e3998a  ./实习/过程/第5周7.24-7.30/蚁群算法总结.docx'
++zsh:23> printf '%s  %s\n' ae8f6137f310fabe443533f2b9f45ed34275c88a2bedb55d396b49ffb0e3998a 实习/过程/第5周7.24-7.30/蚁群算法总结.docx
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 ./实习/过程/第6周7.31-8.6/ACO.py
++zsh:23> legacy_hash='02b8da882eb5b307592cc4e99b20f7f96320e414e7225f214da870857ccbbfa1  ./实习/过程/第6周7.31-8.6/ACO.py'
++zsh:23> printf '%s  %s\n' 02b8da882eb5b307592cc4e99b20f7f96320e414e7225f214da870857ccbbfa1 实习/过程/第6周7.31-8.6/ACO.py
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 ./实习/过程/第6周7.31-8.6/实习周报——第六周.xlsx
++zsh:23> legacy_hash='9daf9d1006685949d0207637f0f160920d58c453a3ca0e43b70cf9f1eef0de33  ./实习/过程/第6周7.31-8.6/实习周报——第六周.xlsx'
++zsh:23> printf '%s  %s\n' 9daf9d1006685949d0207637f0f160920d58c453a3ca0e43b70cf9f1eef0de33 实习/过程/第6周7.31-8.6/实习周报——第六周.xlsx
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 ./实习/过程/第6周7.31-8.6/蚁群算法总结2.docx
++zsh:23> legacy_hash='8f4294cea39815a7f4016ae17f26b3a59108aed492fdf2e7c82bc34e25cfae31  ./实习/过程/第6周7.31-8.6/蚁群算法总结2.docx'
++zsh:23> printf '%s  %s\n' 8f4294cea39815a7f4016ae17f26b3a59108aed492fdf2e7c82bc34e25cfae31 实习/过程/第6周7.31-8.6/蚁群算法总结2.docx
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 ./实习/过程/第7周8.7-8.13/.DS_Store
++zsh:23> legacy_hash='a045c3090dde3a897d80f8b994bfd4fdce3d33c16eab0bf8924e02dd23e297e0  ./实习/过程/第7周8.7-8.13/.DS_Store'
++zsh:23> printf '%s  %s\n' a045c3090dde3a897d80f8b994bfd4fdce3d33c16eab0bf8924e02dd23e297e0 实习/过程/第7周8.7-8.13/.DS_Store
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 ./实习/过程/第7周8.7-8.13/实习周报——第七周.xlsx
++zsh:23> legacy_hash='d4a4c27c23670964683cde6eb5176bcf7723456190923b6ee34ca72535901738  ./实习/过程/第7周8.7-8.13/实习周报——第七周.xlsx'
++zsh:23> printf '%s  %s\n' d4a4c27c23670964683cde6eb5176bcf7723456190923b6ee34ca72535901738 实习/过程/第7周8.7-8.13/实习周报——第七周.xlsx
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 ./实习/过程/第7周8.7-8.13/遗传算法.docx
++zsh:23> legacy_hash='4a7455b79b8c089327b39dbfd9857dd3cb992d06ab050daadc14c26b7b6a099c  ./实习/过程/第7周8.7-8.13/遗传算法.docx'
++zsh:23> printf '%s  %s\n' 4a7455b79b8c089327b39dbfd9857dd3cb992d06ab050daadc14c26b7b6a099c 实习/过程/第7周8.7-8.13/遗传算法.docx
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 ./实习/过程/第8周8.14-8.20/GA.py
++zsh:23> legacy_hash='e505804e80b280a0165d2af18075d99c815964a0dbe68887b864484bc7834f8c  ./实习/过程/第8周8.14-8.20/GA.py'
++zsh:23> printf '%s  %s\n' e505804e80b280a0165d2af18075d99c815964a0dbe68887b864484bc7834f8c 实习/过程/第8周8.14-8.20/GA.py
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 ./实习/过程/第8周8.14-8.20/test.txt
++zsh:23> legacy_hash='cb122a384ed3e1c8a81246030801803373547b286186c38572d149ea128ebc4c  ./实习/过程/第8周8.14-8.20/test.txt'
++zsh:23> printf '%s  %s\n' cb122a384ed3e1c8a81246030801803373547b286186c38572d149ea128ebc4c 实习/过程/第8周8.14-8.20/test.txt
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 ./实习/过程/第8周8.14-8.20/实习周报——第八周.xlsx
++zsh:23> legacy_hash='24bd1b025d5d75d8a0f93757163a8bec6e8d374115ee846059d688624d0b88e1  ./实习/过程/第8周8.14-8.20/实习周报——第八周.xlsx'
++zsh:23> printf '%s  %s\n' 24bd1b025d5d75d8a0f93757163a8bec6e8d374115ee846059d688624d0b88e1 实习/过程/第8周8.14-8.20/实习周报——第八周.xlsx
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 ./实习/过程/第8周8.14-8.20/遗传算法总结.docx
++zsh:23> legacy_hash='3aaa897dd769ef971a7141d8bc96127bd1fd6eb4c478236e268248ea542e61dd  ./实习/过程/第8周8.14-8.20/遗传算法总结.docx'
++zsh:23> printf '%s  %s\n' 3aaa897dd769ef971a7141d8bc96127bd1fd6eb4c478236e268248ea542e61dd 实习/过程/第8周8.14-8.20/遗传算法总结.docx
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 ./实习/过程/第9周8.21-8.26/.DS_Store
++zsh:23> legacy_hash='d65165279105ca6773180500688df4bdc69a2c7b771752f0a46ef120b7fd8ec3  ./实习/过程/第9周8.21-8.26/.DS_Store'
++zsh:23> printf '%s  %s\n' d65165279105ca6773180500688df4bdc69a2c7b771752f0a46ef120b7fd8ec3 实习/过程/第9周8.21-8.26/.DS_Store
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 ./实习/过程/第9周8.21-8.26/GA.py
++zsh:23> legacy_hash='e505804e80b280a0165d2af18075d99c815964a0dbe68887b864484bc7834f8c  ./实习/过程/第9周8.21-8.26/GA.py'
++zsh:23> printf '%s  %s\n' e505804e80b280a0165d2af18075d99c815964a0dbe68887b864484bc7834f8c 实习/过程/第9周8.21-8.26/GA.py
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 ./实习/过程/第9周8.21-8.26/test.txt
++zsh:23> legacy_hash='cb122a384ed3e1c8a81246030801803373547b286186c38572d149ea128ebc4c  ./实习/过程/第9周8.21-8.26/test.txt'
++zsh:23> printf '%s  %s\n' cb122a384ed3e1c8a81246030801803373547b286186c38572d149ea128ebc4c 实习/过程/第9周8.21-8.26/test.txt
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 ./实习/过程/第9周8.21-8.26/实习周报——第九周.xlsx
++zsh:23> legacy_hash='b08a904e04f0930cebf134417c73098801ce1ce35305af698cb7add40fc9704f  ./实习/过程/第9周8.21-8.26/实习周报——第九周.xlsx'
++zsh:23> printf '%s  %s\n' b08a904e04f0930cebf134417c73098801ce1ce35305af698cb7add40fc9704f 实习/过程/第9周8.21-8.26/实习周报——第九周.xlsx
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 ./实习/过程/第9周8.21-8.26/遗传算法总结.docx
++zsh:23> legacy_hash='7529b8a7eab90dbc065ce7606662411628a4a288932abac4f215268916d4496f  ./实习/过程/第9周8.21-8.26/遗传算法总结.docx'
++zsh:23> printf '%s  %s\n' 7529b8a7eab90dbc065ce7606662411628a4a288932abac4f215268916d4496f 实习/过程/第9周8.21-8.26/遗传算法总结.docx
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 ./论文/.DS_Store
++zsh:23> legacy_hash='b444d7d042b4015865046bbcb239d8160c0ec962c20ebd77d1b91418f1efa307  ./论文/.DS_Store'
++zsh:23> printf '%s  %s\n' b444d7d042b4015865046bbcb239d8160c0ec962c20ebd77d1b91418f1efa307 论文/.DS_Store
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 ./论文/CDS_1099_Invoice.pdf
++zsh:23> legacy_hash='c7eec32af80737a37170ffe8d66342c8e7e30f9153c396823f6a2c99ac19fcb6  ./论文/CDS_1099_Invoice.pdf'
++zsh:23> printf '%s  %s\n' c7eec32af80737a37170ffe8d66342c8e7e30f9153c396823f6a2c99ac19fcb6 论文/CDS_1099_Invoice.pdf
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 ./论文/EI.png
++zsh:23> legacy_hash='b9a3f0a4aaaebc322e00bbc70898310630ef1314282c596875283d2e2e15761c  ./论文/EI.png'
++zsh:23> printf '%s  %s\n' b9a3f0a4aaaebc322e00bbc70898310630ef1314282c596875283d2e2e15761c 论文/EI.png
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 './论文/Final draft/贾旭龙 CONF-CDS2023 投稿(1).docx'
++zsh:23> legacy_hash='9bea97e02660cde9be5b0dfc0bfd479f771141e2a81a4f2e0a3dfe8c7144f726  ./论文/Final draft/贾旭龙 CONF-CDS2023 投稿(1).docx'
++zsh:23> printf '%s  %s\n' 9bea97e02660cde9be5b0dfc0bfd479f771141e2a81a4f2e0a3dfe8c7144f726 '论文/Final draft/贾旭龙 CONF-CDS2023 投稿(1).docx'
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 './论文/Final draft/贾旭龙 CONF-CDS2023 投稿(1).pdf'
++zsh:23> legacy_hash='02408c3560fd2095ebc92d0dbacba5422654c723f699c297a83c3330e47f8ab5  ./论文/Final draft/贾旭龙 CONF-CDS2023 投稿(1).pdf'
++zsh:23> printf '%s  %s\n' 02408c3560fd2095ebc92d0dbacba5422654c723f699c297a83c3330e47f8ab5 '论文/Final draft/贾旭龙 CONF-CDS2023 投稿(1).pdf'
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 './论文/Final draft/贾旭龙 CONF-CDS2023 投稿.pdf'
++zsh:23> legacy_hash='79f48d2afd08234581624b5b86d178842318455fc8749eb3f2bfc9a4f0b7eba6  ./论文/Final draft/贾旭龙 CONF-CDS2023 投稿.pdf'
++zsh:23> printf '%s  %s\n' 79f48d2afd08234581624b5b86d178842318455fc8749eb3f2bfc9a4f0b7eba6 '论文/Final draft/贾旭龙 CONF-CDS2023 投稿.pdf'
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 './论文/First draft/14%.pdf'
++zsh:23> legacy_hash='9a7c117370a973934c1db90aae7a203c9f3aea7aa613ee52f02e1aad309baec9  ./论文/First draft/14%.pdf'
++zsh:23> printf '%s  %s\n' 9a7c117370a973934c1db90aae7a203c9f3aea7aa613ee52f02e1aad309baec9 '论文/First draft/14%.pdf'
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 './论文/First draft/First draft.docx'
++zsh:23> legacy_hash='1d2ce575d7a285feb71de2a6f0278344ede97714c6d3117ee115dc39aa39dbec  ./论文/First draft/First draft.docx'
++zsh:23> printf '%s  %s\n' 1d2ce575d7a285feb71de2a6f0278344ede97714c6d3117ee115dc39aa39dbec '论文/First draft/First draft.docx'
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 './论文/First draft/Research and Application of Path Planning Algorithm Based on Deep Learning zh.pdf'
++zsh:23> legacy_hash='66506d517bf826a3687cccf141a7fe4e775235db6563914ee6ab7b82470d4cd9  ./论文/First draft/Research and Application of Path Planning Algorithm Based on Deep Learning zh.pdf'
++zsh:23> printf '%s  %s\n' 66506d517bf826a3687cccf141a7fe4e775235db6563914ee6ab7b82470d4cd9 '论文/First draft/Research and Application of Path Planning Algorithm Based on Deep Learning zh.pdf'
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 './论文/First draft/Research and Application of Path Planning Algorithm Based on Deep Learning——First draft.docx'
++zsh:23> legacy_hash='3cdec8551c123ad0bf625694e4e9384ae31965c78222c4d0e322f5c239ffecfc  ./论文/First draft/Research and Application of Path Planning Algorithm Based on Deep Learning——First draft.docx'
++zsh:23> printf '%s  %s\n' 3cdec8551c123ad0bf625694e4e9384ae31965c78222c4d0e322f5c239ffecfc '论文/First draft/Research and Application of Path Planning Algorithm Based on Deep Learning——First draft.docx'
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 './论文/Research and Application of Path Planning Algorithm Based on Deep Learning.pdf'
++zsh:23> legacy_hash='b2ce8facaee408f920880dd847aa7e1f607f7ce2dae34c6a354b3670cc318e06  ./论文/Research and Application of Path Planning Algorithm Based on Deep Learning.pdf'
++zsh:23> printf '%s  %s\n' b2ce8facaee408f920880dd847aa7e1f607f7ce2dae34c6a354b3670cc318e06 '论文/Research and Application of Path Planning Algorithm Based on Deep Learning.pdf'
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 './论文/Second draft/11%.pdf'
++zsh:23> legacy_hash='f263dcb11333f82244e950b5c184c724445f9c73b1deff0d3dabfe055ec0422c  ./论文/Second draft/11%.pdf'
++zsh:23> printf '%s  %s\n' f263dcb11333f82244e950b5c184c724445f9c73b1deff0d3dabfe055ec0422c '论文/Second draft/11%.pdf'
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 './论文/Second draft/Research and Application of Path Planning Algorithm Based on Deep Learning——Second draft.docx'
++zsh:23> legacy_hash='f0b92d04fa1b4b19b9074e0d641b244ceb2c82da31ea02344066479e93a79045  ./论文/Second draft/Research and Application of Path Planning Algorithm Based on Deep Learning——Second draft.docx'
++zsh:23> printf '%s  %s\n' f0b92d04fa1b4b19b9074e0d641b244ceb2c82da31ea02344066479e93a79045 '论文/Second draft/Research and Application of Path Planning Algorithm Based on Deep Learning——Second draft.docx'
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 './论文/Third draft/Research and Application of Path Planning Algorithm Based on Deep Learning——Third draft.docx'
++zsh:23> legacy_hash='050e2acd814870f3a87cd27f128b86399add13410d23ce27caad1005e0f4762f  ./论文/Third draft/Research and Application of Path Planning Algorithm Based on Deep Learning——Third draft.docx'
++zsh:23> printf '%s  %s\n' 050e2acd814870f3a87cd27f128b86399add13410d23ce27caad1005e0f4762f '论文/Third draft/Research and Application of Path Planning Algorithm Based on Deep Learning——Third draft.docx'
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 './论文/作业/3.19 Neural Networks with Python 时间规划表.pdf'
++zsh:23> legacy_hash='04d95558bb6692162f351c3393a88ae581ad6ddd9c5b92fe0bc9fc336d01ce82  ./论文/作业/3.19 Neural Networks with Python 时间规划表.pdf'
++zsh:23> printf '%s  %s\n' 04d95558bb6692162f351c3393a88ae581ad6ddd9c5b92fe0bc9fc336d01ce82 '论文/作业/3.19 Neural Networks with Python 时间规划表.pdf'
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 './论文/作业/论文作业 1 Assignment preparation.doc'
++zsh:23> legacy_hash='f2517faab224fedb8540680e2a1993c992ff744bc99b24a14b31baa1a46c2533  ./论文/作业/论文作业 1 Assignment preparation.doc'
++zsh:23> printf '%s  %s\n' f2517faab224fedb8540680e2a1993c992ff744bc99b24a14b31baa1a46c2533 '论文/作业/论文作业 1 Assignment preparation.doc'
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 './论文/作业/论文作业2 Assignment 大纲.doc'
++zsh:23> legacy_hash='6c61b5c48aa38b4a407c5121ef87a5b99d0ced394674aec2c8389afbd44604ca  ./论文/作业/论文作业2 Assignment 大纲.doc'
++zsh:23> printf '%s  %s\n' 6c61b5c48aa38b4a407c5121ef87a5b99d0ced394674aec2c8389afbd44604ca '论文/作业/论文作业2 Assignment 大纲.doc'
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 ./论文/作业/论文初稿写作要求及框架.pdf
++zsh:23> legacy_hash='0053df5410960ca07ffcadbd26334132aec7d27ab8d5037c951bf8a0c70fb4cf  ./论文/作业/论文初稿写作要求及框架.pdf'
++zsh:23> printf '%s  %s\n' 0053df5410960ca07ffcadbd26334132aec7d27ab8d5037c951bf8a0c70fb4cf 论文/作业/论文初稿写作要求及框架.pdf
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 ./论文/反馈/.DS_Store
++zsh:23> legacy_hash='d65165279105ca6773180500688df4bdc69a2c7b771752f0a46ef120b7fd8ec3  ./论文/反馈/.DS_Store'
++zsh:23> printf '%s  %s\n' d65165279105ca6773180500688df4bdc69a2c7b771752f0a46ef120b7fd8ec3 论文/反馈/.DS_Store
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 ./论文/反馈/贾旭龙-审稿意见.pdf
++zsh:23> legacy_hash='926094b050355de5cef88f7a81afa9b069da13325a5bb2a7ff0fd4479efef2fb  ./论文/反馈/贾旭龙-审稿意见.pdf'
++zsh:23> printf '%s  %s\n' 926094b050355de5cef88f7a81afa9b069da13325a5bb2a7ff0fd4479efef2fb 论文/反馈/贾旭龙-审稿意见.pdf
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 './论文/反馈/贾旭龙二稿反馈(1).docx'
++zsh:23> legacy_hash='d10cdd7457f8abfc3cbd3105a94270a7bc0d57e563337e5698ba9af6995e09c0  ./论文/反馈/贾旭龙二稿反馈(1).docx'
++zsh:23> printf '%s  %s\n' d10cdd7457f8abfc3cbd3105a94270a7bc0d57e563337e5698ba9af6995e09c0 '论文/反馈/贾旭龙二稿反馈(1).docx'
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 './论文/反馈/贾旭龙初稿反馈(1).docx'
++zsh:23> legacy_hash='0c088057972179ade7d7a343a4693d2be61c7acfdd7549ddb680d6456968ef73  ./论文/反馈/贾旭龙初稿反馈(1).docx'
++zsh:23> printf '%s  %s\n' 0c088057972179ade7d7a343a4693d2be61c7acfdd7549ddb680d6456968ef73 '论文/反馈/贾旭龙初稿反馈(1).docx'
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 ./论文/论文图片/.DS_Store
++zsh:23> legacy_hash='6ed0615b64f7a4f33f88a2fb5bfbae9f9a19e82ec3d9e8e353405b576ca27c73  ./论文/论文图片/.DS_Store'
++zsh:23> printf '%s  %s\n' 6ed0615b64f7a4f33f88a2fb5bfbae9f9a19e82ec3d9e8e353405b576ca27c73 论文/论文图片/.DS_Store
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 ./论文/论文图片/1.png
++zsh:23> legacy_hash='bd8b438b21842fd3853856e09289ffa2245f53f7f637dd73c1430614b4267972  ./论文/论文图片/1.png'
++zsh:23> printf '%s  %s\n' bd8b438b21842fd3853856e09289ffa2245f53f7f637dd73c1430614b4267972 论文/论文图片/1.png
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 ./论文/论文图片/2.png
++zsh:23> legacy_hash='ff8ba51db6f529eaac25fca75a7768a669dbf2b272ca4aa79defd345f6fb5b83  ./论文/论文图片/2.png'
++zsh:23> printf '%s  %s\n' ff8ba51db6f529eaac25fca75a7768a669dbf2b272ca4aa79defd345f6fb5b83 论文/论文图片/2.png
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 ./论文/论文图片/流程图.pos
++zsh:23> legacy_hash='7098ab61ebd027e9f1afb5b7a67927e01016dae3155250c69308ee6418b686fc  ./论文/论文图片/流程图.pos'
++zsh:23> printf '%s  %s\n' 7098ab61ebd027e9f1afb5b7a67927e01016dae3155250c69308ee6418b686fc 论文/论文图片/流程图.pos
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 ./论文/论文投稿确认书-贾旭龙.docx
++zsh:23> legacy_hash='9593f9ed57a5bc004b1ae0ca980a3f86e7c79dad39525c4407bc34c2b32b0559  ./论文/论文投稿确认书-贾旭龙.docx'
++zsh:23> printf '%s  %s\n' 9593f9ed57a5bc004b1ae0ca980a3f86e7c79dad39525c4407bc34c2b32b0559 论文/论文投稿确认书-贾旭龙.docx
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 ./论文/论文文献/.DS_Store
++zsh:23> legacy_hash='b5fa969f3fe6a927f60e1b1a8dc40176b3cf7a74ea8d106423d10924432ec2ba  ./论文/论文文献/.DS_Store'
++zsh:23> printf '%s  %s\n' b5fa969f3fe6a927f60e1b1a8dc40176b3cf7a74ea8d106423d10924432ec2ba 论文/论文文献/.DS_Store
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 './论文/论文文献/A~_算法在移动机器人路径规划中的研究_鲁毅.pdf'
++zsh:23> legacy_hash='ddc5d2dc86dab8f9bce754ee5ce230c1563b5b37c9495f231dd38d96cf55b47a  ./论文/论文文献/A~_算法在移动机器人路径规划中的研究_鲁毅.pdf'
++zsh:23> printf '%s  %s\n' ddc5d2dc86dab8f9bce754ee5ce230c1563b5b37c9495f231dd38d96cf55b47a '论文/论文文献/A~_算法在移动机器人路径规划中的研究_鲁毅.pdf'
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 ./论文/论文文献/algorithms-11-00044.pdf
++zsh:23> legacy_hash='e758c96083a361350814db2cf3b65bcfdff9edc469cae2ea04b1ebd3941840c1  ./论文/论文文献/algorithms-11-00044.pdf'
++zsh:23> printf '%s  %s\n' e758c96083a361350814db2cf3b65bcfdff9edc469cae2ea04b1ebd3941840c1 论文/论文文献/algorithms-11-00044.pdf
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 ./论文/论文文献/一种LSTM与CNN相结合的步态识别方法_戚艳军.pdf
++zsh:23> legacy_hash='bbf48f239ce075933b36f70deeb664d8ab7e0b370c72f5e659e59fef6067a14b  ./论文/论文文献/一种LSTM与CNN相结合的步态识别方法_戚艳军.pdf'
++zsh:23> printf '%s  %s\n' bbf48f239ce075933b36f70deeb664d8ab7e0b370c72f5e659e59fef6067a14b 论文/论文文献/一种LSTM与CNN相结合的步态识别方法_戚艳军.pdf
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 ./论文/论文文献/基于Dijkstra算法的平滑路径规划方法_巩慧.pdf
++zsh:23> legacy_hash='728119629d18b6a029155dbde7488b358fc6a97b125ed61bed1edfcdb8724c7d  ./论文/论文文献/基于Dijkstra算法的平滑路径规划方法_巩慧.pdf'
++zsh:23> printf '%s  %s\n' 728119629d18b6a029155dbde7488b358fc6a97b125ed61bed1edfcdb8724c7d 论文/论文文献/基于Dijkstra算法的平滑路径规划方法_巩慧.pdf
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 ./论文/论文文献/基于深度强化学习的机器人路径规划_齐嵘.pdf
++zsh:23> legacy_hash='e6653b6b011ba6c580837d9fd5bf1364523f02bc39dfc86e737ecbfd220874d9  ./论文/论文文献/基于深度强化学习的机器人路径规划_齐嵘.pdf'
++zsh:23> printf '%s  %s\n' e6653b6b011ba6c580837d9fd5bf1364523f02bc39dfc86e737ecbfd220874d9 论文/论文文献/基于深度强化学习的机器人路径规划_齐嵘.pdf
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 ./论文/论文文献/基于神经网络的多变量混沌时间序列建模和预测_王海丹.pdf
++zsh:23> legacy_hash='53b775fb511c338274f5dfd20fa9faa7d4ceb913fb4807c9b392c76cac681fb7  ./论文/论文文献/基于神经网络的多变量混沌时间序列建模和预测_王海丹.pdf'
++zsh:23> printf '%s  %s\n' 53b775fb511c338274f5dfd20fa9faa7d4ceb913fb4807c9b392c76cac681fb7 论文/论文文献/基于神经网络的多变量混沌时间序列建模和预测_王海丹.pdf
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 './论文/论文文献/基于路径优化的A~_算法与...jkstra算法的性能比较_刘云翔.pdf'
++zsh:23> legacy_hash='401ac1d88085cb65539d2c198b5a01a664cf32a4091c1112fb35a42f3d5ada67  ./论文/论文文献/基于路径优化的A~_算法与...jkstra算法的性能比较_刘云翔.pdf'
++zsh:23> printf '%s  %s\n' 401ac1d88085cb65539d2c198b5a01a664cf32a4091c1112fb35a42f3d5ada67 '论文/论文文献/基于路径优化的A~_算法与...jkstra算法的性能比较_刘云翔.pdf'
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 ./论文/论文文献/机器人导航的路径规划算法研究综述_崔炜.pdf
++zsh:23> legacy_hash='4974e98b6b5da6f7552876f047a9b43e06ab778e3a197da12a44b73e84154454  ./论文/论文文献/机器人导航的路径规划算法研究综述_崔炜.pdf'
++zsh:23> printf '%s  %s\n' 4974e98b6b5da6f7552876f047a9b43e06ab778e3a197da12a44b73e84154454 论文/论文文献/机器人导航的路径规划算法研究综述_崔炜.pdf
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 ./论文/论文文献/神经网络控制结构及所用神经网络_徐丽娜.pdf
++zsh:23> legacy_hash='07a755799fbaa0ae0833b85a4a205c3c25cc713b74b76b19a4c7bb5d41aad840  ./论文/论文文献/神经网络控制结构及所用神经网络_徐丽娜.pdf'
++zsh:23> printf '%s  %s\n' 07a755799fbaa0ae0833b85a4a205c3c25cc713b74b76b19a4c7bb5d41aad840 论文/论文文献/神经网络控制结构及所用神经网络_徐丽娜.pdf
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 ./论文/论文文献/面向土方工程实景建模的无人机航迹规划研究_高玉月.pdf
++zsh:23> legacy_hash='f732a480d21f38a1f0cf719b6eed704131ea78b180c96280f34d3217ede8c303  ./论文/论文文献/面向土方工程实景建模的无人机航迹规划研究_高玉月.pdf'
++zsh:23> printf '%s  %s\n' f732a480d21f38a1f0cf719b6eed704131ea78b180c96280f34d3217ede8c303 论文/论文文献/面向土方工程实景建模的无人机航迹规划研究_高玉月.pdf
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 ./论文/贾旭龙-录用通知-CONF-CDS2023.docx
++zsh:23> legacy_hash='887bbda25e263a6321927717bcb2a3ff32ce29ccca095b34757769b28c2fd17b  ./论文/贾旭龙-录用通知-CONF-CDS2023.docx'
++zsh:23> printf '%s  %s\n' 887bbda25e263a6321927717bcb2a3ff32ce29ccca095b34757769b28c2fd17b 论文/贾旭龙-录用通知-CONF-CDS2023.docx
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_hash=+zsh:23> shasum -a 256 ./论文/贾旭龙-录用通知-CONF-CDS2023.pdf
++zsh:23> legacy_hash='9dd8a4ccc69125d7ea949f4f19316d515a7f56116f2402b8b33be78d5936bdc5  ./论文/贾旭龙-录用通知-CONF-CDS2023.pdf'
++zsh:23> printf '%s  %s\n' 9dd8a4ccc69125d7ea949f4f19316d515a7f56116f2402b8b33be78d5936bdc5 论文/贾旭龙-录用通知-CONF-CDS2023.pdf
++zsh:23> IFS='' +zsh:23> read -r -d '' legacy_path
++zsh:23> legacy_manifest_sha256=f534b2543beb31e8f0253001b96494b0086b4b085a340d8d4ae4d33e10c91e8e
++zsh:24> cd ../论文与实习
++zsh:24> cmp -s docs/audit/legacy_hashes.before.sha256 /dev/fd/11
++zsh:24> find . -type f -print0
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> LC_ALL=C sort -z
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 ./.DS_Store
++zsh:24> legacy_hash='a759cb4851d9bdd366ea5476f4e99286f7f2a63e97c2b2e71eb1c23eb37e0c0d  ./.DS_Store'
++zsh:24> printf '%s  %s\n' a759cb4851d9bdd366ea5476f4e99286f7f2a63e97c2b2e71eb1c23eb37e0c0d .DS_Store
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 ./实习/.DS_Store
++zsh:24> legacy_hash='970f81ae392ab64b603580297aad6cbcf0c2cc97cbf868adf721cb7265fce84b  ./实习/.DS_Store'
++zsh:24> printf '%s  %s\n' 970f81ae392ab64b603580297aad6cbcf0c2cc97cbf868adf721cb7265fce84b 实习/.DS_Store
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 ./实习/6.26-8.26.zip
++zsh:24> legacy_hash='c8aab6c9986c11437c733c71ca92d9cc18cfe2c0a993e29ec5f6d8617cf51472  ./实习/6.26-8.26.zip'
++zsh:24> printf '%s  %s\n' c8aab6c9986c11437c733c71ca92d9cc18cfe2c0a993e29ec5f6d8617cf51472 实习/6.26-8.26.zip
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 './实习/~$贾旭龙-简历.docx'
++zsh:24> legacy_hash='85f94d1742c7f083b5ac8924d467f7cc087bc8c9591d9bccf7eeca69b54f0847  ./实习/~$贾旭龙-简历.docx'
++zsh:24> printf '%s  %s\n' 85f94d1742c7f083b5ac8924d467f7cc087bc8c9591d9bccf7eeca69b54f0847 '实习/~$贾旭龙-简历.docx'
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 ./实习/结束/.DS_Store
++zsh:24> legacy_hash='245327cb5590d2237cb349365b9726c64727150234b14710f4d07a02f0301e31  ./实习/结束/.DS_Store'
++zsh:24> printf '%s  %s\n' 245327cb5590d2237cb349365b9726c64727150234b14710f4d07a02f0301e31 实习/结束/.DS_Store
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 './实习/结束/RL-贾旭龙Xulong Jia-Lingzhong Meng.docx'
++zsh:24> legacy_hash='3c84a9d7617dd9f74469cb41892eacd600c3365cd0d1ef04792b59fa4cf892ef  ./实习/结束/RL-贾旭龙Xulong Jia-Lingzhong Meng.docx'
++zsh:24> printf '%s  %s\n' 3c84a9d7617dd9f74469cb41892eacd600c3365cd0d1ef04792b59fa4cf892ef '实习/结束/RL-贾旭龙Xulong Jia-Lingzhong Meng.docx'
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 './实习/结束/截屏2023-09-12 22.04.10.png'
++zsh:24> legacy_hash='c2df61127fb40299efff0296db5d46b4ddc0e1a56a60d67b0c2eb06e51a36fb1  ./实习/结束/截屏2023-09-12 22.04.10.png'
++zsh:24> printf '%s  %s\n' c2df61127fb40299efff0296db5d46b4ddc0e1a56a60d67b0c2eb06e51a36fb1 '实习/结束/截屏2023-09-12 22.04.10.png'
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 ./实习/结束/贾旭龙-项目收获.docx
++zsh:24> legacy_hash='bbd347bad30bd1314b5798a690e40b31fc89bb70ca9c1dfb48de8f23bc4b088c  ./实习/结束/贾旭龙-项目收获.docx'
++zsh:24> printf '%s  %s\n' bbd347bad30bd1314b5798a690e40b31fc89bb70ca9c1dfb48de8f23bc4b088c 实习/结束/贾旭龙-项目收获.docx
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 ./实习/结束/贾旭龙实习证明.pdf
++zsh:24> legacy_hash='35358474a3062ba4c4e8161d3ff1f07dfc5ee8204c40cd4d7de3240b04342169  ./实习/结束/贾旭龙实习证明.pdf'
++zsh:24> printf '%s  %s\n' 35358474a3062ba4c4e8161d3ff1f07dfc5ee8204c40cd4d7de3240b04342169 实习/结束/贾旭龙实习证明.pdf
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 ./实习/过程/.DS_Store
++zsh:24> legacy_hash='8d4a37ad176cbfeeb9dc667264c273dbfad086eec70781bf0e10be127f3d1aa5  ./实习/过程/.DS_Store'
++zsh:24> printf '%s  %s\n' 8d4a37ad176cbfeeb9dc667264c273dbfad086eec70781bf0e10be127f3d1aa5 实习/过程/.DS_Store
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 ./实习/过程/基于深度学习的路径规划算法.docx
++zsh:24> legacy_hash='0cb81cd75e57b1f306c1d538ad64f6e0d8887d9bcff56740af9f76fbb18533d2  ./实习/过程/基于深度学习的路径规划算法.docx'
++zsh:24> printf '%s  %s\n' 0cb81cd75e57b1f306c1d538ad64f6e0d8887d9bcff56740af9f76fbb18533d2 实习/过程/基于深度学习的路径规划算法.docx
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 ./实习/过程/第1周6.26-7.2/.DS_Store
++zsh:24> legacy_hash='5dece3f5eedafb619c2fbeb7e8100279bd67c78b88943eeaf92b77e9a03ecf49  ./实习/过程/第1周6.26-7.2/.DS_Store'
++zsh:24> printf '%s  %s\n' 5dece3f5eedafb619c2fbeb7e8100279bd67c78b88943eeaf92b77e9a03ecf49 实习/过程/第1周6.26-7.2/.DS_Store
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 ./实习/过程/第1周6.26-7.2/实习周报——第一周.xlsx
++zsh:24> legacy_hash='e718dca962e8dde5dc1a9c9c5f1ddbe8512cbac706d1efec1b7ee43a048ee72b  ./实习/过程/第1周6.26-7.2/实习周报——第一周.xlsx'
++zsh:24> printf '%s  %s\n' e718dca962e8dde5dc1a9c9c5f1ddbe8512cbac706d1efec1b7ee43a048ee72b 实习/过程/第1周6.26-7.2/实习周报——第一周.xlsx
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 ./实习/过程/第2周7.3-7.9/实习周报——第二周.xlsx
++zsh:24> legacy_hash='4f219e5c376e8b8312aa4743aa0f29943bb397fcccd15095a9cb4feb18dc0b79  ./实习/过程/第2周7.3-7.9/实习周报——第二周.xlsx'
++zsh:24> printf '%s  %s\n' 4f219e5c376e8b8312aa4743aa0f29943bb397fcccd15095a9cb4feb18dc0b79 实习/过程/第2周7.3-7.9/实习周报——第二周.xlsx
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 ./实习/过程/第3周7.10-7.16/实习周报——第三周.xlsx
++zsh:24> legacy_hash='7fab6700437a31f215e9c7bde97f621d3678f3a4ae36445a2458939f9d0723d5  ./实习/过程/第3周7.10-7.16/实习周报——第三周.xlsx'
++zsh:24> printf '%s  %s\n' 7fab6700437a31f215e9c7bde97f621d3678f3a4ae36445a2458939f9d0723d5 实习/过程/第3周7.10-7.16/实习周报——第三周.xlsx
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 ./实习/过程/第3周7.10-7.16/蚁群算法.docx
++zsh:24> legacy_hash='3a4bbd00d413a06e7ee7075d19708613a2f6d8304895a079ad130bd6f304ade3  ./实习/过程/第3周7.10-7.16/蚁群算法.docx'
++zsh:24> printf '%s  %s\n' 3a4bbd00d413a06e7ee7075d19708613a2f6d8304895a079ad130bd6f304ade3 实习/过程/第3周7.10-7.16/蚁群算法.docx
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 ./实习/过程/第4周7.17-7.23/实习周报——第四周.xlsx
++zsh:24> legacy_hash='c31aa4532f1afba2d7163466a973b9a21c457513d3f4ca4329dcf13ab6085fbc  ./实习/过程/第4周7.17-7.23/实习周报——第四周.xlsx'
++zsh:24> printf '%s  %s\n' c31aa4532f1afba2d7163466a973b9a21c457513d3f4ca4329dcf13ab6085fbc 实习/过程/第4周7.17-7.23/实习周报——第四周.xlsx
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 ./实习/过程/第4周7.17-7.23/蚁群算法.docx
++zsh:24> legacy_hash='3a4bbd00d413a06e7ee7075d19708613a2f6d8304895a079ad130bd6f304ade3  ./实习/过程/第4周7.17-7.23/蚁群算法.docx'
++zsh:24> printf '%s  %s\n' 3a4bbd00d413a06e7ee7075d19708613a2f6d8304895a079ad130bd6f304ade3 实习/过程/第4周7.17-7.23/蚁群算法.docx
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 ./实习/过程/第5周7.24-7.30/实习周报——第五周.xlsx
++zsh:24> legacy_hash='0c80a2e2cb79d4ad678bd1a15f85b8dce5e7ef2f0f612e1dc03954362256af4a  ./实习/过程/第5周7.24-7.30/实习周报——第五周.xlsx'
++zsh:24> printf '%s  %s\n' 0c80a2e2cb79d4ad678bd1a15f85b8dce5e7ef2f0f612e1dc03954362256af4a 实习/过程/第5周7.24-7.30/实习周报——第五周.xlsx
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 ./实习/过程/第5周7.24-7.30/蚁群算法总结.docx
++zsh:24> legacy_hash='ae8f6137f310fabe443533f2b9f45ed34275c88a2bedb55d396b49ffb0e3998a  ./实习/过程/第5周7.24-7.30/蚁群算法总结.docx'
++zsh:24> printf '%s  %s\n' ae8f6137f310fabe443533f2b9f45ed34275c88a2bedb55d396b49ffb0e3998a 实习/过程/第5周7.24-7.30/蚁群算法总结.docx
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 ./实习/过程/第6周7.31-8.6/ACO.py
++zsh:24> legacy_hash='02b8da882eb5b307592cc4e99b20f7f96320e414e7225f214da870857ccbbfa1  ./实习/过程/第6周7.31-8.6/ACO.py'
++zsh:24> printf '%s  %s\n' 02b8da882eb5b307592cc4e99b20f7f96320e414e7225f214da870857ccbbfa1 实习/过程/第6周7.31-8.6/ACO.py
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 ./实习/过程/第6周7.31-8.6/实习周报——第六周.xlsx
++zsh:24> legacy_hash='9daf9d1006685949d0207637f0f160920d58c453a3ca0e43b70cf9f1eef0de33  ./实习/过程/第6周7.31-8.6/实习周报——第六周.xlsx'
++zsh:24> printf '%s  %s\n' 9daf9d1006685949d0207637f0f160920d58c453a3ca0e43b70cf9f1eef0de33 实习/过程/第6周7.31-8.6/实习周报——第六周.xlsx
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 ./实习/过程/第6周7.31-8.6/蚁群算法总结2.docx
++zsh:24> legacy_hash='8f4294cea39815a7f4016ae17f26b3a59108aed492fdf2e7c82bc34e25cfae31  ./实习/过程/第6周7.31-8.6/蚁群算法总结2.docx'
++zsh:24> printf '%s  %s\n' 8f4294cea39815a7f4016ae17f26b3a59108aed492fdf2e7c82bc34e25cfae31 实习/过程/第6周7.31-8.6/蚁群算法总结2.docx
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 ./实习/过程/第7周8.7-8.13/.DS_Store
++zsh:24> legacy_hash='a045c3090dde3a897d80f8b994bfd4fdce3d33c16eab0bf8924e02dd23e297e0  ./实习/过程/第7周8.7-8.13/.DS_Store'
++zsh:24> printf '%s  %s\n' a045c3090dde3a897d80f8b994bfd4fdce3d33c16eab0bf8924e02dd23e297e0 实习/过程/第7周8.7-8.13/.DS_Store
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 ./实习/过程/第7周8.7-8.13/实习周报——第七周.xlsx
++zsh:24> legacy_hash='d4a4c27c23670964683cde6eb5176bcf7723456190923b6ee34ca72535901738  ./实习/过程/第7周8.7-8.13/实习周报——第七周.xlsx'
++zsh:24> printf '%s  %s\n' d4a4c27c23670964683cde6eb5176bcf7723456190923b6ee34ca72535901738 实习/过程/第7周8.7-8.13/实习周报——第七周.xlsx
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 ./实习/过程/第7周8.7-8.13/遗传算法.docx
++zsh:24> legacy_hash='4a7455b79b8c089327b39dbfd9857dd3cb992d06ab050daadc14c26b7b6a099c  ./实习/过程/第7周8.7-8.13/遗传算法.docx'
++zsh:24> printf '%s  %s\n' 4a7455b79b8c089327b39dbfd9857dd3cb992d06ab050daadc14c26b7b6a099c 实习/过程/第7周8.7-8.13/遗传算法.docx
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 ./实习/过程/第8周8.14-8.20/GA.py
++zsh:24> legacy_hash='e505804e80b280a0165d2af18075d99c815964a0dbe68887b864484bc7834f8c  ./实习/过程/第8周8.14-8.20/GA.py'
++zsh:24> printf '%s  %s\n' e505804e80b280a0165d2af18075d99c815964a0dbe68887b864484bc7834f8c 实习/过程/第8周8.14-8.20/GA.py
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 ./实习/过程/第8周8.14-8.20/test.txt
++zsh:24> legacy_hash='cb122a384ed3e1c8a81246030801803373547b286186c38572d149ea128ebc4c  ./实习/过程/第8周8.14-8.20/test.txt'
++zsh:24> printf '%s  %s\n' cb122a384ed3e1c8a81246030801803373547b286186c38572d149ea128ebc4c 实习/过程/第8周8.14-8.20/test.txt
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 ./实习/过程/第8周8.14-8.20/实习周报——第八周.xlsx
++zsh:24> legacy_hash='24bd1b025d5d75d8a0f93757163a8bec6e8d374115ee846059d688624d0b88e1  ./实习/过程/第8周8.14-8.20/实习周报——第八周.xlsx'
++zsh:24> printf '%s  %s\n' 24bd1b025d5d75d8a0f93757163a8bec6e8d374115ee846059d688624d0b88e1 实习/过程/第8周8.14-8.20/实习周报——第八周.xlsx
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 ./实习/过程/第8周8.14-8.20/遗传算法总结.docx
++zsh:24> legacy_hash='3aaa897dd769ef971a7141d8bc96127bd1fd6eb4c478236e268248ea542e61dd  ./实习/过程/第8周8.14-8.20/遗传算法总结.docx'
++zsh:24> printf '%s  %s\n' 3aaa897dd769ef971a7141d8bc96127bd1fd6eb4c478236e268248ea542e61dd 实习/过程/第8周8.14-8.20/遗传算法总结.docx
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 ./实习/过程/第9周8.21-8.26/.DS_Store
++zsh:24> legacy_hash='d65165279105ca6773180500688df4bdc69a2c7b771752f0a46ef120b7fd8ec3  ./实习/过程/第9周8.21-8.26/.DS_Store'
++zsh:24> printf '%s  %s\n' d65165279105ca6773180500688df4bdc69a2c7b771752f0a46ef120b7fd8ec3 实习/过程/第9周8.21-8.26/.DS_Store
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 ./实习/过程/第9周8.21-8.26/GA.py
++zsh:24> legacy_hash='e505804e80b280a0165d2af18075d99c815964a0dbe68887b864484bc7834f8c  ./实习/过程/第9周8.21-8.26/GA.py'
++zsh:24> printf '%s  %s\n' e505804e80b280a0165d2af18075d99c815964a0dbe68887b864484bc7834f8c 实习/过程/第9周8.21-8.26/GA.py
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 ./实习/过程/第9周8.21-8.26/test.txt
++zsh:24> legacy_hash='cb122a384ed3e1c8a81246030801803373547b286186c38572d149ea128ebc4c  ./实习/过程/第9周8.21-8.26/test.txt'
++zsh:24> printf '%s  %s\n' cb122a384ed3e1c8a81246030801803373547b286186c38572d149ea128ebc4c 实习/过程/第9周8.21-8.26/test.txt
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 ./实习/过程/第9周8.21-8.26/实习周报——第九周.xlsx
++zsh:24> legacy_hash='b08a904e04f0930cebf134417c73098801ce1ce35305af698cb7add40fc9704f  ./实习/过程/第9周8.21-8.26/实习周报——第九周.xlsx'
++zsh:24> printf '%s  %s\n' b08a904e04f0930cebf134417c73098801ce1ce35305af698cb7add40fc9704f 实习/过程/第9周8.21-8.26/实习周报——第九周.xlsx
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 ./实习/过程/第9周8.21-8.26/遗传算法总结.docx
++zsh:24> legacy_hash='7529b8a7eab90dbc065ce7606662411628a4a288932abac4f215268916d4496f  ./实习/过程/第9周8.21-8.26/遗传算法总结.docx'
++zsh:24> printf '%s  %s\n' 7529b8a7eab90dbc065ce7606662411628a4a288932abac4f215268916d4496f 实习/过程/第9周8.21-8.26/遗传算法总结.docx
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 ./论文/.DS_Store
++zsh:24> legacy_hash='b444d7d042b4015865046bbcb239d8160c0ec962c20ebd77d1b91418f1efa307  ./论文/.DS_Store'
++zsh:24> printf '%s  %s\n' b444d7d042b4015865046bbcb239d8160c0ec962c20ebd77d1b91418f1efa307 论文/.DS_Store
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 ./论文/CDS_1099_Invoice.pdf
++zsh:24> legacy_hash='c7eec32af80737a37170ffe8d66342c8e7e30f9153c396823f6a2c99ac19fcb6  ./论文/CDS_1099_Invoice.pdf'
++zsh:24> printf '%s  %s\n' c7eec32af80737a37170ffe8d66342c8e7e30f9153c396823f6a2c99ac19fcb6 论文/CDS_1099_Invoice.pdf
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 ./论文/EI.png
++zsh:24> legacy_hash='b9a3f0a4aaaebc322e00bbc70898310630ef1314282c596875283d2e2e15761c  ./论文/EI.png'
++zsh:24> printf '%s  %s\n' b9a3f0a4aaaebc322e00bbc70898310630ef1314282c596875283d2e2e15761c 论文/EI.png
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 './论文/Final draft/贾旭龙 CONF-CDS2023 投稿(1).docx'
++zsh:24> legacy_hash='9bea97e02660cde9be5b0dfc0bfd479f771141e2a81a4f2e0a3dfe8c7144f726  ./论文/Final draft/贾旭龙 CONF-CDS2023 投稿(1).docx'
++zsh:24> printf '%s  %s\n' 9bea97e02660cde9be5b0dfc0bfd479f771141e2a81a4f2e0a3dfe8c7144f726 '论文/Final draft/贾旭龙 CONF-CDS2023 投稿(1).docx'
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 './论文/Final draft/贾旭龙 CONF-CDS2023 投稿(1).pdf'
++zsh:24> legacy_hash='02408c3560fd2095ebc92d0dbacba5422654c723f699c297a83c3330e47f8ab5  ./论文/Final draft/贾旭龙 CONF-CDS2023 投稿(1).pdf'
++zsh:24> printf '%s  %s\n' 02408c3560fd2095ebc92d0dbacba5422654c723f699c297a83c3330e47f8ab5 '论文/Final draft/贾旭龙 CONF-CDS2023 投稿(1).pdf'
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 './论文/Final draft/贾旭龙 CONF-CDS2023 投稿.pdf'
++zsh:24> legacy_hash='79f48d2afd08234581624b5b86d178842318455fc8749eb3f2bfc9a4f0b7eba6  ./论文/Final draft/贾旭龙 CONF-CDS2023 投稿.pdf'
++zsh:24> printf '%s  %s\n' 79f48d2afd08234581624b5b86d178842318455fc8749eb3f2bfc9a4f0b7eba6 '论文/Final draft/贾旭龙 CONF-CDS2023 投稿.pdf'
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 './论文/First draft/14%.pdf'
++zsh:24> legacy_hash='9a7c117370a973934c1db90aae7a203c9f3aea7aa613ee52f02e1aad309baec9  ./论文/First draft/14%.pdf'
++zsh:24> printf '%s  %s\n' 9a7c117370a973934c1db90aae7a203c9f3aea7aa613ee52f02e1aad309baec9 '论文/First draft/14%.pdf'
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 './论文/First draft/First draft.docx'
++zsh:24> legacy_hash='1d2ce575d7a285feb71de2a6f0278344ede97714c6d3117ee115dc39aa39dbec  ./论文/First draft/First draft.docx'
++zsh:24> printf '%s  %s\n' 1d2ce575d7a285feb71de2a6f0278344ede97714c6d3117ee115dc39aa39dbec '论文/First draft/First draft.docx'
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 './论文/First draft/Research and Application of Path Planning Algorithm Based on Deep Learning zh.pdf'
++zsh:24> legacy_hash='66506d517bf826a3687cccf141a7fe4e775235db6563914ee6ab7b82470d4cd9  ./论文/First draft/Research and Application of Path Planning Algorithm Based on Deep Learning zh.pdf'
++zsh:24> printf '%s  %s\n' 66506d517bf826a3687cccf141a7fe4e775235db6563914ee6ab7b82470d4cd9 '论文/First draft/Research and Application of Path Planning Algorithm Based on Deep Learning zh.pdf'
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 './论文/First draft/Research and Application of Path Planning Algorithm Based on Deep Learning——First draft.docx'
++zsh:24> legacy_hash='3cdec8551c123ad0bf625694e4e9384ae31965c78222c4d0e322f5c239ffecfc  ./论文/First draft/Research and Application of Path Planning Algorithm Based on Deep Learning——First draft.docx'
++zsh:24> printf '%s  %s\n' 3cdec8551c123ad0bf625694e4e9384ae31965c78222c4d0e322f5c239ffecfc '论文/First draft/Research and Application of Path Planning Algorithm Based on Deep Learning——First draft.docx'
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 './论文/Research and Application of Path Planning Algorithm Based on Deep Learning.pdf'
++zsh:24> legacy_hash='b2ce8facaee408f920880dd847aa7e1f607f7ce2dae34c6a354b3670cc318e06  ./论文/Research and Application of Path Planning Algorithm Based on Deep Learning.pdf'
++zsh:24> printf '%s  %s\n' b2ce8facaee408f920880dd847aa7e1f607f7ce2dae34c6a354b3670cc318e06 '论文/Research and Application of Path Planning Algorithm Based on Deep Learning.pdf'
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 './论文/Second draft/11%.pdf'
++zsh:24> legacy_hash='f263dcb11333f82244e950b5c184c724445f9c73b1deff0d3dabfe055ec0422c  ./论文/Second draft/11%.pdf'
++zsh:24> printf '%s  %s\n' f263dcb11333f82244e950b5c184c724445f9c73b1deff0d3dabfe055ec0422c '论文/Second draft/11%.pdf'
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 './论文/Second draft/Research and Application of Path Planning Algorithm Based on Deep Learning——Second draft.docx'
++zsh:24> legacy_hash='f0b92d04fa1b4b19b9074e0d641b244ceb2c82da31ea02344066479e93a79045  ./论文/Second draft/Research and Application of Path Planning Algorithm Based on Deep Learning——Second draft.docx'
++zsh:24> printf '%s  %s\n' f0b92d04fa1b4b19b9074e0d641b244ceb2c82da31ea02344066479e93a79045 '论文/Second draft/Research and Application of Path Planning Algorithm Based on Deep Learning——Second draft.docx'
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 './论文/Third draft/Research and Application of Path Planning Algorithm Based on Deep Learning——Third draft.docx'
++zsh:24> legacy_hash='050e2acd814870f3a87cd27f128b86399add13410d23ce27caad1005e0f4762f  ./论文/Third draft/Research and Application of Path Planning Algorithm Based on Deep Learning——Third draft.docx'
++zsh:24> printf '%s  %s\n' 050e2acd814870f3a87cd27f128b86399add13410d23ce27caad1005e0f4762f '论文/Third draft/Research and Application of Path Planning Algorithm Based on Deep Learning——Third draft.docx'
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 './论文/作业/3.19 Neural Networks with Python 时间规划表.pdf'
++zsh:24> legacy_hash='04d95558bb6692162f351c3393a88ae581ad6ddd9c5b92fe0bc9fc336d01ce82  ./论文/作业/3.19 Neural Networks with Python 时间规划表.pdf'
++zsh:24> printf '%s  %s\n' 04d95558bb6692162f351c3393a88ae581ad6ddd9c5b92fe0bc9fc336d01ce82 '论文/作业/3.19 Neural Networks with Python 时间规划表.pdf'
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 './论文/作业/论文作业 1 Assignment preparation.doc'
++zsh:24> legacy_hash='f2517faab224fedb8540680e2a1993c992ff744bc99b24a14b31baa1a46c2533  ./论文/作业/论文作业 1 Assignment preparation.doc'
++zsh:24> printf '%s  %s\n' f2517faab224fedb8540680e2a1993c992ff744bc99b24a14b31baa1a46c2533 '论文/作业/论文作业 1 Assignment preparation.doc'
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 './论文/作业/论文作业2 Assignment 大纲.doc'
++zsh:24> legacy_hash='6c61b5c48aa38b4a407c5121ef87a5b99d0ced394674aec2c8389afbd44604ca  ./论文/作业/论文作业2 Assignment 大纲.doc'
++zsh:24> printf '%s  %s\n' 6c61b5c48aa38b4a407c5121ef87a5b99d0ced394674aec2c8389afbd44604ca '论文/作业/论文作业2 Assignment 大纲.doc'
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 ./论文/作业/论文初稿写作要求及框架.pdf
++zsh:24> legacy_hash='0053df5410960ca07ffcadbd26334132aec7d27ab8d5037c951bf8a0c70fb4cf  ./论文/作业/论文初稿写作要求及框架.pdf'
++zsh:24> printf '%s  %s\n' 0053df5410960ca07ffcadbd26334132aec7d27ab8d5037c951bf8a0c70fb4cf 论文/作业/论文初稿写作要求及框架.pdf
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 ./论文/反馈/.DS_Store
++zsh:24> legacy_hash='d65165279105ca6773180500688df4bdc69a2c7b771752f0a46ef120b7fd8ec3  ./论文/反馈/.DS_Store'
++zsh:24> printf '%s  %s\n' d65165279105ca6773180500688df4bdc69a2c7b771752f0a46ef120b7fd8ec3 论文/反馈/.DS_Store
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 ./论文/反馈/贾旭龙-审稿意见.pdf
++zsh:24> legacy_hash='926094b050355de5cef88f7a81afa9b069da13325a5bb2a7ff0fd4479efef2fb  ./论文/反馈/贾旭龙-审稿意见.pdf'
++zsh:24> printf '%s  %s\n' 926094b050355de5cef88f7a81afa9b069da13325a5bb2a7ff0fd4479efef2fb 论文/反馈/贾旭龙-审稿意见.pdf
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 './论文/反馈/贾旭龙二稿反馈(1).docx'
++zsh:24> legacy_hash='d10cdd7457f8abfc3cbd3105a94270a7bc0d57e563337e5698ba9af6995e09c0  ./论文/反馈/贾旭龙二稿反馈(1).docx'
++zsh:24> printf '%s  %s\n' d10cdd7457f8abfc3cbd3105a94270a7bc0d57e563337e5698ba9af6995e09c0 '论文/反馈/贾旭龙二稿反馈(1).docx'
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 './论文/反馈/贾旭龙初稿反馈(1).docx'
++zsh:24> legacy_hash='0c088057972179ade7d7a343a4693d2be61c7acfdd7549ddb680d6456968ef73  ./论文/反馈/贾旭龙初稿反馈(1).docx'
++zsh:24> printf '%s  %s\n' 0c088057972179ade7d7a343a4693d2be61c7acfdd7549ddb680d6456968ef73 '论文/反馈/贾旭龙初稿反馈(1).docx'
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 ./论文/论文图片/.DS_Store
++zsh:24> legacy_hash='6ed0615b64f7a4f33f88a2fb5bfbae9f9a19e82ec3d9e8e353405b576ca27c73  ./论文/论文图片/.DS_Store'
++zsh:24> printf '%s  %s\n' 6ed0615b64f7a4f33f88a2fb5bfbae9f9a19e82ec3d9e8e353405b576ca27c73 论文/论文图片/.DS_Store
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 ./论文/论文图片/1.png
++zsh:24> legacy_hash='bd8b438b21842fd3853856e09289ffa2245f53f7f637dd73c1430614b4267972  ./论文/论文图片/1.png'
++zsh:24> printf '%s  %s\n' bd8b438b21842fd3853856e09289ffa2245f53f7f637dd73c1430614b4267972 论文/论文图片/1.png
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 ./论文/论文图片/2.png
++zsh:24> legacy_hash='ff8ba51db6f529eaac25fca75a7768a669dbf2b272ca4aa79defd345f6fb5b83  ./论文/论文图片/2.png'
++zsh:24> printf '%s  %s\n' ff8ba51db6f529eaac25fca75a7768a669dbf2b272ca4aa79defd345f6fb5b83 论文/论文图片/2.png
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 ./论文/论文图片/流程图.pos
++zsh:24> legacy_hash='7098ab61ebd027e9f1afb5b7a67927e01016dae3155250c69308ee6418b686fc  ./论文/论文图片/流程图.pos'
++zsh:24> printf '%s  %s\n' 7098ab61ebd027e9f1afb5b7a67927e01016dae3155250c69308ee6418b686fc 论文/论文图片/流程图.pos
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 ./论文/论文投稿确认书-贾旭龙.docx
++zsh:24> legacy_hash='9593f9ed57a5bc004b1ae0ca980a3f86e7c79dad39525c4407bc34c2b32b0559  ./论文/论文投稿确认书-贾旭龙.docx'
++zsh:24> printf '%s  %s\n' 9593f9ed57a5bc004b1ae0ca980a3f86e7c79dad39525c4407bc34c2b32b0559 论文/论文投稿确认书-贾旭龙.docx
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 ./论文/论文文献/.DS_Store
++zsh:24> legacy_hash='b5fa969f3fe6a927f60e1b1a8dc40176b3cf7a74ea8d106423d10924432ec2ba  ./论文/论文文献/.DS_Store'
++zsh:24> printf '%s  %s\n' b5fa969f3fe6a927f60e1b1a8dc40176b3cf7a74ea8d106423d10924432ec2ba 论文/论文文献/.DS_Store
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 './论文/论文文献/A~_算法在移动机器人路径规划中的研究_鲁毅.pdf'
++zsh:24> legacy_hash='ddc5d2dc86dab8f9bce754ee5ce230c1563b5b37c9495f231dd38d96cf55b47a  ./论文/论文文献/A~_算法在移动机器人路径规划中的研究_鲁毅.pdf'
++zsh:24> printf '%s  %s\n' ddc5d2dc86dab8f9bce754ee5ce230c1563b5b37c9495f231dd38d96cf55b47a '论文/论文文献/A~_算法在移动机器人路径规划中的研究_鲁毅.pdf'
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 ./论文/论文文献/algorithms-11-00044.pdf
++zsh:24> legacy_hash='e758c96083a361350814db2cf3b65bcfdff9edc469cae2ea04b1ebd3941840c1  ./论文/论文文献/algorithms-11-00044.pdf'
++zsh:24> printf '%s  %s\n' e758c96083a361350814db2cf3b65bcfdff9edc469cae2ea04b1ebd3941840c1 论文/论文文献/algorithms-11-00044.pdf
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 ./论文/论文文献/一种LSTM与CNN相结合的步态识别方法_戚艳军.pdf
++zsh:24> legacy_hash='bbf48f239ce075933b36f70deeb664d8ab7e0b370c72f5e659e59fef6067a14b  ./论文/论文文献/一种LSTM与CNN相结合的步态识别方法_戚艳军.pdf'
++zsh:24> printf '%s  %s\n' bbf48f239ce075933b36f70deeb664d8ab7e0b370c72f5e659e59fef6067a14b 论文/论文文献/一种LSTM与CNN相结合的步态识别方法_戚艳军.pdf
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 ./论文/论文文献/基于Dijkstra算法的平滑路径规划方法_巩慧.pdf
++zsh:24> legacy_hash='728119629d18b6a029155dbde7488b358fc6a97b125ed61bed1edfcdb8724c7d  ./论文/论文文献/基于Dijkstra算法的平滑路径规划方法_巩慧.pdf'
++zsh:24> printf '%s  %s\n' 728119629d18b6a029155dbde7488b358fc6a97b125ed61bed1edfcdb8724c7d 论文/论文文献/基于Dijkstra算法的平滑路径规划方法_巩慧.pdf
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 ./论文/论文文献/基于深度强化学习的机器人路径规划_齐嵘.pdf
++zsh:24> legacy_hash='e6653b6b011ba6c580837d9fd5bf1364523f02bc39dfc86e737ecbfd220874d9  ./论文/论文文献/基于深度强化学习的机器人路径规划_齐嵘.pdf'
++zsh:24> printf '%s  %s\n' e6653b6b011ba6c580837d9fd5bf1364523f02bc39dfc86e737ecbfd220874d9 论文/论文文献/基于深度强化学习的机器人路径规划_齐嵘.pdf
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 ./论文/论文文献/基于神经网络的多变量混沌时间序列建模和预测_王海丹.pdf
++zsh:24> legacy_hash='53b775fb511c338274f5dfd20fa9faa7d4ceb913fb4807c9b392c76cac681fb7  ./论文/论文文献/基于神经网络的多变量混沌时间序列建模和预测_王海丹.pdf'
++zsh:24> printf '%s  %s\n' 53b775fb511c338274f5dfd20fa9faa7d4ceb913fb4807c9b392c76cac681fb7 论文/论文文献/基于神经网络的多变量混沌时间序列建模和预测_王海丹.pdf
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 './论文/论文文献/基于路径优化的A~_算法与...jkstra算法的性能比较_刘云翔.pdf'
++zsh:24> legacy_hash='401ac1d88085cb65539d2c198b5a01a664cf32a4091c1112fb35a42f3d5ada67  ./论文/论文文献/基于路径优化的A~_算法与...jkstra算法的性能比较_刘云翔.pdf'
++zsh:24> printf '%s  %s\n' 401ac1d88085cb65539d2c198b5a01a664cf32a4091c1112fb35a42f3d5ada67 '论文/论文文献/基于路径优化的A~_算法与...jkstra算法的性能比较_刘云翔.pdf'
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 ./论文/论文文献/机器人导航的路径规划算法研究综述_崔炜.pdf
++zsh:24> legacy_hash='4974e98b6b5da6f7552876f047a9b43e06ab778e3a197da12a44b73e84154454  ./论文/论文文献/机器人导航的路径规划算法研究综述_崔炜.pdf'
++zsh:24> printf '%s  %s\n' 4974e98b6b5da6f7552876f047a9b43e06ab778e3a197da12a44b73e84154454 论文/论文文献/机器人导航的路径规划算法研究综述_崔炜.pdf
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 ./论文/论文文献/神经网络控制结构及所用神经网络_徐丽娜.pdf
++zsh:24> legacy_hash='07a755799fbaa0ae0833b85a4a205c3c25cc713b74b76b19a4c7bb5d41aad840  ./论文/论文文献/神经网络控制结构及所用神经网络_徐丽娜.pdf'
++zsh:24> printf '%s  %s\n' 07a755799fbaa0ae0833b85a4a205c3c25cc713b74b76b19a4c7bb5d41aad840 论文/论文文献/神经网络控制结构及所用神经网络_徐丽娜.pdf
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 ./论文/论文文献/面向土方工程实景建模的无人机航迹规划研究_高玉月.pdf
++zsh:24> legacy_hash='f732a480d21f38a1f0cf719b6eed704131ea78b180c96280f34d3217ede8c303  ./论文/论文文献/面向土方工程实景建模的无人机航迹规划研究_高玉月.pdf'
++zsh:24> printf '%s  %s\n' f732a480d21f38a1f0cf719b6eed704131ea78b180c96280f34d3217ede8c303 论文/论文文献/面向土方工程实景建模的无人机航迹规划研究_高玉月.pdf
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 ./论文/贾旭龙-录用通知-CONF-CDS2023.docx
++zsh:24> legacy_hash='887bbda25e263a6321927717bcb2a3ff32ce29ccca095b34757769b28c2fd17b  ./论文/贾旭龙-录用通知-CONF-CDS2023.docx'
++zsh:24> printf '%s  %s\n' 887bbda25e263a6321927717bcb2a3ff32ce29ccca095b34757769b28c2fd17b 论文/贾旭龙-录用通知-CONF-CDS2023.docx
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:24> legacy_hash=+zsh:24> shasum -a 256 ./论文/贾旭龙-录用通知-CONF-CDS2023.pdf
++zsh:24> legacy_hash='9dd8a4ccc69125d7ea949f4f19316d515a7f56116f2402b8b33be78d5936bdc5  ./论文/贾旭龙-录用通知-CONF-CDS2023.pdf'
++zsh:24> printf '%s  %s\n' 9dd8a4ccc69125d7ea949f4f19316d515a7f56116f2402b8b33be78d5936bdc5 论文/贾旭龙-录用通知-CONF-CDS2023.pdf
++zsh:24> IFS='' +zsh:24> read -r -d '' legacy_path
++zsh:25> printf 'legacy_files=%s legacy_directories=%s legacy_bytes=%s legacy_manifest_sha256=%s legacy_cmp=PASS\n' 75 21 74097025 f534b2543beb31e8f0253001b96494b0086b4b085a340d8d4ae4d33e10c91e8e
+legacy_files=75 legacy_directories=21 legacy_bytes=74097025 legacy_manifest_sha256=f534b2543beb31e8f0253001b96494b0086b4b085a340d8d4ae4d33e10c91e8e legacy_cmp=PASS
++zsh:26> test 75 '=' 75
++zsh:27> test 21 '=' 21
++zsh:28> test 74097025 '=' 74097025
++zsh:29> test f534b2543beb31e8f0253001b96494b0086b4b085a340d8d4ae4d33e10c91e8e '=' f534b2543beb31e8f0253001b96494b0086b4b085a340d8d4ae4d33e10c91e8e
++zsh:30> rg -c '^- \[[ x]\] S[1-8]-T[0-9]{2} ' docs/superpowers/plans/2026-07-18-path-planning-lab.md
++zsh:30> test 42 '=' 42
++zsh:31> rg -c '^### S[1-8]-T[0-9]{2} ' docs/superpowers/plans/2026-07-18-path-planning-lab.md
++zsh:31> test 42 '=' 42
++zsh:32> awk '/^## 5\. 100%验收映射表/{active=1; next} /^一个验收项/{active=0} active && /^\| / && !/^\| 100%验收项/ && !/^\|---/ {count++} END {print count}' docs/superpowers/plans/2026-07-18-path-planning-lab.md
++zsh:32> test 29 '=' 29
++zsh:33> rg -n '@pytest\.mark\.(skip|xfail)|pytest\.(skip|xfail)' tests
++zsh:34> test ! -e src/path_planning/algorithms/genetic.py
++zsh:35> test ! -e configs/ga_baseline.yaml
++zsh:36> test ! -e configs/ga_tuned.yaml
++zsh:37> log_baseline=+zsh:37> mktemp .tmp/work-log-baseline.XXXXXX
++zsh:37> log_baseline=.tmp/work-log-baseline.5pSQB3
++zsh:38> git show HEAD:docs/progress/WORK_LOG.md
++zsh:39> baseline_bytes=+zsh:39> wc -c
++zsh:39> baseline_bytes=+zsh:39> tr -d ' '
++zsh:39> baseline_bytes=37054
++zsh:40> cmp -n 37054 .tmp/work-log-baseline.5pSQB3 docs/progress/WORK_LOG.md
+cmp: EOF on .tmp/work-log-baseline.5pSQB3
+
+extended_pre_stage_gate_exit_code=1
++zsh:5> log_baseline=+zsh:5> mktemp .tmp/work-log-baseline-corrected.XXXXXX
++zsh:5> log_baseline=.tmp/work-log-baseline-corrected.yaeIlq
++zsh:6> log_prefix=+zsh:6> mktemp .tmp/work-log-prefix.XXXXXX
++zsh:6> log_prefix=.tmp/work-log-prefix.D2a0yX
++zsh:7> git show HEAD:docs/progress/WORK_LOG.md
++zsh:8> baseline_bytes=+zsh:8> wc -c
++zsh:8> baseline_bytes=+zsh:8> tr -d ' '
++zsh:8> baseline_bytes=37054
++zsh:9> current_bytes=+zsh:9> wc -c
++zsh:9> current_bytes=+zsh:9> tr -d ' '
++zsh:9> current_bytes=43209
++zsh:10> test 43209 -ge 37054
++zsh:11> head -c 37054 docs/progress/WORK_LOG.md
++zsh:12> cmp .tmp/work-log-baseline-corrected.yaeIlq .tmp/work-log-prefix.D2a0yX
++zsh:13> printf 'work_log_append_only=PASS baseline_bytes=%s current_bytes=%s\n' 37054 43209
+work_log_append_only=PASS baseline_bytes=37054 current_bytes=43209
++zsh:14> git diff --check
+
+extended_pre_remaining_gate_exit_code=0

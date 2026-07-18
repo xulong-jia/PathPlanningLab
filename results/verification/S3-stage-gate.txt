@@ -1,0 +1,353 @@
+S3_FINAL_STAGE_GATE_START=2026-07-18T22:18:01+1000
++zsh:6> s1_tmp=+zsh:6> mktemp -d .pytest-tmp/s3-final-s1.XXXXXX
++zsh:6> s1_tmp=.pytest-tmp/s3-final-s1.MKJpU3
++zsh:7> TMPDIR=/Users/jiaxulong/Desktop/PathPlanningLab/.tmp PIP_CACHE_DIR=/Users/jiaxulong/Desktop/PathPlanningLab/.pip-cache XDG_CACHE_HOME=/Users/jiaxulong/Desktop/PathPlanningLab/.cache MPLCONFIGDIR=/Users/jiaxulong/Desktop/PathPlanningLab/.mplconfig PYTHONPYCACHEPREFIX=/Users/jiaxulong/Desktop/PathPlanningLab/.pycache MPLBACKEND=Agg .venv/bin/python -m pytest tests/test_package_import.py tests/unit/test_grid.py tests/unit/test_map_generation.py tests/unit/test_map_io.py tests/unit/test_metrics.py tests/unit/test_movement.py tests/unit/test_result.py tests/unit/test_validation.py tests/integration/test_map_suites.py tests/regression/test_result_schema.py -q '--basetemp=.pytest-tmp/s3-final-s1.MKJpU3'
+........................................................................ [ 54%]
+............................................................             [100%]
+132 passed in 0.85s
++zsh:8> s2_tmp=+zsh:8> mktemp -d .pytest-tmp/s3-final-s2.XXXXXX
++zsh:8> s2_tmp=.pytest-tmp/s3-final-s2.PWSsDb
++zsh:9> TMPDIR=/Users/jiaxulong/Desktop/PathPlanningLab/.tmp PIP_CACHE_DIR=/Users/jiaxulong/Desktop/PathPlanningLab/.pip-cache XDG_CACHE_HOME=/Users/jiaxulong/Desktop/PathPlanningLab/.cache MPLCONFIGDIR=/Users/jiaxulong/Desktop/PathPlanningLab/.mplconfig PYTHONPYCACHEPREFIX=/Users/jiaxulong/Desktop/PathPlanningLab/.pycache MPLBACKEND=Agg .venv/bin/python -m pytest tests/unit/test_dijkstra.py tests/unit/test_astar.py tests/integration/test_deterministic_planners.py tests/regression/test_optimality.py tests/regression/test_no_path.py -q '--basetemp=.pytest-tmp/s3-final-s2.PWSsDb'
+.......................................................................  [100%]
+71 passed in 1.31s
++zsh:10> s3_tmp=+zsh:10> mktemp -d .pytest-tmp/s3-final-specialized.XXXXXX
++zsh:10> s3_tmp=.pytest-tmp/s3-final-specialized.d1efDI
++zsh:11> TMPDIR=/Users/jiaxulong/Desktop/PathPlanningLab/.tmp PIP_CACHE_DIR=/Users/jiaxulong/Desktop/PathPlanningLab/.pip-cache XDG_CACHE_HOME=/Users/jiaxulong/Desktop/PathPlanningLab/.cache MPLCONFIGDIR=/Users/jiaxulong/Desktop/PathPlanningLab/.mplconfig PYTHONPYCACHEPREFIX=/Users/jiaxulong/Desktop/PathPlanningLab/.pycache MPLBACKEND=Agg .venv/bin/python -m pytest tests/unit/test_aco_construction.py tests/unit/test_aco_pheromone.py tests/unit/test_aco_planner.py tests/integration/test_aco_integration.py tests/regression/test_legacy_aco_failures.py tests/regression/test_seed_reproducibility.py -q '--basetemp=.pytest-tmp/s3-final-specialized.d1efDI'
+...........................................                              [100%]
+43 passed in 0.24s
++zsh:12> full_tmp=+zsh:12> mktemp -d .pytest-tmp/s3-final-full.XXXXXX
++zsh:12> full_tmp=.pytest-tmp/s3-final-full.XLixru
++zsh:13> TMPDIR=/Users/jiaxulong/Desktop/PathPlanningLab/.tmp PIP_CACHE_DIR=/Users/jiaxulong/Desktop/PathPlanningLab/.pip-cache XDG_CACHE_HOME=/Users/jiaxulong/Desktop/PathPlanningLab/.cache MPLCONFIGDIR=/Users/jiaxulong/Desktop/PathPlanningLab/.mplconfig PYTHONPYCACHEPREFIX=/Users/jiaxulong/Desktop/PathPlanningLab/.pycache MPLBACKEND=Agg .venv/bin/python -m pytest tests -q '--basetemp=.pytest-tmp/s3-final-full.XLixru' '--cov=path_planning.core' '--cov=path_planning.algorithms' --cov-branch '--cov-fail-under=90' '--cov-report=term-missing' '--cov-report=json:results/verification/S3-coverage.json'
+........................................................................ [ 29%]
+........................................................................ [ 58%]
+........................................................................ [ 87%]
+..............................                                           [100%]
+================================ tests coverage ================================
+_______________ coverage: platform darwin, python 3.12.2-final-0 _______________
+
+Name                                       Stmts   Miss Branch BrPart   Cover   Missing
+---------------------------------------------------------------------------------------
+src/path_planning/algorithms/__init__.py       5      0      0      0 100.00%
+src/path_planning/algorithms/aco.py          242     11     88     10  93.64%   147, 162, 202, 334, 336, 372, 422, 499, 502-503, 512
+src/path_planning/algorithms/astar.py         89      1     34      1  98.37%   101
+src/path_planning/algorithms/base.py          14      0      2      0 100.00%
+src/path_planning/algorithms/dijkstra.py      51      1     14      1  96.92%   56
+src/path_planning/core/__init__.py             7      0      0      0 100.00%
+src/path_planning/core/grid.py                45      0     12      0 100.00%
+src/path_planning/core/metrics.py             31      0     18      0 100.00%
+src/path_planning/core/movement.py            39      0     18      0 100.00%
+src/path_planning/core/result.py              62      0     30      0 100.00%
+src/path_planning/core/types.py               18      0     12      0 100.00%
+src/path_planning/core/validation.py          59      0     38      0 100.00%
+---------------------------------------------------------------------------------------
+TOTAL                                        662     13    266     12  97.31%
+Coverage JSON written to file results/verification/S3-coverage.json
+Required test coverage of 90% reached. Total coverage: 97.31%
+246 passed in 9.01s
++zsh:14> jq -r '.files | to_entries[] | select(.value.summary.num_statements > 0) | "\(.key)=\(.value.summary.percent_covered)"' results/verification/S3-coverage.json
+src/path_planning/algorithms/__init__.py=100.0
+src/path_planning/algorithms/aco.py=93.63636363636364
+src/path_planning/algorithms/astar.py=98.3739837398374
+src/path_planning/algorithms/base.py=100.0
+src/path_planning/algorithms/dijkstra.py=96.92307692307692
+src/path_planning/core/__init__.py=100.0
+src/path_planning/core/grid.py=100.0
+src/path_planning/core/metrics.py=100.0
+src/path_planning/core/movement.py=100.0
+src/path_planning/core/result.py=100.0
+src/path_planning/core/types.py=100.0
+src/path_planning/core/validation.py=100.0
++zsh:15> low_modules=+zsh:15> jq -r '.files | to_entries[] | select(.value.summary.num_statements > 0 and .value.summary.percent_covered < 90) | .key' results/verification/S3-coverage.json
++zsh:15> low_modules=''
++zsh:16> test -z ''
++zsh:17> jq -e '.files["src/path_planning/algorithms/aco.py"].summary.percent_covered >= 90' results/verification/S3-coverage.json
+true
++zsh:18> rg -n '@pytest\.mark\.(skip|xfail)|pytest\.(skip|xfail)' tests
++zsh:19> .venv/bin/ruff check .
+All checks passed!
++zsh:20> .venv/bin/ruff format --check .
+41 files already formatted
++zsh:21> .venv/bin/mypy src
+Success: no issues found in 20 source files
++zsh:22> .venv/bin/python -m pip check
+No broken requirements found.
++zsh:23> wheel_dir=+zsh:23> mktemp -d .tmp/s3-final-wheel.XXXXXX
++zsh:23> wheel_dir=.tmp/s3-final-wheel.wAChWm
++zsh:24> install_dir=+zsh:24> mktemp -d .tmp/s3-final-install.XXXXXX
++zsh:24> install_dir=.tmp/s3-final-install.DiKdFX
++zsh:25> TMPDIR=/Users/jiaxulong/Desktop/PathPlanningLab/.tmp PIP_CACHE_DIR=/Users/jiaxulong/Desktop/PathPlanningLab/.pip-cache .venv/bin/python -m pip wheel . --no-deps --wheel-dir .tmp/s3-final-wheel.wAChWm
+Looking in indexes: http://mirrors.aliyun.com/pypi/simple/
+Processing /Users/jiaxulong/Desktop/PathPlanningLab
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Building wheels for collected packages: path-planning-lab
+  Building wheel for path-planning-lab (pyproject.toml): started
+  Building wheel for path-planning-lab (pyproject.toml): finished with status 'done'
+  Created wheel for path-planning-lab: filename=path_planning_lab-0.1.0-py3-none-any.whl size=22120 sha256=fec2dac7a92d8ffac409afe820757c2e80ca2e5b1b46865fc7c6dd53619b0cd6
+  Stored in directory: /Users/jiaxulong/Desktop/PathPlanningLab/.tmp/pip-ephem-wheel-cache-4zd171ba/wheels/2b/7c/be/6e4937c822bf5b41a63e10f7b5a1f9fc645f367b4703bc0243
+Successfully built path-planning-lab
+
+[notice] A new release of pip is available: 24.0 -> 26.1.2
+[notice] To update, run: /Users/jiaxulong/Desktop/PathPlanningLab/.venv/bin/python -m pip install --upgrade pip
++zsh:26> wheel_files=( .tmp/s3-final-wheel.wAChWm/path_planning_lab-0.1.0-py3-none-any.whl )
++zsh:27> test 1 -eq 1
++zsh:28> wheel_sha256=+zsh:28> shasum -a 256 .tmp/s3-final-wheel.wAChWm/path_planning_lab-0.1.0-py3-none-any.whl
++zsh:28> wheel_sha256=+zsh:28> awk '{print $1}'
++zsh:28> wheel_sha256=fec2dac7a92d8ffac409afe820757c2e80ca2e5b1b46865fc7c6dd53619b0cd6
++zsh:29> printf 'wheel=%s wheel_sha256=%s\n' .tmp/s3-final-wheel.wAChWm/path_planning_lab-0.1.0-py3-none-any.whl fec2dac7a92d8ffac409afe820757c2e80ca2e5b1b46865fc7c6dd53619b0cd6
+wheel=.tmp/s3-final-wheel.wAChWm/path_planning_lab-0.1.0-py3-none-any.whl wheel_sha256=fec2dac7a92d8ffac409afe820757c2e80ca2e5b1b46865fc7c6dd53619b0cd6
++zsh:30> TMPDIR=/Users/jiaxulong/Desktop/PathPlanningLab/.tmp PIP_CACHE_DIR=/Users/jiaxulong/Desktop/PathPlanningLab/.pip-cache .venv/bin/python -m pip install --no-deps --target .tmp/s3-final-install.DiKdFX .tmp/s3-final-wheel.wAChWm/path_planning_lab-0.1.0-py3-none-any.whl
+Looking in indexes: http://mirrors.aliyun.com/pypi/simple/
+Processing ./.tmp/s3-final-wheel.wAChWm/path_planning_lab-0.1.0-py3-none-any.whl
+Installing collected packages: path-planning-lab
+Successfully installed path-planning-lab-0.1.0
+
+[notice] A new release of pip is available: 24.0 -> 26.1.2
+[notice] To update, run: /Users/jiaxulong/Desktop/PathPlanningLab/.venv/bin/python -m pip install --upgrade pip
++zsh:31> S3_INSTALL_DIR=.tmp/s3-final-install.DiKdFX PYTHONPATH=.tmp/s3-final-install.DiKdFX .venv/bin/python -c 'import os; from pathlib import Path; import numpy as np; import path_planning; from path_planning.algorithms import ACOConfig, AntColonyPlanner; from path_planning.core import GridMap, MovementConfig; root=Path(os.environ["S3_INSTALL_DIR"]).resolve(); module=Path(path_planning.__file__).resolve(); assert module.is_relative_to(root); c=ACOConfig(MovementConfig(4), 1, 1.0, 2.0, 0.2, 1.0, 1.0, 0.01, 10.0, 2, 20, 0, 20, 3); r=AntColonyPlanner().plan(GridMap(np.zeros((2, 2), dtype=bool)), (0, 0), (1, 1), c, seed=1); assert r.success; print(f"isolated_import={module} version={path_planning.__version__} aco_success={r.success}")'
+isolated_import=/Users/jiaxulong/Desktop/PathPlanningLab/.tmp/s3-final-install.DiKdFX/path_planning/__init__.py version=0.1.0 aco_success=True
++zsh:32> set +x
+legacy_files=75 legacy_directories=21 legacy_bytes=74097025 legacy_manifest_sha256=f534b2543beb31e8f0253001b96494b0086b4b085a340d8d4ae4d33e10c91e8e legacy_cmp=PASS
++zsh:45> rg -c '^- \[[ x]\] S[1-8]-T[0-9]{2} ' docs/superpowers/plans/2026-07-18-path-planning-lab.md
++zsh:45> test 42 '=' 42
++zsh:46> rg -c '^- \[x\] S[1-8]-T[0-9]{2} ' docs/superpowers/plans/2026-07-18-path-planning-lab.md
++zsh:46> test 16 '=' 16
++zsh:47> rg -c '^- \[x\] S1-T[0-9]{2} ' docs/superpowers/plans/2026-07-18-path-planning-lab.md
++zsh:47> test 8 '=' 8
++zsh:48> rg -c '^- \[x\] S2-T[0-9]{2} ' docs/superpowers/plans/2026-07-18-path-planning-lab.md
++zsh:48> test 4 '=' 4
++zsh:49> rg -c '^- \[x\] S3-T[0-9]{2} ' docs/superpowers/plans/2026-07-18-path-planning-lab.md
++zsh:49> test 4 '=' 4
++zsh:50> rg -c '^- \[x\] S4-T[0-9]{2} ' docs/superpowers/plans/2026-07-18-path-planning-lab.md
++zsh:50> true
++zsh:50> test '' '=' 0
+
+final_stage_gate_exit_code=1
+
+S3_FINAL_STAGE_GATE_RETRY_START=2026-07-18T22:19:34+1000
++zsh:6> s1_tmp=+zsh:6> mktemp -d .pytest-tmp/s3-final-retry-s1.XXXXXX
++zsh:6> s1_tmp=.pytest-tmp/s3-final-retry-s1.z3WHK7
++zsh:7> TMPDIR=/Users/jiaxulong/Desktop/PathPlanningLab/.tmp PIP_CACHE_DIR=/Users/jiaxulong/Desktop/PathPlanningLab/.pip-cache XDG_CACHE_HOME=/Users/jiaxulong/Desktop/PathPlanningLab/.cache MPLCONFIGDIR=/Users/jiaxulong/Desktop/PathPlanningLab/.mplconfig PYTHONPYCACHEPREFIX=/Users/jiaxulong/Desktop/PathPlanningLab/.pycache MPLBACKEND=Agg .venv/bin/python -m pytest tests/test_package_import.py tests/unit/test_grid.py tests/unit/test_map_generation.py tests/unit/test_map_io.py tests/unit/test_metrics.py tests/unit/test_movement.py tests/unit/test_result.py tests/unit/test_validation.py tests/integration/test_map_suites.py tests/regression/test_result_schema.py -q '--basetemp=.pytest-tmp/s3-final-retry-s1.z3WHK7'
+........................................................................ [ 54%]
+............................................................             [100%]
+132 passed in 0.88s
++zsh:8> s2_tmp=+zsh:8> mktemp -d .pytest-tmp/s3-final-retry-s2.XXXXXX
++zsh:8> s2_tmp=.pytest-tmp/s3-final-retry-s2.cbGU5x
++zsh:9> TMPDIR=/Users/jiaxulong/Desktop/PathPlanningLab/.tmp PIP_CACHE_DIR=/Users/jiaxulong/Desktop/PathPlanningLab/.pip-cache XDG_CACHE_HOME=/Users/jiaxulong/Desktop/PathPlanningLab/.cache MPLCONFIGDIR=/Users/jiaxulong/Desktop/PathPlanningLab/.mplconfig PYTHONPYCACHEPREFIX=/Users/jiaxulong/Desktop/PathPlanningLab/.pycache MPLBACKEND=Agg .venv/bin/python -m pytest tests/unit/test_dijkstra.py tests/unit/test_astar.py tests/integration/test_deterministic_planners.py tests/regression/test_optimality.py tests/regression/test_no_path.py -q '--basetemp=.pytest-tmp/s3-final-retry-s2.cbGU5x'
+.......................................................................  [100%]
+71 passed in 1.33s
++zsh:10> s3_tmp=+zsh:10> mktemp -d .pytest-tmp/s3-final-retry-specialized.XXXXXX
++zsh:10> s3_tmp=.pytest-tmp/s3-final-retry-specialized.XCjs2H
++zsh:11> TMPDIR=/Users/jiaxulong/Desktop/PathPlanningLab/.tmp PIP_CACHE_DIR=/Users/jiaxulong/Desktop/PathPlanningLab/.pip-cache XDG_CACHE_HOME=/Users/jiaxulong/Desktop/PathPlanningLab/.cache MPLCONFIGDIR=/Users/jiaxulong/Desktop/PathPlanningLab/.mplconfig PYTHONPYCACHEPREFIX=/Users/jiaxulong/Desktop/PathPlanningLab/.pycache MPLBACKEND=Agg .venv/bin/python -m pytest tests/unit/test_aco_construction.py tests/unit/test_aco_pheromone.py tests/unit/test_aco_planner.py tests/integration/test_aco_integration.py tests/regression/test_legacy_aco_failures.py tests/regression/test_seed_reproducibility.py -q '--basetemp=.pytest-tmp/s3-final-retry-specialized.XCjs2H'
+...........................................                              [100%]
+43 passed in 0.24s
++zsh:12> full_tmp=+zsh:12> mktemp -d .pytest-tmp/s3-final-retry-full.XXXXXX
++zsh:12> full_tmp=.pytest-tmp/s3-final-retry-full.5427W2
++zsh:13> TMPDIR=/Users/jiaxulong/Desktop/PathPlanningLab/.tmp PIP_CACHE_DIR=/Users/jiaxulong/Desktop/PathPlanningLab/.pip-cache XDG_CACHE_HOME=/Users/jiaxulong/Desktop/PathPlanningLab/.cache MPLCONFIGDIR=/Users/jiaxulong/Desktop/PathPlanningLab/.mplconfig PYTHONPYCACHEPREFIX=/Users/jiaxulong/Desktop/PathPlanningLab/.pycache MPLBACKEND=Agg .venv/bin/python -m pytest tests -q '--basetemp=.pytest-tmp/s3-final-retry-full.5427W2' '--cov=path_planning.core' '--cov=path_planning.algorithms' --cov-branch '--cov-fail-under=90' '--cov-report=term-missing' '--cov-report=json:results/verification/S3-coverage.json'
+........................................................................ [ 29%]
+........................................................................ [ 58%]
+........................................................................ [ 87%]
+..............................                                           [100%]
+================================ tests coverage ================================
+_______________ coverage: platform darwin, python 3.12.2-final-0 _______________
+
+Name                                       Stmts   Miss Branch BrPart   Cover   Missing
+---------------------------------------------------------------------------------------
+src/path_planning/algorithms/__init__.py       5      0      0      0 100.00%
+src/path_planning/algorithms/aco.py          242     11     88     10  93.64%   147, 162, 202, 334, 336, 372, 422, 499, 502-503, 512
+src/path_planning/algorithms/astar.py         89      1     34      1  98.37%   101
+src/path_planning/algorithms/base.py          14      0      2      0 100.00%
+src/path_planning/algorithms/dijkstra.py      51      1     14      1  96.92%   56
+src/path_planning/core/__init__.py             7      0      0      0 100.00%
+src/path_planning/core/grid.py                45      0     12      0 100.00%
+src/path_planning/core/metrics.py             31      0     18      0 100.00%
+src/path_planning/core/movement.py            39      0     18      0 100.00%
+src/path_planning/core/result.py              62      0     30      0 100.00%
+src/path_planning/core/types.py               18      0     12      0 100.00%
+src/path_planning/core/validation.py          59      0     38      0 100.00%
+---------------------------------------------------------------------------------------
+TOTAL                                        662     13    266     12  97.31%
+Coverage JSON written to file results/verification/S3-coverage.json
+Required test coverage of 90% reached. Total coverage: 97.31%
+246 passed in 9.11s
++zsh:14> jq -r '.files | to_entries[] | select(.value.summary.num_statements > 0) | "\(.key)=\(.value.summary.percent_covered)"' results/verification/S3-coverage.json
+src/path_planning/algorithms/__init__.py=100.0
+src/path_planning/algorithms/aco.py=93.63636363636364
+src/path_planning/algorithms/astar.py=98.3739837398374
+src/path_planning/algorithms/base.py=100.0
+src/path_planning/algorithms/dijkstra.py=96.92307692307692
+src/path_planning/core/__init__.py=100.0
+src/path_planning/core/grid.py=100.0
+src/path_planning/core/metrics.py=100.0
+src/path_planning/core/movement.py=100.0
+src/path_planning/core/result.py=100.0
+src/path_planning/core/types.py=100.0
+src/path_planning/core/validation.py=100.0
++zsh:15> low_modules=+zsh:15> jq -r '.files | to_entries[] | select(.value.summary.num_statements > 0 and .value.summary.percent_covered < 90) | .key' results/verification/S3-coverage.json
++zsh:15> low_modules=''
++zsh:16> test -z ''
++zsh:17> jq -e '.files["src/path_planning/algorithms/aco.py"].summary.percent_covered >= 90' results/verification/S3-coverage.json
+true
++zsh:18> rg -n '@pytest\.mark\.(skip|xfail)|pytest\.(skip|xfail)' tests
++zsh:19> .venv/bin/ruff check .
+All checks passed!
++zsh:20> .venv/bin/ruff format --check .
+41 files already formatted
++zsh:21> .venv/bin/mypy src
+Success: no issues found in 20 source files
++zsh:22> .venv/bin/python -m pip check
+No broken requirements found.
++zsh:23> wheel_dir=+zsh:23> mktemp -d .tmp/s3-final-retry-wheel.XXXXXX
++zsh:23> wheel_dir=.tmp/s3-final-retry-wheel.kViKR1
++zsh:24> install_dir=+zsh:24> mktemp -d .tmp/s3-final-retry-install.XXXXXX
++zsh:24> install_dir=.tmp/s3-final-retry-install.hGCF0Z
++zsh:25> TMPDIR=/Users/jiaxulong/Desktop/PathPlanningLab/.tmp PIP_CACHE_DIR=/Users/jiaxulong/Desktop/PathPlanningLab/.pip-cache .venv/bin/python -m pip wheel . --no-deps --wheel-dir .tmp/s3-final-retry-wheel.kViKR1
+Looking in indexes: http://mirrors.aliyun.com/pypi/simple/
+Processing /Users/jiaxulong/Desktop/PathPlanningLab
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Building wheels for collected packages: path-planning-lab
+  Building wheel for path-planning-lab (pyproject.toml): started
+  Building wheel for path-planning-lab (pyproject.toml): finished with status 'done'
+  Created wheel for path-planning-lab: filename=path_planning_lab-0.1.0-py3-none-any.whl size=22120 sha256=f6da4f6fa9b4b40548472145a088f400436eabaab595cb9afa968655d232c38b
+  Stored in directory: /Users/jiaxulong/Desktop/PathPlanningLab/.tmp/pip-ephem-wheel-cache-avaqts3a/wheels/2b/7c/be/6e4937c822bf5b41a63e10f7b5a1f9fc645f367b4703bc0243
+Successfully built path-planning-lab
+
+[notice] A new release of pip is available: 24.0 -> 26.1.2
+[notice] To update, run: /Users/jiaxulong/Desktop/PathPlanningLab/.venv/bin/python -m pip install --upgrade pip
++zsh:26> wheel_files=( .tmp/s3-final-retry-wheel.kViKR1/path_planning_lab-0.1.0-py3-none-any.whl )
++zsh:27> test 1 -eq 1
++zsh:28> wheel_sha256=+zsh:28> shasum -a 256 .tmp/s3-final-retry-wheel.kViKR1/path_planning_lab-0.1.0-py3-none-any.whl
++zsh:28> wheel_sha256=+zsh:28> awk '{print $1}'
++zsh:28> wheel_sha256=f6da4f6fa9b4b40548472145a088f400436eabaab595cb9afa968655d232c38b
++zsh:29> printf 'wheel=%s wheel_sha256=%s\n' .tmp/s3-final-retry-wheel.kViKR1/path_planning_lab-0.1.0-py3-none-any.whl f6da4f6fa9b4b40548472145a088f400436eabaab595cb9afa968655d232c38b
+wheel=.tmp/s3-final-retry-wheel.kViKR1/path_planning_lab-0.1.0-py3-none-any.whl wheel_sha256=f6da4f6fa9b4b40548472145a088f400436eabaab595cb9afa968655d232c38b
++zsh:30> TMPDIR=/Users/jiaxulong/Desktop/PathPlanningLab/.tmp PIP_CACHE_DIR=/Users/jiaxulong/Desktop/PathPlanningLab/.pip-cache .venv/bin/python -m pip install --no-deps --target .tmp/s3-final-retry-install.hGCF0Z .tmp/s3-final-retry-wheel.kViKR1/path_planning_lab-0.1.0-py3-none-any.whl
+Looking in indexes: http://mirrors.aliyun.com/pypi/simple/
+Processing ./.tmp/s3-final-retry-wheel.kViKR1/path_planning_lab-0.1.0-py3-none-any.whl
+Installing collected packages: path-planning-lab
+Successfully installed path-planning-lab-0.1.0
+
+[notice] A new release of pip is available: 24.0 -> 26.1.2
+[notice] To update, run: /Users/jiaxulong/Desktop/PathPlanningLab/.venv/bin/python -m pip install --upgrade pip
++zsh:31> S3_INSTALL_DIR=.tmp/s3-final-retry-install.hGCF0Z PYTHONPATH=.tmp/s3-final-retry-install.hGCF0Z .venv/bin/python -c 'import os; from pathlib import Path; import numpy as np; import path_planning; from path_planning.algorithms import ACOConfig, AntColonyPlanner; from path_planning.core import GridMap, MovementConfig; root=Path(os.environ["S3_INSTALL_DIR"]).resolve(); module=Path(path_planning.__file__).resolve(); assert module.is_relative_to(root); c=ACOConfig(MovementConfig(4), 1, 1.0, 2.0, 0.2, 1.0, 1.0, 0.01, 10.0, 2, 20, 0, 20, 3); r=AntColonyPlanner().plan(GridMap(np.zeros((2, 2), dtype=bool)), (0, 0), (1, 1), c, seed=1); assert r.success; print(f"isolated_import={module} version={path_planning.__version__} aco_success={r.success}")'
+isolated_import=/Users/jiaxulong/Desktop/PathPlanningLab/.tmp/s3-final-retry-install.hGCF0Z/path_planning/__init__.py version=0.1.0 aco_success=True
++zsh:32> set +x
+legacy_files=75 legacy_directories=21 legacy_bytes=74097025 legacy_manifest_sha256=f534b2543beb31e8f0253001b96494b0086b4b085a340d8d4ae4d33e10c91e8e legacy_cmp=PASS
++zsh:45> rg -c '^- \[[ x]\] S[1-8]-T[0-9]{2} ' docs/superpowers/plans/2026-07-18-path-planning-lab.md
++zsh:45> test 42 '=' 42
++zsh:46> rg -c '^- \[x\] S[1-8]-T[0-9]{2} ' docs/superpowers/plans/2026-07-18-path-planning-lab.md
++zsh:46> test 16 '=' 16
++zsh:47> rg -c '^- \[x\] S1-T[0-9]{2} ' docs/superpowers/plans/2026-07-18-path-planning-lab.md
++zsh:47> test 8 '=' 8
++zsh:48> rg -c '^- \[x\] S2-T[0-9]{2} ' docs/superpowers/plans/2026-07-18-path-planning-lab.md
++zsh:48> test 4 '=' 4
++zsh:49> rg -c '^- \[x\] S3-T[0-9]{2} ' docs/superpowers/plans/2026-07-18-path-planning-lab.md
++zsh:49> test 4 '=' 4
++zsh:50> s4_checked=+zsh:50> rg -c '^- \[x\] S4-T[0-9]{2} ' docs/superpowers/plans/2026-07-18-path-planning-lab.md
++zsh:50> s4_checked=+zsh:50> true
++zsh:50> s4_checked=''
++zsh:51> test 0 '=' 0
++zsh:52> rg '^- \[ \] S[1-8]-T[0-9]{2} ' docs/superpowers/plans/2026-07-18-path-planning-lab.md
++zsh:52> head -n 1
++zsh:52> test '- [ ] S4-T01 GA 配置、DEAP 类型、初始化与适应度' '=' '- [ ] S4-T01 GA 配置、DEAP 类型、初始化与适应度'
++zsh:53> rg -c '^### S[1-8]-T[0-9]{2} ' docs/superpowers/plans/2026-07-18-path-planning-lab.md
++zsh:53> test 42 '=' 42
++zsh:54> sed -n 731,841p docs/superpowers/plans/2026-07-18-path-planning-lab.md
++zsh:54> rg -c '\*\*状态：\*\*Verified\.'
++zsh:54> test '' '=' 4
+
+final_stage_gate_retry_exit_code=1
+
+S3_FINAL_RECORD_GATE_START=2026-07-18T22:20:35+1000
++zsh:6> s3_verified=+zsh:6> awk '/^### S3-T01 /{active=1} /^### S4-T01 /{active=0} active && /\*\*状态：\*\*Verified。/{count++} END {print count+0}' docs/superpowers/plans/2026-07-18-path-planning-lab.md
++zsh:6> s3_verified=4
++zsh:7> test 4 '=' 4
++zsh:8> awk '/^## 5\. 100%验收映射表/{active=1; next} /^一个验收项/{active=0} active && /^\| / && !/^\| 100%验收项/ && !/^\|---/ {count++} END {print count}' docs/superpowers/plans/2026-07-18-path-planning-lab.md
++zsh:8> test 29 '=' 29
++zsh:9> rg -c '\| Verified \|' docs/progress/PROJECT_STATUS.md
++zsh:9> test 5 '=' 5
++zsh:10> rg -n '^S4-T01 .*Not Started|S4-T01.*（Not Started）|S4-T01保持Not Started' docs/progress/PROJECT_STATUS.md docs/progress/HANDOFF.md docs/superpowers/plans/2026-07-18-path-planning-lab.md
+docs/progress/HANDOFF.md:25:S4-T01 GA 配置、DEAP 类型、初始化与适应度 — Not Started。
+docs/progress/HANDOFF.md:67:完成S3 checkpoint、账本、普通push和远端复核后立即停止；不得开始S4，S4-T01保持Not Started。
+docs/superpowers/plans/2026-07-18-path-planning-lab.md:1975:S1-T01至S3-T04已Verified；S3已完成任务级验收并停止在阶段边界，S4-T01保持Not Started。
+docs/progress/PROJECT_STATUS.md:17:S4-T01 GA 配置、DEAP 类型、初始化与适应度 — Not Started
+docs/progress/PROJECT_STATUS.md:58:S4-T01 GA 配置、DEAP 类型、初始化与适应度（Not Started）；本目标在S3边界停止，不得开始。
++zsh:11> test ! -e src/path_planning/algorithms/genetic.py
++zsh:12> test ! -e configs/ga_baseline.yaml
++zsh:13> test ! -e configs/ga_tuned.yaml
++zsh:14> test ! -e tests/unit/test_ga.py
++zsh:15> log_baseline=+zsh:15> mktemp .tmp/s3-final-record-work-log-baseline.XXXXXX
++zsh:15> log_baseline=.tmp/s3-final-record-work-log-baseline.MweTTJ
++zsh:16> log_prefix=+zsh:16> mktemp .tmp/s3-final-record-work-log-prefix.XXXXXX
++zsh:16> log_prefix=.tmp/s3-final-record-work-log-prefix.91tLCy
++zsh:17> git show HEAD:docs/progress/WORK_LOG.md
++zsh:18> baseline_bytes=+zsh:18> wc -c
++zsh:18> baseline_bytes=+zsh:18> tr -d ' '
++zsh:18> baseline_bytes=37054
++zsh:19> current_bytes=+zsh:19> wc -c
++zsh:19> current_bytes=+zsh:19> tr -d ' '
++zsh:19> current_bytes=45574
++zsh:20> test 45574 -ge 37054
++zsh:21> head -c 37054 docs/progress/WORK_LOG.md
++zsh:22> cmp .tmp/s3-final-record-work-log-baseline.MweTTJ .tmp/s3-final-record-work-log-prefix.91tLCy
++zsh:23> printf 'work_log_append_only=PASS baseline_bytes=%s current_bytes=%s\n' 37054 45574
+work_log_append_only=PASS baseline_bytes=37054 current_bytes=45574
++zsh:24> git branch --show-current
++zsh:24> test main '=' main
++zsh:25> git remote
++zsh:25> wc -l
++zsh:25> tr -d ' '
++zsh:25> test 1 '=' 1
++zsh:26> git remote get-url origin
++zsh:26> test git@github.com:xulong-jia/PathPlanningLab.git '=' git@github.com:xulong-jia/PathPlanningLab.git
++zsh:27> git remote get-url --push origin
++zsh:27> test git@github.com:xulong-jia/PathPlanningLab.git '=' git@github.com:xulong-jia/PathPlanningLab.git
++zsh:28> git config --get branch.main.remote
++zsh:28> test origin '=' origin
++zsh:29> git config --get branch.main.merge
++zsh:29> test refs/heads/main '=' refs/heads/main
++zsh:30> divergence=+zsh:30> git rev-list --left-right --count HEAD...origin/main
++zsh:30> divergence=( 0 0 )
++zsh:31> test 0 '=' 0
++zsh:32> test 0 '=' 0
++zsh:33> git tag --list
++zsh:33> test -z ''
++zsh:34> .venv/bin/ruff check .
+All checks passed!
++zsh:35> .venv/bin/ruff format --check .
+41 files already formatted
++zsh:36> .venv/bin/mypy src
+Success: no issues found in 20 source files
++zsh:37> git diff --check
++zsh:38> printf 'S3_FINAL_STAGE_GATE_RESULT=PASS\n'
+S3_FINAL_STAGE_GATE_RESULT=PASS
++zsh:39> date +%Y-%m-%dT%H:%M:%S%z
++zsh:39> printf 'S3_FINAL_RECORD_GATE_END=%s\n' 2026-07-18T22:20:35+1000
+S3_FINAL_RECORD_GATE_END=2026-07-18T22:20:35+1000
+
+final_record_gate_exit_code=0
+
+S3_PRE_COMMIT_GATE_START=2026-07-18T22:23:01+1000
+........................................................................ [ 29%]
+........................................................................ [ 58%]
+........................................................................ [ 87%]
+..............................                                           [100%]
+246 passed in 2.28s
+All checks passed!
+41 files already formatted
+Success: no issues found in 20 source files
+git_dir=/Users/jiaxulong/Desktop/PathPlanningLab/.git
+git_common=/Users/jiaxulong/Desktop/PathPlanningLab/.git
+merge_base=3d79df9596d8c96058bc59481cb764cc1e7d2b21
+branch=main
+S3_PRE_COMMIT_GATE_RESULT=PASS
+pre_commit_gate_exit_code=0

@@ -2,7 +2,7 @@
 
 ## 当前总体状态
 
-Stage 2 Verified and published — stopped before Stage 3
+Stage 3 Verified — publication pending
 
 ## 当前分支
 
@@ -10,11 +10,11 @@ Stage 2 Verified and published — stopped before Stage 3
 
 ## 当前阶段
 
-阶段2 — Verified（S1保持Verified；未开始阶段3）
+阶段3 — Verified（S1、S2保持Verified；未开始阶段4）
 
 ## 当前任务
 
-S3-T01 ACO 配置、构路和历史缺陷基线 — Not Started
+S4-T01 GA 配置、DEAP 类型、初始化与适应度 — Not Started
 
 ## Repository Status
 
@@ -24,37 +24,38 @@ S3-T01 ACO 配置、构路和历史缺陷基线 — Not Started
 - S1原feature tip：`1e5a10debbb4eab4004f7fa9372ad046834fb4f8`，已通过fast-forward完整进入`main`
 - 分支现场：`main`跟踪`origin/main`；临时feature分支的本地与远端引用均已安全删除
 - S2实施方式：按本轮明确授权直接在`main`完成；实现checkpoint为`22f479342a7edf1b5329c45ace59ba91ba6b19b7`；hash账本commit为`1f820c331262f88eba697b836e24f0c26838fc66`
-- 发布状态：实现与账本commit已普通push到`origin/main`；本最终状态记录随同轮最终普通push发布
+- S3实施方式：按本轮明确授权直接在`main`完成；实现checkpoint和hash账本commit待阶段记录提交后补记
+- 发布状态：S1和S2已普通push到`origin/main`；S3待当前收尾步骤完成checkpoint、账本及普通push
 
 ## 任务统计
 
 - 全部任务数：42
-- 已完成任务数：12
-- Verified任务数：12
+- 已完成任务数：16
+- Verified任务数：16
 - In Progress任务数：0
 - Partially Verified任务数：0
 - Blocked任务数：0
-- 实施任务完成度：28.57%
+- 实施任务完成度：38.10%
 
 ## 100%验收统计
 
 - 全部验收项：29
-- Verified验收项：4
-- 验收完成度：13.79%
+- Verified验收项：5
+- 验收完成度：17.24%
 
 ## 最近一次验证
 
-2026-07-18 21:24 AEST完成S2阶段更正预门禁：原始S1回归132 passed，完整S1+S2覆盖率门禁203 passed；core/algorithms分支覆盖率99.33%且每个非空模块均≥90%；Ruff、format、strict mypy、pip check、wheel构建与隔离安装、diff、旧材料和Git安全门禁全部通过。首次预门禁仅因shell把制表符当字面`\\t`比较而退出1，修正解析后完整重跑退出0。
+2026-07-18 22:20 AEST完成S3最终新鲜阶段门禁：S1专项132 passed、S2专项71 passed、S3专项43 passed、完整coverage门禁246 passed；ACO分支覆盖率93.64%，core/algorithms合计97.31%且每个非空模块均≥90%；Ruff、format、strict mypy、pip check、wheel构建/隔离ACO运行、diff、旧材料、任务/矩阵、只追加日志和S4边界全部通过。两次完整功能门禁后的记录计数表达式问题均保留，独立记录门禁更正后exit 0，最终证据以`S3_FINAL_STAGE_GATE_RESULT=PASS`结束。
 
 ## 最近一个checkpoint commit
 
-`22f479342a7edf1b5329c45ace59ba91ba6b19b7` — `feat: implement dijkstra and astar planners`
+S3实现checkpoint：待创建 — `feat: implement grid-based ant colony planner`
 
-账本commit：`1f820c331262f88eba697b836e24f0c26838fc66` — `docs: record stage 2 checkpoint`
+S3账本commit：待创建 — `docs: record stage 3 checkpoint`
 
 ## 下一项任务
 
-S3-T01 ACO 配置、构路和历史缺陷基线（Not Started）；本轮不得开始。
+S4-T01 GA 配置、DEAP 类型、初始化与适应度（Not Started）；本目标在S3边界停止，不得开始。
 
 ## Blocked原因
 
@@ -66,7 +67,7 @@ S3-T01 ACO 配置、构路和历史缺陷基线（Not Started）；本轮不得�
 |---|---|---|---|
 | Dijkstra完整栅格实现 | Verified | S2-T01、S2-T03 | `dijkstra.py`、Dijkstra单元测试、确定性集成/最优性回归及S2证据 |
 | A*完整栅格实现 | Verified | S2-T02、S2-T03 | `astar.py`、A*单元测试、确定性集成/最优性回归及S2证据 |
-| ACO完整栅格实现 | Not Started | S3-T01–S3-T04 | 尚无执行证据 |
+| ACO完整栅格实现 | Verified | S3-T01–S3-T04 | `aco.py`、三类ACO测试、legacy回归及S3任务/阶段门禁证据 |
 | GA完整栅格实现 | Not Started | S4-T01–S4-T05 | 尚无执行证据 |
 | 统一地图 | Verified | S1-T03、S1-T06、S1-T07 | `docs/architecture.md`、地图JSON、Stage1 pytest与coverage证据 |
 | 统一接口 | Verified | S1-T04 | `algorithms/base.py`、`result.py`、schema回归测试与S1-T04证据 |

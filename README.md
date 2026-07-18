@@ -4,16 +4,17 @@ A reproducible four-algorithm grid path planning project implementing Dijkstra, 
 
 ## Current Status
 
-Stage 2 is complete. The shared Stage 1 model remains verified, and the Dijkstra
-and A* planners now pass deterministic optimality, path-validity, corner-rule,
-and no-path regression matrices. Stage 3 has not been started.
+Stage 3 is complete. The shared Stage 1 model and Stage 2 deterministic planners
+remain verified. Dijkstra and A* pass optimality regressions; the grid-based ACO
+planner now passes construction, pheromone-learning, path-validity, seed,
+corner-rule, convergence, budget, and no-path matrices. Stage 4 has not started.
 
 ## Repository Status
 
 - Local Git repository initialized.
 - GitHub remote `origin` connected at `git@github.com:xulong-jia/PathPlanningLab.git`.
 - Local `main` tracks `origin/main`.
-- Implementation tasks completed: 12 / 42 (28.57%); Stage 2 verified.
+- Implementation tasks completed: 16 / 42 (38.10%); Stage 3 verified.
 
 ## Development Setup
 

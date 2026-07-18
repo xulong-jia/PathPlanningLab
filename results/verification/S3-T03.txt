@@ -1,0 +1,72 @@
++zsh:5> task_tmp=+zsh:5> mktemp -d .pytest-tmp/s3-t03-green.XXXXXX
++zsh:5> task_tmp=.pytest-tmp/s3-t03-green.BRAVXV
++zsh:6> TMPDIR=/Users/jiaxulong/Desktop/PathPlanningLab/.tmp PIP_CACHE_DIR=/Users/jiaxulong/Desktop/PathPlanningLab/.pip-cache XDG_CACHE_HOME=/Users/jiaxulong/Desktop/PathPlanningLab/.cache MPLCONFIGDIR=/Users/jiaxulong/Desktop/PathPlanningLab/.mplconfig PYTHONPYCACHEPREFIX=/Users/jiaxulong/Desktop/PathPlanningLab/.pycache MPLBACKEND=Agg .venv/bin/python -m pytest tests/unit/test_aco_planner.py tests/integration/test_aco_integration.py tests/regression/test_seed_reproducibility.py -q '--basetemp=.pytest-tmp/s3-t03-green.BRAVXV'
+..............                                                           [100%]
+14 passed in 0.23s
++zsh:7> .venv/bin/ruff check src/path_planning/algorithms/aco.py tests/unit/test_aco_planner.py tests/integration/test_aco_integration.py tests/regression/test_seed_reproducibility.py
+All checks passed!
++zsh:8> .venv/bin/mypy src/path_planning/algorithms/aco.py
+src/path_planning/algorithms/aco.py:194: error: Argument 2 to "_result" of "AntColonyPlanner" has incompatible type "**dict[str, object]"; expected "float"  [arg-type]
+src/path_planning/algorithms/aco.py:194: error: Argument 2 to "_result" of "AntColonyPlanner" has incompatible type "**dict[str, object]"; expected "ACOConfig"  [arg-type]
+src/path_planning/algorithms/aco.py:194: error: Argument 2 to "_result" of "AntColonyPlanner" has incompatible type "**dict[str, object]"; expected "int | None"  [arg-type]
+src/path_planning/algorithms/aco.py:194: error: Argument 2 to "_result" of "AntColonyPlanner" has incompatible type "**dict[str, object]"; expected "tuple[tuple[int, int], ...]"  [arg-type]
+src/path_planning/algorithms/aco.py:194: error: Argument 2 to "_result" of "AntColonyPlanner" has incompatible type "**dict[str, object]"; expected "float | None"  [arg-type]
+src/path_planning/algorithms/aco.py:194: error: Argument 2 to "_result" of "AntColonyPlanner" has incompatible type "**dict[str, object]"; expected "int"  [arg-type]
+src/path_planning/algorithms/aco.py:194: error: Argument 2 to "_result" of "AntColonyPlanner" has incompatible type "**dict[str, object]"; expected "tuple[float | None, ...]"  [arg-type]
+src/path_planning/algorithms/aco.py:194: error: Argument 2 to "_result" of "AntColonyPlanner" has incompatible type "**dict[str, object]"; expected "str"  [arg-type]
+src/path_planning/algorithms/aco.py:209: error: Argument 3 to "_result" of "AntColonyPlanner" has incompatible type "**dict[str, object]"; expected "float"  [arg-type]
+src/path_planning/algorithms/aco.py:209: error: Argument 3 to "_result" of "AntColonyPlanner" has incompatible type "**dict[str, object]"; expected "ACOConfig"  [arg-type]
+src/path_planning/algorithms/aco.py:209: error: Argument 3 to "_result" of "AntColonyPlanner" has incompatible type "**dict[str, object]"; expected "int | None"  [arg-type]
+src/path_planning/algorithms/aco.py:209: error: Argument 3 to "_result" of "AntColonyPlanner" has incompatible type "**dict[str, object]"; expected "str | None"  [arg-type]
+src/path_planning/algorithms/aco.py:209: error: Argument 3 to "_result" of "AntColonyPlanner" has incompatible type "**dict[str, object]"; expected "int"  [arg-type]
+src/path_planning/algorithms/aco.py:209: error: Argument 3 to "_result" of "AntColonyPlanner" has incompatible type "**dict[str, object]"; expected "tuple[float | None, ...]"  [arg-type]
+src/path_planning/algorithms/aco.py:209: error: Argument 3 to "_result" of "AntColonyPlanner" has incompatible type "**dict[str, object]"; expected "str"  [arg-type]
+Found 15 errors in 1 file (checked 1 source file)
+
+task_gate_exit_code=1
++zsh:5> task_tmp=+zsh:5> mktemp -d .pytest-tmp/s3-t03-corrected.XXXXXX
++zsh:5> task_tmp=.pytest-tmp/s3-t03-corrected.aww0UI
++zsh:6> TMPDIR=/Users/jiaxulong/Desktop/PathPlanningLab/.tmp PIP_CACHE_DIR=/Users/jiaxulong/Desktop/PathPlanningLab/.pip-cache XDG_CACHE_HOME=/Users/jiaxulong/Desktop/PathPlanningLab/.cache MPLCONFIGDIR=/Users/jiaxulong/Desktop/PathPlanningLab/.mplconfig PYTHONPYCACHEPREFIX=/Users/jiaxulong/Desktop/PathPlanningLab/.pycache MPLBACKEND=Agg .venv/bin/python -m pytest tests/unit/test_aco_planner.py tests/integration/test_aco_integration.py tests/regression/test_seed_reproducibility.py -q '--basetemp=.pytest-tmp/s3-t03-corrected.aww0UI'
+..............                                                           [100%]
+14 passed in 0.23s
++zsh:7> .venv/bin/ruff check src/path_planning/algorithms/aco.py tests/unit/test_aco_planner.py tests/integration/test_aco_integration.py tests/regression/test_seed_reproducibility.py
+All checks passed!
++zsh:8> .venv/bin/mypy src/path_planning/algorithms/aco.py
+Success: no issues found in 1 source file
+
+corrected_task_gate_exit_code=0
++zsh:5> regression_tmp=+zsh:5> mktemp -d .pytest-tmp/s3-t03-regression.XXXXXX
++zsh:5> regression_tmp=.pytest-tmp/s3-t03-regression.l4P7bW
++zsh:6> TMPDIR=/Users/jiaxulong/Desktop/PathPlanningLab/.tmp PIP_CACHE_DIR=/Users/jiaxulong/Desktop/PathPlanningLab/.pip-cache XDG_CACHE_HOME=/Users/jiaxulong/Desktop/PathPlanningLab/.cache MPLCONFIGDIR=/Users/jiaxulong/Desktop/PathPlanningLab/.mplconfig PYTHONPYCACHEPREFIX=/Users/jiaxulong/Desktop/PathPlanningLab/.pycache MPLBACKEND=Agg .venv/bin/python -m pytest tests -q '--basetemp=.pytest-tmp/s3-t03-regression.l4P7bW'
+........................................................................ [ 29%]
+........................................................................ [ 58%]
+........................................................................ [ 87%]
+..............................                                           [100%]
+246 passed in 2.26s
++zsh:7> .venv/bin/ruff check .
+All checks passed!
++zsh:8> .venv/bin/ruff format --check .
+Would reformat: src/path_planning/algorithms/aco.py
+Would reformat: tests/regression/test_legacy_aco_failures.py
+Would reformat: tests/regression/test_seed_reproducibility.py
+Would reformat: tests/unit/test_aco_construction.py
+4 files would be reformatted, 37 files already formatted
+
+t03_regression_gate_exit_code=1
++zsh:5> regression_tmp=+zsh:5> mktemp -d .pytest-tmp/s3-t03-regression-corrected.XXXXXX
++zsh:5> regression_tmp=.pytest-tmp/s3-t03-regression-corrected.cpUN4s
++zsh:6> TMPDIR=/Users/jiaxulong/Desktop/PathPlanningLab/.tmp PIP_CACHE_DIR=/Users/jiaxulong/Desktop/PathPlanningLab/.pip-cache XDG_CACHE_HOME=/Users/jiaxulong/Desktop/PathPlanningLab/.cache MPLCONFIGDIR=/Users/jiaxulong/Desktop/PathPlanningLab/.mplconfig PYTHONPYCACHEPREFIX=/Users/jiaxulong/Desktop/PathPlanningLab/.pycache MPLBACKEND=Agg .venv/bin/python -m pytest tests -q '--basetemp=.pytest-tmp/s3-t03-regression-corrected.cpUN4s'
+........................................................................ [ 29%]
+........................................................................ [ 58%]
+........................................................................ [ 87%]
+..............................                                           [100%]
+246 passed in 2.31s
++zsh:7> .venv/bin/ruff check .
+All checks passed!
++zsh:8> .venv/bin/ruff format --check .
+41 files already formatted
++zsh:9> .venv/bin/mypy src
+Success: no issues found in 20 source files
++zsh:10> git diff --check
+
+corrected_t03_regression_gate_exit_code=0

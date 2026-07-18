@@ -1,0 +1,17 @@
+movement:
+  connectivity: 4
+  diagonal_cost: 1.4142135623730951
+  allow_corner_cutting: false
+ants: 32
+alpha: 1.0
+beta: 3.0
+evaporation_rate: 0.25
+pheromone_deposit: 1.0
+elite_weight: 2.0
+min_pheromone: 0.01
+max_pheromone: 10.0
+iterations: 50
+max_steps: 10000
+max_restarts: 2
+max_backtracks: 200
+stagnation_iterations: 10

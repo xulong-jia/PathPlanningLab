@@ -22,10 +22,10 @@
 - [x] S2-T02 A* 与启发函数
 - [x] S2-T03 确定性算法回归矩阵
 - [x] S2-T04 阶段2门禁与算法文档
-- [ ] S3-T01 ACO 配置、构路和历史缺陷基线
-- [ ] S3-T02 ACO 信息素更新与收敛
-- [ ] S3-T03 ACO 完整 Planner 集成
-- [ ] S3-T04 阶段3门禁
+- [x] S3-T01 ACO 配置、构路和历史缺陷基线
+- [x] S3-T02 ACO 信息素更新与收敛
+- [x] S3-T03 ACO 完整 Planner 集成
+- [x] S3-T04 阶段3门禁
 - [ ] S4-T01 GA 配置、DEAP 类型、初始化与适应度
 - [ ] S4-T02 GA 修复、交叉和变异
 - [ ] S4-T03 GA 选择、精英和演化循环
@@ -329,10 +329,10 @@ flowchart LR
 | S2-T02 | 2 | A* 与启发函数 | S2-T01 | `astar.py`、配置与单测 | g/h/f、启发兼容、最优成本 | Verified | `S2-T02.txt` | 归入 S2-T04 |
 | S2-T03 | 2 | 确定性算法回归矩阵 | S2-T02 | 集成和回归测试 | 四/八方向、墙角、复杂/无路径 | Verified | `S2-T03.txt` | 归入 S2-T04 |
 | S2-T04 | 2 | 阶段2门禁与算法文档 | S2-T03 | `algorithms.md` 确定性章节 | 全测、覆盖率、Ruff、mypy、diff | Verified | `S2-stage-gate.txt` | `feat: implement dijkstra and astar planners` |
-| S3-T01 | 3 | ACO 配置、构路和历史缺陷基线 | S2-T04 | `aco.py` 第一闭环、`legacy_baseline.md` | 合法构路、预算、死路终止 | Not Started | `S3-T01.txt` | 归入 S3-T04 |
-| S3-T02 | 3 | ACO 信息素更新与收敛 | S3-T01 | 挥发、强化、精英、上下限 | 非均匀更新、短路强化更强 | Not Started | `S3-T02.txt` | 归入 S3-T04 |
-| S3-T03 | 3 | ACO 完整 Planner 集成 | S3-T02 | 完整 `AntColonyPlanner` | seed、无路径、配置生效、合法路径 | Not Started | `S3-T03.txt` | 归入 S3-T04 |
-| S3-T04 | 3 | 阶段3门禁 | S3-T03 | ACO 文档与 HANDOFF | 全测、覆盖率、Ruff、mypy、diff | Not Started | `S3-stage-gate.txt` | `feat: implement grid-based ant colony planner` |
+| S3-T01 | 3 | ACO 配置、构路和历史缺陷基线 | S2-T04 | `aco.py` 第一闭环、`legacy_baseline.md` | 合法构路、预算、死路终止 | Verified | `S3-T01.txt` | 归入 S3-T04 |
+| S3-T02 | 3 | ACO 信息素更新与收敛 | S3-T01 | 挥发、强化、精英、上下限 | 非均匀更新、短路强化更强 | Verified | `S3-T02.txt` | 归入 S3-T04 |
+| S3-T03 | 3 | ACO 完整 Planner 集成 | S3-T02 | 完整 `AntColonyPlanner` | seed、无路径、配置生效、合法路径 | Verified | `S3-T03.txt` | 归入 S3-T04 |
+| S3-T04 | 3 | 阶段3门禁 | S3-T03 | ACO 文档与 HANDOFF | 全测、覆盖率、Ruff、mypy、diff | Verified | `S3-stage-gate.txt` | `feat: implement grid-based ant colony planner` |
 | S4-T01 | 4 | GA 配置、DEAP 类型、初始化与适应度 | S3-T04 | `genetic.py` 第一闭环 | 重复 import、合法初始化、非法劣化 | Not Started | `S4-T01.txt` | 归入 S4-T05 |
 | S4-T02 | 4 | GA 修复、交叉和变异 | S4-T01 | 路径修复和四类算子 | 算子真实执行且输出合法 | Not Started | `S4-T02.txt` | 归入 S4-T05 |
 | S4-T03 | 4 | GA 选择、精英和演化循环 | S4-T02 | 完整演化主循环 | 选择方法、精英保留、收敛 | Not Started | `S4-T03.txt` | 归入 S4-T05 |
@@ -756,7 +756,7 @@ flowchart LR
 13. **风险：**共享 BFS 只返回可达性，不能作为 ACO 修复路径。
 14. **Checkpoint：**不允许。
 15. **Commit：**归入 S3-T04。
-16. **状态：**Not Started。
+16. **状态：**Verified。
 
 ### S3-T02 ACO 信息素更新与收敛
 
@@ -786,7 +786,7 @@ flowchart LR
 13. **风险：**禁止在有蚂蚁未完成时修改共享信息素，避免顺序偏差。
 14. **Checkpoint：**不允许。
 15. **Commit：**归入 S3-T04。
-16. **状态：**Not Started。
+16. **状态：**Verified。
 
 ### S3-T03 ACO 完整 Planner 集成
 
@@ -811,7 +811,7 @@ flowchart LR
 13. **风险：**不同 seed 断言针对抽样轨迹摘要，不强制最终最短路径不同。
 14. **Checkpoint：**不允许。
 15. **Commit：**归入 S3-T04。
-16. **状态：**Not Started。
+16. **状态：**Verified。
 
 ### S3-T04 阶段3门禁
 
@@ -837,7 +837,7 @@ flowchart LR
 13. **风险：**不得通过缩小测试集掩盖 seed 或死循环问题。
 14. **Checkpoint：**允许。
 15. **Commit：**`feat: implement grid-based ant colony planner`。
-16. **状态：**Not Started。
+16. **状态：**Verified。
 
 ### S4-T01 GA 配置、DEAP 类型、初始化与适应度
 
@@ -1831,7 +1831,7 @@ Git commit 的 hash 取决于提交内容，因此不能在同一个 commit 中�
 | S1-T02 | feature/path-planning-100 | `f86dab5d9240248ec356697499e960aa398a828e` — `chore: initialize path planning lab` | `docs: record bootstrap checkpoint` |
 | S1-T08 | feature/path-planning-100 | `811956118dd33e05261a16479ac03272a0937180` — `feat: add grid map and core planning models` | `docs: record stage 1 checkpoint` |
 | S2-T04 | main | `22f479342a7edf1b5329c45ace59ba91ba6b19b7` — `feat: implement dijkstra and astar planners` | `1f820c331262f88eba697b836e24f0c26838fc66` — `docs: record stage 2 checkpoint` |
-| S3-T04 | feature | `feat: implement grid-based ant colony planner` | `docs: record stage 3 checkpoint` |
+| S3-T04 | main | `feat: implement grid-based ant colony planner` | `docs: record stage 3 checkpoint` |
 | S4-T05 | feature | `feat: implement grid-based genetic planner` | `docs: record stage 4 checkpoint` |
 | S5-T05 | feature | `feat: add reproducible benchmark pipeline` | `docs: record stage 5 checkpoint` |
 | S6-T04 | feature | `feat: add parameter tuning experiments` | `docs: record stage 6 checkpoint` |
@@ -1972,4 +1972,4 @@ git log -5 --oneline
 - S1最初停留在临时`feature/path-planning-100`；经2026-07-18后续明确授权，已使用`--ff-only`完整整合至`main`并在远端复核后安全删除临时分支；全程未rebase、force push或创建tag。
 - 使用“实现 checkpoint + hash 账本 commit”的双提交记录协议。
 
-S1-T01至S1-T08及S2-T01至S2-T04已Verified；S2已完成任务级验收并停止在阶段边界，S3-T01保持Not Started。
+S1-T01至S3-T04已Verified；S3已完成任务级验收并停止在阶段边界，S4-T01保持Not Started。

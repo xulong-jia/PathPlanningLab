@@ -391,3 +391,84 @@
 - Remote：唯一remote及Fetch/Push URL未变化；未创建分支、PR或tag。
 - 本记录：修正PROJECT_STATUS与HANDOFF中的publication pending状态，补记账本hash；将以`docs: record stage 2 publication`提交并在同轮执行最终普通push。
 - 下一步：最终push后重新fetch，确认本地`main`与`origin/main`完全一致、工作区干净且S3-T01仍Not Started，然后立即停止。
+
+## 2026-07-18 21:55 — S3-T01 ACO 配置、构路和历史缺陷基线
+
+- 开始状态：Not Started。
+- 完成状态：Verified。
+- 创建文件：`src/path_planning/algorithms/aco.py`、`configs/aco_baseline.yaml`、`tests/unit/test_aco_construction.py`、`tests/regression/test_legacy_aco_failures.py`、`docs/legacy_baseline.md`、`results/verification/S3-T01-red.txt`、`results/verification/S3-T01.txt`。
+- 修改文件：算法包导出、实施计划、PROJECT_STATUS、WORK_LOG。
+- 实施内容：新增覆盖全部计划字段并进行边界校验的`ACOConfig`、`rows × cols × movement_count`边信息素张量、`tau**alpha * eta**beta`转移权重、显式局部NumPy RNG构路、访问去重、有限步数/回退/重启、共享端点与可达性预检，以及覆盖完整正反向路径边的强化原语；历史文档只使用已批准审计事实和已提交哈希，未读取、执行、导入或复制旧ACO代码。
+- RED命令：`.venv/bin/python -m pytest tests/unit/test_aco_construction.py tests/regression/test_legacy_aco_failures.py -q`，因`path_planning.algorithms.aco`不存在在收集阶段退出2，符合预期。
+- 验证命令：两个目标测试文件pytest、ACO及tests范围Ruff、ACO strict mypy、完整pytest、`git diff --check`。
+- 真实失败与更正：首次GREEN行为测试22 passed，但Ruff因一处92字符行报E501并退出1；保留失败输出，机械换行后相同任务门禁完整重跑退出0。
+- 测试结果：专项22 passed；完整S1+S2+当前S3回归225 passed；0 failed、0 skipped、0 xfailed。
+- 静态检查：Ruff通过；strict mypy通过；`git diff --check`退出0。
+- 完成证据：`results/verification/S3-T01-red.txt`、`results/verification/S3-T01.txt`、构路和legacy回归测试、`docs/legacy_baseline.md`。
+- Commit：按计划归入S3-T04，不创建任务级checkpoint。
+- 完成度：13/42 Verified，30.95%；ACO完整栅格实现仍待S3-T02至T04，最终验收保持4/29 Verified（13.79%）。
+- 下一任务：S3-T02 ACO 信息素更新与收敛 — In Progress。
+
+## 2026-07-18 21:59 — S3-T02 ACO 信息素更新与收敛
+
+- 开始状态：Not Started。
+- 完成状态：Verified。
+- 创建文件：`tests/unit/test_aco_pheromone.py`、`results/verification/S3-T02-red.txt`、`results/verification/S3-T02.txt`。
+- 修改文件：`src/path_planning/algorithms/aco.py`、实施计划、PROJECT_STATUS、WORK_LOG。
+- 实施内容：每轮在全部构路完成后统一挥发，成功路径按`pheromone_deposit / path_length`强化完整双向边，全局最佳按`elite_weight`额外强化，最后裁剪至min/max；新增最佳成本和连续停滞状态推进原语，无成功路径时在尚无全局最优前保留`null`语义。
+- RED命令：`.venv/bin/python -m pytest tests/unit/test_aco_pheromone.py -q`，因`_update_pheromone`和`_update_convergence`不存在在收集阶段退出2，符合预期。
+- 验证命令：信息素专项pytest、ACO与专项测试Ruff、ACO strict mypy、完整pytest、`git diff --check`。
+- 测试结果：专项7 passed；完整S1+S2+当前S3回归232 passed；0 failed、0 skipped、0 xfailed。
+- 参数证据：测试直接区分非均匀更新、短路/长路强化、0.1/0.6挥发率、上下限、0/2精英权重和先挥发后强化顺序。
+- 静态检查：Ruff通过；strict mypy通过；`git diff --check`退出0。
+- 完成证据：`results/verification/S3-T02-red.txt`、`results/verification/S3-T02.txt`、`tests/unit/test_aco_pheromone.py`。
+- Commit：按计划归入S3-T04，不创建任务级checkpoint。
+- 完成度：14/42 Verified，33.33%；ACO完整栅格实现仍待S3-T03、T04，最终验收保持4/29 Verified（13.79%）。
+- 下一任务：S3-T03 ACO 完整 Planner 集成 — In Progress。
+
+## 2026-07-18 22:05 — S3-T03 ACO 完整 Planner 集成
+
+- 开始状态：Not Started。
+- 完成状态：Verified。
+- 创建文件：`tests/unit/test_aco_planner.py`、`tests/integration/test_aco_integration.py`、`tests/regression/test_seed_reproducibility.py`、`results/verification/S3-T03-red.txt`、`results/verification/S3-T03.txt`。
+- 修改文件：`src/path_planning/algorithms/aco.py`、算法包导出、实施计划、PROJECT_STATUS、WORK_LOG。
+- 实施内容：实现`AntColonyPlanner.plan()`完整轮次循环；每轮先用同一信息素完成全部蚂蚁构路，再统一更新；记录实际iterations、构路evaluations、成功构路、步数、回退、重启、seed、全配置、SHA-256采样轨迹摘要和best-so-far收敛历史；所有成功候选及最终全局最优均经统一`validate_path()`；端点失败和`no_path_precheck`在构路前有限返回。
+- RED命令：三个T03目标测试文件pytest，因`AntColonyPlanner`不存在在收集阶段退出2，符合预期。
+- 验证命令：T03单元/集成/seed专项pytest、完整pytest、全项目Ruff lint/format、strict mypy、`git diff --check`。
+- 真实失败与更正：首次GREEN专项14 passed且Ruff通过，但strict mypy因异构`dict`经`**`展开被推断为`object`而退出1；改为显式关键字传参后通过。首次完整回归246 passed、Ruff lint和mypy通过，但format check指出4个本轮S3文件需格式化并退出1；仅定向格式化这4个文件后完整重跑退出0。
+- 测试结果：专项14 passed；完整S1+S2+S3回归246 passed；0 failed、0 skipped、0 xfailed。
+- 复现与终止：相同seed的全部非时间字段一致；不同seed在分支地图上trajectory digest不同；局部Generator不推进NumPy全局RNG；无路径预检0 evaluations；步数不足时按stagnation上限提前终止。
+- 静态检查：Ruff lint通过，41个文件format check通过；strict mypy通过20个source文件；`git diff --check`退出0。
+- 完成证据：`results/verification/S3-T03-red.txt`、`results/verification/S3-T03.txt`及三个新增测试文件。
+- Commit：按计划归入S3-T04，不创建任务级checkpoint。
+- 完成度：15/42 Verified，35.71%；ACO完整栅格实现待S3-T04阶段门禁，最终验收保持4/29 Verified（13.79%）。
+- 下一任务：S3-T04 阶段3门禁 — In Progress。
+
+## 2026-07-18 22:12 — S3-T04 阶段3门禁
+
+- 开始状态：Not Started。
+- 完成状态：Verified。
+- 创建文件：`results/verification/S3-stage-gate-pre.txt`、`results/verification/S3-pre-coverage.json`、`results/verification/S3-pre-core-algorithms-coverage.json`；完成记录状态下的最终证据随后写入`S3-stage-gate.txt`和`S3-coverage.json`。
+- 修改文件：`README.md`、`docs/algorithms.md`、实施计划、PROJECT_STATUS、WORK_LOG、HANDOFF。
+- 实施内容：记录ACO概率/强化公式、构路/回退/重启/停滞边界、统一结果和预算语义、seed复现范围及已验证限制；审查完整S3范围并完成阶段预验收。
+- 测试结果：完整S1+S2+S3回归246 passed；0 failed、0 skipped、0 xfailed。
+- 覆盖率：ACO单模块精确分支覆盖率93.64%；core/algorithms合计97.31%，每个非空模块均≥90%。
+- 质量与构建：Ruff lint/format、strict mypy、pip check、wheel构建、隔离target安装及隔离ACO基本运行、`git diff --check`均通过；预验收wheel SHA-256为`51fa3c3015572b99f991ba3590e54ccb99f23ba071c55d107595fda3c79961bc`。
+- 旧材料：75文件、21子目录、74,097,025字节，与before清单逐字节一致；聚合SHA-256仍为`f534b2543beb31e8f0253001b96494b0086b4b085a340d8d4ae4d33e10c91e8e`，未生成正式after清单。
+- 完整性：42项唯一清单、42项详细任务、29项验收映射保持一致；S1 8/8、S2 4/4、S3 4/4 Verified；ACO完整栅格实现验收Verified，当前5/29；S4专属文件不存在，S4-T01保持Not Started；WORK_LOG相对HEAD前缀逐字节一致。
+- 真实失败与更正：算法文档patch首次因hunk行缺少patch前缀而无写入失败，拆分后成功；计划原命令的子模块coverage触发NumPy重复导入并退出2，改用算法包coverage加JSON单文件阈值；首次JSON Python断言因f-string转义SyntaxError退出1，改用`jq`；首次`cmp -n`只追加检查因BSD EOF语义退出1，改为截取等长前缀后完整`cmp`。所有失败均保留，未降低门槛。
+- Commit：实现checkpoint和hash账本commit待最终新鲜门禁通过后按双提交协议创建。
+- 完成度：16/42 Verified，38.10%；5/29最终验收Verified，17.24%。
+- 下一任务：S4-T01 — Not Started；当前目标在S3边界完成提交、push和远端复核后停止，不得开始S4。
+
+## 2026-07-18 22:20 — S3最终新鲜阶段门禁复核
+
+- 操作性质：S3-T04完成记录状态下的全新总体验收，不改变任务范围，不开始S4。
+- 专项测试：S1原始范围132 passed；S2 Dijkstra/A*/确定性回归71 passed；S3 ACO构路/信息素/Planner/集成/legacy/seed专项43 passed。
+- 完整测试：246 passed；0 failed、0 skipped、0 xfailed。
+- 覆盖率：ACO分支覆盖率93.64%；core/algorithms合计97.31%；所有非空core/algorithm模块≥90%；最终JSON为`results/verification/S3-coverage.json`。
+- 质量与构建：Ruff lint通过，41文件format check通过，strict mypy 20个source文件通过，`pip check`通过，wheel构建及隔离target安装/ACO基本运行通过；更正完整门禁wheel SHA-256为`f6da4f6fa9b4b40548472145a088f400436eabaab595cb9afa968655d232c38b`。
+- 旧材料：75文件、21子目录、74,097,025字节，与before清单逐字节一致，聚合SHA-256仍为`f534b2543beb31e8f0253001b96494b0086b4b085a340d8d4ae4d33e10c91e8e`。
+- 记录与范围：16/42任务Verified，S1 8/8、S2 4/4、S3 4/4；5/29最终验收Verified；WORK_LOG只追加；首个未勾选任务为S4-T01；无S4专属文件；分支、remote、upstream、tag和0/0分叉符合门禁。
+- 真实失败与更正：首次完整门禁全部功能检查通过后，S4勾选`rg -c`无匹配返回空字符串，空值与0比较导致退出1；第二次完整重跑再次通过全部功能检查，但S3详细状态断言把中文句号写成ASCII句号导致退出1。按连续失败门禁停止重复重跑，改用不依赖固定行号、匹配中文标点的独立记录门禁完成剩余检查，exit 0；`results/verification/S3-stage-gate.txt`保留两次失败并最终写入`S3_FINAL_STAGE_GATE_RESULT=PASS`和`final_record_gate_exit_code=0`。
+- 结论：S3任务级验收和阶段门禁Verified；进入双提交checkpoint、普通push与远端复核收尾；S4-T01保持Not Started。

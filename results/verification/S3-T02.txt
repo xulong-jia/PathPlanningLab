@@ -1,0 +1,22 @@
++zsh:5> task_tmp=+zsh:5> mktemp -d .pytest-tmp/s3-t02-green.XXXXXX
++zsh:5> task_tmp=.pytest-tmp/s3-t02-green.VRCBsc
++zsh:6> TMPDIR=/Users/jiaxulong/Desktop/PathPlanningLab/.tmp PIP_CACHE_DIR=/Users/jiaxulong/Desktop/PathPlanningLab/.pip-cache XDG_CACHE_HOME=/Users/jiaxulong/Desktop/PathPlanningLab/.cache MPLCONFIGDIR=/Users/jiaxulong/Desktop/PathPlanningLab/.mplconfig PYTHONPYCACHEPREFIX=/Users/jiaxulong/Desktop/PathPlanningLab/.pycache MPLBACKEND=Agg .venv/bin/python -m pytest tests/unit/test_aco_pheromone.py -q '--basetemp=.pytest-tmp/s3-t02-green.VRCBsc'
+.......                                                                  [100%]
+7 passed in 0.06s
++zsh:7> .venv/bin/ruff check src/path_planning/algorithms/aco.py tests/unit/test_aco_pheromone.py
+All checks passed!
++zsh:8> .venv/bin/mypy src/path_planning/algorithms/aco.py
+Success: no issues found in 1 source file
+
+task_gate_exit_code=0
++zsh:5> regression_tmp=+zsh:5> mktemp -d .pytest-tmp/s3-t02-regression.XXXXXX
++zsh:5> regression_tmp=.pytest-tmp/s3-t02-regression.vXi1hM
++zsh:6> TMPDIR=/Users/jiaxulong/Desktop/PathPlanningLab/.tmp PIP_CACHE_DIR=/Users/jiaxulong/Desktop/PathPlanningLab/.pip-cache XDG_CACHE_HOME=/Users/jiaxulong/Desktop/PathPlanningLab/.cache MPLCONFIGDIR=/Users/jiaxulong/Desktop/PathPlanningLab/.mplconfig PYTHONPYCACHEPREFIX=/Users/jiaxulong/Desktop/PathPlanningLab/.pycache MPLBACKEND=Agg .venv/bin/python -m pytest tests -q '--basetemp=.pytest-tmp/s3-t02-regression.vXi1hM'
+........................................................................ [ 31%]
+........................................................................ [ 62%]
+........................................................................ [ 93%]
+................                                                         [100%]
+232 passed in 2.14s
++zsh:7> git diff --check
+
+t02_regression_gate_exit_code=0

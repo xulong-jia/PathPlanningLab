@@ -1,0 +1,29 @@
+
+==================================== ERRORS ====================================
+_____________ ERROR collecting tests/unit/test_aco_construction.py _____________
+ImportError while importing test module '/Users/jiaxulong/Desktop/PathPlanningLab/tests/unit/test_aco_construction.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/opt/homebrew/Cellar/python@3.12/3.12.2_1/Frameworks/Python.framework/Versions/3.12/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/unit/test_aco_construction.py:6: in <module>
+    from path_planning.algorithms.aco import (
+E   ModuleNotFoundError: No module named 'path_planning.algorithms.aco'
+________ ERROR collecting tests/regression/test_legacy_aco_failures.py _________
+ImportError while importing test module '/Users/jiaxulong/Desktop/PathPlanningLab/tests/regression/test_legacy_aco_failures.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/opt/homebrew/Cellar/python@3.12/3.12.2_1/Frameworks/Python.framework/Versions/3.12/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/regression/test_legacy_aco_failures.py:5: in <module>
+    from path_planning.algorithms.aco import (
+E   ModuleNotFoundError: No module named 'path_planning.algorithms.aco'
+=========================== short test summary info ============================
+ERROR tests/unit/test_aco_construction.py
+ERROR tests/regression/test_legacy_aco_failures.py
+!!!!!!!!!!!!!!!!!!! Interrupted: 2 errors during collection !!!!!!!!!!!!!!!!!!!!
+2 errors in 0.14s
+
+red_exit_code=2

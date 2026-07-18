@@ -1,0 +1,350 @@
+S1-T01 安全门禁与记录制度落地 — 验证证据
+============================================================
+
+范围：仅 S1-T01；未开始 S1-T02。
+风险：Medium。
+旧材料根目录：项目根目录的 ../论文与实习（全程只读）。
+
+一、开始前完整读取
+------------------------------------------------------------
+
+已完整读取以下本地文件，读取命令退出码均为 0：
+
+- docs/superpowers/plans/2026-07-18-path-planning-lab.md（1975 行）
+- docs/superpowers/specs/2026-07-18-four-algorithm-path-planning-design.md（827 行）
+- docs/progress/PROJECT_STATUS.md（91 行）
+- docs/progress/WORK_LOG.md（70 行）
+- docs/progress/HANDOFF.md（74 行）
+- README.md（25 行）
+- TASKS.md（15 行）
+
+二、前置 Git 门禁（任何项目写入前）
+------------------------------------------------------------
+
+$ pwd
+/Users/jiaxulong/Desktop/PathPlanningLab
+[exit_code] 0
+
+$ git branch --show-current
+main
+[exit_code] 0
+
+$ git status --porcelain
+[output] <empty>
+[exit_code] 0
+
+$ test -z "$(git status --porcelain)"
+[result] PASS；上述项目写入前输出为空。
+[exit_code] 0
+
+$ git status -sb
+## main...origin/main
+[exit_code] 0
+
+$ git remote -v
+origin  git@github.com:xulong-jia/PathPlanningLab.git (fetch)
+origin  git@github.com:xulong-jia/PathPlanningLab.git (push)
+[exit_code] 0
+
+$ git remote get-url origin
+git@github.com:xulong-jia/PathPlanningLab.git
+[exit_code] 0
+
+$ git remote get-url --push origin
+git@github.com:xulong-jia/PathPlanningLab.git
+[exit_code] 0
+
+$ git rev-parse HEAD
+23f08f5a61b8317d6837c0157057904637a58447
+[exit_code] 0
+
+$ git rev-parse origin/main
+23f08f5a61b8317d6837c0157057904637a58447
+[exit_code] 0
+
+$ git rev-parse --abbrev-ref '@{upstream}'
+origin/main
+[exit_code] 0
+
+$ git log --oneline -6
+23f08f5 docs: record repository baseline reconciliation
+ba9112c docs: reconcile repository baseline after remote setup
+f2c9703 docs: record planning baseline checkpoint
+6a8224a docs: add path planning implementation plan
+[exit_code] 0
+
+$ git remote
+origin
+[exit_code] 0
+
+前置结论：目录、main、clean、唯一 origin、Fetch/Push URL、upstream、HEAD 与 origin/main 全部符合门禁；开始时 HEAD 为指定的 23f08f5a61b8317d6837c0157057904637a58447。
+
+三、旧材料只读基线
+------------------------------------------------------------
+
+$ test -d ../论文与实习
+[exit_code] 0
+
+$ find ../论文与实习 -type f -print0 | tr -cd '\000' | wc -c
+75
+[exit_code] 0
+
+$ find ../论文与实习 -mindepth 1 -type d -print0 | tr -cd '\000' | wc -c
+21
+[exit_code] 0
+
+$ find ../论文与实习 -type f -exec stat -f '%z' -- {} + | awk '{ total += $1 } END { printf "%.0f\n", total }'
+74097025
+[exit_code] 0
+
+$ /bin/bash -c 'set -euo pipefail; (cd ../论文与实习; find . -type f -print0 | LC_ALL=C sort -z | while IFS= read -r -d "" legacy_path; do legacy_hash=$(shasum -a 256 "$legacy_path"); printf "%s  %s\n" "${legacy_hash%% *}" "${legacy_path#./}"; done) > docs/audit/legacy_hashes.before.sha256'
+[exit_code] 0
+
+$ wc -l < docs/audit/legacy_hashes.before.sha256
+75
+[exit_code] 0
+
+$ shasum -a 256 docs/audit/legacy_hashes.before.sha256
+f534b2543beb31e8f0253001b96494b0086b4b085a340d8d4ae4d33e10c91e8e  docs/audit/legacy_hashes.before.sha256
+[exit_code] 0
+
+$ rg -n '实习/过程/第6周7\.31-8\.6/ACO\.py|实习/过程/第8周8\.14-8\.20/GA\.py|实习/过程/第9周8\.21-8\.26/GA\.py' docs/audit/legacy_hashes.before.sha256
+21:02b8da882eb5b307592cc4e99b20f7f96320e414e7225f214da870857ccbbfa1  实习/过程/第6周7.31-8.6/ACO.py
+27:e505804e80b280a0165d2af18075d99c815964a0dbe68887b864484bc7834f8c  实习/过程/第8周8.14-8.20/GA.py
+32:e505804e80b280a0165d2af18075d99c815964a0dbe68887b864484bc7834f8c  实习/过程/第9周8.21-8.26/GA.py
+[exit_code] 0
+
+旧材料执行代码：否。
+旧材料修改：否。
+旧目录缓存、日志或临时文件创建：否。
+
+四、恢复制度验证
+------------------------------------------------------------
+
+$ count execution checklist items
+42
+[exit_code] 0
+
+$ count detailed task headings
+42
+[exit_code] 0
+
+$ count 100% acceptance rows
+29
+[exit_code] 0
+
+$ test "$(rg -c '^- \[实施计划\]' TASKS.md)" = "1"
+[exit_code] 0
+
+$ test "$(rg -c '完整实施计划及任务进度的唯一来源' TASKS.md)" = "1"
+[exit_code] 0
+
+$ test "$(rg -c '所有任务只在实施计划中更新' TASKS.md)" = "1"
+[exit_code] 0
+
+$ test "$(rg -c '^- \[[ x]\] S[1-8]-T[0-9]{2} ' TASKS.md || printf 0)" = "0"
+count=0
+[exit_code] 0
+
+$ rg -q '本文件只追加，不删除、不覆盖既有任务记录' docs/progress/WORK_LOG.md
+[exit_code] 0
+
+$ rg -q '^## 新会话恢复指令$' docs/progress/HANDOFF.md
+[exit_code] 0
+
+$ rg -q '不依据聊天记忆推测进度' docs/progress/HANDOFF.md
+[exit_code] 0
+
+$ rg -q 'S1-T01 安全门禁与记录制度落地 — In Progress' docs/progress/PROJECT_STATUS.md
+[exit_code] 0
+
+说明：首次用于确认 TASKS.md 无重复复选框的辅助写法使用了 `rg -c ... || true`；无匹配时得到空字符串，导致该辅助 `test` 退出 1。改为显式 `printf 0` 后退出 0，确认 TASKS.md 的重复任务复选框数量确为 0。该问题是验证命令输出归一化问题，不是项目制度失败。
+
+五、规定断言与文件验证
+------------------------------------------------------------
+
+$ test -d .git
+[exit_code] 0
+
+$ test "$(git branch --show-current)" = "main"
+[exit_code] 0
+
+$ test "$(git remote | wc -l | tr -d ' ')" = "1"
+[exit_code] 0
+
+$ test "$(git remote get-url origin)" = "git@github.com:xulong-jia/PathPlanningLab.git"
+[exit_code] 0
+
+$ test "$(git rev-parse --abbrev-ref '@{upstream}')" = "origin/main"
+[exit_code] 0
+
+$ test "$(git rev-parse HEAD)" = "$(git rev-parse origin/main)"
+[exit_code] 0
+
+$ test -s docs/superpowers/plans/2026-07-18-path-planning-lab.md
+[exit_code] 0
+
+$ test -s docs/progress/PROJECT_STATUS.md
+[exit_code] 0
+
+$ test -s docs/progress/WORK_LOG.md
+[exit_code] 0
+
+$ test -s docs/progress/HANDOFF.md
+[exit_code] 0
+
+$ test -s docs/audit/legacy_hashes.before.sha256
+[exit_code] 0
+
+$ test -s docs/audit/legacy_baseline_metadata.md
+[exit_code] 0
+
+$ test "$(wc -l < docs/audit/legacy_hashes.before.sha256 | tr -d ' ')" = "75"
+[exit_code] 0
+
+$ grep -F '/Users/jiaxulong/' docs/audit/legacy_hashes.before.sha256
+[output] <empty>
+[exit_code] 1
+[expected] PASS；退出码 1 表示哈希清单不含该绝对路径。
+
+$ git diff --check
+[output] <empty>
+[exit_code] 0
+
+六、逐字节重算验证
+------------------------------------------------------------
+
+$ recompute legacy manifest into docs/audit/legacy_hashes.recheck.tmp
+[exit_code] 0
+
+$ cmp docs/audit/legacy_hashes.before.sha256 docs/audit/legacy_hashes.recheck.tmp
+[output] <empty>
+[exit_code] 0
+
+$ shasum -a 256 docs/audit/legacy_hashes.recheck.tmp
+f534b2543beb31e8f0253001b96494b0086b4b085a340d8d4ae4d33e10c91e8e  docs/audit/legacy_hashes.recheck.tmp
+[exit_code] 0
+
+$ rm docs/audit/legacy_hashes.recheck.tmp
+[exit_code] 0
+
+$ test ! -e docs/audit/legacy_hashes.recheck.tmp
+[exit_code] 0
+
+临时文件只创建在项目目录内，比较通过后已删除；旧目录内未创建任何临时文件。
+
+七、完成态复核
+------------------------------------------------------------
+
+$ test -d .git
+[exit_code] 0
+
+$ test "$(git branch --show-current)" = "main"
+[exit_code] 0
+
+$ test "$(git remote | wc -l | tr -d ' ')" = "1"
+[exit_code] 0
+
+$ test "$(git remote get-url origin)" = "git@github.com:xulong-jia/PathPlanningLab.git"
+[exit_code] 0
+
+$ test "$(git remote get-url --push origin)" = "git@github.com:xulong-jia/PathPlanningLab.git"
+[exit_code] 0
+
+$ test "$(git rev-parse --abbrev-ref '@{upstream}')" = "origin/main"
+[exit_code] 0
+
+$ test "$(git rev-parse HEAD)" = "$(git rev-parse origin/main)"
+[exit_code] 0
+
+$ test "$(git rev-parse HEAD)" = "23f08f5a61b8317d6837c0157057904637a58447"
+[exit_code] 0
+
+$ test -s docs/superpowers/plans/2026-07-18-path-planning-lab.md
+$ test -s docs/progress/PROJECT_STATUS.md
+$ test -s docs/progress/WORK_LOG.md
+$ test -s docs/progress/HANDOFF.md
+$ test -s docs/audit/legacy_hashes.before.sha256
+$ test -s docs/audit/legacy_baseline_metadata.md
+$ test -s results/verification/S1-T01.txt
+[exit_code] 每项均为 0
+
+$ test "$(wc -l < docs/audit/legacy_hashes.before.sha256 | tr -d ' ')" = "75"
+[exit_code] 0
+
+$ grep -F '/Users/jiaxulong/' docs/audit/legacy_hashes.before.sha256
+[output] <empty>
+[exit_code] 1
+[expected] PASS
+
+$ test execution checklist count = 42
+count=42
+[exit_code] 0
+
+$ test detailed task count = 42
+count=42
+[exit_code] 0
+
+$ test acceptance count = 29
+count=29
+[exit_code] 0
+
+$ test "$(rg -c '^- \[x\] S1-T01 安全门禁与记录制度落地$' docs/superpowers/plans/2026-07-18-path-planning-lab.md)" = "1"
+[exit_code] 0
+
+$ rg -q 'S1-T01.*Verified' docs/superpowers/plans/2026-07-18-path-planning-lab.md
+[exit_code] 0
+
+$ rg -q '已完成任务数：1' docs/progress/PROJECT_STATUS.md
+$ rg -q 'Verified任务数：1' docs/progress/PROJECT_STATUS.md
+$ rg -q 'In Progress任务数：0' docs/progress/PROJECT_STATUS.md
+$ rg -q '实施任务完成度：2\.38%' docs/progress/PROJECT_STATUS.md
+$ rg -q 'S1-T02 Python工程与 feature 分支初始化 — Not Started' docs/progress/PROJECT_STATUS.md
+$ rg -q '旧材料哈希未变化 \| Not Started.*S1-T01基线部分已完成' docs/progress/PROJECT_STATUS.md
+[exit_code] 每项均为 0
+
+$ rg -q '^## 2026-07-18 19:50 — S1-T01' docs/progress/WORK_LOG.md
+[exit_code] 0
+
+$ test "$(git diff --numstat -- docs/progress/WORK_LOG.md | awk '{print $2}')" = "0"
+[exit_code] 0
+[result] WORK_LOG 对基线仅追加，删除行数为 0。
+
+$ rg -q '下一任务为S1-T02.*尚未开始' docs/progress/HANDOFF.md
+$ rg -q '^## 新会话恢复指令$' docs/progress/HANDOFF.md
+[exit_code] 每项均为 0
+
+$ git status --short --untracked-files=all
+ M docs/progress/HANDOFF.md
+ M docs/progress/PROJECT_STATUS.md
+ M docs/progress/WORK_LOG.md
+ M docs/superpowers/plans/2026-07-18-path-planning-lab.md
+?? docs/audit/legacy_baseline_metadata.md
+?? docs/audit/legacy_hashes.before.sha256
+?? results/verification/S1-T01.txt
+[exit_code] 0
+
+$ test exact changed-file count = 7
+count=7
+[exit_code] 0
+
+$ recompute legacy manifest into docs/audit/legacy_hashes.recheck.tmp
+[exit_code] 0
+
+$ cmp docs/audit/legacy_hashes.before.sha256 docs/audit/legacy_hashes.recheck.tmp
+[exit_code] 0
+
+$ rm docs/audit/legacy_hashes.recheck.tmp
+[exit_code] 0
+
+$ test ! -e docs/audit/legacy_hashes.recheck.tmp
+[exit_code] 0
+
+$ git diff --check
+[output] <empty>
+[exit_code] 0
+
+八、最终结论
+------------------------------------------------------------
+
+Verified。S1-T01完成；1/42任务Verified，实施任务完成度2.38%。没有commit、push或feature分支；没有修改或执行旧材料。下一任务是S1-T02，但本轮未开始。

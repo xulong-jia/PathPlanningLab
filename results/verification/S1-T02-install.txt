@@ -1,0 +1,114 @@
+$ /opt/homebrew/bin/python3 -m venv .venv
+[venv_exit_code] 0
+
+$ .venv/bin/python -m pip install -e ".[dev]"
+Looking in indexes: http://mirrors.aliyun.com/pypi/simple/
+Obtaining file:///Users/jiaxulong/Desktop/PathPlanningLab
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Checking if build backend supports build_editable: started
+  Checking if build backend supports build_editable: finished with status 'done'
+  Getting requirements to build editable: started
+  Getting requirements to build editable: finished with status 'done'
+  Preparing editable metadata (pyproject.toml): started
+  Preparing editable metadata (pyproject.toml): finished with status 'done'
+Collecting deap (from path-planning-lab==0.1.0)
+  Downloading http://mirrors.aliyun.com/pypi/packages/7d/6e/4ba2e2e45fde8483b67e7bee7401a7f132e02c4058d31b6db301f546089a/deap-1.4.4-py3-none-any.whl (93 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 93.1/93.1 kB 746.6 kB/s eta 0:00:00
+Collecting matplotlib (from path-planning-lab==0.1.0)
+  Downloading http://mirrors.aliyun.com/pypi/packages/82/34/bdd77418adb2178a1d59f044bd67bfebb115896e91b840b8a197eb3f4f4e/matplotlib-3.11.0-cp312-cp312-macosx_11_0_arm64.whl (9.3 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 9.3/9.3 MB 796.6 kB/s eta 0:00:00
+Collecting numpy (from path-planning-lab==0.1.0)
+  Downloading http://mirrors.aliyun.com/pypi/packages/42/77/fdf34a71dd30f54979b18603bee915e0aaf825b07afe79acd60b04b691e2/numpy-2.5.1-cp312-cp312-macosx_14_0_arm64.whl (5.3 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.3/5.3 MB 621.9 kB/s eta 0:00:00
+Collecting pandas (from path-planning-lab==0.1.0)
+  Downloading http://mirrors.aliyun.com/pypi/packages/cf/3d/b16412745651e855f357e5e66930248688378853a6e2698a214e331fba1f/pandas-3.0.3-cp312-cp312-macosx_11_0_arm64.whl (9.9 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 9.9/9.9 MB 598.8 kB/s eta 0:00:00
+Collecting PyYAML (from path-planning-lab==0.1.0)
+  Downloading http://mirrors.aliyun.com/pypi/packages/89/a0/6cf41a19a1f2f3feab0e9c0b74134aa2ce6849093d5517a0c550fe37a648/pyyaml-6.0.3-cp312-cp312-macosx_11_0_arm64.whl (173 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 174.0/174.0 kB 476.4 kB/s eta 0:00:00
+Collecting mypy (from path-planning-lab==0.1.0)
+  Downloading http://mirrors.aliyun.com/pypi/packages/f6/d2/1e1731df090a857df2807177a4626863e5ac0f0256513c35780efe53986f/mypy-2.3.0-cp312-cp312-macosx_11_0_arm64.whl (14.0 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 14.0/14.0 MB 488.5 kB/s eta 0:00:00
+Collecting pytest (from path-planning-lab==0.1.0)
+  Downloading http://mirrors.aliyun.com/pypi/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl (386 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 386.5/386.5 kB 659.3 kB/s eta 0:00:00
+Collecting pytest-cov (from path-planning-lab==0.1.0)
+  Downloading http://mirrors.aliyun.com/pypi/packages/9d/7a/d968e294073affff457b041c2be9868a40c1c71f4a35fcc1e45e5493067b/pytest_cov-7.1.0-py3-none-any.whl (22 kB)
+Collecting ruff (from path-planning-lab==0.1.0)
+  Downloading http://mirrors.aliyun.com/pypi/packages/c9/10/74e53572aa758dfaa678c2a2646b5c5515d884b7ca56be4d2ce03ca4b560/ruff-0.15.22-py3-none-macosx_11_0_arm64.whl (10.5 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 10.5/10.5 MB 439.1 kB/s eta 0:00:00
+Collecting moocore (from deap->path-planning-lab==0.1.0)
+  Downloading http://mirrors.aliyun.com/pypi/packages/af/7d/f62b2dd8f944dc47e8693d58778020c89713e3407e1aedf7099365297395/moocore-0.3.2-cp310-abi3-macosx_10_9_universal2.whl (635 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 635.0/635.0 kB 720.6 kB/s eta 0:00:00
+Collecting contourpy>=1.0.1 (from matplotlib->path-planning-lab==0.1.0)
+  Downloading http://mirrors.aliyun.com/pypi/packages/53/3e/405b59cfa13021a56bba395a6b3aca8cec012b45bf177b0eaf7a202cde2c/contourpy-1.3.3-cp312-cp312-macosx_11_0_arm64.whl (273 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 274.0/274.0 kB 894.4 kB/s eta 0:00:00
+Collecting cycler>=0.10 (from matplotlib->path-planning-lab==0.1.0)
+  Downloading http://mirrors.aliyun.com/pypi/packages/e7/05/c19819d5e3d95294a6f5947fb9b9629efb316b96de511b418c53d245aae6/cycler-0.12.1-py3-none-any.whl (8.3 kB)
+Collecting fonttools>=4.22.0 (from matplotlib->path-planning-lab==0.1.0)
+  Downloading http://mirrors.aliyun.com/pypi/packages/08/ef/b3c6b9b5be2f82416d73fe2ed2e96e2793cd80e7510bd6a17ca79cdd88ec/fonttools-4.63.0-cp312-cp312-macosx_10_13_universal2.whl (2.9 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.9/2.9 MB 480.4 kB/s eta 0:00:00
+Collecting kiwisolver>=1.3.1 (from matplotlib->path-planning-lab==0.1.0)
+  Downloading http://mirrors.aliyun.com/pypi/packages/99/9f/795fedf35634f746151ca8839d05681ceb6287fbed6cc1c9bf235f7887c2/kiwisolver-1.5.0-cp312-cp312-macosx_11_0_arm64.whl (64 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 64.1/64.1 kB 488.8 kB/s eta 0:00:00
+Collecting packaging>=20.0 (from matplotlib->path-planning-lab==0.1.0)
+  Downloading http://mirrors.aliyun.com/pypi/packages/df/b2/87e62e8c3e2f4b32e5fe99e0b86d576da1312593b39f47d8ceef365e95ed/packaging-26.2-py3-none-any.whl (100 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100.2/100.2 kB 469.7 kB/s eta 0:00:00
+Collecting pillow>=9 (from matplotlib->path-planning-lab==0.1.0)
+  Downloading http://mirrors.aliyun.com/pypi/packages/d8/66/9a386a92561f402389a4fc70c18838bf6d35eb5eb5c6850b4b2dc64f5048/pillow-12.3.0-cp312-cp312-macosx_11_0_arm64.whl (4.8 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.8/4.8 MB 534.3 kB/s eta 0:00:00
+Collecting pyparsing>=3 (from matplotlib->path-planning-lab==0.1.0)
+  Downloading http://mirrors.aliyun.com/pypi/packages/10/bd/c038d7cc38edc1aa5bf91ab8068b63d4308c66c4c8bb3cbba7dfbc049f9c/pyparsing-3.3.2-py3-none-any.whl (122 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 122.8/122.8 kB 403.3 kB/s eta 0:00:00
+Collecting python-dateutil>=2.7 (from matplotlib->path-planning-lab==0.1.0)
+  Downloading http://mirrors.aliyun.com/pypi/packages/ec/57/56b9bcc3c9c6a792fcbaf139543cee77261f3651ca9da0c93f5c1221264b/python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 229.9/229.9 kB 386.6 kB/s eta 0:00:00
+Collecting typing_extensions>=4.6.0 (from mypy->path-planning-lab==0.1.0)
+  Downloading http://mirrors.aliyun.com/pypi/packages/49/d3/b8441a820a491ddfc024b0b0cf0393375b75ea13866d9c66727e54c2fc80/typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 45.6/45.6 kB 361.7 kB/s eta 0:00:00
+Collecting mypy_extensions>=1.0.0 (from mypy->path-planning-lab==0.1.0)
+  Downloading http://mirrors.aliyun.com/pypi/packages/79/7b/2c79738432f5c924bef5071f933bcc9efd0473bac3b4aa584a6f7c1c8df8/mypy_extensions-1.1.0-py3-none-any.whl (5.0 kB)
+Collecting pathspec>=1.0.0 (from mypy->path-planning-lab==0.1.0)
+  Downloading http://mirrors.aliyun.com/pypi/packages/f1/d9/7fb5aa316bc299258e68c73ba3bddbc499654a07f151cba08f6153988714/pathspec-1.1.1-py3-none-any.whl (57 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 57.3/57.3 kB 700.5 kB/s eta 0:00:00
+Collecting librt>=0.13.0 (from mypy->path-planning-lab==0.1.0)
+  Downloading http://mirrors.aliyun.com/pypi/packages/90/ef/db98f744ca50e6efc9c95c70ee49b77aefac31f6a3fc7c83754a42d6a74f/librt-0.13.0-cp312-cp312-macosx_11_0_arm64.whl (155 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 155.2/155.2 kB 385.2 kB/s eta 0:00:00
+Collecting ast-serialize<1.0.0,>=0.6.0 (from mypy->path-planning-lab==0.1.0)
+  Downloading http://mirrors.aliyun.com/pypi/packages/c1/f6/ec7ec652c51db77c2f61d8573338e13e4704303265ccc658cb4031d9f354/ast_serialize-0.6.0-cp39-abi3-macosx_11_0_arm64.whl (1.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.2/1.2 MB 879.1 kB/s eta 0:00:00
+Collecting iniconfig>=1.0.1 (from pytest->path-planning-lab==0.1.0)
+  Downloading http://mirrors.aliyun.com/pypi/packages/cb/b1/3846dd7f199d53cb17f49cba7e651e9ce294d8497c8c150530ed11865bb8/iniconfig-2.3.0-py3-none-any.whl (7.5 kB)
+Collecting pluggy<2,>=1.5 (from pytest->path-planning-lab==0.1.0)
+  Downloading http://mirrors.aliyun.com/pypi/packages/54/20/4d324d65cc6d9205fabedc306948156824eb9f0ee1633355a8f7ec5c66bf/pluggy-1.6.0-py3-none-any.whl (20 kB)
+Collecting pygments>=2.7.2 (from pytest->path-planning-lab==0.1.0)
+  Downloading http://mirrors.aliyun.com/pypi/packages/f4/7e/a72dd26f3b0f4f2bf1dd8923c85f7ceb43172af56d63c7383eb62b332364/pygments-2.20.0-py3-none-any.whl (1.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.2/1.2 MB 1.0 MB/s eta 0:00:00
+Collecting coverage>=7.10.6 (from coverage[toml]>=7.10.6->pytest-cov->path-planning-lab==0.1.0)
+  Downloading http://mirrors.aliyun.com/pypi/packages/06/d1/da99af464c335d4e023a6efcd7ec30f63b88a43c93745154ab74ffb31cea/coverage-7.15.2-cp312-cp312-macosx_11_0_arm64.whl (221 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 221.9/221.9 kB 419.3 kB/s eta 0:00:00
+Collecting six>=1.5 (from python-dateutil>=2.7->matplotlib->path-planning-lab==0.1.0)
+  Downloading http://mirrors.aliyun.com/pypi/packages/b7/ce/149a00dd41f10bc29e5921b496af8b574d8413afcd5e30dfa0ed46c2cc5e/six-1.17.0-py2.py3-none-any.whl (11 kB)
+Collecting cffi>=1.17.1 (from moocore->deap->path-planning-lab==0.1.0)
+  Downloading http://mirrors.aliyun.com/pypi/packages/4b/92/e7bb136ad6b5352603732cf907ef862ca103f20f2031c1735a46300c20c9/cffi-2.1.0-cp312-cp312-macosx_11_0_arm64.whl (184 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 184.7/184.7 kB 556.7 kB/s eta 0:00:00
+Collecting platformdirs (from moocore->deap->path-planning-lab==0.1.0)
+  Downloading http://mirrors.aliyun.com/pypi/packages/81/e6/cd9575ac904136b3cbf7aa7ee819ef86eedb7274e46f230e94ea4342e729/platformdirs-4.10.0-py3-none-any.whl (22 kB)
+Collecting pycparser (from cffi>=1.17.1->moocore->deap->path-planning-lab==0.1.0)
+  Downloading http://mirrors.aliyun.com/pypi/packages/0c/c3/44f3fbbfa403ea2a7c779186dc20772604442dde72947e7d01069cbe98e3/pycparser-3.0-py3-none-any.whl (48 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 48.2/48.2 kB 201.3 kB/s eta 0:00:00
+Checking if build backend supports build_editable: started
+Checking if build backend supports build_editable: finished with status 'done'
+Building wheels for collected packages: path-planning-lab
+  Building editable for path-planning-lab (pyproject.toml): started
+  Building editable for path-planning-lab (pyproject.toml): finished with status 'done'
+  Created wheel for path-planning-lab: filename=path_planning_lab-0.1.0-0.editable-py3-none-any.whl size=2170 sha256=edee4c1b86a0fbdf59b024d554d0114bc0899a68587eb8ae027c03e7f9c552e1
+  Stored in directory: /Users/jiaxulong/Desktop/PathPlanningLab/.tmp/pip-ephem-wheel-cache-3o8_p9kb/wheels/2b/7c/be/6e4937c822bf5b41a63e10f7b5a1f9fc645f367b4703bc0243
+Successfully built path-planning-lab
+Installing collected packages: typing_extensions, six, ruff, PyYAML, pyparsing, pygments, pycparser, pluggy, platformdirs, pillow, pathspec, packaging, numpy, mypy_extensions, librt, kiwisolver, iniconfig, fonttools, cycler, coverage, ast-serialize, python-dateutil, pytest, mypy, contourpy, cffi, pytest-cov, pandas, moocore, matplotlib, deap, path-planning-lab
+Successfully installed PyYAML-6.0.3 ast-serialize-0.6.0 cffi-2.1.0 contourpy-1.3.3 coverage-7.15.2 cycler-0.12.1 deap-1.4.4 fonttools-4.63.0 iniconfig-2.3.0 kiwisolver-1.5.0 librt-0.13.0 matplotlib-3.11.0 moocore-0.3.2 mypy-2.3.0 mypy_extensions-1.1.0 numpy-2.5.1 packaging-26.2 pandas-3.0.3 path-planning-lab-0.1.0 pathspec-1.1.1 pillow-12.3.0 platformdirs-4.10.0 pluggy-1.6.0 pycparser-3.0 pygments-2.20.0 pyparsing-3.3.2 pytest-9.1.1 pytest-cov-7.1.0 python-dateutil-2.9.0.post0 ruff-0.15.22 six-1.17.0 typing_extensions-4.16.0
+
+[notice] A new release of pip is available: 24.0 -> 26.1.2
+[notice] To update, run: /Users/jiaxulong/Desktop/PathPlanningLab/.venv/bin/python -m pip install --upgrade pip
+[install_exit_code] 0

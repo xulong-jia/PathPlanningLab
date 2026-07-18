@@ -2,37 +2,37 @@
 
 ## 当前总体状态
 
-Planning Baseline Ready
+Stage 1 Active
 
 ## 当前分支
 
-main
+`feature/path-planning-100`
 
 ## 当前阶段
 
-阶段1尚未开始
+阶段1
 
 ## 当前任务
 
-S1-T01 安全门禁与记录制度落地 — Not Started；本轮没有正式开始该任务。
+S1-T03 GridMap 与移动规则 — Not Started
 
 ## Repository Status
 
 - Remote：`origin`
 - Fetch/Push URL：`git@github.com:xulong-jia/PathPlanningLab.git`
 - Upstream：`main` → `origin/main`
-- 已推送的计划基线：`f2c9703ca6652843713efae28b59e6ab5ecbffd3`
-- Feature分支：尚未创建
+- 当前本地与远程基线：`23f08f5a61b8317d6837c0157057904637a58447`
+- Feature分支：`feature/path-planning-100`，基点为上述`main`基线；尚未设置远程上游
 
 ## 任务统计
 
 - 全部任务数：42
-- 已完成任务数：0
-- Verified任务数：0
+- 已完成任务数：2
+- Verified任务数：2
 - In Progress任务数：0
 - Partially Verified任务数：0
 - Blocked任务数：0
-- 实施任务完成度：0.00%
+- 实施任务完成度：4.76%
 
 ## 100%验收统计
 
@@ -42,15 +42,15 @@ S1-T01 安全门禁与记录制度落地 — Not Started；本轮没有正式开
 
 ## 最近一次验证
 
-2026-07-18 19:23 AEST完成仓库状态对齐前置检查：项目路径正确；当前分支为`main`；工作区干净；仅有`origin`且Fetch/Push URL均为`git@github.com:xulong-jia/PathPlanningLab.git`；`main`跟踪`origin/main`；本地HEAD与远程main均为`f2c9703ca6652843713efae28b59e6ab5ecbffd3`；42项任务与29项验收均未开始。
+2026-07-18 20:08 AEST完成S1-T02验证：从`main`基线`23f08f5a61b8317d6837c0157057904637a58447`创建`feature/path-planning-100`并保留S1-T01合法修改；Python 3.12.2项目内环境安装成功；包导入测试1 passed；`pip check`、Ruff、format、strict mypy与diff检查均通过；32条精确lock无绝对路径。
 
 ## 最近一个checkpoint commit
 
-`ba9112c1b3d7aa6b362241400748a5078a7f78b7` — `docs: reconcile repository baseline after remote setup`
+`23f08f5a61b8317d6837c0157057904637a58447` — `docs: record repository baseline reconciliation`；S1-T01按计划未创建commit。
 
 ## 下一项任务
 
-S1-T01 安全门禁与记录制度落地。
+S1-T03 GridMap 与移动规则（Not Started）。
 
 ## Blocked原因
 
@@ -88,4 +88,4 @@ S1-T01 安全门禁与记录制度落地。
 | 技术报告 | Not Started | S7-T05、S8-T05 | 尚无执行证据 |
 | 简历技术表述逐项证据 | Not Started | S7-T05、S8-T05 | 尚无执行证据 |
 | Git工作区干净 | Not Started | S8-T06 | 尚无执行证据 |
-| 旧材料哈希未变化 | Not Started | S1-T01、S8-T06 | 尚无执行证据 |
+| 旧材料哈希未变化 | Not Started | S1-T01、S8-T06 | S1-T01基线部分已完成：`legacy_hashes.before.sha256`及metadata；待S8-T06生成after并执行cmp |

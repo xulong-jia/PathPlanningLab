@@ -4,14 +4,34 @@ A reproducible four-algorithm grid path planning project implementing Dijkstra, 
 
 ## Current Status
 
-Planning baseline created. Implementation has not started.
+Stage 1 implementation is in progress. The shared Python package skeleton is
+installable; algorithms are intentionally out of scope until later stages.
 
 ## Repository Status
 
 - Local Git repository initialized.
 - GitHub remote `origin` connected at `git@github.com:xulong-jia/PathPlanningLab.git`.
 - Local `main` tracks `origin/main`.
-- Implementation tasks completed: 0 / 42.
+- Implementation tasks completed: 2 / 42.
+
+## Development Setup
+
+Requires Python 3.11 or newer. Create the project-local environment and install
+the declared development dependencies:
+
+```bash
+/opt/homebrew/bin/python3 -m venv .venv
+.venv/bin/python -m pip install -e ".[dev]"
+```
+
+Run the current checks with:
+
+```bash
+.venv/bin/python -m pytest -q
+.venv/bin/ruff check .
+.venv/bin/ruff format --check .
+.venv/bin/mypy src
+```
 
 ## Documentation
 

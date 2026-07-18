@@ -68,3 +68,49 @@
 - Commit：`ba9112c1b3d7aa6b362241400748a5078a7f78b7` — `docs: reconcile repository baseline after remote setup`
 - 已知问题：无
 - 下一任务：S1-T01 安全门禁与记录制度落地（仍为Not Started，本轮不执行）
+
+## 2026-07-18 19:50 — S1-T01 安全门禁与记录制度落地
+
+- 开始状态：Not Started
+- 完成状态：Verified
+- 创建文件：`docs/audit/legacy_hashes.before.sha256`、`docs/audit/legacy_baseline_metadata.md`、`results/verification/S1-T01.txt`
+- 修改文件：`docs/superpowers/plans/2026-07-18-path-planning-lab.md`、`docs/progress/PROJECT_STATUS.md`、`docs/progress/WORK_LOG.md`、`docs/progress/HANDOFF.md`
+- 实施内容：在任何项目写入前验证项目路径、main、clean、唯一origin、固定Fetch/Push URL、origin/main上游和本地/远程HEAD；将任务置为In Progress后，只读枚举旧目录全部普通文件，以NUL分隔、`LC_ALL=C`稳定排序和SHA-256生成75条相对路径清单；记录文件/目录/字节统计、固定聚合算法、Git现场和旧材料保护声明；核验任务与恢复制度；按同一算法在项目内部临时文件二次重算并逐字节比较，随后删除临时文件。
+- RED命令：不适用；本任务无生产代码。开始前shell门禁为测试先行，任一失败均要求Blocked。
+- 执行命令：完整命令、关键输出和逐项退出码见`results/verification/S1-T01.txt`；包括Git门禁、NUL安全统计、哈希生成、42/42/29计数、记录制度断言、规定`test`/`grep`、二次重算、`cmp`和`git diff --check`。
+- 命令退出码：所有成功门禁均为0；禁止绝对路径的`grep -F '/Users/jiaxulong/' ...`按预期无输出并退出1；首次TASKS无重复清单辅助计数因无匹配输出为空而退出1，改为显式归零后退出0。
+- 测试结果：shell验收通过；执行清单42项、详细任务42项、100%验收映射29项；哈希清单75行；二次重算`cmp`退出0。
+- Ruff结果：不适用；本任务无Python代码。
+- mypy结果：不适用；本任务无Python代码。
+- 覆盖率：不适用；本任务无生产代码。
+- Diff审查：`git diff --check`退出0；变更仅包含S1-T01允许的7个项目文件；TASKS.md未修改；无算法、依赖、环境、remote或旧材料变更。
+- 完成证据：`results/verification/S1-T01.txt`、`docs/audit/legacy_hashes.before.sha256`、`docs/audit/legacy_baseline_metadata.md`、本条只追加记录。
+- 旧材料保护：未运行Python、Notebook、宏或旧可执行文件；未修改、移动、重命名或删除旧文件；未在旧目录创建缓存、日志或临时文件。
+- 100%验收项：旧材料哈希未变化仍不整体标记Verified；S1-T01的before基线部分已完成，待S8-T06生成after并逐字节比较。
+- Git：保持`main`；HEAD与`origin/main`均为`23f08f5a61b8317d6837c0157057904637a58447`；未创建feature分支；未修改remote。
+- Commit：无；按计划由S1-T02的`chore: initialize path planning lab` checkpoint一并提交。
+- Push：无。
+- 已知问题：无。
+- 完成度：1/42 Verified，2.38%；29项最终验收仍为0项整体Verified。
+- 下一任务：S1-T02 Python工程与 feature 分支初始化 — Not Started；本轮未开始。
+
+## 2026-07-18 20:08 — S1-T02 Python工程与 feature 分支初始化
+
+- 开始状态：Not Started
+- 完成状态：Verified
+- 创建文件：`pyproject.toml`、`requirements.lock`、`src/path_planning/__init__.py`及六个子包`__init__.py`、`tests/test_package_import.py`、`.venv/`（忽略）、`results/verification/S1-T02-red.txt`、`S1-T02-install.txt`、`S1-T02.txt`
+- 修改文件：`README.md`、实施计划、PROJECT_STATUS、WORK_LOG；现有`.gitignore`已覆盖全部项目内环境与缓存，无需扩大规则
+- 实施内容：确认仅有S1-T01合法未提交改动且`main`与`origin/main`同为`23f08f5a61b8317d6837c0157057904637a58447`；从该基点创建`feature/path-planning-100`；建立setuptools `src`布局、Python≥3.11约束、获准runtime/dev依赖、pytest/coverage/Ruff/strict mypy配置和无副作用最小包；使用Python 3.12.2创建项目内`.venv`并editable安装；用`pip freeze --all --exclude-editable`生成32条精确lock。
+- RED命令：`/opt/homebrew/bin/python3 tests/test_package_import.py`，退出1；预期原因`ModuleNotFoundError: No module named 'path_planning'`。
+- 执行命令：`.venv/bin/python -m pip check`、包版本导入、目标pytest、Ruff check、Ruff format check、mypy src、feature分支断言、lock绝对路径检查和`git diff --check`。
+- 命令退出码：全部最终门禁为0；lock绝对路径`grep`无匹配退出1为预期成功。
+- 测试结果：1 passed，0 failed，0 skipped。
+- Ruff结果：`ruff check .`与`ruff format --check .`均通过。
+- mypy结果：strict mypy通过，7个source files无问题。
+- 覆盖率：本任务不设覆盖率门禁；包导入行为由目标测试覆盖。
+- Diff审查：`git diff --check`退出0；`.venv`和项目缓存均被忽略；无S2文件、旧材料或remote变更。
+- 完成证据：`results/verification/S1-T02-red.txt`、`results/verification/S1-T02-install.txt`、`results/verification/S1-T02.txt`、`requirements.lock`。
+- Commit：实现checkpoint待本条记录落地后创建；完整hash由后续只追加账本记录补记。
+- 已知问题：无。
+- 完成度：2/42 Verified，4.76%。
+- 下一任务：S1-T03 GridMap 与移动规则 — Not Started。

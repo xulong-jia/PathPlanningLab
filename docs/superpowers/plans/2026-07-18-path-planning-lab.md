@@ -10,8 +10,8 @@
 
 ## 执行清单
 
-- [ ] S1-T01 安全门禁与记录制度落地
-- [ ] S1-T02 Python工程与 feature 分支初始化
+- [x] S1-T01 安全门禁与记录制度落地
+- [x] S1-T02 Python工程与 feature 分支初始化
 - [ ] S1-T03 GridMap 与移动规则
 - [ ] S1-T04 统一结果与 Planner 接口
 - [ ] S1-T05 路径验证与统一指标
@@ -317,8 +317,8 @@ flowchart LR
 
 | 任务ID | 阶段 | 任务名称 | 前置任务 | 主要产物 | 验证门禁 | 状态 | 完成证据 | Commit |
 |---|---|---|---|---|---|---|---|---|
-| S1-T01 | 1 | 安全门禁与记录制度落地 | 无 | 旧材料基线哈希、安全门禁记录 | 路径、Git、记录结构、旧哈希检查 | Not Started | `S1-T01.txt`、`legacy_hashes.before.sha256` | 不单独提交 |
-| S1-T02 | 1 | Python工程与 feature 分支初始化 | S1-T01 | `pyproject.toml`、`.venv`、lock、包骨架、feature分支 | 安装、import、pip check、Ruff、mypy、分支基点 | Not Started | `S1-T02.txt` | `chore: initialize path planning lab` |
+| S1-T01 | 1 | 安全门禁与记录制度落地 | 无 | 旧材料基线哈希、安全门禁记录 | 路径、Git、记录结构、旧哈希检查 | Verified | `S1-T01.txt`、`legacy_hashes.before.sha256` | 不单独提交 |
+| S1-T02 | 1 | Python工程与 feature 分支初始化 | S1-T01 | `pyproject.toml`、`.venv`、lock、包骨架、feature分支 | 安装、import、pip check、Ruff、mypy、分支基点 | Verified | `S1-T02.txt` | `chore: initialize path planning lab` |
 | S1-T03 | 1 | GridMap 与移动规则 | S1-T02 | `types.py`、`grid.py`、`movement.py` | 单元测试、Ruff、mypy | Not Started | `S1-T03.txt` | 归入 S1-T08 |
 | S1-T04 | 1 | 统一结果与 Planner 接口 | S1-T03 | `result.py`、`base.py` | 结果不变量、JSON、import 测试 | Not Started | `S1-T04.txt` | 归入 S1-T08 |
 | S1-T05 | 1 | 路径验证与统一指标 | S1-T04 | `validation.py`、`metrics.py` | 合法/非法/无路径边界测试 | Not Started | `S1-T05.txt` | 归入 S1-T08 |
@@ -409,7 +409,7 @@ flowchart LR
 13. **风险和边界：**仓库、remote、upstream或关键旧哈希漂移，或旧文件数量异常时立即`Blocked`；不得用重新初始化、pull、merge、rebase或force修复。
 14. **Checkpoint：**不允许；尚未建立质量工具。
 15. **Commit message：**由 S1-T02 纳入 `chore: initialize path planning lab`。
-16. **当前状态：**Not Started。
+16. **当前状态：**Verified。
 
 ### S1-T02 Python工程与 feature 分支初始化
 
@@ -448,7 +448,7 @@ flowchart LR
 13. **风险：**main、origin/upstream或分支基点漂移，安装同一方案失败两次、未批准依赖解析或Git identity缺失时停止。
 14. **Checkpoint：**允许。
 15. **Commit：**`chore: initialize path planning lab`。
-16. **状态：**Not Started。
+16. **状态：**Verified。
 
 ### S1-T03 GridMap 与移动规则
 
@@ -1972,4 +1972,4 @@ git log -5 --oneline
 - 最终停留在`feature/path-planning-100`，不merge、rebase或tag；任何后续push必须另获明确授权，且不得force push。
 - 使用“实现 checkpoint + hash 账本 commit”的双提交记录协议。
 
-当前下一任务为S1-T01，状态仍为Not Started；本轮仓库状态对齐不构成开始S1-T01的授权。
+S1-T01至S1-T02已Verified；当前下一任务为S1-T03，状态为Not Started。

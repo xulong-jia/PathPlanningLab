@@ -482,3 +482,12 @@
 - 真实失败与更正：首次直接调用`pytest`、`ruff`、`mypy`时，非交互shell的`PATH`未包含项目虚拟环境，三个命令均以`command not found`退出127；确认`.venv/bin`中的既有工具后改用显式路径，未安装依赖或修改环境，复验全部通过。
 - 账本commit：本条与PROJECT_STATUS、HANDOFF及实施计划checkpoint表更新将以`docs: record stage 3 checkpoint`独立提交。
 - 下一步：确认远端未领先后普通push本地`main`到`origin/main`，重新fetch并完成发布状态记录；S4-T01保持Not Started。
+
+## 2026-07-18 22:27 — S3首次发布与最终状态记录
+
+- 操作性质：发布S3合法提交并只追加最终状态记录，不改变任务或验收状态，不开始S4。
+- 提交：实现checkpoint `8575a8e02c1c907a7205fe2b0cb854752bc46443`；hash账本commit `f62a720197ba8dd48e87ee3ce48bb90d0de8b820`。
+- Push：fetch确认远端未领先、本地仅安全领先2个提交后，执行普通`git push origin main`成功；范围为`3d79df9..f62a720`，未force。
+- Remote：唯一remote及Fetch/Push URL未变化；未创建分支、worktree、PR或tag。
+- 本记录：修正PROJECT_STATUS与HANDOFF中的publication pending状态，补记账本hash；将以`docs: record stage 3 publication`提交并在同轮执行最终普通push。
+- 下一步：最终push后重新fetch，确认本地`main`与`origin/main`完全一致、工作区干净且S4-T01仍Not Started，然后立即停止。

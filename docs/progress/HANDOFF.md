@@ -10,7 +10,7 @@
 
 ## Git状态
 
-S1与S2已完整发布到`origin/main`。S3全部任务和预验收已Verified，实现checkpoint已创建，hash账本commit和普通push待当前收尾步骤完成。当前仅保留本地`main`及远端`origin/main`；唯一remote仍为`origin`，Fetch/Push URL均为`git@github.com:xulong-jia/PathPlanningLab.git`，remote配置未修改，未创建tag或PR。
+S1、S2和S3的实现checkpoint及hash账本commit已完整发布到`origin/main`；最终状态记录待本次提交后普通push。当前仅保留本地`main`及远端`origin/main`；唯一remote仍为`origin`，Fetch/Push URL均为`git@github.com:xulong-jia/PathPlanningLab.git`，remote配置未修改，未创建tag或PR。
 
 ## 当前阶段
 
@@ -52,7 +52,7 @@ S3新增`aco.py`、ACO baseline配置、构路/信息素/Planner/集成/seed/leg
 
 S3实现checkpoint：`8575a8e02c1c907a7205fe2b0cb854752bc46443` — `feat: implement grid-based ant colony planner`。
 
-S3账本commit：待创建 — `docs: record stage 3 checkpoint`。
+S3账本commit：`f62a720197ba8dd48e87ee3ce48bb90d0de8b820` — `docs: record stage 3 checkpoint`。
 
 ## 未解决问题
 
@@ -64,7 +64,7 @@ Standard Benchmark 和调优耗时较长；现有`.git`、`origin`或`main`上�
 
 ## 下一步
 
-完成S3 checkpoint、账本、普通push和远端复核后立即停止；不得开始S4，S4-T01保持Not Started。
+完成本次最终状态记录的普通push和远端复核后立即停止；不得开始S4，S4-T01保持Not Started。
 
 ## 新会话恢复指令
 

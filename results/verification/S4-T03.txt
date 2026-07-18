@@ -1,0 +1,60 @@
+# S4-T03 verification transcript
+
+Status: Verified implementation evidence; independent quality approval pending.
+
+## RED
+
+`$ .venv/bin/python -m pytest tests/unit/test_ga_planner.py -q`
+
+- 2 failed in 0.09s, exit 1.
+- Both selection cases failed because `select_population` did not exist.
+- Full output: `results/verification/S4-T03-red.txt`.
+
+Incremental evolution RED:
+
+- 1 failed, 5 passed in 0.09s, exit 1.
+- Failure: `evolve_population` did not exist.
+
+## Corrections retained
+
+- First evolution GREEN: 1 failed, 5 passed; an insertion-position error made the existing evaluator return `None`. Restored the original T01 return block before selection code.
+- Expanded elite test: 1 failed, 9 passed; the test incorrectly required the initial runner-up identity after multiple generations even when duplicate better descendants outranked it. Restricted the assertion to one generation, directly proving both configured elites are copied.
+- First static gate: behavior 48 passed; Ruff reported one E501/format issue and strict mypy reported three dynamic DEAP fitness typing issues. Mechanical layout and explicit best-source/score handling corrected them without suppressing checks.
+
+## Final commands
+
+`$ .venv/bin/python -m pytest tests/unit/test_ga_planner.py -q`
+
+- 10 passed in 0.25s, exit 0.
+
+`$ .venv/bin/python -m pytest tests/unit/test_ga_fitness.py tests/unit/test_ga_operators.py tests/unit/test_ga_planner.py -q`
+
+- 48 passed in 0.26s, exit 0.
+
+`$ .venv/bin/ruff check src/path_planning/algorithms/genetic.py tests/unit/test_ga_planner.py`
+
+- All checks passed, exit 0.
+
+`$ .venv/bin/ruff format --check src/path_planning/algorithms/genetic.py tests/unit/test_ga_planner.py`
+
+- 2 files already formatted, exit 0.
+
+`$ .venv/bin/mypy --strict src/path_planning/algorithms/genetic.py`
+
+- Success: no issues found in 1 source file, exit 0.
+
+`$ .venv/bin/python -m pytest -q`
+
+- 294 passed in 2.40s, exit 0.
+
+`$ git diff --check`
+
+- exit 0.
+
+`$ cmp HEAD WORK_LOG prefix`
+
+- append-only prefix unchanged, exit 0.
+
+## Boundary
+
+No `GeneticPlanner.plan()`, reachability-result integration, fixed-seed planner regression, final metadata/config digest, deterministic fallback, commit, push, branch/worktree, S4-T04, or S5 work was performed.

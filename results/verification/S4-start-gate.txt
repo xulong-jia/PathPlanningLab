@@ -1,0 +1,278 @@
+S4_START_GATE
+scope=S4 only; S5 forbidden
+risk=Medium
+recovery_note=An earlier relative apply_patch mistakenly created two new files and four directories under the read-only legacy root. Work stopped immediately. After explicit user authorization, only those known files and empty directories were removed. The complete legacy baseline below proves restoration before S4 implementation.
+
+## timestamp
+$ date '+%Y-%m-%dT%H:%M:%S%z'
+exit_code=0
+2026-07-18T22:52:29+1000
+
+## fetch_prune
+$ git fetch --prune origin
+exit_code=0
+
+## pwd
+$ pwd
+exit_code=0
+/Users/jiaxulong/Desktop/PathPlanningLab
+
+## git_root
+$ git rev-parse --show-toplevel
+exit_code=0
+/Users/jiaxulong/Desktop/PathPlanningLab
+
+## branch
+$ git branch --show-current
+exit_code=0
+main
+
+## head
+$ git rev-parse HEAD
+exit_code=0
+e73a1bef42b9bd06cabd28e4f37b5d03daaa3184
+
+## origin_main
+$ git rev-parse origin/main
+exit_code=0
+e73a1bef42b9bd06cabd28e4f37b5d03daaa3184
+
+## upstream
+$ git rev-parse --abbrev-ref --symbolic-full-name '@{upstream}'
+exit_code=0
+origin/main
+
+## ahead_behind
+$ git rev-list --left-right --count 'HEAD...@{upstream}'
+exit_code=0
+0	0
+
+## status_porcelain
+$ git status --porcelain=v1
+exit_code=0
+
+## remote_count
+$ git remote
+exit_code=0
+origin
+
+## fetch_url
+$ git remote get-url --all origin
+exit_code=0
+git@github.com:xulong-jia/PathPlanningLab.git
+
+## push_url
+$ git remote get-url --push --all origin
+exit_code=0
+git@github.com:xulong-jia/PathPlanningLab.git
+
+## local_branches
+$ git for-each-ref '--format=%(refname:short) %(objectname)' refs/heads
+exit_code=0
+main e73a1bef42b9bd06cabd28e4f37b5d03daaa3184
+
+## remote_branches
+$ git for-each-ref '--format=%(refname:short) %(objectname)' refs/remotes
+exit_code=0
+origin e73a1bef42b9bd06cabd28e4f37b5d03daaa3184
+origin/main e73a1bef42b9bd06cabd28e4f37b5d03daaa3184
+
+## local_tags
+$ git tag --list '--format=%(refname:short) %(objectname)'
+exit_code=0
+
+## remote_tags
+$ git ls-remote --tags origin
+exit_code=0
+
+## worktrees
+$ git worktree list --porcelain
+exit_code=0
+worktree /Users/jiaxulong/Desktop/PathPlanningLab
+HEAD e73a1bef42b9bd06cabd28e4f37b5d03daaa3184
+branch refs/heads/main
+
+
+## open_prs
+$ gh pr list --state open --json number,title,headRefName,baseRefName
+exit_code=0
+[]
+
+## checklist_count
+$ rg -c '^- \[[ x]\] S[1-8]-T[0-9]{2} ' docs/superpowers/plans/2026-07-18-path-planning-lab.md
+exit_code=0
+42
+
+## detail_count
+$ rg -c '^### S[1-8]-T[0-9]{2} ' docs/superpowers/plans/2026-07-18-path-planning-lab.md
+exit_code=0
+42
+
+## acceptance_count
+$ awk '/^## 5[.] 100%验收映射表/{section=1; next} /^---$/{if(section) exit} section && /^\|/ {rows++} END {print rows-2}' docs/superpowers/plans/2026-07-18-path-planning-lab.md
+exit_code=0
+29
+
+## s1_verified
+$ rg -c '^- \[x\] S1-T[0-9]{2} ' docs/superpowers/plans/2026-07-18-path-planning-lab.md
+exit_code=0
+8
+
+## s2_verified
+$ rg -c '^- \[x\] S2-T[0-9]{2} ' docs/superpowers/plans/2026-07-18-path-planning-lab.md
+exit_code=0
+4
+
+## s3_verified
+$ rg -c '^- \[x\] S3-T[0-9]{2} ' docs/superpowers/plans/2026-07-18-path-planning-lab.md
+exit_code=0
+4
+
+## first_unchecked
+$ rg -m 1 '^- \[ \] S[1-8]-T[0-9]{2} ' docs/superpowers/plans/2026-07-18-path-planning-lab.md
+exit_code=0
+- [ ] S4-T01 GA 配置、DEAP 类型、初始化与适应度
+
+## legacy_files
+$ find . -type f -print | wc -l
+exit_code=0
+      75
+
+## legacy_dirs
+$ find . -mindepth 1 -type d -print | wc -l
+exit_code=0
+      21
+
+## legacy_bytes
+$ find . -type f -exec stat -f %z {} + | awk '{ total += $1 } END { print total }'
+exit_code=0
+74097025
+
+## legacy_hash_check
+$ shasum -a 256 -c '/Users/jiaxulong/Desktop/PathPlanningLab/docs/audit/legacy_hashes.before.sha256'
+exit_code=0
+.DS_Store: OK
+实习/.DS_Store: OK
+实习/6.26-8.26.zip: OK
+实习/~$贾旭龙-简历.docx: OK
+实习/结束/.DS_Store: OK
+实习/结束/RL-贾旭龙Xulong Jia-Lingzhong Meng.docx: OK
+实习/结束/截屏2023-09-12 22.04.10.png: OK
+实习/结束/贾旭龙-项目收获.docx: OK
+实习/结束/贾旭龙实习证明.pdf: OK
+实习/过程/.DS_Store: OK
+实习/过程/基于深度学习的路径规划算法.docx: OK
+实习/过程/第1周6.26-7.2/.DS_Store: OK
+实习/过程/第1周6.26-7.2/实习周报——第一周.xlsx: OK
+实习/过程/第2周7.3-7.9/实习周报——第二周.xlsx: OK
+实习/过程/第3周7.10-7.16/实习周报——第三周.xlsx: OK
+实习/过程/第3周7.10-7.16/蚁群算法.docx: OK
+实习/过程/第4周7.17-7.23/实习周报——第四周.xlsx: OK
+实习/过程/第4周7.17-7.23/蚁群算法.docx: OK
+实习/过程/第5周7.24-7.30/实习周报——第五周.xlsx: OK
+实习/过程/第5周7.24-7.30/蚁群算法总结.docx: OK
+实习/过程/第6周7.31-8.6/ACO.py: OK
+实习/过程/第6周7.31-8.6/实习周报——第六周.xlsx: OK
+实习/过程/第6周7.31-8.6/蚁群算法总结2.docx: OK
+实习/过程/第7周8.7-8.13/.DS_Store: OK
+实习/过程/第7周8.7-8.13/实习周报——第七周.xlsx: OK
+实习/过程/第7周8.7-8.13/遗传算法.docx: OK
+实习/过程/第8周8.14-8.20/GA.py: OK
+实习/过程/第8周8.14-8.20/test.txt: OK
+实习/过程/第8周8.14-8.20/实习周报——第八周.xlsx: OK
+实习/过程/第8周8.14-8.20/遗传算法总结.docx: OK
+实习/过程/第9周8.21-8.26/.DS_Store: OK
+实习/过程/第9周8.21-8.26/GA.py: OK
+实习/过程/第9周8.21-8.26/test.txt: OK
+实习/过程/第9周8.21-8.26/实习周报——第九周.xlsx: OK
+实习/过程/第9周8.21-8.26/遗传算法总结.docx: OK
+论文/.DS_Store: OK
+论文/CDS_1099_Invoice.pdf: OK
+论文/EI.png: OK
+论文/Final draft/贾旭龙 CONF-CDS2023 投稿(1).docx: OK
+论文/Final draft/贾旭龙 CONF-CDS2023 投稿(1).pdf: OK
+论文/Final draft/贾旭龙 CONF-CDS2023 投稿.pdf: OK
+论文/First draft/14%.pdf: OK
+论文/First draft/First draft.docx: OK
+论文/First draft/Research and Application of Path Planning Algorithm Based on Deep Learning zh.pdf: OK
+论文/First draft/Research and Application of Path Planning Algorithm Based on Deep Learning——First draft.docx: OK
+论文/Research and Application of Path Planning Algorithm Based on Deep Learning.pdf: OK
+论文/Second draft/11%.pdf: OK
+论文/Second draft/Research and Application of Path Planning Algorithm Based on Deep Learning——Second draft.docx: OK
+论文/Third draft/Research and Application of Path Planning Algorithm Based on Deep Learning——Third draft.docx: OK
+论文/作业/3.19 Neural Networks with Python 时间规划表.pdf: OK
+论文/作业/论文作业 1 Assignment preparation.doc: OK
+论文/作业/论文作业2 Assignment 大纲.doc: OK
+论文/作业/论文初稿写作要求及框架.pdf: OK
+论文/反馈/.DS_Store: OK
+论文/反馈/贾旭龙-审稿意见.pdf: OK
+论文/反馈/贾旭龙二稿反馈(1).docx: OK
+论文/反馈/贾旭龙初稿反馈(1).docx: OK
+论文/论文图片/.DS_Store: OK
+论文/论文图片/1.png: OK
+论文/论文图片/2.png: OK
+论文/论文图片/流程图.pos: OK
+论文/论文投稿确认书-贾旭龙.docx: OK
+论文/论文文献/.DS_Store: OK
+论文/论文文献/A~_算法在移动机器人路径规划中的研究_鲁毅.pdf: OK
+论文/论文文献/algorithms-11-00044.pdf: OK
+论文/论文文献/一种LSTM与CNN相结合的步态识别方法_戚艳军.pdf: OK
+论文/论文文献/基于Dijkstra算法的平滑路径规划方法_巩慧.pdf: OK
+论文/论文文献/基于深度强化学习的机器人路径规划_齐嵘.pdf: OK
+论文/论文文献/基于神经网络的多变量混沌时间序列建模和预测_王海丹.pdf: OK
+论文/论文文献/基于路径优化的A~_算法与...jkstra算法的性能比较_刘云翔.pdf: OK
+论文/论文文献/机器人导航的路径规划算法研究综述_崔炜.pdf: OK
+论文/论文文献/神经网络控制结构及所用神经网络_徐丽娜.pdf: OK
+论文/论文文献/面向土方工程实景建模的无人机航迹规划研究_高玉月.pdf: OK
+论文/贾旭龙-录用通知-CONF-CDS2023.docx: OK
+论文/贾旭龙-录用通知-CONF-CDS2023.pdf: OK
+
+## legacy_manifest_hash
+$ shasum -a 256 docs/audit/legacy_hashes.before.sha256
+exit_code=0
+f534b2543beb31e8f0253001b96494b0086b4b085a340d8d4ae4d33e10c91e8e  docs/audit/legacy_hashes.before.sha256
+
+## baseline_tests
+$ env TMPDIR='/Users/jiaxulong/Desktop/PathPlanningLab/.tmp' PIP_CACHE_DIR='/Users/jiaxulong/Desktop/PathPlanningLab/.pip-cache' XDG_CACHE_HOME='/Users/jiaxulong/Desktop/PathPlanningLab/.cache' MPLCONFIGDIR='/Users/jiaxulong/Desktop/PathPlanningLab/.mplconfig' PYTHONPYCACHEPREFIX='/Users/jiaxulong/Desktop/PathPlanningLab/.pycache' MPLBACKEND=Agg .venv/bin/python -m pytest tests -q --basetemp=.pytest-tmp/s4-restart-gate-019f753b --cov=path_planning.core --cov=path_planning.algorithms --cov-branch --cov-fail-under=90 --cov-report=term-missing --cov-report=json:.tmp/s4-restart-gate-coverage.json
+exit_code=0
+........................................................................ [ 29%]
+........................................................................ [ 58%]
+........................................................................ [ 87%]
+..............................                                           [100%]
+================================ tests coverage ================================
+_______________ coverage: platform darwin, python 3.12.2-final-0 _______________
+
+Name                                       Stmts   Miss Branch BrPart   Cover   Missing
+---------------------------------------------------------------------------------------
+src/path_planning/algorithms/__init__.py       5      0      0      0 100.00%
+src/path_planning/algorithms/aco.py          242     11     88     10  93.64%   147, 162, 202, 334, 336, 372, 422, 499, 502-503, 512
+src/path_planning/algorithms/astar.py         89      1     34      1  98.37%   101
+src/path_planning/algorithms/base.py          14      0      2      0 100.00%
+src/path_planning/algorithms/dijkstra.py      51      1     14      1  96.92%   56
+src/path_planning/core/__init__.py             7      0      0      0 100.00%
+src/path_planning/core/grid.py                45      0     12      0 100.00%
+src/path_planning/core/metrics.py             31      0     18      0 100.00%
+src/path_planning/core/movement.py            39      0     18      0 100.00%
+src/path_planning/core/result.py              62      0     30      0 100.00%
+src/path_planning/core/types.py               18      0     12      0 100.00%
+src/path_planning/core/validation.py          59      0     38      0 100.00%
+---------------------------------------------------------------------------------------
+TOTAL                                        662     13    266     12  97.31%
+Coverage JSON written to file .tmp/s4-restart-gate-coverage.json
+Required test coverage of 90% reached. Total coverage: 97.31%
+246 passed in 9.44s
+
+## low_module_gate
+$ jq -e '[.files | to_entries[] | select(.value.summary.num_statements > 0 and .value.summary.percent_covered < 90)] | length == 0' .tmp/s4-restart-gate-coverage.json
+exit_code=0
+true
+
+## skip_xfail_scan
+$ zsh -f -c 'if rg -n "@pytest\\.mark\\.(skip|xfail)|pytest\\.(skip|xfail)" tests; then exit 1; else test $? -eq 1; fi'
+exit_code=0
+
+## final_clean_status
+$ git status --porcelain=v1
+exit_code=0
+
+S4_START_GATE_RESULT=PASS

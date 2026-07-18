@@ -491,3 +491,208 @@
 - Remote：唯一remote及Fetch/Push URL未变化；未创建分支、worktree、PR或tag。
 - 本记录：修正PROJECT_STATUS与HANDOFF中的publication pending状态，补记账本hash；将以`docs: record stage 3 publication`提交并在同轮执行最终普通push。
 - 下一步：最终push后重新fetch，确认本地`main`与`origin/main`完全一致、工作区干净且S4-T01仍Not Started，然后立即停止。
+
+## 2026-07-18 22:58 — S4-T01 GA 配置、DEAP 类型、初始化与适应度
+
+- 开始状态：Not Started；controller门禁通过后置为In Progress。
+- 完成状态：Verified。
+- 创建文件：`src/path_planning/algorithms/genetic.py`、`configs/ga_baseline.yaml`、`tests/unit/test_ga_fitness.py`、`results/verification/S4-T01-red.txt`、`results/verification/S4-T01.txt`。
+- 修改文件：算法包导出、实施计划、PROJECT_STATUS、WORK_LOG。
+- 实施内容：用项目唯一且幂等的DEAP `Fitness`/`Individual` creator类型和真实`Toolbox`建立变长坐标路径个体；由局部`random.Random(seed)`派生逐个体独立随机流，以有界随机DFS和消环生成合法简单路径；fitness对合法路径计长度与转弯，对非法路径从经当前地图合法简单路径上界校验的基础惩罚开始，并叠加碰撞、重复、未到达距离、长度和转弯惩罚。
+- RED命令：`.venv/bin/python -m pytest tests/unit/test_ga_fitness.py -q`；因GA模块尚不存在在收集阶段退出2，符合预期，完整输出保存在`results/verification/S4-T01-red.txt`。
+- 验证命令：brief指定的fitness专项pytest、目标Ruff、目标strict mypy，以及完整pytest和`git diff --check`。
+- 测试结果：专项23 passed；完整269 passed；0 failed、0 skipped、0 xfailed。
+- 静态检查：目标Ruff lint/format通过；目标strict mypy通过；`git diff --check`退出0。
+- 真实失败与更正：首次GREEN专项23 passed且mypy通过；首次Ruff指出一处98字符行并退出1，仅拆分该集合推导行后，完整规定门禁全部退出0，未降低检查标准。
+- 随机与算法边界：测试证明重复import保持同一DEAP类型、真实Toolbox/Fitness/Individual生效、初始化合法简单且不推进Python全局随机状态；`genetic.py`未导入或调用A*/Dijkstra。
+- 完成证据：`results/verification/S4-T01-red.txt`、`results/verification/S4-T01.txt`、`tests/unit/test_ga_fitness.py`。
+- Commit：按S4-T05双提交协议归入阶段实现checkpoint，本任务不创建commit。
+- 完成度：17/42 Verified，40.48%；GA完整栅格实现仍待S4-T02–S4-T05，最终验收保持5/29 Verified（17.24%）。
+- 下一任务：S4-T02 GA 修复、交叉和变异 — Not Started；本任务未开始或标记S4-T02，未触碰S5。
+
+## 2026-07-18 23:12 — S4-T01 reviewer critical修复复核
+
+- 复核结论：Verified；reviewer报告的浮点严格支配Critical已关闭，不改变任务完成度或后续任务状态。
+- 回归RED：8个自由单元纯对角链下，旧上界使用`edge_count * max_step_cost`，而evaluator逐边浮点累加；以旧上界的`nextafter(+inf)`作为非法基础惩罚且附加惩罚为零时，合法与非法fitness精确同为`9.899494936611667`，严格`<`断言失败；专项结果1 failed、23 passed，exit 1。
+- 最小修复：合法简单路径上界按最多边数逐次累加`max_step_cost`，与实际fitness路径长度的逐边运算顺序一致，使配置校验得到保守上界；未使用epsilon、近似比较或放宽断言。
+- 最终测试：`tests/unit/test_ga_fitness.py`为24 passed；完整pytest为270 passed；0 failed、0 skipped、0 xfailed。
+- 最终质量门禁：目标Ruff lint/format、目标strict mypy及`git diff --check`全部exit 0。
+- 边界：未改动S4-T02/S5状态或实现；未创建commit，仍按S4-T05双提交协议归入阶段checkpoint。
+
+## 2026-07-18 23:23 — S4-T02 GA 修复、交叉和变异
+
+- 开始状态：Not Started；controller门禁通过后置为In Progress。
+- 完成状态：Verified。
+- 创建文件：`tests/unit/test_ga_operators.py`、`results/verification/S4-T02-red.txt`、`results/verification/S4-T02.txt`。
+- 修改文件：`src/path_planning/algorithms/genetic.py`、`configs/ga_baseline.yaml`、实施计划、PROJECT_STATUS、WORK_LOG。
+- 实施内容：新增先消环、定位首个非法段、以共享`iter_neighbors`执行有界随机局部DFS重连、再消环并统一验证的修复；实现`common_node`与`splice_repair`交叉、`reroute_segment`与`shortcut`变异，以及按配置概率/方法分派并返回可计数`changed`事件的薄包装。失败统一返回父代副本，不原地修改输入。
+- RED命令：`.venv/bin/python -m pytest tests/unit/test_ga_operators.py -q`；因修复、交叉、变异接口与方法配置尚不存在，11项测试全部按预期失败，完整输出保存在`results/verification/S4-T02-red.txt`。
+- 真实失败与更正：首次GREEN为10 passed、1 failed，`reroute_segment`混合拼接list切片与tuple DFS结果触发`TypeError`；仅将切片显式转tuple后专项通过。首次静态门禁随后发现Ruff测试导入/行长/format问题及mypy四处`Sequence + tuple`运算错误；按Ruff只读diff机械排版并显式归一化切片类型后，同一目标门禁全部通过，未放宽检查。
+- 测试结果：专项11 passed；完整281 passed；0 failed、0 skipped、0 xfailed。
+- 算子与失败证据：固定seed直接证明四种算子各至少一次真实改变，端点保持、输出合法简单、非法段可修复、不可修复在显式步数界内返回、父代无原地污染；变异率1时`reroute_segment`和`shortcut`均产生真实变化。
+- 随机与算法边界：所有随机性均由调用方局部`random.Random`提供且测试证明不推进全局随机状态；修复仅使用随机DFS，`genetic.py`未导入或调用A*/Dijkstra；未实现S4-T03演化循环，未触碰S5。
+- 静态检查：目标Ruff lint/format通过；目标strict mypy通过；`git diff --check`退出0。
+- 完成证据：`results/verification/S4-T02-red.txt`、`results/verification/S4-T02.txt`、`tests/unit/test_ga_operators.py`。
+- Commit：按S4-T05双提交协议归入阶段实现checkpoint，本任务不创建commit。
+- 完成度：18/42 Verified，42.86%；GA完整栅格实现仍待S4-T03–S4-T05，最终验收保持5/29 Verified（17.24%）。
+- 下一任务：S4-T03 GA 选择、精英和演化循环 — Not Started；本任务未开始或标记S4-T03，未触碰S5。
+
+## 2026-07-18 23:34 — S4-T02 reviewer Important修复复核
+
+- 复核结论：Verified；reviewer指出的metadata事件歧义已关闭，不改变任务完成度或后续任务状态。
+- 回归RED：新增固定seed三态与splice repair计数测试；旧`apply_crossover`/`apply_mutation`仅返回`changed: bool`，rate=0跳过与rate=1尝试失败均为`False`，且旧`splice_repair`只返回children/`None`。新测试分别因tuple缺少`status`、`children`和repair计数字段失败，扩展专项为3 failed、11 deselected，完整输出追加至`results/verification/S4-T02.txt`。
+- 最小修复：新增专用`SpliceRepairOutcome`、`CrossoverOutcome`、`MutationOutcome`；wrapper显式返回`skipped|succeeded|failed`，splice对实际两次repair分别累计success/failure并由crossover原样传播。未引入通用算子框架，原父代副本回退、局部`random.Random`、合法性校验及有界DFS均保持不变。
+- 测试更新：旧测试仅改为读取outcome字段，原有真实变化、端点、合法简单路径、父代不污染和失败副本断言均保留；新增rate=0、rate=1失败、成功三态及splice成功2/0、失败0/2的直接/传播断言。
+- 最终验证：算子专项14 passed；完整284 passed；目标Ruff lint/format、strict mypy及`git diff --check`全部exit 0。
+- 边界：未创建commit；S4-T03保持Not Started；未触碰S5；仍按S4-T05双提交协议归入阶段checkpoint。
+
+## 2026-07-18 23:39 — S4-T03 GA 选择、精英和演化循环开始
+
+- 依赖复核：S4-T01与S4-T02均为Verified，独立quality review均为Approved；S1、S2、S3保持Verified。
+- 状态迁移：S4-T03由Not Started置为In Progress；18/42任务仍为Verified，另有1项In Progress。
+- 实施边界：仅实现本地RNG tournament/roulette、精英保留、代数/停滞预算、每代收敛与可计数算子事件；不实现S4-T04公开planner集成、seed回归或metadata digest，不开始S5。
+- Checkpoint：按S4-T05双提交协议归入阶段实现checkpoint，本任务不创建commit。
+
+## 2026-07-18 23:48 — S4-T03 GA 选择、精英和演化循环
+
+- 开始状态：In Progress；S4-T01与S4-T02均已Verified且通过独立quality review。
+- 完成状态：Verified；未自审批准quality，交回独立spec/quality review。
+- 创建文件：`tests/unit/test_ga_planner.py`、`results/verification/S4-T03-red.txt`、`results/verification/S4-T03.txt`。
+- 修改文件：`src/path_planning/algorithms/genetic.py`、`configs/ga_baseline.yaml`、实施计划、PROJECT_STATUS、WORK_LOG。
+- 实施内容：新增validated `selection_method`和`population_size >= tournament_size`契约；用调用方局部`random.Random`实现tournament与经有限值归一化的roulette；按`elite_size`复制每代最优个体；通过T02 structured outcomes执行交叉/变异并累计三态、attempt及repair成功/失败；内部循环按最大代数或连续停滞有界退出，并记录实际代数、逐代best-so-far fitness/path cost和真实evaluation总数。
+- RED：首个selection tracer因`select_population`不存在得到2 failed，完整输出保存于`S4-T03-red.txt`；后续evolution tracer因`evolve_population`不存在得到1 failed、5 passed。
+- 真实失败与更正：首次evolution GREEN因新函数插入点截断T01 evaluator返回而得到1 failed、5 passed，仅恢复原返回位置后通过；精英测试最初错误要求初始第二名跨多代保留，在后代出现更优重复个体时1 failed、9 passed，改为单代直接证明配置数量精英原样进入下一代；首次静态门禁为目标行为48 passed，但Ruff发现1处行长/format、strict mypy发现3处DEAP动态fitness类型点，机械排版并改为显式best source/score后全部通过。
+- 最终结果：focused 10 passed；T01–T03合并48 passed；完整294 passed；0 failed、0 skipped、0 xfailed。目标Ruff lint/format、strict mypy、`git diff --check`和WORK_LOG HEAD前缀逐字节检查均exit 0。
+- 关键边界：roulette在`-1e308/0/1e308`有限fitness上无overflow；rate 0只记skip且0 attempt，rate 1只保证attempt且success+failure守恒；splice repair的success/failure由T02 outcome原样累计；history长度等于实际执行代数，evaluation含初始种群及每代完整种群。
+- 完成度：19/42 Verified，45.24%；最终验收保持5/29 Verified（17.24%），因为GA公开planner、复现性与阶段门禁仍属S4-T04/T05。
+- Commit：无；按S4-T05双提交协议归入阶段实现checkpoint。下一任务S4-T04保持Not Started，未触碰S5。
+
+## 2026-07-18 23:57 — S4-T03独立复核与S4-T04开始
+
+- S4-T03复核：fresh reviewer只读检查实际实现、测试、证据和记录，未发现Critical、Important或Minor问题；额外odd-offspring、输入不变与同seed确定性检查通过，结论Verified，Task quality为Approved。
+- 状态迁移：S4-T04由Not Started置为In Progress；19/42任务保持Verified，另有1项In Progress；最终验收仍为5/29。
+- S4-T04边界：仅完成`GeneticPlanner.plan()`、统一`PlanningResult`、可达性预检、最终路径验证、seed复现与配置/算子/repair/trajectory metadata；不开始S4-T05文档/阶段门禁，不开始S5。
+- Checkpoint：按S4-T05双提交协议归入阶段实现checkpoint，本任务不创建commit。
+
+## 2026-07-19 00:10 — S4-T04 GA 集成与复现性
+
+- 开始状态：In Progress；S4-T01至S4-T03均已Verified且通过fresh独立复核。
+- 完成状态：Verified；未自审批准quality，交回fresh独立spec/quality review；S4-T05保持Not Started。
+- 创建文件：`tests/integration/test_ga_integration.py`、`tests/regression/test_ga_seed_reproducibility.py`、`results/verification/S4-T04-red.txt`、`results/verification/S4-T04.txt`。
+- 修改文件：`src/path_planning/algorithms/genetic.py`、`src/path_planning/algorithms/__init__.py`、实施计划、PROJECT_STATUS、WORK_LOG。
+- 实施内容：导出`GeneticPlanner(name="ga")`并实现统一`PlanningResult`契约；在任何随机工作前执行共享endpoint/reachability预检；`start == goal`零工作成功；通过真实T01 toolbox逐个初始化种群并在任一有界DFS失败时返回`initialization_failed`；用planner master `random.Random(seed)`派生初始化与演化独立本地随机流；执行T03演化后以共享`validate_path`重验最终候选并采用其精确成本，非法候选抛invariant error。
+- 结果语义：`evaluations`为初始种群及逐代完整种群的真实fitness评估数，`iterations`为实际执行代数，`convergence_history`为best-so-far路径成本；best-fitness history独立保存在metadata。
+- metadata：所有成功、预检失败、同点成功和初始化失败出口共享完整JSON-safe schema，含movement、全部有效GA config、结构化crossover/mutation/repair计数、generation/stagnation预算与stop reason、best-fitness history及SHA-256 trajectory digest。digest仅哈希实际完成的初始化种群和初始/每代population、fitness、累计operator outcome快照，不读取或哈希seed；初始化中途失败时哈希已真实生成的部分种群。
+- RED：首次规定focused命令因`GeneticPlanner`未导出产生2个collection errors并exit 2，原始输出保存在`S4-T04-red.txt`；后续垂直切片依次真实得到预检5 failed/1 passed、同点1 failed/6 passed、初始化失败1 failed/7 passed、metadata 1 failed/12 passed，再做最小GREEN。
+- 真实失败与更正：首次静态门禁在行为66 passed后发现两处Ruff 89字符/format及一处strict mypy `list[float]`到递归`JsonValue`的不变性错误；仅机械排版并显式标注`list[JsonValue]`后全部通过。best-fitness测试采用固定seed独立预期`[11.75, 11.75]`，并与path-cost convergence `(10.0, 10.0)`分开断言。首次记录补丁将本completion块插入23:39与23:48记录之间，发现后仅将本新增块移动到23:57记录之后，恢复严格时间顺序和真正末尾追加语义。
+- 最终验证：focused 18 passed；GA T01–T04回归66 passed；完整312 passed；目标Ruff lint/format、strict mypy、`git diff --check`及WORK_LOG实施前61,084字节前缀哈希校验均exit 0。
+- 行为证据：两张复杂手工地图固定seed合法成功；4/8方向墙角规则统一；全部endpoint字符串与`no_path_precheck`原样保留且零工作；可达图有界初始化失败诚实返回且无A*/Dijkstra fallback；同seed全部非时间字段相等，不同seed实际轨迹digest不同，同seed不同执行代数digest也不同，Python全局`random`状态不推进。
+- 完成度：20/42 Verified，47.62%。按声明映射重新计算后，路径合法性、无路径场景、固定随机种子三项首次完整满足，最终验收为8/29 Verified（27.59%）；GA完整栅格实现仍待S4-T05阶段门禁。
+- Commit：无；按S4-T05双提交协议归入阶段实现checkpoint。未修改GA算法文档/HANDOFF，未开始S4-T05或S5。
+
+## 2026-07-19 00:20 — S4-T04 fresh独立复核退回
+
+- 复核结论：Not Verified；Task quality为Changes Required。S4-T04由Verified回退In Progress，S4-T05与S5保持Not Started。
+- Important 1：planner捕获所有`RuntimeError`会把toolbox/初始化调用链的无关程序缺陷误报为`initialization_failed`；须使用并仅捕获专用初始化异常。
+- Important 2：`budget_exhausted`仅由`stop_reason == max_generations`推导；代数上限与停滞阈值同为1时实际执行1/1代却误报false；须按实际执行代数与上限计算或明确同时触发优先级。
+- Important 3：metadata完整回显配置不等于直接行为证明；须为`repeat_penalty`、`collision_penalty`、`remaining_distance_penalty`和`initialization_attempts`增加最小参数差分回归，并汇总既有参数流证据。
+- 已确认通过部分：focused 18 passed、diff通过、任务和验收算术正确、WORK_LOG原始HEAD前缀一致且新增记录按时间顺序追加、无S4-T05/S5越界。
+- 回退统计：19/42 Verified、另1项In Progress，45.24%；最终验收回退5/29 Verified、17.24%，待同一实现代理按TDD修复并fresh re-review。
+
+## 2026-07-19 00:26 — S4-T04 fresh review Important修复
+
+- 开始状态：fresh reviewer结论Not Verified / Changes Required；S4-T04为In Progress，S4-T05与S5保持Not Started。
+- 完成状态：三项Important均已按TDD修复，S4-T04恢复Verified并交回fresh re-review；未自审批准quality，S4-T05与S5仍保持Not Started。
+- Important 1 RED/GREEN：新增公共planner测试注入toolbox无关`RuntimeError`，旧实现将其吞并为`initialization_failed`，得到1 failed/1 passed；新增`GAInitializationError(RuntimeError)`且仅由有界随机DFS耗尽抛出，planner仅捕获该专用子类后同组2 passed。真实有界失败仍返回`initialization_failed`，现有T01对`RuntimeError`父类的兼容性保留。
+- Important 2 RED/GREEN：新增`generations=1`与`stagnation_generations=1`同时触发测试，旧metadata在实际1/1代时误报`budget_exhausted: false`，得到1 failed；改为`generations_executed >= config.generations`后该测试与既有max-generation metadata测试2 passed。
+- Important 3直接证据：新增三个单参数fitness差分测试，分别固定其他输入并证明repeat差10、collision差7、remaining-distance差8；三项在现有实现上首跑各1 passed，属于reviewer指出的证据缺口而非生产逻辑缺陷，未制造假RED。新增公共planner差分测试以受控DFS证明`initialization_attempts=1`失败而`=2`成功，首跑1 passed。
+- 参数流映射：movement由corner-cutting集成测试；population/generations/stagnation由演化evaluation/最大代数/提前停止与同时触发预算测试；selection/tournament由两种选择与采样测试；crossover/mutation method与probability由四类算子真实变化、rate 0/1和structured outcomes测试；elite由精英保留测试；max initialization steps由有界初始化/修复失败测试；initialization attempts由新增公共差分测试；path-length/turn/unreachable penalty由短长路径、非法支配参数组与grid上界测试；repeat/collision/remaining-distance由新增隔离差分测试。metadata完整回显仅作为独立schema证据，不替代上述行为测试。
+- 静态更正：首轮新增集合为focused 21 passed、GA回归72 passed，但Ruff发现初始化attempts测试一处92字符E501；换行后lint通过。随后format check要求机械排版`test_ga_fitness.py`，执行项目formatter后目标Ruff lint/format与strict mypy全部通过，未降低门禁。
+- 最终验证：focused 21 passed；GA T01–T04回归72 passed；完整318 passed；目标Ruff lint/format、strict mypy、`git diff --check`全部exit 0。
+- 日志与边界：review-fix开始时WORK_LOG为65,925字节、SHA-256 `5671344148b282ca30f0b850b199bbab95dd183e2b856150a2569a02e8195f8e`；该完整前缀、原始HEAD前缀和时间标题严格递增均复核通过。本记录只追加；未commit/push、未创建branch/worktree、未安装依赖、未开始S4-T05或S5。
+- 恢复统计：20/42 Verified，47.62%；按声明映射恢复路径合法性、无路径场景和固定随机种子三项后，最终验收为8/29 Verified，27.59%。GA完整栅格实现仍待S4-T05阶段门禁。
+
+## 2026-07-19 00:35 — S4-T04 fresh re-review记录更正
+
+- Re-review结论：原三项Important已全部关闭，GA源码与测试质量无新问题；另发现一项record-only Important，实施计划既有S1-T02详细状态被本轮通用状态补丁误写为In Progress。
+- 根因与修正：通用`16. 状态`补丁误匹配了S1-T02；仅将该既有详细状态恢复为Verified，不改任何源码、测试、任务统计或验收矩阵。
+- 一致性：S4-T04仍为Verified等待最终只读复核；20/42 Verified、0 In Progress、22 Not Started及8/29验收保持不变；S4-T05与S5保持Not Started。
+- 边界：本更正只追加审计记录；未commit/push、未创建branch/worktree、未开始S4-T05或S5。
+
+## 2026-07-19 00:38 — S4-T04最终批准与S4-T05开始
+
+- S4-T04最终复核：无Critical、Important或Minor findings；42项详细状态为20 Verified、0 In Progress、22 Not Started，原三项Important及record-only Important均已关闭，结论Verified，Task quality为Approved。
+- 状态迁移：S4-T05由Not Started置为In Progress；20/42任务保持Verified，另1项In Progress；当前最终验收为8/29。
+- S4-T05范围：补齐GA算法文档与HANDOFF，执行S1/S2/S3/S4专项、完整branch coverage、每模块/GA覆盖率、Ruff/format/mypy/pip、wheel隔离运行、旧材料、记录矩阵、Git/远端及S5边界新鲜门禁；如实保留失败与更正。
+- Checkpoint：阶段门禁通过并完成fresh code review后，controller才按双提交协议创建实现checkpoint与hash账本；本实施代理不commit、不push。
+
+## 2026-07-19 00:50 — S4-T05 阶段4门禁
+
+- 开始状态：In Progress；S4-T01至S4-T04均已Verified且通过fresh独立任务复核。
+- 完成状态：Verified；本实施代理未自审批准quality，完整S4候选交回fresh独立全阶段review。
+- 创建文件：`results/verification/S4-stage-gate.txt`、`results/verification/S4-coverage.json`、`.tmp/s4-sdd/task-S4-T05-report.md`（忽略的交接报告）。
+- 修改文件：`docs/algorithms.md`、实施计划、PROJECT_STATUS、WORK_LOG、HANDOFF。
+- 文档：新增GA坐标染色体、有界随机DFS初始化/修复、无A*/Dijkstra fallback、严格合法fitness上界支配、tournament/roulette、两类交叉/变异、精英/rate语义、代数/停滞预算、evaluations/收敛/metadata/digest、复现、预检/失败、配置、复杂度和限制；边界更新为Stage4，不声称Benchmark、调优、可视化或CLI工作。
+- 专项测试：S1原132 passed；S2原71 passed；S3原43 passed；S4五个GA文件72 passed；全部使用唯一ignored basetemp和bytecode temp。
+- 完整测试与覆盖率：318 passed，0 failed、0 skipped、0 xfailed；显式skip/xfail marker为0。core/algorithms合计1142 statements、442 branches，35 statements和33 branches未覆盖，合计95.71%；每个非空报告模块均≥90%。`genetic.py`为479 statements、176 branches，22 statements和21 branches未覆盖，statement 95.41%、branch 88.07%、合计93.44%；精确missing lines保存在阶段证据和JSON。
+- 质量与依赖：全项目Ruff lint/format、strict mypy 21个source files、`pip check`和`git diff --check`均exit 0。
+- 构建：唯一目录中恰好构建一个wheel，SHA-256为`c752eaff3e3fa0a758ce3fd90a3e3a9cb9d22b6efc95a25692f9237e56fd62af`；`--no-deps --target`隔离安装后证明`path_planning`从目标目录导入，并成功执行最小`GeneticPlanner`规划（evaluations 8、iterations 1）。
+- 旧材料：只读统计仍为75文件、21子目录、74,097,025字节；`shasum -a 256 -c`为75/75 OK；before清单聚合SHA-256仍为`f534b2543beb31e8f0253001b96494b0086b4b085a340d8d4ae4d33e10c91e8e`；未创建S8 after清单，未执行或修改旧材料。
+- Git与边界：基线HEAD保持`e73a1bef42b9bd06cabd28e4f37b5d03daaa3184`，`main`跟踪`origin/main`且0/0分叉；唯一`origin`和固定Fetch/Push URL未变；仅本地/远端`main`、0 tag、1个正常worktree、0 open PR；无tracked temp/cache/build产物，无S5实现路径、checkmark或Verified状态。
+- 真实失败与更正：首次Git边界审计将正常`refs/remotes/origin/HEAD` symbolic ref的short name `origin`误计为第二个remote-tracking branch，脚本exit 1；其余输出事实正常。未修改Git状态，改用`%(symref)`排除symbolic refs后完整重试exit 0。失败、根因、命令差异和重试结果均保存在`S4-stage-gate.txt`与交接报告。
+- 记录迁移：S4-T05在上述非记录门禁完成后置为Verified；S1 8/8、S2 4/4、S3 4/4、S4 5/5，合计21/42 Verified、0 In Progress、50.00%；GA完整栅格实现成为唯一新增Verified验收项，合计9/29、31.03%；S5-T01保持首个未勾选且Not Started。
+- 记录保护：本任务开始前原始HEAD WORK_LOG为49,608字节；当前文件的同长度前缀逐字节一致。本条只追加；最终记录门禁继续验证全部时间标题严格递增、42/42/42和29项唯一结构。
+- 完成证据：`docs/algorithms.md`、`results/verification/S4-stage-gate.txt`、`results/verification/S4-coverage.json`、`.tmp/s4-sdd/task-S4-T05-report.md`及S4-T01至T04已有证据。
+- Commit/Push：无；实现checkpoint `feat: implement grid-based genetic planner`、hash账本commit和普通push均待fresh独立review后由controller执行。
+- 已知问题：无已知实现问题；阶段quality尚待fresh独立review，checkpoint/publication明确pending。
+- 下一任务边界：不得开始S5。先做fresh独立S4全阶段review；通过后由controller完成双提交checkpoint、普通push和远端复核，S5-T01在此之前保持Not Started。
+
+## 2026-07-19 01:00 — S4 controller独立门禁复验
+
+- 复验结果：Verified；S4-T05保持Verified并进入fresh独立全阶段review，未自批quality，未创建commit或push。
+- 测试与覆盖率：修正controller最初引用的三个不存在测试文件名后，S1/S2/S3/S4真实专项分别132/71/43/72 passed；完整318 passed；core/algorithms合计95.71%，`genetic.py`合计93.44%，全部非空报告模块均≥90%。
+- 质量与构建：Ruff、format、strict mypy、`pip check`、`git diff --check`和skip/xfail零标记通过；wheel构建和隔离安装成功。初始smoke错误使用不存在的`max_generations`参数而由公开API正确拒绝；读取实际签名后对同一安装重试成功。controller wheel SHA-256为`1da3e58060098357497d597cb0c28d003c77aeccce5cf3f209cdc2ac0f300294`。
+- 旧材料与Git：75文件、21子目录、74,097,025字节及75/75哈希保持一致；`main`与`origin/main`仍0/0，仅一个固定`origin`、本地/远端仅`main`、0 tag、1 worktree、0 open PR、0 tracked artifact。
+- 记录与边界：综合解析器因误纳checkpoint表和过度具体文字断言连续两次失败后停止；改用分项`rg`/`awk`/`cmp`。分项首轮又暴露awk列号及把S1空`benchmark`包骨架误判为S5工作的问题，按实际表列及S5精确计划文件更正后通过。最终为42/42/42唯一结构、21/42 Verified、9/29验收、WORK_LOG前缀一致和时间唯一递增；S5计划实现文件为0，S5-T01仍为首个Not Started任务。
+- 证据：所有真实失败、根因、无状态变更的更正与最终PASS已追加到`results/verification/S4-stage-gate.txt`；最终末行为`S4_FINAL_STAGE_GATE_RESULT=PASS`。
+
+## 2026-07-19 01:13 — S4 fresh全阶段review退回
+
+- Review结论：Not Verified / Changes Required；S4-T04与S4-T05由Verified回退In Progress，19/42任务保持Verified，2项In Progress；GA完整实现、路径合法性、无路径和固定seed四项验收回退，当前5/29 Verified。
+- Important 1：`GeneticPlanner.plan()`在`config.validate_for_grid(grid)`前处理endpoint、`no_path_precheck`和`start == goal`，导致网格相关非法`unreachable_base_penalty`在early exits被接受、普通路径却拒绝。要求所有early returns前统一校验，并以公共入口回归覆盖start==goal和no-path。
+- Important 2：DEAP Toolbox当前只注册`individual`和`evaluate`；selection/crossover/mutation由演化循环直接调用项目函数，未满足批准设计的真实Toolbox alias路由。要求注册并实际使用绑定局部`random.Random`的`select`、`mate`、`mutate`，保留自定义算子、structured outcomes、计数和自定义演化循环。
+- Minor：`docs/algorithms.md`把`common_node`最坏复杂度写为`O(L)`，但当前公共节点位置构建与候选迭代最坏为`O(L^2)`；优先做文档最小更正。
+- 修复方式：严格RED→GREEN；RED追加到既有S4证据，不覆盖历史。修复后完整重跑S4 focused、全套coverage、静态/依赖/diff、legacy、记录、Git和S5边界，再恢复状态并交fresh re-review。
+- Git边界：未commit/push，未创建branch/worktree/tag/PR，未安装依赖，未开始S5。
+
+## 2026-07-19 01:21 — S4 fresh review Important修复
+
+- 开始状态：fresh review为Not Verified / Changes Required；S4-T04和S4-T05均为In Progress，19/42 Verified、5/29验收。
+- 完成状态：两项Important按TDD修复并恢复S4-T04/S4-T05 Verified，交回fresh re-review；21/42 Verified、0 In Progress、9/29验收，S5-T01保持Not Started。
+- RED 1：公共入口参数化覆盖start==goal、no-path与非法endpoint；旧实现三例均`DID NOT RAISE ValueError`，3 failed、exit 1，证明grid-specific config校验发生在early return之后。
+- GREEN 1：`GeneticPlanner.plan()`在任何endpoint/reachability/start==goal分支前执行`config.validate_for_grid(grid)`；同组3例通过，合法配置的既有零工作失败/成功语义保持。
+- RED 2：要求`build_toolbox(..., operator_rng=...)`并让演化通过真实aliases；旧实现因未知`operator_rng`直接`TypeError`，1 failed、exit 1。
+- GREEN 2：Toolbox注册`select`、`mate`、`mutate`和`elite`；前三者绑定同一显式局部`random.Random`，演化循环实际调用aliases，仍使用项目自定义selection/operators、structured outcomes、计数和自定义主循环。真实alias tracer观察每代elite 1、select 2、mate 2、mutate 3；不使用DEAP全局random或现成演化循环。
+- API兼容：`evolve_population`仅新增keyword-only可选`toolbox`，原调用继续由函数内部创建并注册aliases；`build_toolbox`的`operator_rng`为可选参数。planner保持原master RNG的两个64-bit派生顺序，初始化和演化流仍彼此独立且局部。
+- 文档：`docs/algorithms.md`明确Toolbox alias实际路由、grid config先于所有公共结果分支，并把`common_node`最坏复杂度从`O(L)`更正为`O(L^2)`。
+- 最终测试：新增focused 4 passed；S4五文件专项从72增至76 passed；完整套件从318增至322 passed，0 failed、0 skipped、0 xfailed；显式skip/xfail markers为0。
+- 覆盖率：core/algorithms共1155 statements、444 branches，合计95.75%；`genetic.py`为492 statements、178 branches，statement 95.53%、branch-only 88.20%、合计93.58%；每个非空报告模块合计≥90%，JSON已更新。
+- 质量与构建：全项目Ruff lint/format、strict mypy 21 source files、`pip check`、`git diff --check`通过；唯一wheel构建、隔离target安装和最小GA运行通过，wheel SHA-256为`1f4e9d4dd786eb9206a89ec2e69f9c53ea5cd49b3a28c682920f6ac39fcac7f2`。
+- Legacy/Git/记录/S5：旧材料仍75文件、21子目录、74,097,025字节，75/75清单和聚合哈希通过，无after清单；HEAD仍`e73a1bef42b9bd06cabd28e4f37b5d03daaa3184`且0/0，仅main、0 tag、1 worktree、0 PR、0 tracked artifact；WORK_LOG HEAD前缀和41个修复前时间标题通过；无S5路径/checkmark，S5-T01 Not Started。
+- 证据：review findings、RED/GREEN、完整重验和所有精确coverage/build/boundary事实均追加至`results/verification/S4-stage-gate.txt`，未覆盖历史失败。
+- Commit/Push：无；未创建branch/worktree/tag/PR，未安装依赖，未开始S5。fresh re-review通过后才由controller执行checkpoint、账本和普通push。
+
+## 2026-07-19 01:27 — S4 fresh re-review批准与controller提交前复验
+
+- Fresh re-review：此前两项Important和一项Minor全部关闭；无Critical、Important或Minor findings；结论`Verified`，Task quality为`Approved`，`Ready to checkpoint: Yes`。
+- Reviewer核查：公共入口grid config校验覆盖start==goal、no-path和非法endpoint；Toolbox真实注册并由演化循环路由`select`、`mate`、`mutate`和`elite`且保持局部RNG；`common_node`最坏复杂度已更正为`O(L^2)`。
+- Controller复验：修复focused 4 passed、S4专项76 passed、完整coverage 322 passed；总合计95.75%，`genetic.py`合计93.58%，所有非空报告模块≥90%；Ruff、format、strict mypy、pip、diff均通过。
+- 最终边界：旧材料75文件、21子目录、74,097,025字节及75/75哈希保持；42/42/42结构为21 Verified、0 In Progress、21 Not Started，验收9/29；`main`与`origin/main`仍0/0，S5-T01首个Not Started且精确S5文件不存在。
+- 状态：S4 quality已Approved，允许controller创建实现checkpoint与hash账本commit；当前仍未commit/push，未开始S5。
+
+## 2026-07-19 01:30 — S4 checkpoint暂存门禁更正
+
+- 首次`git diff --cached --check`真实exit 2：四份原始pytest/起始门禁文本证据含尾随空格或EOF多空行；源码、测试、配置和叙述文档未发现空白错误。
+- 更正：仅对`S4-T02-red.txt`、`S4-T02.txt`、`S4-T03-red.txt`和`S4-start-gate.txt`机械删除行尾水平空白并规范EOF空行；测试输出文字和审计事实未改写。
+- 重试：`git diff --cached --check` exit 0；暂存白名单仍为24个S4文件，0未暂存、0未跟踪，无S5或temp/cache/build产物。
+- 状态：尚未创建commit或push，S5-T01保持Not Started。

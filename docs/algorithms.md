@@ -5,8 +5,9 @@
 Stage 2 implements the deterministic Dijkstra and A* planners. Both consume the
 shared `GridMap` and `MovementConfig`, expand neighbors only through
 `iter_neighbors()`, validate endpoints and reconstructed paths with the shared
-core validators, and return the stable `PlanningResult` schema. Stage 3 adds the
-ACO planner documented below; later-stage algorithms remain unimplemented.
+core validators, and return the stable `PlanningResult` schema. Stage 3 adds ACO,
+and Stage 4 adds the coordinate-path GA documented below. Benchmarking, tuning,
+visualization, and CLI configuration loading remain later-stage work.
 
 ## Shared deterministic result semantics
 
@@ -135,14 +136,142 @@ terminate the run early.
 - Every successful candidate and the returned global best pass the shared
   `validate_path()` contract.
 
+## Genetic Algorithm
+
+`GeneticPlanner` uses DEAP's `Toolbox`, minimizing `Fitness`, and list-based
+`Individual` types, while keeping the evolution loop and every random choice
+under project control. Creator names are project-specific and are created only
+when absent, so repeated imports do not redefine DEAP types. A chromosome is a
+variable-length coordinate sequence `[start, ..., goal]`; every population path
+that enters evolution is simple and legal under the shared movement rules.
+The Toolbox registers `individual`, `evaluate`, `select`, `mate`, `mutate`, and
+`elite` aliases. The evolution loop calls the last four aliases directly;
+selection and genetic operators bind the same explicit local RNG rather than
+DEAP's global-random helpers or a packaged DEAP evolution loop.
+
+### Initialization and repair
+
+Initialization uses bounded randomized depth-first search. Each individual gets
+its own `random.Random` stream derived from the planner-local RNG. Neighbor order
+is shuffled, visited coordinates are not revisited, and both
+`max_initialization_steps` and `initialization_attempts` bound failure. Loop
+erasure is applied defensively before accepting a path.
+
+Repair first erases loops and finds the first illegal segment. It then attempts
+one bounded randomized local DFS connection between that segment's endpoints,
+erases any resulting loop, and validates the complete path. Repair failure
+returns a bounded failure outcome; operator wrappers retain copies of the
+parents. Initialization, repair, crossover, and mutation never call A*,
+Dijkstra, or any other deterministic shortest-path fallback.
+
+### Fitness and strict invalid-path dominance
+
+For a legal simple path `p`, the minimized objective is
+
+```text
+path_length_penalty * movement_cost(p) + turn_penalty * turns(p)
+```
+
+An invalid or repeated path starts at `unreachable_base_penalty`, then adds the
+same length and turn terms plus configured repeat, collision, and remaining-goal
+distance penalties. All coefficients are finite and non-negative, except that
+the base penalty must be positive.
+
+Before evolution, `validate_for_grid()` computes a legal-path upper bound from
+at most `free_cell_count - 1` edges, the maximum configured cardinal/diagonal
+step cost, and at most one turn between consecutive edges. The maximum step
+cost is accumulated edge by edge, matching fitness arithmetic at floating-point
+boundaries. `unreachable_base_penalty` must be strictly greater than this bound;
+because every additional invalid-path term is non-negative, every invalid
+individual is strictly worse than every legal simple individual on that grid.
+
+### Selection and genetic operators
+
+- Tournament selection samples `tournament_size` candidates with the local RNG
+  and copies the lowest-fitness candidate.
+- Roulette selection converts finite minimization fitness values to stable,
+  non-negative weights after scaling by the largest absolute value. Equal or
+  zero-weight populations fall back to uniform local-RNG sampling.
+- `common_node` crossover swaps suffixes at a shared internal coordinate and
+  erases loops.
+- `splice_repair` crossover chooses one cut in each parent, exchanges suffixes,
+  and repairs both children with bounded randomized DFS.
+- `reroute_segment` mutation replaces a selected internal segment with a bounded
+  randomized DFS connection.
+- `shortcut` mutation removes a detour when its endpoints are already one legal
+  shared-grid move apart.
+
+The best `elite_size` individuals are copied directly into the next generation.
+For each non-elite parent pair, crossover is attempted exactly when the local
+draw is below `crossover_probability`; each child considered for insertion gets
+the analogous independent mutation decision. A zero rate records skips without
+attempts, a rate of one records attempts but does not promise the chosen operator
+can change the path, and failed attempts retain parent copies. Metadata keeps
+skip, attempt, success, failure, and splice-repair success/failure counts
+separate.
+
+### Budgets, results, and reproducibility
+
+The initial population is evaluated once, and every complete next-generation
+population is evaluated once. Thus `evaluations` is the actual number of fitness
+calls. `iterations` is the number of completed generations. Both
+`best_fitness_history` in metadata and path-cost `convergence_history` are
+best-so-far values with one entry per completed generation. A strict fitness
+improvement resets stagnation; execution stops at `generations` or after
+`stagnation_generations` consecutive non-improving generations. If both limits
+are reached together, the metadata still reports the generation budget as
+exhausted.
+
+Metadata records movement, every GA configuration field, operator and repair
+counts, both budgets and the stop reason, the fitness history, and a SHA-256
+trajectory digest. The digest covers the actual initial population and each
+recorded population, fitness vector, and cumulative operator-count snapshot; it
+does not substitute the seed for executed trajectory data. All randomness comes
+from a hierarchy of local `random.Random` instances. Equal seeds reproduce all
+non-time result fields, while `runtime_ms` is intentionally excluded.
+
+Grid-specific configuration validation runs before every public result path,
+including endpoint failures, no-path prechecks, and `start == goal`. Endpoint
+validation and the shared reachability precheck then run before random work.
+They return stable endpoint reasons or `no_path_precheck` with zero evaluations
+and generations. `start == goal` is an immediate zero-work success. Exhausting
+the bounded initialization budget returns `initialization_failed`, preserves a
+digest of any partial population actually created, and does not hide unrelated
+runtime errors. The final selected path is revalidated with `validate_path()`;
+an internal invalid selection is treated as an invariant error rather than a
+successful result.
+
+### GA complexity and limitations
+
+Let `F` be the free-cell count, `P` the population size, `G` the executed
+generation count, `B` the DFS step budget, and `L <= F` a simple chromosome
+length. Initialization is bounded by `O(P * initialization_attempts * B)`.
+Fitness evaluation is `O(L)`. Tournament selection costs `O(tournament_size)`
+per draw; the current roulette implementation recomputes population weights per
+draw and is therefore `O(P^2)` per generation. Common-node crossover is
+`O(L^2)` in the worst case because candidate suffixes may each require loop
+erasure; splice repair is bounded by `O(B)`, shortcut enumeration is `O(L^2)`,
+and the reroute mutation's exhaustive candidate-pair search is bounded by
+`O(L^2 * B)`. These are conservative implementation bounds, not measured
+performance claims.
+
+The live population uses `O(P * F)` path storage. Reproducibility metadata keeps
+an initial and per-generation population snapshot for the trajectory digest, so
+the current run can use `O(G * P * F)` additional memory. GA is not guaranteed
+to find a path even when the precheck proves reachability, is not guaranteed to
+find an optimal path, and currently supports only the shared uniform
+cardinal/diagonal grid costs. Baseline parameters are not tuned at the Stage 4
+boundary.
+
 ## Configuration
 
-`configs/dijkstra.yaml`, `configs/astar.yaml`, and `configs/aco_baseline.yaml`
-record auditable defaults. The A* configuration additionally records the
-Manhattan heuristic; the ACO configuration records every construction,
-pheromone, iteration, and stagnation budget. Configuration parsing through the
-public CLI is assigned to a later stage, so these stages verify typed planner
-configurations directly.
+`configs/dijkstra.yaml`, `configs/astar.yaml`, `configs/aco_baseline.yaml`, and
+`configs/ga_baseline.yaml` record auditable defaults. The A* configuration
+additionally records the Manhattan heuristic; ACO records every construction,
+pheromone, iteration, and stagnation budget; GA records movement, population,
+selection, elite, operator, initialization, fitness, generation, and stagnation
+settings. Configuration parsing through the public CLI is assigned to a later
+stage, so Stages 2–4 verify typed planner configurations directly.
 
 ## Verified boundaries and limitations
 
@@ -154,7 +283,14 @@ bidirectional deposits, update order, every pheromone parameter, bounded dead
 ends, complex maps, seed behavior, global-RNG isolation, budgets, convergence,
 corner rules, and no-path prechecks.
 
+The Stage 4 GA matrix covers creator reuse, legal randomized initialization,
+strict fitness dominance, both selection methods, both crossovers, both
+mutations, repair outcomes, elite/rate semantics, generation and stagnation
+budgets, complex maps, corner rules, stable failures, configuration flow,
+trajectory digests, seed behavior, global-RNG isolation, and final shared-path
+validation.
+
 Movement costs remain uniform cardinal/diagonal costs. Weighted terrain,
-dynamic obstacles, incremental replanning, later-stage algorithms, benchmark
-performance, tuned ACO parameters, and CLI configuration loading are not
-implemented or claimed at the Stage 3 boundary.
+dynamic obstacles, incremental replanning, benchmark performance, tuned ACO/GA
+parameters, visualization, and CLI configuration loading are not implemented or
+claimed at the Stage 4 boundary.

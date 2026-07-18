@@ -1,0 +1,130 @@
+S4-T04 GA integration and reproducibility verification
+Date: 2026-07-19 AEST
+
+RED
+Command:
+.venv/bin/python -m pytest tests/integration/test_ga_integration.py tests/regression/test_ga_seed_reproducibility.py -q
+Exit code: 2
+Result: two collection errors because GeneticPlanner was not exported.
+Full raw output: results/verification/S4-T04-red.txt
+
+Intermediate RED -> GREEN slices
+1. Public planner and same-seed tracer: 2 passed.
+2. Shared endpoint/reachability precheck: 5 failed, 1 passed; after the precheck result path, 6 passed.
+3. start == goal zero-work behavior: 1 failed, 6 passed because evaluations was 12; after the immediate result path, 7 passed.
+4. Bounded initialization failure: 1 failed, 7 passed because RuntimeError escaped; after catching any toolbox individual initialization RuntimeError, 8 passed.
+5. Full metadata contract: 1 failed, 12 passed with KeyError: movement; after the shared metadata/result builder and actual trajectory snapshots, 24 passed across GA planner + new integration/regression tests.
+
+Focused GREEN
+Command:
+.venv/bin/python -m pytest tests/integration/test_ga_integration.py tests/regression/test_ga_seed_reproducibility.py -q
+Exit code: 0
+Result: 18 passed in 0.75s
+
+GA regression GREEN
+Command:
+.venv/bin/python -m pytest tests/unit/test_ga_fitness.py tests/unit/test_ga_operators.py tests/unit/test_ga_planner.py tests/integration/test_ga_integration.py tests/regression/test_ga_seed_reproducibility.py -q
+Exit code: 0
+Result: 66 passed in 0.77s
+
+First static run and correction
+- Ruff check: exit 1; two E501 lines at 89 characters.
+- Ruff format --check: exit 1; genetic.py and test_ga_integration.py required formatting.
+- strict mypy: exit 1; best_fitness_history list[float] was not accepted as invariant list[JsonValue].
+- Correction: mechanical formatting only, plus explicit list[JsonValue] annotation. No check or assertion was weakened.
+- Record-order correction: the first WORK_LOG patch inserted the new 00:10 completion block between the existing 23:39 and 23:48 entries. The new block alone was moved after the existing 23:57 entry, restoring chronological and true append-only order; the implementation-start 61,084-byte prefix hash was then rechecked.
+
+Final static GREEN
+Commands:
+.venv/bin/ruff check src/path_planning/algorithms/genetic.py src/path_planning/algorithms/__init__.py tests/integration/test_ga_integration.py tests/regression/test_ga_seed_reproducibility.py
+.venv/bin/ruff format --check src/path_planning/algorithms/genetic.py src/path_planning/algorithms/__init__.py tests/integration/test_ga_integration.py tests/regression/test_ga_seed_reproducibility.py
+.venv/bin/mypy --strict src/path_planning/algorithms/genetic.py src/path_planning/algorithms/__init__.py
+Exit codes: 0, 0, 0
+Results: All checks passed; 4 files already formatted; no mypy issues in 2 source files.
+
+Full GREEN
+Command:
+.venv/bin/python -m pytest -q
+Exit code: 0
+Result: 312 passed in 3.03s
+
+Hygiene GREEN
+- git diff --check: exit 0
+- WORK_LOG implementation-start 61,084-byte prefix SHA-256 comparison: exact match
+- WORK_LOG HEAD prefix byte comparison: True
+- No AStar/Dijkstra import or call exists in genetic.py.
+- No commit, push, branch, worktree, dependency install, S4-T05 work, or S5 work was performed.
+
+Metadata schema
+- movement: connectivity, diagonal_cost, allow_corner_cutting
+- config: population/generations, selection method/tournament size, crossover and mutation methods/probabilities, elite, initialization steps/attempts, stagnation, and all six fitness penalty values
+- operators: structured crossover, mutation, and repair counts
+- budget: configured generation/stagnation limits, executed generations, stop reason, and whether the generation budget was exhausted
+- best_fitness_history: separate from PlanningResult.convergence_history path costs
+- trajectory_digest: SHA-256 of the actual initialized population and initial/per-generation population, fitness, and cumulative operator-outcome snapshots; seed is not part of the digest payload
+
+Boundary
+S4-T04 is Verified pending fresh independent spec/quality review. S4-T05 is Not Started. No self-approval and no commit.
+
+Fresh review result and Important fixes (2026-07-19)
+Review result: Not Verified / Changes Required with three Important findings. S4-T04 was reopened before fixes.
+
+Important 1 — dedicated initialization exception RED
+Command:
+.venv/bin/python -m pytest tests/integration/test_ga_integration.py::test_ga_does_not_hide_unrelated_toolbox_runtime_errors tests/integration/test_ga_integration.py::test_ga_reports_honest_bounded_initialization_failure -q
+Exit code: 1
+Result: 1 failed, 1 passed. The unrelated RuntimeError did not propagate because the planner caught every RuntimeError.
+Fix: add GAInitializationError as a RuntimeError subclass, raise it only when bounded random DFS initialization exhausts all attempts, and catch only that subclass in GeneticPlanner.
+GREEN result: 2 passed in 0.07s.
+
+Important 2 — simultaneous budget/stagnation RED
+Command:
+.venv/bin/python -m pytest tests/integration/test_ga_integration.py::test_ga_marks_generation_budget_exhausted_when_stagnation_triggers_too -q
+Exit code: 1
+Result: 1 failed. At 1/1 executed generations with stop_reason=stagnation, budget_exhausted was false.
+Fix: derive budget_exhausted from generations_executed >= config.generations.
+GREEN result with the existing max-generation metadata test: 2 passed in 0.09s.
+
+Important 3 — direct parameter-flow characterization
+- repeat_penalty isolated differential: 1 passed on first run; exact fitness delta 10.0.
+- collision_penalty isolated differential: 1 passed on first run; exact fitness delta 7.0.
+- remaining_distance_penalty isolated differential: 1 passed on first run; exact fitness delta 8.0.
+- public initialization_attempts differential with controlled bounded DFS: 1 passed on first run; one attempt failed and two attempts succeeded, with five calls for the four-person population.
+These were evidence gaps over already-wired behavior, so they truthfully passed before production changes; no artificial failure was introduced.
+
+Direct parameter-to-test map
+- movement: test_ga_obeys_shared_corner_cutting_rule; toolbox/path validation tests.
+- population_size: test_evolution_stops_at_maximum_generations_and_records_histories checks population-derived literal evaluations; population length validation is exercised by evolution tests.
+- generations: test_evolution_stops_at_maximum_generations_and_records_histories; simultaneous budget/stagnation test.
+- stagnation_generations: test_evolution_stops_early_after_configured_stagnation; simultaneous budget/stagnation test.
+- selection_method and tournament_size: test_selection_methods_use_configured_local_rng and selection contract tests.
+- crossover_method and crossover_probability: common-node/splice-repair direct tests, crossover three-state outcomes, and rate-zero/rate-one evolution tests.
+- mutation_method and mutation_probability: reroute/shortcut direct tests, mutation three-state outcomes, and rate-zero/rate-one evolution tests.
+- elite_size: test_evolution_preserves_elite_best_fitness.
+- max_initialization_steps: honest bounded public initialization failure and bounded repair failure tests.
+- initialization_attempts: test_ga_initialization_attempts_control_public_retry_behavior.
+- path_length_penalty, turn_penalty, unreachable_base_penalty: shorter-vs-longer fitness, parameterized legal/invalid dominance, and grid upper-bound tests.
+- repeat_penalty, collision_penalty, remaining_distance_penalty: the three new isolated differential tests.
+- Complete metadata equality remains a schema/config-reporting check only; it is not used as a substitute for the direct tests above.
+
+Reviewer-fix static correction transcript
+- First new static run: focused 21 passed and GA regression 72 passed; Ruff E501 failed on one 92-character initialization-attempt test line.
+- After wrapping that line, behavior remained green. Ruff format --check then requested mechanical formatting of test_ga_fitness.py.
+- After project formatting: target Ruff lint passed, format check reported 5 files already formatted, and strict mypy passed with no issues in 2 source files.
+
+Reviewer-fix final GREEN
+- Focused: 21 passed in 0.71s.
+- GA T01–T04 regression: 72 passed in 0.74s.
+- Full pytest: 318 passed in 3.01s.
+- Target Ruff lint/format and strict mypy: exit 0.
+- git diff --check: exit 0.
+- WORK_LOG 65,925-byte review-fix-start prefix SHA-256 exact match; original HEAD prefix preserved; timestamps chronological.
+
+Reviewer-fix boundary
+S4-T04 is restored to Verified pending a fresh independent re-review. S4-T05 remains Not Started. No self-approval, commit, push, branch/worktree, dependency install, S4-T05 work, or S5 work occurred.
+
+Fresh re-review record correction (2026-07-19)
+- Re-review confirmed all three original Important findings closed and found no GA source-quality issue.
+- It found one new record-only Important: a generic status patch had changed the existing S1-T02 detailed status at plan line 451 from Verified to In Progress while all checklist/table/project counts still said Verified.
+- Surgical correction: restored only S1-T02 detailed status to Verified. S4-T04 remains Verified; S4-T05 remains Not Started.
+- Verification: the 42-item checklist/table counts and detailed status counts are again consistent at 20 Verified, 0 In Progress, 22 Not Started; git diff --check remains required in the final re-review.

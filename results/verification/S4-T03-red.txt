@@ -1,0 +1,52 @@
+$ .venv/bin/python -m pytest tests/unit/test_ga_planner.py -q
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+_________ test_selection_methods_use_configured_local_rng[tournament] __________
+
+selection_method = 'tournament'
+
+    @pytest.mark.parametrize("selection_method", ["tournament", "roulette"])
+    def test_selection_methods_use_configured_local_rng(selection_method: str) -> None:
+        population = [
+            _individual([(0, index)], float(index + 1)) for index in range(4)
+        ]
+        random.seed(991)
+        global_state = random.getstate()
+
+>       selected = genetic.select_population(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^
+            population,
+            8,
+            _config(selection_method=selection_method),
+            random.Random(7),
+        )
+E       AttributeError: module 'path_planning.algorithms.genetic' has no attribute 'select_population'
+
+tests/unit/test_ga_planner.py:50: AttributeError
+__________ test_selection_methods_use_configured_local_rng[roulette] ___________
+
+selection_method = 'roulette'
+
+    @pytest.mark.parametrize("selection_method", ["tournament", "roulette"])
+    def test_selection_methods_use_configured_local_rng(selection_method: str) -> None:
+        population = [
+            _individual([(0, index)], float(index + 1)) for index in range(4)
+        ]
+        random.seed(991)
+        global_state = random.getstate()
+
+>       selected = genetic.select_population(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^
+            population,
+            8,
+            _config(selection_method=selection_method),
+            random.Random(7),
+        )
+E       AttributeError: module 'path_planning.algorithms.genetic' has no attribute 'select_population'
+
+tests/unit/test_ga_planner.py:50: AttributeError
+=========================== short test summary info ============================
+FAILED tests/unit/test_ga_planner.py::test_selection_methods_use_configured_local_rng[tournament]
+FAILED tests/unit/test_ga_planner.py::test_selection_methods_use_configured_local_rng[roulette]
+2 failed in 0.09s
+exit_code=1

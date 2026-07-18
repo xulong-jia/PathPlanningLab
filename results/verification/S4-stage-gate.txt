@@ -1,0 +1,274 @@
+S4_STAGE_GATE_START=2026-07-19T00:44:00+1000
+S4_STAGE_GATE_STATUS=PASS
+
+[S1 specialized suite]
+command=TMPDIR="$PWD/.tmp" PIP_CACHE_DIR="$PWD/.pip-cache" XDG_CACHE_HOME="$PWD/.cache" MPLCONFIGDIR="$PWD/.mplconfig" PYTHONPYCACHEPREFIX="$PWD/.tmp/s4-final-s1-pycache.AOJpbE" MPLBACKEND=Agg .venv/bin/python -m pytest tests/test_package_import.py tests/unit/test_grid.py tests/unit/test_map_generation.py tests/unit/test_map_io.py tests/unit/test_metrics.py tests/unit/test_movement.py tests/unit/test_result.py tests/unit/test_validation.py tests/integration/test_map_suites.py tests/regression/test_result_schema.py -q --basetemp=.pytest-tmp/s4-final-s1.GuEeWG
+exit_code=0
+result=132 passed in 1.21s; failed=0; skipped=0; xfailed=0
+
+[S2 specialized suite]
+command=TMPDIR="$PWD/.tmp" PIP_CACHE_DIR="$PWD/.pip-cache" XDG_CACHE_HOME="$PWD/.cache" MPLCONFIGDIR="$PWD/.mplconfig" PYTHONPYCACHEPREFIX="$PWD/.tmp/s4-final-s2-pycache.219EZ5" MPLBACKEND=Agg .venv/bin/python -m pytest tests/unit/test_dijkstra.py tests/unit/test_astar.py tests/integration/test_deterministic_planners.py tests/regression/test_optimality.py tests/regression/test_no_path.py -q --basetemp=.pytest-tmp/s4-final-s2.OUUDH5
+exit_code=0
+result=71 passed in 1.65s; failed=0; skipped=0; xfailed=0
+
+[S3 specialized suite]
+command=TMPDIR="$PWD/.tmp" PIP_CACHE_DIR="$PWD/.pip-cache" XDG_CACHE_HOME="$PWD/.cache" MPLCONFIGDIR="$PWD/.mplconfig" PYTHONPYCACHEPREFIX="$PWD/.tmp/s4-final-s3-pycache.RjHR6i" MPLBACKEND=Agg .venv/bin/python -m pytest tests/unit/test_aco_construction.py tests/unit/test_aco_pheromone.py tests/unit/test_aco_planner.py tests/integration/test_aco_integration.py tests/regression/test_legacy_aco_failures.py tests/regression/test_seed_reproducibility.py -q --basetemp=.pytest-tmp/s4-final-s3.A5iv0d
+exit_code=0
+result=43 passed in 0.53s; failed=0; skipped=0; xfailed=0
+
+[S4 specialized suite]
+command=TMPDIR="$PWD/.tmp" PIP_CACHE_DIR="$PWD/.pip-cache" XDG_CACHE_HOME="$PWD/.cache" MPLCONFIGDIR="$PWD/.mplconfig" PYTHONPYCACHEPREFIX="$PWD/.tmp/s4-final-s4-pycache.0zVWhr" MPLBACKEND=Agg .venv/bin/python -m pytest tests/unit/test_ga_fitness.py tests/unit/test_ga_operators.py tests/unit/test_ga_planner.py tests/integration/test_ga_integration.py tests/regression/test_ga_seed_reproducibility.py -q --basetemp=.pytest-tmp/s4-final-s4.lEoMjL
+exit_code=0
+result=72 passed in 1.02s; failed=0; skipped=0; xfailed=0
+
+[Full suite and branch coverage]
+command=TMPDIR="$PWD/.tmp" PIP_CACHE_DIR="$PWD/.pip-cache" XDG_CACHE_HOME="$PWD/.cache" MPLCONFIGDIR="$PWD/.mplconfig" PYTHONPYCACHEPREFIX="$PWD/.tmp/s4-final-full-pycache.RKVg0n" MPLBACKEND=Agg .venv/bin/python -m pytest tests -q --basetemp=.pytest-tmp/s4-final-full.BNeIQQ --cov=path_planning.core --cov=path_planning.algorithms --cov-branch --cov-fail-under=90 --cov-report=term-missing --cov-report=json:results/verification/S4-coverage.json
+exit_code=0
+result=318 passed in 12.29s; failed=0; skipped=0; xfailed=0
+coverage=1142 statements; 1107 covered; 35 missing; 442 branches; 409 covered; 33 missing; 95.70707070707071%
+module=src/path_planning/algorithms/__init__.py statements=6 covered_statements=6 missing_statements=0 branches=0 covered_branches=0 missing_branches=0 partial_branches=0 combined_coverage=100.0 missing_lines=[]
+module=src/path_planning/algorithms/aco.py statements=242 covered_statements=231 missing_statements=11 branches=88 covered_branches=78 missing_branches=10 partial_branches=10 combined_coverage=93.63636363636364 missing_lines=[147,162,202,334,336,372,422,499,502,503,512]
+module=src/path_planning/algorithms/astar.py statements=89 covered_statements=88 missing_statements=1 branches=34 covered_branches=33 missing_branches=1 partial_branches=1 combined_coverage=98.3739837398374 missing_lines=[101]
+module=src/path_planning/algorithms/base.py statements=14 covered_statements=14 missing_statements=0 branches=2 covered_branches=2 missing_branches=0 partial_branches=0 combined_coverage=100.0 missing_lines=[]
+module=src/path_planning/algorithms/dijkstra.py statements=51 covered_statements=50 missing_statements=1 branches=14 covered_branches=13 missing_branches=1 partial_branches=1 combined_coverage=96.92307692307692 missing_lines=[56]
+module=src/path_planning/algorithms/genetic.py statements=479 covered_statements=457 missing_statements=22 statement_coverage=95.4070981210856 branches=176 covered_branches=155 missing_branches=21 partial_branches=21 branch_coverage=88.06818181818181 combined_coverage=93.43511450381679 missing_lines=[140,382,384,442,444,449,460,481,575,583,585,599,600,639,699,730,836,906,979,980,998,1001]
+module=src/path_planning/core/__init__.py statements=7 covered_statements=7 missing_statements=0 branches=0 covered_branches=0 missing_branches=0 partial_branches=0 combined_coverage=100.0 missing_lines=[]
+module=src/path_planning/core/grid.py statements=45 covered_statements=45 missing_statements=0 branches=12 covered_branches=12 missing_branches=0 partial_branches=0 combined_coverage=100.0 missing_lines=[]
+module=src/path_planning/core/metrics.py statements=31 covered_statements=31 missing_statements=0 branches=18 covered_branches=18 missing_branches=0 partial_branches=0 combined_coverage=100.0 missing_lines=[]
+module=src/path_planning/core/movement.py statements=39 covered_statements=39 missing_statements=0 branches=18 covered_branches=18 missing_branches=0 partial_branches=0 combined_coverage=100.0 missing_lines=[]
+module=src/path_planning/core/result.py statements=62 covered_statements=62 missing_statements=0 branches=30 covered_branches=30 missing_branches=0 partial_branches=0 combined_coverage=100.0 missing_lines=[]
+module=src/path_planning/core/types.py statements=18 covered_statements=18 missing_statements=0 branches=12 covered_branches=12 missing_branches=0 partial_branches=0 combined_coverage=100.0 missing_lines=[]
+module=src/path_planning/core/validation.py statements=59 covered_statements=59 missing_statements=0 branches=38 covered_branches=38 missing_branches=0 partial_branches=0 combined_coverage=100.0 missing_lines=[]
+command=jq -e 'all(.files[]; (.summary.num_statements == 0) or (.summary.percent_covered >= 90))' results/verification/S4-coverage.json
+exit_code=0 result=true
+command=jq -e '.files["src/path_planning/algorithms/genetic.py"].summary.percent_covered >= 90' results/verification/S4-coverage.json
+exit_code=0 result=true
+command=rg -n '@pytest\.mark\.(skip|xfail)|pytest\.(skip|xfail)' tests
+exit_code=1 result=no explicit skip/xfail markers; expected no-match exit
+
+[Static, dependency, and diff gates]
+command=.venv/bin/ruff check .
+exit_code=0 result=All checks passed
+command=.venv/bin/ruff format --check .
+exit_code=0 result=47 files already formatted
+command=.venv/bin/mypy src
+exit_code=0 result=Success: no issues found in 21 source files
+command=.venv/bin/python -m pip check
+exit_code=0 result=No broken requirements found
+command=git diff --check
+exit_code=0
+
+[Wheel build and isolated GA run]
+wheel_dir=.tmp/s4-final-wheel.vm85Vk
+install_dir=.tmp/s4-final-install.dMtwfG
+command=TMPDIR="$PWD/.tmp" PIP_CACHE_DIR="$PWD/.pip-cache" .venv/bin/python -m pip wheel . --no-deps --wheel-dir .tmp/s4-final-wheel.vm85Vk
+exit_code=0 result=exactly one wheel built
+wheel=.tmp/s4-final-wheel.vm85Vk/path_planning_lab-0.1.0-py3-none-any.whl
+wheel_sha256=c752eaff3e3fa0a758ce3fd90a3e3a9cb9d22b6efc95a25692f9237e56fd62af
+command=TMPDIR="$PWD/.tmp" PIP_CACHE_DIR="$PWD/.pip-cache" .venv/bin/python -m pip install --no-deps --target .tmp/s4-final-install.dMtwfG .tmp/s4-final-wheel.vm85Vk/path_planning_lab-0.1.0-py3-none-any.whl
+exit_code=0 result=Successfully installed path-planning-lab-0.1.0 into isolated target
+command=S4_INSTALL_DIR=.tmp/s4-final-install.dMtwfG PYTHONPATH=.tmp/s4-final-install.dMtwfG .venv/bin/python -c '<assert package import is under target; construct GAConfig; run GeneticPlanner on an open 3x3 grid>'
+exit_code=0 result=isolated import under target; version=0.1.0; ga_success=True; evaluations=8; iterations=1
+
+[Legacy read-only gate]
+command=find /Users/jiaxulong/Desktop/论文与实习 -type f -print0 | tr -cd '\0' | wc -c
+command=find /Users/jiaxulong/Desktop/论文与实习 -type d ! -path /Users/jiaxulong/Desktop/论文与实习 -print0 | tr -cd '\0' | wc -c
+command=find /Users/jiaxulong/Desktop/论文与实习 -type f -exec stat -f '%z' {} + | awk '{sum += $1} END {printf "%.0f", sum}'
+command=wc -l < docs/audit/legacy_hashes.before.sha256
+command=shasum -a 256 docs/audit/legacy_hashes.before.sha256
+command=(cd /Users/jiaxulong/Desktop/论文与实习 && shasum -a 256 -c /Users/jiaxulong/Desktop/PathPlanningLab/docs/audit/legacy_hashes.before.sha256)
+command=test ! -e docs/audit/legacy_hashes.after.sha256
+exit_code=0
+legacy_files=75
+legacy_directories=21
+legacy_bytes=74097025
+legacy_manifest_entries=75
+legacy_manifest_sha256=f534b2543beb31e8f0253001b96494b0086b4b085a340d8d4ae4d33e10c91e8e
+legacy_manifest_check=75/75 OK
+legacy_after_manifest=absent
+
+[Git and boundary gate: real failure]
+command=branch/upstream/remote/URL/divergence/branch/tag/worktree/open-PR/artifact/S5 assertions, with remote-tracking branches read from `git for-each-ref --format='%(refname:short)' refs/remotes | sed '/^origin\/HEAD$/d'`
+exit_code=1
+failure=The normal symbolic refs/remotes/origin/HEAD short name was `origin`, not `origin/HEAD`; the audit script therefore miscounted it as a second remote-tracking branch. Repository facts printed before the assertion were otherwise expected: HEAD=e73a1bef42b9bd06cabd28e4f37b5d03daaa3184, branch=main, upstream=origin/main, one origin, fixed URLs, divergence=0/0, only remote head main, tags=0, worktrees=1, open PRs=0, no tracked artifacts, no S5 paths/checkmarks/status.
+correction=Exclude symbolic refs by inspecting `%(symref)` rather than matching a presentation short name; no Git state was changed.
+
+[Git and boundary gate: corrected retry]
+commands=git rev-parse HEAD; git branch --show-current; git rev-parse --abbrev-ref --symbolic-full-name '@{upstream}'; git remote; git remote get-url origin; git remote get-url --push origin; git rev-list --left-right --count HEAD...origin/main; git for-each-ref --format='%(refname:short)' refs/heads; git ls-remote --heads origin; git for-each-ref --format='%(refname:short) %(symref)' refs/remotes | awk '$2 == "" {print $1}'; git tag --list; git worktree list --porcelain; gh pr list --repo xulong-jia/PathPlanningLab --state open --json number --jq 'length'; git ls-files | rg '<temp/cache/build patterns>'; assert planned S5 paths absent; assert S5 checked/Verified counts zero
+exit_code=0
+HEAD=e73a1bef42b9bd06cabd28e4f37b5d03daaa3184
+branch=main upstream=origin/main divergence=0/0
+remote=origin fetch_url=git@github.com:xulong-jia/PathPlanningLab.git push_url=git@github.com:xulong-jia/PathPlanningLab.git
+local_branches=main remote_heads=main non_symbolic_remote_tracking=origin/main
+tags=0 worktrees=1 worktree_branch=main worktree_flags=none open_prs=0
+tracked_temp_cache_build_artifacts=0
+S5_paths=0 S5_checked=0 S5_verified=0
+
+[Pre-record integrity]
+command=count checklist/main table/detailed tasks/acceptance rows; compare original HEAD WORK_LOG bytes with current prefix
+exit_code=0
+checklist_items=42 checked=20 main_table_tasks=42 detailed_task_sections=42 acceptance_rows=29 acceptance_verified=8
+work_log_head_prefix=PASS head_bytes=49608 current_bytes=70693
+
+[Final record integrity and post-record quality gate]
+command=.venv/bin/python - <<'PY' (assert 42 unique checklist items, 42 unique main-table tasks, 42 unique detailed sections, stage/status totals, 29 unique acceptance rows with the exact 9 Verified set, status percentages, HANDOFF checkpoint/publication pending, and unique chronological WORK_LOG timestamps) PY
+exit_code=0
+result=checklist 42; checked 21; unchecked 21; first unchecked S5-T01
+result=main table 42 unique; Verified 21; Not Started 21; In Progress 0; S1 8/8; S2 4/4; S3 4/4; S4 5/5
+result=detailed sections 42 unique; Verified 21; Not Started 21; In Progress 0; S1 8/8; S2 4/4; S3 4/4; S4 5/5
+result=acceptance 29 unique; Verified 9; Not Started 20; only newly Verified row GA完整栅格实现
+result=WORK_LOG timestamp headings 39; chronological and unique; last 2026-07-19 00:50
+command=head_bytes=$(git show HEAD:docs/progress/WORK_LOG.md | wc -c | tr -d ' '); cmp <(git show HEAD:docs/progress/WORK_LOG.md) <(head -c "$head_bytes" docs/progress/WORK_LOG.md)
+exit_code=0 result=HEAD prefix byte-identical; head_bytes=49608 current_bytes=74752
+command=assert S5 checked count 0; assert planned S5 paths absent; assert tracked temp/cache/build artifacts absent
+exit_code=0
+command=.venv/bin/ruff check .
+exit_code=0 result=All checks passed
+command=.venv/bin/ruff format --check .
+exit_code=0 result=47 files already formatted
+command=.venv/bin/mypy src
+exit_code=0 result=Success: no issues found in 21 source files
+command=.venv/bin/python -m pip check
+exit_code=0 result=No broken requirements found
+command=git diff --check
+exit_code=0
+S4_FINAL_RECORD_GATE_START=2026-07-19T00:52:44+1000
+S4_FINAL_RECORD_GATE_END=2026-07-19T00:52:44+1000
+record_gate_exit_code=0
+S4_FINAL_STAGE_GATE_END=2026-07-19T00:52:44+1000
+[Controller independent recheck]
+controller_recheck_start=2026-07-19T00:54:00+1000
+
+[Controller specialized suites: real command-list failure and corrected retry]
+initial_command=pytest S1/S2/S3/S4 specialized files using controller-recalled filenames
+initial_result=S4 72 passed; S1/S2/S3 each exited 4 because the controller named test files that do not exist in this repository (`test_costs.py`, `test_deterministic_seed_stability.py`, and `test_aco_sampling.py`)
+failure_class=audit command-list error; no project test executed or failed for S1/S2/S3 and no repository state changed
+correction=read the actual test tree and the already recorded exact stage commands, then rerun the repository's real specialized suites
+corrected_result=S1 132 passed; S2 71 passed; S3 43 passed; S4 72 passed
+
+[Controller complete coverage and quality]
+command=.venv/bin/python -m pytest tests -q --cov=path_planning.core --cov=path_planning.algorithms --cov-branch --cov-fail-under=90 --cov-report=term-missing --cov-report=json:results/verification/S4-coverage.json
+exit_code=0 result=318 passed in 12.02s; total combined coverage 95.71%
+module_assertions=all nonempty reported modules combined coverage >=90%; genetic.py combined 93.44%, statement 95.41%, branch-only 88.07%
+commands=.venv/bin/ruff check .; .venv/bin/ruff format --check .; .venv/bin/mypy src; .venv/bin/python -m pip check; git diff --check; assert no skip/xfail markers
+exit_code=0 result=Ruff passed; 47 files formatted; strict mypy passed for 21 source files; dependencies healthy; diff clean; no skip/xfail markers
+
+[Controller wheel: real smoke-command failure and corrected retry]
+build_result=one wheel built and installed with --no-deps into isolated target
+wheel=.tmp/s4-controller-wheel.GAwyXx/path_planning_lab-0.1.0-py3-none-any.whl
+wheel_sha256=1da3e58060098357497d597cb0c28d003c77aeccce5cf3f209cdc2ac0f300294
+initial_smoke_exit_code=1
+initial_smoke_failure=controller used nonexistent GAConfig keyword `max_generations`; the installed public API correctly raised TypeError
+correction=stop guessing the interface, read GAConfig and the integration-test factory, then rerun against the same installed wheel with the exact public signature
+corrected_smoke_exit_code=0 result=isolated package import; version 0.1.0; valid 3x3 GA success; evaluations 24; iterations 2
+note=the controller wheel hash differs from the earlier valid build because wheel archive metadata is not reproducible; both isolated installations exercised the same source behavior
+
+[Controller legacy, Git, records, and S5 boundary]
+legacy_result=75 files; 21 subdirectories; 74097025 bytes; manifest 75 entries; 75/75 hashes OK; aggregate f534b2543beb31e8f0253001b96494b0086b4b085a340d8d4ae4d33e10c91e8e; after manifest absent
+git_result=HEAD e73a1bef42b9bd06cabd28e4f37b5d03daaa3184; main -> origin/main; divergence 0/0; one fixed origin; only local/remote main; zero tags; one worktree; zero open PRs; zero tracked temp/cache/build artifacts
+record_parser_failure_1=a broad table matcher included the later checkpoint ledger and exited 1; narrowed evidence showed this was parser scope, not duplicate task data
+record_parser_failure_2=the narrowed all-in-one parser exited on an over-specific prose assertion; after two failures the controller stopped that approach and switched to independent rg/awk/cmp checks
+atomic_check_failure=a first atomic awk used the pre-split instead of post-split status column, and an S5 check treated the S1-created empty `benchmark/__init__.py` skeleton as S5 work; neither changed repository state
+atomic_check_correction=use the actual main-table status column and check the exact S5-T01..T05 planned implementation files rather than the pre-existing package skeleton
+record_result=checklist 42/21 checked; first unchecked S5-T01; main table 42 with 21 Verified, 0 In Progress, 21 Not Started; detailed sections same; acceptance 29 with 9 Verified; WORK_LOG HEAD prefix byte-identical and 39 timestamps unique/chronological
+S5_result=zero S5 checkmarks; all S5-T01..T05 statuses Not Started; exact planned S5 implementation/config/test/result files absent
+
+controller_recheck_end=2026-07-19T01:00:15+1000
+S4_FINAL_STAGE_GATE_RESULT=PASS
+
+S4_FRESH_FULL_STAGE_REVIEW_START=2026-07-19T01:13:00+1000
+review_result=NOT_VERIFIED
+review_quality=CHANGES_REQUIRED
+important_1=GeneticPlanner.plan early returns bypass config.validate_for_grid(grid)
+important_2=DEAP Toolbox lacks and does not route real local-RNG select/mate/mutate aliases
+minor=docs/algorithms.md must state common_node worst-case O(L^2)
+state_correction=S4-T04 and S4-T05 In Progress; 19/42 Verified; 5/29 acceptance Verified; S5-T01 Not Started
+
+[Fresh review remediation RED]
+S4_REVIEW_FIX_RED_START=2026-07-19T01:16:42+1000
+command=.venv/bin/python -m pytest tests/integration/test_ga_integration.py::test_ga_validates_grid_config_before_every_public_early_exit -q
+exit_code=1
+result=3 failed; start==goal, no_path, and invalid-endpoint public entries all failed with `DID NOT RAISE ValueError`, proving grid-specific config validation occurred after their early returns
+command=.venv/bin/python -m pytest tests/unit/test_ga_planner.py::test_evolution_routes_all_operations_through_real_toolbox_aliases -q
+exit_code=1
+result=1 failed with `TypeError: build_toolbox() got an unexpected keyword argument 'operator_rng'`, proving the required local-RNG alias API and routed toolbox path were absent
+S4_REVIEW_REMEDIATION_STATUS=IN_PROGRESS
+
+[Fresh review remediation GREEN]
+S4_REVIEW_FIX_GREEN_START=2026-07-19T01:17:43+1000
+command=.venv/bin/python -m pytest tests/integration/test_ga_integration.py::test_ga_validates_grid_config_before_every_public_early_exit tests/unit/test_ga_planner.py::test_evolution_routes_all_operations_through_real_toolbox_aliases -q
+exit_code=0
+result=4 passed; three public early-exit cases now reject the grid-invalid base penalty, and the real Toolbox alias tracer observes routed elite/select/mate/mutate calls
+command=.venv/bin/python -m pytest tests/unit/test_ga_fitness.py tests/unit/test_ga_operators.py tests/unit/test_ga_planner.py tests/integration/test_ga_integration.py tests/regression/test_ga_seed_reproducibility.py -q
+exit_code=0
+result=76 passed; failed=0; skipped=0; xfailed=0
+
+[Fresh review remediation full branch-coverage gate]
+command=TMPDIR="$PWD/.tmp" PIP_CACHE_DIR="$PWD/.pip-cache" XDG_CACHE_HOME="$PWD/.cache" MPLCONFIGDIR="$PWD/.mplconfig" PYTHONPYCACHEPREFIX="$PWD/.tmp/s4-review-fix-pycache.1oha1N" MPLBACKEND=Agg .venv/bin/python -m pytest tests -q --basetemp=.pytest-tmp/s4-review-fix-full.tOSn5K --cov=path_planning.core --cov=path_planning.algorithms --cov-branch --cov-fail-under=90 --cov-report=term-missing --cov-report=json:results/verification/S4-coverage.json
+exit_code=0
+result=322 passed in 12.30s; failed=0; skipped=0; xfailed=0
+coverage=1155 statements; 1120 covered; 35 missing; 444 branches; 411 covered; 33 missing; combined=95.74734208880551%; branch-only=92.56756756756756%
+genetic_coverage=492 statements; 470 covered; 22 missing; 178 branches; 157 covered; 21 missing/partial; combined=93.58208955223881%; statement-only=95.52845528455285%; branch-only=88.20224719101124%
+genetic_missing_lines=[140,388,390,456,458,463,474,497,625,633,635,649,650,689,749,780,886,956,1029,1030,1048,1051]
+command=jq -e 'all(.files[]; (.summary.num_statements == 0) or (.summary.percent_covered >= 90))' results/verification/S4-coverage.json
+exit_code=0 result=true
+command=jq -e '.files["src/path_planning/algorithms/genetic.py"].summary.percent_covered >= 90' results/verification/S4-coverage.json
+exit_code=0 result=true
+command=rg -n '@pytest\.mark\.(skip|xfail)|pytest\.(skip|xfail)' tests
+exit_code=1 result=no explicit skip/xfail markers; expected no-match exit
+
+[Fresh review remediation quality and package gate]
+command=.venv/bin/ruff check .
+exit_code=0 result=All checks passed
+command=.venv/bin/ruff format --check .
+exit_code=0 result=47 files already formatted
+command=.venv/bin/mypy src
+exit_code=0 result=Success: no issues found in 21 source files
+command=.venv/bin/python -m pip check
+exit_code=0 result=No broken requirements found
+command=git diff --check
+exit_code=0
+command=TMPDIR="$PWD/.tmp" PIP_CACHE_DIR="$PWD/.pip-cache" .venv/bin/python -m pip wheel . --no-deps --wheel-dir .tmp/s4-review-fix-wheel.bli65f
+exit_code=0 result=exactly one wheel
+wheel=.tmp/s4-review-fix-wheel.bli65f/path_planning_lab-0.1.0-py3-none-any.whl
+wheel_sha256=1f4e9d4dd786eb9206a89ec2e69f9c53ea5cd49b3a28c682920f6ac39fcac7f2
+command=.venv/bin/python -m pip install --no-deps --target .tmp/s4-review-fix-install.Iln0lp .tmp/s4-review-fix-wheel.bli65f/path_planning_lab-0.1.0-py3-none-any.whl; import from target and run minimal GeneticPlanner plan
+exit_code=0 result=isolated import under target; success=True; evaluations=8; iterations=1
+
+[Fresh review remediation legacy, Git, rollback-record, and S5 gates]
+legacy_exit_code=0 legacy_files=75 legacy_directories=21 legacy_bytes=74097025 manifest_checks=75/75 manifest_sha256=f534b2543beb31e8f0253001b96494b0086b4b085a340d8d4ae4d33e10c91e8e after_manifest_absent=PASS
+git_exit_code=0 HEAD=e73a1bef42b9bd06cabd28e4f37b5d03daaa3184 branch=main upstream=origin/main divergence=0/0 remote=origin branches=main tags=0 worktrees=1 open_prs=0 tracked_artifacts=0
+rollback_record_exit_code=0 checklist=42 checked=19 S4-T04=InProgress S4-T05=InProgress acceptance_verified=5 WORK_LOG_head_prefix=PASS timestamps=41 chronological_unique=PASS
+S5_boundary_exit_code=0 S5_paths=0 S5_checked=0 S5-T01=NotStarted
+S4_REVIEW_REMEDIATION_NON_RECORD_GATES=PASS
+
+[Fresh review remediation final record gate]
+S4_REVIEW_FIX_FINAL_RECORD_GATE_START=2026-07-19T01:23:31+1000
+command=parse and assert unique checklist/main-table/detailed tasks, stage/status totals, acceptance rows, PROJECT_STATUS/HANDOFF values, chronological WORK_LOG; compare HEAD WORK_LOG prefix; assert exact S5 paths/checkmarks absent; git diff --check
+exit_code=0
+result=checklist 42; checked 21; unchecked 21; first unchecked S5-T01; main table 42 unique; detailed sections 42 unique; 21 Verified; 0 In Progress; S1 8/8; S2 4/4; S3 4/4; S4 5/5; acceptance 29 unique and 9 Verified; WORK_LOG 42 timestamp headings chronological/unique; HEAD prefix byte-identical; S5 boundary PASS; diff PASS
+S4_REVIEW_FIX_FINAL_RECORD_GATE_END=2026-07-19T01:23:31+1000
+S4_FRESH_REVIEW_REMEDIATION_RESULT=PASS
+S4_FRESH_REREVIEW_RESULT=VERIFIED
+S4_FRESH_REREVIEW_QUALITY=APPROVED
+S4_READY_TO_CHECKPOINT=YES
+review_findings=none Critical, Important, or Minor; both Important and the Minor from the prior review are closed
+
+[Controller final pre-checkpoint verification]
+controller_final_start=2026-07-19T01:25:00+1000
+full_suite=322 passed; combined coverage 95.75%; genetic.py combined coverage 93.58%
+quality=Ruff PASS; format PASS; strict mypy PASS; pip check PASS; diff PASS; every nonempty reported module combined coverage >=90%
+records=checklist/main/detailed 42 each; 21 Verified; 0 In Progress; 21 Not Started; acceptance 9/29; WORK_LOG HEAD prefix and chronological unique timestamps PASS
+legacy=75 files; 21 subdirectories; 74097025 bytes; 75/75 hashes; aggregate f534b2543beb31e8f0253001b96494b0086b4b085a340d8d4ae4d33e10c91e8e; after manifest absent
+git=normal .git common dir; HEAD e73a1bef42b9bd06cabd28e4f37b5d03daaa3184; main -> origin/main; divergence 0/0; remote head main; zero tags; one worktree; zero open PRs
+S5=first unchecked S5-T01; all S5 statuses Not Started; exact planned S5 implementation files absent
+controller_final_end=2026-07-19T01:27:58+1000
+[Pre-checkpoint staged-diff gate: real failure and correction]
+initial_command=git diff --cached --check
+initial_exit_code=2
+initial_result=raw pytest evidence S4-T02-red.txt, S4-T02.txt, S4-T03-red.txt and S4-start-gate.txt contained trailing spaces or extra blank lines at EOF; no source, test, config, or prose-document defect
+correction=mechanically strip trailing horizontal whitespace and normalize only final blank lines in the four exact evidence text files; test output wording and audit facts otherwise unchanged
+corrected_command=git diff --cached --check
+corrected_exit_code=0
+correction_end=2026-07-19T01:30:44+1000
+S4_FINAL_STAGE_GATE_RESULT=PASS

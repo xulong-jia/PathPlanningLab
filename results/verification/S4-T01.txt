@@ -1,0 +1,92 @@
+S4-T01 GA configuration, DEAP types, initialization, and fitness verification
+Date: 2026-07-18 AEST
+
+RED evidence: results/verification/S4-T01-red.txt
+RED result: expected missing-module collection failure, exit 2
+
+$ .venv/bin/python -m pytest tests/unit/test_ga_fitness.py -q
+.......................                                                  [100%]
+23 passed in 0.13s
+exit_code=0
+
+$ .venv/bin/ruff check src/path_planning/algorithms/genetic.py tests/unit/test_ga_fitness.py
+All checks passed!
+exit_code=0
+
+$ .venv/bin/mypy src/path_planning/algorithms/genetic.py
+Success: no issues found in 1 source file
+exit_code=0
+
+$ .venv/bin/ruff format --check src/path_planning/algorithms/genetic.py tests/unit/test_ga_fitness.py
+2 files already formatted
+exit_code=0
+
+$ .venv/bin/python -m pytest -q
+........................................................................ [ 26%]
+........................................................................ [ 53%]
+........................................................................ [ 80%]
+.....................................................                    [100%]
+269 passed in 2.42s
+exit_code=0
+
+$ git diff --check
+exit_code=0
+
+S4_T01_RESULT=PASS
+
+Reviewer critical regression RED
+
+$ .venv/bin/python -m pytest tests/unit/test_ga_fitness.py -q
+.......F................                                                 [100%]
+=================================== FAILURES ===================================
+_________ test_diagonal_rounding_keeps_invalid_fitness_strictly_worse __________
+>       assert legal_fitness < invalid_fitness
+E       assert (9.899494936611667,) < (9.899494936611667,)
+tests/unit/test_ga_fitness.py:154: AssertionError
+FAILED tests/unit/test_ga_fitness.py::test_diagonal_rounding_keeps_invalid_fitness_strictly_worse
+1 failed, 23 passed in 0.10s
+exit_code=1
+
+Failure cause: the bound multiplied 7 * diagonal_cost while evaluation accumulated
+seven diagonal steps one by one, so nextafter(bound, +inf) equalled the legal score.
+S4_T01_REVIEW_FIX_STATUS=RED_CONFIRMED
+
+Reviewer critical regression GREEN
+
+Minimal fix: legal_fitness_upper_bound now accumulates max_step_cost once per
+possible simple-path edge, matching the evaluator's per-edge floating-point
+operation order and conservatively bounding every legal path. No epsilon or
+relaxed comparison is used.
+
+$ .venv/bin/python -m pytest tests/unit/test_ga_fitness.py -q
+........................                                                 [100%]
+24 passed in 0.11s
+exit_code=0
+
+$ .venv/bin/ruff check src/path_planning/algorithms/genetic.py tests/unit/test_ga_fitness.py
+All checks passed!
+exit_code=0
+
+$ .venv/bin/ruff format --check src/path_planning/algorithms/genetic.py tests/unit/test_ga_fitness.py
+2 files already formatted
+exit_code=0
+
+$ .venv/bin/mypy src/path_planning/algorithms/genetic.py
+Success: no issues found in 1 source file
+exit_code=0
+
+$ .venv/bin/python -m pytest -q
+........................................................................ [ 26%]
+........................................................................ [ 53%]
+........................................................................ [ 80%]
+......................................................                   [100%]
+270 passed in 2.47s
+exit_code=0
+
+$ git diff --check
+exit_code=0
+
+Intermediate feedback: the first post-fix format check exited 1 and reported
+that the two changed files would be reformatted. The formatter diff was applied
+with apply_patch; all commands above are the fresh passing rerun.
+S4_T01_REVIEW_FIX_RESULT=PASS

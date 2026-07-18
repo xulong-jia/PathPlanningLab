@@ -1,0 +1,313 @@
+# S4-T02 Verification Evidence
+
+Status: Verified
+Task: GA repair, crossover, and mutation
+Commit: none (grouped into S4-T05)
+
+## RED
+
+$ .venv/bin/python -m pytest tests/unit/test_ga_operators.py -q
+EXIT_CODE: 1
+RESULT: 11 failed because repair_path, apply_crossover, apply_mutation, crossover_method, and mutation_method did not exist.
+COMPLETE_OUTPUT: results/verification/S4-T02-red.txt
+
+## Real failures and corrections
+
+1. First GREEN behavior run
+   - Result: 10 passed, 1 failed (exit 1).
+   - Failure: reroute_segment concatenated list slices with the tuple returned by bounded DFS:
+     TypeError: can only concatenate list (not "tuple") to list
+   - Correction: converted the two Sequence slices to tuples before concatenation. No test was relaxed.
+
+2. First target static gate
+   - Ruff lint exit 1: I001 for one extra blank line in the test import block and E501 for an 89-character test name.
+   - Ruff format check exit 1: genetic.py and test_ga_operators.py required formatting.
+   - strict mypy exit 1: four [operator] errors for Sequence[Point] + tuple[Point, ...] in common_node and splice_repair.
+   - Correction: applied Ruff's read-only diff mechanically, shortened the test name, and explicitly normalized Sequence slices to tuples. No threshold was lowered.
+
+## Final fresh verification (complete output)
+$ .venv/bin/python -m pytest tests/unit/test_ga_operators.py -q
+...........                                                              [100%]
+11 passed in 0.08s
+EXIT_CODE: 0
+
+$ .venv/bin/ruff check src/path_planning/algorithms/genetic.py tests/unit/test_ga_operators.py
+All checks passed!
+EXIT_CODE: 0
+
+$ .venv/bin/ruff format --check src/path_planning/algorithms/genetic.py tests/unit/test_ga_operators.py
+2 files already formatted
+EXIT_CODE: 0
+
+$ .venv/bin/mypy src/path_planning/algorithms/genetic.py
+Success: no issues found in 1 source file
+EXIT_CODE: 0
+
+$ .venv/bin/python -m pytest -q
+........................................................................ [ 25%]
+........................................................................ [ 51%]
+........................................................................ [ 76%]
+.................................................................        [100%]
+281 passed in 2.36s
+EXIT_CODE: 0
+
+$ git diff --check
+EXIT_CODE: 0
+
+## Reviewer Important regression RED
+
+$ .venv/bin/python -m pytest tests/unit/test_ga_operators.py -q -k outcomes
+EXIT_CODE: 1
+
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+_________ test_crossover_outcomes_distinguish_skip_failure_and_success _________
+
+    def test_crossover_outcomes_distinguish_skip_failure_and_success() -> None:
+        grid = GridMap(np.zeros((5, 5), dtype=bool))
+        parent_a = [(0, index) for index in range(5)] + [
+            (index, 4) for index in range(1, 5)
+        ]
+        parent_b = [(index, 0) for index in range(5)] + [
+            (4, index) for index in range(1, 5)
+        ]
+
+        skipped = genetic.apply_crossover(
+            parent_a,
+            parent_b,
+            grid,
+            (0, 0),
+            (4, 4),
+            _config(crossover_probability=0.0, crossover_method="splice_repair"),
+            random.Random(41),
+        )
+        succeeded = genetic.apply_crossover(
+            parent_a,
+            parent_b,
+            grid,
+            (0, 0),
+            (4, 4),
+            _config(crossover_method="splice_repair"),
+            random.Random(9),
+        )
+
+        blocked_grid = GridMap(np.array([[0, 1, 0]], dtype=bool))
+        failed = genetic.apply_crossover(
+            [(0, 0), (0, 2)],
+            [(0, 0), (0, 2)],
+            blocked_grid,
+            (0, 0),
+            (0, 2),
+            _config(crossover_method="splice_repair", max_initialization_steps=1),
+            random.Random(43),
+        )
+
+>       assert skipped.status == "skipped"
+               ^^^^^^^^^^^^^^
+E       AttributeError: 'tuple' object has no attribute 'status'
+
+tests/unit/test_ga_operators.py:307: AttributeError
+_________ test_mutation_outcomes_distinguish_skip_failure_and_success __________
+
+    def test_mutation_outcomes_distinguish_skip_failure_and_success() -> None:
+        grid = GridMap(np.zeros((3, 2), dtype=bool))
+        detour = [(0, 0), (0, 1), (1, 1), (1, 0), (2, 0)]
+
+        skipped = genetic.apply_mutation(
+            detour,
+            grid,
+            (0, 0),
+            (2, 0),
+            _config(mutation_probability=0.0, mutation_method="shortcut"),
+            random.Random(47),
+        )
+        failed = genetic.apply_mutation(
+            [(0, 0), (0, 1)],
+            GridMap(np.zeros((1, 2), dtype=bool)),
+            (0, 0),
+            (0, 1),
+            _config(mutation_method="shortcut"),
+            random.Random(53),
+        )
+        succeeded = genetic.apply_mutation(
+            detour,
+            grid,
+            (0, 0),
+            (2, 0),
+            _config(mutation_method="shortcut"),
+            random.Random(59),
+        )
+
+>       assert skipped.status == "skipped"
+               ^^^^^^^^^^^^^^
+E       AttributeError: 'tuple' object has no attribute 'status'
+
+tests/unit/test_ga_operators.py:344: AttributeError
+=========================== short test summary info ============================
+FAILED tests/unit/test_ga_operators.py::test_crossover_outcomes_distinguish_skip_failure_and_success
+FAILED tests/unit/test_ga_operators.py::test_mutation_outcomes_distinguish_skip_failure_and_success
+2 failed, 11 deselected in 0.09s
+
+### Expanded RED including direct splice propagation
+
+$ .venv/bin/python -m pytest tests/unit/test_ga_operators.py -q -k outcome
+EXIT_CODE: 1
+
+FFF                                                                      [100%]
+=================================== FAILURES ===================================
+_________ test_crossover_outcomes_distinguish_skip_failure_and_success _________
+
+    def test_crossover_outcomes_distinguish_skip_failure_and_success() -> None:
+        grid = GridMap(np.zeros((5, 5), dtype=bool))
+        parent_a = [(0, index) for index in range(5)] + [
+            (index, 4) for index in range(1, 5)
+        ]
+        parent_b = [(index, 0) for index in range(5)] + [
+            (4, index) for index in range(1, 5)
+        ]
+
+        skipped = genetic.apply_crossover(
+            parent_a,
+            parent_b,
+            grid,
+            (0, 0),
+            (4, 4),
+            _config(crossover_probability=0.0, crossover_method="splice_repair"),
+            random.Random(41),
+        )
+        succeeded = genetic.apply_crossover(
+            parent_a,
+            parent_b,
+            grid,
+            (0, 0),
+            (4, 4),
+            _config(crossover_method="splice_repair"),
+            random.Random(9),
+        )
+
+        blocked_grid = GridMap(np.array([[0, 1, 0]], dtype=bool))
+        failed = genetic.apply_crossover(
+            [(0, 0), (0, 2)],
+            [(0, 0), (0, 2)],
+            blocked_grid,
+            (0, 0),
+            (0, 2),
+            _config(crossover_method="splice_repair", max_initialization_steps=1),
+            random.Random(43),
+        )
+>       assert skipped.status == "skipped"
+               ^^^^^^^^^^^^^^
+E       AttributeError: 'tuple' object has no attribute 'status'
+
+tests/unit/test_ga_operators.py:306: AttributeError
+___________ test_splice_repair_outcome_reports_both_repair_attempts ____________
+
+    def test_splice_repair_outcome_reports_both_repair_attempts() -> None:
+        grid = GridMap(np.zeros((5, 5), dtype=bool))
+        parent_a = [(0, index) for index in range(5)] + [
+            (index, 4) for index in range(1, 5)
+        ]
+        parent_b = [(index, 0) for index in range(5)] + [
+            (4, index) for index in range(1, 5)
+        ]
+        direct_success = genetic.splice_repair(
+            parent_a,
+            parent_b,
+            grid,
+            (0, 0),
+            (4, 4),
+            MOVEMENT,
+            200,
+            random.Random(9),
+        )
+        blocked_grid = GridMap(np.array([[0, 1, 0]], dtype=bool))
+        direct_failure = genetic.splice_repair(
+            [(0, 0), (0, 2)],
+            [(0, 0), (0, 2)],
+            blocked_grid,
+            (0, 0),
+            (0, 2),
+            MOVEMENT,
+            1,
+            random.Random(43),
+        )
+
+>       assert direct_success.children is not None
+               ^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'tuple' object has no attribute 'children'
+
+tests/unit/test_ga_operators.py:348: AttributeError
+_________ test_mutation_outcomes_distinguish_skip_failure_and_success __________
+
+    def test_mutation_outcomes_distinguish_skip_failure_and_success() -> None:
+        grid = GridMap(np.zeros((3, 2), dtype=bool))
+        detour = [(0, 0), (0, 1), (1, 1), (1, 0), (2, 0)]
+
+        skipped = genetic.apply_mutation(
+            detour,
+            grid,
+            (0, 0),
+            (2, 0),
+            _config(mutation_probability=0.0, mutation_method="shortcut"),
+            random.Random(47),
+        )
+        failed = genetic.apply_mutation(
+            [(0, 0), (0, 1)],
+            GridMap(np.zeros((1, 2), dtype=bool)),
+            (0, 0),
+            (0, 1),
+            _config(mutation_method="shortcut"),
+            random.Random(53),
+        )
+        succeeded = genetic.apply_mutation(
+            detour,
+            grid,
+            (0, 0),
+            (2, 0),
+            _config(mutation_method="shortcut"),
+            random.Random(59),
+        )
+
+>       assert skipped.status == "skipped"
+               ^^^^^^^^^^^^^^
+E       AttributeError: 'tuple' object has no attribute 'status'
+
+tests/unit/test_ga_operators.py:383: AttributeError
+=========================== short test summary info ============================
+FAILED tests/unit/test_ga_operators.py::test_crossover_outcomes_distinguish_skip_failure_and_success
+FAILED tests/unit/test_ga_operators.py::test_splice_repair_outcome_reports_both_repair_attempts
+FAILED tests/unit/test_ga_operators.py::test_mutation_outcomes_distinguish_skip_failure_and_success
+3 failed, 11 deselected in 0.10s
+
+
+## Reviewer Important final fresh verification (complete output)
+
+
+
+$ .venv/bin/python -m pytest tests/unit/test_ga_operators.py -q
+..............                                                           [100%]
+14 passed in 0.08s
+EXIT_CODE: 0
+
+$ .venv/bin/ruff check src/path_planning/algorithms/genetic.py tests/unit/test_ga_operators.py
+All checks passed!
+EXIT_CODE: 0
+
+$ .venv/bin/ruff format --check src/path_planning/algorithms/genetic.py tests/unit/test_ga_operators.py
+2 files already formatted
+EXIT_CODE: 0
+
+$ .venv/bin/mypy src/path_planning/algorithms/genetic.py
+Success: no issues found in 1 source file
+EXIT_CODE: 0
+
+$ .venv/bin/python -m pytest -q
+........................................................................ [ 25%]
+........................................................................ [ 50%]
+........................................................................ [ 76%]
+....................................................................     [100%]
+284 passed in 2.35s
+EXIT_CODE: 0
+
+$ git diff --check
+EXIT_CODE: 0

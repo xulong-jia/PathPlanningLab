@@ -26,11 +26,11 @@
 - [x] S3-T02 ACO 信息素更新与收敛
 - [x] S3-T03 ACO 完整 Planner 集成
 - [x] S3-T04 阶段3门禁
-- [ ] S4-T01 GA 配置、DEAP 类型、初始化与适应度
-- [ ] S4-T02 GA 修复、交叉和变异
-- [ ] S4-T03 GA 选择、精英和演化循环
-- [ ] S4-T04 GA 集成与复现性
-- [ ] S4-T05 阶段4门禁
+- [x] S4-T01 GA 配置、DEAP 类型、初始化与适应度
+- [x] S4-T02 GA 修复、交叉和变异
+- [x] S4-T03 GA 选择、精英和演化循环
+- [x] S4-T04 GA 集成与复现性
+- [x] S4-T05 阶段4门禁
 - [ ] S5-T01 Benchmark schema 与任务展开
 - [ ] S5-T02 公平 Benchmark Runner
 - [ ] S5-T03 原始结果与环境元数据
@@ -333,11 +333,11 @@ flowchart LR
 | S3-T02 | 3 | ACO 信息素更新与收敛 | S3-T01 | 挥发、强化、精英、上下限 | 非均匀更新、短路强化更强 | Verified | `S3-T02.txt` | 归入 S3-T04 |
 | S3-T03 | 3 | ACO 完整 Planner 集成 | S3-T02 | 完整 `AntColonyPlanner` | seed、无路径、配置生效、合法路径 | Verified | `S3-T03.txt` | 归入 S3-T04 |
 | S3-T04 | 3 | 阶段3门禁 | S3-T03 | ACO 文档与 HANDOFF | 全测、覆盖率、Ruff、mypy、diff | Verified | `S3-stage-gate.txt` | `feat: implement grid-based ant colony planner` |
-| S4-T01 | 4 | GA 配置、DEAP 类型、初始化与适应度 | S3-T04 | `genetic.py` 第一闭环 | 重复 import、合法初始化、非法劣化 | Not Started | `S4-T01.txt` | 归入 S4-T05 |
-| S4-T02 | 4 | GA 修复、交叉和变异 | S4-T01 | 路径修复和四类算子 | 算子真实执行且输出合法 | Not Started | `S4-T02.txt` | 归入 S4-T05 |
-| S4-T03 | 4 | GA 选择、精英和演化循环 | S4-T02 | 完整演化主循环 | 选择方法、精英保留、收敛 | Not Started | `S4-T03.txt` | 归入 S4-T05 |
-| S4-T04 | 4 | GA 集成与复现性 | S4-T03 | GA 集成/回归测试 | seed、无路径、配置生效、终止 | Not Started | `S4-T04.txt` | 归入 S4-T05 |
-| S4-T05 | 4 | 阶段4门禁 | S4-T04 | GA 算法文档与 HANDOFF | 全测、覆盖率、Ruff、mypy、diff | Not Started | `S4-stage-gate.txt` | `feat: implement grid-based genetic planner` |
+| S4-T01 | 4 | GA 配置、DEAP 类型、初始化与适应度 | S3-T04 | `genetic.py` 第一闭环 | 重复 import、合法初始化、非法劣化 | Verified | `S4-T01.txt` | 归入 S4-T05 |
+| S4-T02 | 4 | GA 修复、交叉和变异 | S4-T01 | 路径修复和四类算子 | 算子真实执行且输出合法 | Verified | `S4-T02.txt` | 归入 S4-T05 |
+| S4-T03 | 4 | GA 选择、精英和演化循环 | S4-T02 | 完整演化主循环 | 选择方法、精英保留、收敛 | Verified | `S4-T03.txt` | 归入 S4-T05 |
+| S4-T04 | 4 | GA 集成与复现性 | S4-T03 | GA 集成/回归测试 | seed、无路径、配置生效、终止 | Verified | `S4-T04.txt` | 归入 S4-T05 |
+| S4-T05 | 4 | 阶段4门禁 | S4-T04 | GA 算法文档与 HANDOFF | 全测、覆盖率、Ruff、mypy、diff | Verified | `S4-stage-gate.txt` | `feat: implement grid-based genetic planner` |
 | S5-T01 | 5 | Benchmark schema 与任务展开 | S4-T05 | `schemas.py`、smoke/standard 配置 | 任务数量、字段和配置校验 | Not Started | `S5-T01.txt` | 归入 S5-T05 |
 | S5-T02 | 5 | 公平 Benchmark Runner | S5-T01 | `runner.py` | 同图同规则、预算、预热、失败保留 | Not Started | `S5-T02.txt` | 归入 S5-T05 |
 | S5-T03 | 5 | 原始结果与环境元数据 | S5-T02 | `metadata.py`、CSV/JSON/manifest | schema 一致、元数据完整、无覆盖 | Not Started | `S5-T03.txt` | 归入 S5-T05 |
@@ -866,7 +866,7 @@ flowchart LR
 13. **风险：**不得通过确定性最短路算法生成或修复 GA 个体。
 14. **Checkpoint：**不允许。
 15. **Commit：**归入 S4-T05。
-16. **状态：**Not Started。
+16. **状态：**Verified。
 
 ### S4-T02 GA 修复、交叉和变异
 
@@ -896,7 +896,7 @@ flowchart LR
 13. **风险：**测试必须固定 seed，不能依赖概率“偶尔发生”。
 14. **Checkpoint：**不允许。
 15. **Commit：**归入 S4-T05。
-16. **状态：**Not Started。
+16. **状态：**Verified。
 
 ### S4-T03 GA 选择、精英和演化循环
 
@@ -925,7 +925,7 @@ flowchart LR
 13. **风险：**roulette 对极端 fitness 做稳定转换并测试边界。
 14. **Checkpoint：**不允许。
 15. **Commit：**归入 S4-T05。
-16. **状态：**Not Started。
+16. **状态：**Verified。
 
 ### S4-T04 GA 集成与复现性
 
@@ -947,7 +947,7 @@ flowchart LR
 13. **风险：**随机失败必须作为失败结果，不可改用确定性路径兜底。
 14. **Checkpoint：**不允许。
 15. **Commit：**归入 S4-T05。
-16. **状态：**Not Started。
+16. **状态：**Verified。
 
 ### S4-T05 阶段4门禁
 
@@ -973,7 +973,7 @@ flowchart LR
 13. **风险：**DEAP 类型重复创建不得在完整测试中报错。
 14. **Checkpoint：**允许。
 15. **Commit：**`feat: implement grid-based genetic planner`。
-16. **状态：**Not Started。
+16. **状态：**Verified。
 
 ### S5-T01 Benchmark schema 与任务展开
 
@@ -1832,7 +1832,7 @@ Git commit 的 hash 取决于提交内容，因此不能在同一个 commit 中�
 | S1-T08 | feature/path-planning-100 | `811956118dd33e05261a16479ac03272a0937180` — `feat: add grid map and core planning models` | `docs: record stage 1 checkpoint` |
 | S2-T04 | main | `22f479342a7edf1b5329c45ace59ba91ba6b19b7` — `feat: implement dijkstra and astar planners` | `1f820c331262f88eba697b836e24f0c26838fc66` — `docs: record stage 2 checkpoint` |
 | S3-T04 | main | `8575a8e02c1c907a7205fe2b0cb854752bc46443` — `feat: implement grid-based ant colony planner` | `f62a720197ba8dd48e87ee3ce48bb90d0de8b820` — `docs: record stage 3 checkpoint` |
-| S4-T05 | feature | `feat: implement grid-based genetic planner` | `docs: record stage 4 checkpoint` |
+| S4-T05 | main | 待controller创建：`feat: implement grid-based genetic planner` | 待controller创建：`docs: record stage 4 checkpoint` |
 | S5-T05 | feature | `feat: add reproducible benchmark pipeline` | `docs: record stage 5 checkpoint` |
 | S6-T04 | feature | `feat: add parameter tuning experiments` | `docs: record stage 6 checkpoint` |
 | S7-T06 | feature | `feat: add cli visualizations and documentation` | `docs: record stage 7 checkpoint` |
@@ -1972,4 +1972,4 @@ git log -5 --oneline
 - S1最初停留在临时`feature/path-planning-100`；经2026-07-18后续明确授权，已使用`--ff-only`完整整合至`main`并在远端复核后安全删除临时分支；全程未rebase、force push或创建tag。
 - 使用“实现 checkpoint + hash 账本 commit”的双提交记录协议。
 
-S1-T01至S3-T04已Verified；S3已完成任务级验收并停止在阶段边界，S4-T01保持Not Started。
+S1-T01至S4-T05已Verified；fresh review两项Important已按TDD修复并完成新鲜重验，fresh re-review结论为`Verified`、质量`Approved`、`Ready to checkpoint: Yes`；S4 checkpoint、账本和普通push仍pending，S5-T01保持Not Started。

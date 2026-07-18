@@ -1,0 +1,367 @@
+COMMAND: .venv/bin/python -m pytest tests/unit/test_ga_operators.py -q
+EXIT_CODE: 1
+
+FFFFFFFFFFF                                                              [100%]
+=================================== FAILURES ===================================
+________ test_repair_erases_loops_and_reconnects_first_invalid_segment _________
+
+    def test_repair_erases_loops_and_reconnects_first_invalid_segment() -> None:
+        grid = GridMap(np.zeros((3, 4), dtype=bool))
+        original = [
+            (0, 0),
+            (0, 1),
+            (0, 0),
+            (0, 1),
+            (2, 1),
+            (2, 2),
+            (2, 3),
+        ]
+        snapshot = original.copy()
+
+>       repaired = genetic.repair_path(
+                   ^^^^^^^^^^^^^^^^^^^
+            original,
+            grid,
+            (0, 0),
+            (2, 3),
+            MOVEMENT,
+            max_steps=50,
+            rng=random.Random(11),
+        )
+E       AttributeError: module 'path_planning.algorithms.genetic' has no attribute 'repair_path'
+
+tests/unit/test_ga_operators.py:65: AttributeError
+___________ test_repair_failure_is_bounded_and_does_not_modify_input ___________
+
+    def test_repair_failure_is_bounded_and_does_not_modify_input() -> None:
+        grid = GridMap(np.array([[0, 1, 0]], dtype=bool))
+        original = [(0, 0), (0, 2)]
+        snapshot = original.copy()
+
+>       repaired = genetic.repair_path(
+                   ^^^^^^^^^^^^^^^^^^^
+            original,
+            grid,
+            (0, 0),
+            (0, 2),
+            MOVEMENT,
+            max_steps=1,
+            rng=random.Random(5),
+        )
+E       AttributeError: module 'path_planning.algorithms.genetic' has no attribute 'repair_path'
+
+tests/unit/test_ga_operators.py:86: AttributeError
+__ test_common_node_crossover_changes_legal_children_without_parent_pollution __
+
+    def test_common_node_crossover_changes_legal_children_without_parent_pollution() -> None:
+        grid = GridMap(np.zeros((4, 4), dtype=bool))
+        parent_a = [(0, 0), (0, 1), (1, 1), (1, 2), (1, 3), (2, 3), (3, 3)]
+        parent_b = [(0, 0), (1, 0), (1, 1), (2, 1), (2, 2), (2, 3), (3, 3)]
+        snapshots = parent_a.copy(), parent_b.copy()
+
+>       child_a, child_b, changed = genetic.apply_crossover(
+                                    ^^^^^^^^^^^^^^^^^^^^^^^
+            parent_a,
+            parent_b,
+            grid,
+            (0, 0),
+            (3, 3),
+            _config(crossover_method="common_node"),
+            random.Random(3),
+        )
+E       AttributeError: module 'path_planning.algorithms.genetic' has no attribute 'apply_crossover'
+
+tests/unit/test_ga_operators.py:106: AttributeError
+__________ test_splice_repair_crossover_changes_and_repairs_children ___________
+
+    def test_splice_repair_crossover_changes_and_repairs_children() -> None:
+        grid = GridMap(np.zeros((5, 5), dtype=bool))
+        parent_a = [(0, index) for index in range(5)] + [
+            (index, 4) for index in range(1, 5)
+        ]
+        parent_b = [(index, 0) for index in range(5)] + [
+            (4, index) for index in range(1, 5)
+        ]
+        snapshots = parent_a.copy(), parent_b.copy()
+
+>       child_a, child_b, changed = genetic.apply_crossover(
+                                    ^^^^^^^^^^^^^^^^^^^^^^^
+            parent_a,
+            parent_b,
+            grid,
+            (0, 0),
+            (4, 4),
+            _config(crossover_method="splice_repair"),
+            random.Random(9),
+        )
+E       AttributeError: module 'path_planning.algorithms.genetic' has no attribute 'apply_crossover'
+
+tests/unit/test_ga_operators.py:133: AttributeError
+___________ test_failed_splice_repair_returns_copies_of_both_parents ___________
+
+    def test_failed_splice_repair_returns_copies_of_both_parents() -> None:
+        grid = GridMap(
+            np.array(
+                [
+                    [0, 0, 0],
+                    [1, 1, 1],
+                    [0, 0, 0],
+                ],
+                dtype=bool,
+            )
+        )
+        parent_a = [(0, 0), (0, 1), (0, 2), (2, 2)]
+        parent_b = [(0, 0), (2, 0), (2, 1), (2, 2)]
+
+>       child_a, child_b, changed = genetic.apply_crossover(
+                                    ^^^^^^^^^^^^^^^^^^^^^^^
+            parent_a,
+            parent_b,
+            grid,
+            (0, 0),
+            (2, 2),
+            _config(crossover_method="splice_repair", max_initialization_steps=1),
+            random.Random(2),
+        )
+E       AttributeError: module 'path_planning.algorithms.genetic' has no attribute 'apply_crossover'
+
+tests/unit/test_ga_operators.py:164: AttributeError
+_________ test_reroute_segment_mutation_rate_one_changes_a_legal_path __________
+
+    def test_reroute_segment_mutation_rate_one_changes_a_legal_path() -> None:
+        grid = GridMap(np.zeros((4, 4), dtype=bool))
+        parent = [(0, index) for index in range(4)] + [
+            (index, 3) for index in range(1, 4)
+        ]
+        snapshot = parent.copy()
+
+>       child, changed = genetic.apply_mutation(
+                         ^^^^^^^^^^^^^^^^^^^^^^
+            parent,
+            grid,
+            (0, 0),
+            (3, 3),
+            _config(mutation_method="reroute_segment"),
+            random.Random(17),
+        )
+E       AttributeError: module 'path_planning.algorithms.genetic' has no attribute 'apply_mutation'
+
+tests/unit/test_ga_operators.py:188: AttributeError
+____________ test_shortcut_mutation_rate_one_removes_a_legal_detour ____________
+
+    def test_shortcut_mutation_rate_one_removes_a_legal_detour() -> None:
+        grid = GridMap(np.zeros((3, 2), dtype=bool))
+        parent = [(0, 0), (0, 1), (1, 1), (1, 0), (2, 0)]
+        snapshot = parent.copy()
+
+>       child, changed = genetic.apply_mutation(
+                         ^^^^^^^^^^^^^^^^^^^^^^
+            parent,
+            grid,
+            (0, 0),
+            (2, 0),
+            _config(mutation_method="shortcut"),
+            random.Random(23),
+        )
+E       AttributeError: module 'path_planning.algorithms.genetic' has no attribute 'apply_mutation'
+
+tests/unit/test_ga_operators.py:208: AttributeError
+__________________ test_failed_mutation_returns_a_parent_copy __________________
+
+    def test_failed_mutation_returns_a_parent_copy() -> None:
+        grid = GridMap(np.zeros((1, 2), dtype=bool))
+        parent = [(0, 0), (0, 1)]
+
+>       child, changed = genetic.apply_mutation(
+                         ^^^^^^^^^^^^^^^^^^^^^^
+            parent,
+            grid,
+            (0, 0),
+            (0, 1),
+            _config(mutation_method="shortcut"),
+            random.Random(29),
+        )
+E       AttributeError: module 'path_planning.algorithms.genetic' has no attribute 'apply_mutation'
+
+tests/unit/test_ga_operators.py:227: AttributeError
+_ test_ga_config_rejects_unknown_operator_methods[crossover_method-single_point] _
+
+field = 'crossover_method', value = 'single_point'
+
+    @pytest.mark.parametrize(
+        ("field", "value"),
+        [
+            ("crossover_method", "single_point"),
+            ("mutation_method", "swap"),
+        ],
+    )
+    def test_ga_config_rejects_unknown_operator_methods(field: str, value: str) -> None:
+        with pytest.raises(ValueError, match=field):
+>           replace(_config(), **{field: value})
+
+tests/unit/test_ga_operators.py:250:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+obj = GAConfig(movement=MovementConfig(connectivity=4, diagonal_cost=1.4142135623730951, allow_corner_cutting=False), popula...nalty=0.25, repeat_penalty=2.0, unreachable_base_penalty=100.0, collision_penalty=10.0, remaining_distance_penalty=3.0)
+changes = {'crossover_method': 'single_point', 'movement': MovementConfig(connectivity=4, diagonal_cost=1.4142135623730951, allow_corner_cutting=False), 'population_size': 20, 'generations': 30, ...}
+
+    def replace(obj, /, **changes):
+        """Return a new object replacing specified fields with new values.
+
+        This is especially useful for frozen classes.  Example usage::
+
+          @dataclass(frozen=True)
+          class C:
+              x: int
+              y: int
+
+          c = C(1, 2)
+          c1 = replace(c, x=3)
+          assert c1.x == 3 and c1.y == 2
+        """
+
+        # We're going to mutate 'changes', but that's okay because it's a
+        # new dict, even if called with 'replace(obj, **my_changes)'.
+
+        if not _is_dataclass_instance(obj):
+            raise TypeError("replace() should be called on dataclass instances")
+
+        # It's an error to have init=False fields in 'changes'.
+        # If a field is not in 'changes', read its value from the provided obj.
+
+        for f in getattr(obj, _FIELDS).values():
+            # Only consider normal fields or InitVars.
+            if f._field_type is _FIELD_CLASSVAR:
+                continue
+
+            if not f.init:
+                # Error if this field is specified in changes.
+                if f.name in changes:
+                    raise ValueError(f'field {f.name} is declared with '
+                                     'init=False, it cannot be specified with '
+                                     'replace()')
+                continue
+
+            if f.name not in changes:
+                if f._field_type is _FIELD_INITVAR and f.default is MISSING:
+                    raise ValueError(f"InitVar {f.name!r} "
+                                     'must be specified with replace()')
+                changes[f.name] = getattr(obj, f.name)
+
+        # Create the new object, which calls __init__() and
+        # __post_init__() (if defined), using all of the init fields we've
+        # added and/or left in 'changes'.  If there are values supplied in
+        # changes that aren't fields, this will correctly raise a
+        # TypeError.
+>       return obj.__class__(**changes)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: GAConfig.__init__() got an unexpected keyword argument 'crossover_method'
+
+/opt/homebrew/Cellar/python@3.12/3.12.2_1/Frameworks/Python.framework/Versions/3.12/lib/python3.12/dataclasses.py:1579: TypeError
+____ test_ga_config_rejects_unknown_operator_methods[mutation_method-swap] _____
+
+field = 'mutation_method', value = 'swap'
+
+    @pytest.mark.parametrize(
+        ("field", "value"),
+        [
+            ("crossover_method", "single_point"),
+            ("mutation_method", "swap"),
+        ],
+    )
+    def test_ga_config_rejects_unknown_operator_methods(field: str, value: str) -> None:
+        with pytest.raises(ValueError, match=field):
+>           replace(_config(), **{field: value})
+
+tests/unit/test_ga_operators.py:250:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+obj = GAConfig(movement=MovementConfig(connectivity=4, diagonal_cost=1.4142135623730951, allow_corner_cutting=False), popula...nalty=0.25, repeat_penalty=2.0, unreachable_base_penalty=100.0, collision_penalty=10.0, remaining_distance_penalty=3.0)
+changes = {'mutation_method': 'swap', 'movement': MovementConfig(connectivity=4, diagonal_cost=1.4142135623730951, allow_corner_cutting=False), 'population_size': 20, 'generations': 30, ...}
+
+    def replace(obj, /, **changes):
+        """Return a new object replacing specified fields with new values.
+
+        This is especially useful for frozen classes.  Example usage::
+
+          @dataclass(frozen=True)
+          class C:
+              x: int
+              y: int
+
+          c = C(1, 2)
+          c1 = replace(c, x=3)
+          assert c1.x == 3 and c1.y == 2
+        """
+
+        # We're going to mutate 'changes', but that's okay because it's a
+        # new dict, even if called with 'replace(obj, **my_changes)'.
+
+        if not _is_dataclass_instance(obj):
+            raise TypeError("replace() should be called on dataclass instances")
+
+        # It's an error to have init=False fields in 'changes'.
+        # If a field is not in 'changes', read its value from the provided obj.
+
+        for f in getattr(obj, _FIELDS).values():
+            # Only consider normal fields or InitVars.
+            if f._field_type is _FIELD_CLASSVAR:
+                continue
+
+            if not f.init:
+                # Error if this field is specified in changes.
+                if f.name in changes:
+                    raise ValueError(f'field {f.name} is declared with '
+                                     'init=False, it cannot be specified with '
+                                     'replace()')
+                continue
+
+            if f.name not in changes:
+                if f._field_type is _FIELD_INITVAR and f.default is MISSING:
+                    raise ValueError(f"InitVar {f.name!r} "
+                                     'must be specified with replace()')
+                changes[f.name] = getattr(obj, f.name)
+
+        # Create the new object, which calls __init__() and
+        # __post_init__() (if defined), using all of the init fields we've
+        # added and/or left in 'changes'.  If there are values supplied in
+        # changes that aren't fields, this will correctly raise a
+        # TypeError.
+>       return obj.__class__(**changes)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: GAConfig.__init__() got an unexpected keyword argument 'mutation_method'
+
+/opt/homebrew/Cellar/python@3.12/3.12.2_1/Frameworks/Python.framework/Versions/3.12/lib/python3.12/dataclasses.py:1579: TypeError
+______________ test_operators_do_not_advance_global_random_state _______________
+
+    def test_operators_do_not_advance_global_random_state() -> None:
+        grid = GridMap(np.zeros((3, 2), dtype=bool))
+        parent = [(0, 0), (0, 1), (1, 1), (1, 0), (2, 0)]
+        random.seed(991)
+        global_state = random.getstate()
+
+>       genetic.apply_mutation(
+        ^^^^^^^^^^^^^^^^^^^^^^
+            parent,
+            grid,
+            (0, 0),
+            (2, 0),
+            _config(mutation_method="shortcut"),
+            random.Random(31),
+        )
+E       AttributeError: module 'path_planning.algorithms.genetic' has no attribute 'apply_mutation'
+
+tests/unit/test_ga_operators.py:259: AttributeError
+=========================== short test summary info ============================
+FAILED tests/unit/test_ga_operators.py::test_repair_erases_loops_and_reconnects_first_invalid_segment
+FAILED tests/unit/test_ga_operators.py::test_repair_failure_is_bounded_and_does_not_modify_input
+FAILED tests/unit/test_ga_operators.py::test_common_node_crossover_changes_legal_children_without_parent_pollution
+FAILED tests/unit/test_ga_operators.py::test_splice_repair_crossover_changes_and_repairs_children
+FAILED tests/unit/test_ga_operators.py::test_failed_splice_repair_returns_copies_of_both_parents
+FAILED tests/unit/test_ga_operators.py::test_reroute_segment_mutation_rate_one_changes_a_legal_path
+FAILED tests/unit/test_ga_operators.py::test_shortcut_mutation_rate_one_removes_a_legal_detour
+FAILED tests/unit/test_ga_operators.py::test_failed_mutation_returns_a_parent_copy
+FAILED tests/unit/test_ga_operators.py::test_ga_config_rejects_unknown_operator_methods[crossover_method-single_point]
+FAILED tests/unit/test_ga_operators.py::test_ga_config_rejects_unknown_operator_methods[mutation_method-swap]
+FAILED tests/unit/test_ga_operators.py::test_operators_do_not_advance_global_random_state
+11 failed in 0.13s

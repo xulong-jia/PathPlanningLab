@@ -1,0 +1,31 @@
+Command:
+.venv/bin/python -m pytest tests/integration/test_ga_integration.py tests/regression/test_ga_seed_reproducibility.py -q
+
+Exit code: 2
+
+==================================== ERRORS ====================================
+__________ ERROR collecting tests/integration/test_ga_integration.py ___________
+ImportError while importing test module '/Users/jiaxulong/Desktop/PathPlanningLab/tests/integration/test_ga_integration.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/opt/homebrew/Cellar/python@3.12/3.12.2_1/Frameworks/Python.framework/Versions/3.12/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/integration/test_ga_integration.py:3: in <module>
+    from path_planning.algorithms import GAConfig, GeneticPlanner
+E   ImportError: cannot import name 'GeneticPlanner' from 'path_planning.algorithms' (/Users/jiaxulong/Desktop/PathPlanningLab/src/path_planning/algorithms/__init__.py)
+______ ERROR collecting tests/regression/test_ga_seed_reproducibility.py _______
+ImportError while importing test module '/Users/jiaxulong/Desktop/PathPlanningLab/tests/regression/test_ga_seed_reproducibility.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/opt/homebrew/Cellar/python@3.12/3.12.2_1/Frameworks/Python.framework/Versions/3.12/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/regression/test_ga_seed_reproducibility.py:3: in <module>
+    from path_planning.algorithms import GAConfig, GeneticPlanner
+E   ImportError: cannot import name 'GeneticPlanner' from 'path_planning.algorithms' (/Users/jiaxulong/Desktop/PathPlanningLab/src/path_planning/algorithms/__init__.py)
+=========================== short test summary info ============================
+ERROR tests/integration/test_ga_integration.py
+ERROR tests/regression/test_ga_seed_reproducibility.py
+!!!!!!!!!!!!!!!!!!! Interrupted: 2 errors during collection !!!!!!!!!!!!!!!!!!!!
+2 errors in 0.12s

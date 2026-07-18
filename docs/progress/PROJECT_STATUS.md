@@ -2,7 +2,7 @@
 
 ## 当前总体状态
 
-Stage 4 Verified — checkpoint and publication pending
+Stage 4 Verified and published — stopped before Stage 5
 
 ## 当前分支
 
@@ -14,7 +14,7 @@ Stage 4 Verified — checkpoint and publication pending
 
 ## 当前任务
 
-S4-T05 阶段4门禁 — Verified；fresh独立全阶段re-review已Approved，等待controller checkpoint
+无实施任务处于In Progress；S4-T05已Verified并发布，S5-T01保持Not Started
 
 ## Repository Status
 
@@ -25,8 +25,8 @@ S4-T05 阶段4门禁 — Verified；fresh独立全阶段re-review已Approved，�
 - 分支现场：`main`跟踪`origin/main`；临时feature分支的本地与远端引用均已安全删除
 - S2实施方式：按本轮明确授权直接在`main`完成；实现checkpoint为`22f479342a7edf1b5329c45ace59ba91ba6b19b7`；hash账本commit为`1f820c331262f88eba697b836e24f0c26838fc66`
 - S3实施方式：按本轮明确授权直接在`main`完成；实现checkpoint为`8575a8e02c1c907a7205fe2b0cb854752bc46443`；hash账本commit为`f62a720197ba8dd48e87ee3ce48bb90d0de8b820`
-- S4实施方式：按本轮明确授权直接在`main`完成；实现checkpoint为`733579b8d29d91bad6ae76e2c28ecd248ecff599`；当前本地`main`相对`origin/main`ahead 1
-- 发布状态：S1、S2和S3的实现checkpoint与hash账本commit均已普通push到`origin/main`；S4 fresh独立re-review已Approved，实现checkpoint已创建，hash账本commit和普通push待controller执行
+- S4实施方式：按本轮明确授权直接在`main`完成；实现checkpoint为`733579b8d29d91bad6ae76e2c28ecd248ecff599`；hash账本commit为`ad2a107a7b9b5bb2cd312db68c19421b328f87cf`
+- 发布状态：S1至S4的实现checkpoint与hash账本commit均已普通push到`origin/main`；首次S4 push后本地与远端均为`ad2a107a7b9b5bb2cd312db68c19421b328f87cf`且0/0分叉，publication记录commit待本条提交并再次普通push
 
 ## 任务统计
 
@@ -52,11 +52,11 @@ S4-T05 阶段4门禁 — Verified；fresh独立全阶段re-review已Approved，�
 
 S4实现checkpoint：`733579b8d29d91bad6ae76e2c28ecd248ecff599` — `feat: implement grid-based genetic planner`
 
-S4账本commit：待controller创建 — `docs: record stage 4 checkpoint`
+S4账本commit：`ad2a107a7b9b5bb2cd312db68c19421b328f87cf` — `docs: record stage 4 checkpoint`
 
 ## 下一项任务
 
-创建S4 hash账本commit并普通push；S5-T01保持Not Started且不得提前开始。
+S5-T01 Benchmark schema 与任务展开（Not Started）；本轮在S4结束后停止，不开始S5。
 
 ## Blocked原因
 

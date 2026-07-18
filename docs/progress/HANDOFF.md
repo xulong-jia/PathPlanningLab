@@ -10,11 +10,11 @@
 
 ## Git状态
 
-S1、S2和S3的实现checkpoint及hash账本commit已完整发布到`origin/main`。S4实现checkpoint已创建：`733579b8d29d91bad6ae76e2c28ecd248ecff599`；本地`main`相对`origin/main`ahead 1，hash账本commit与普通push尚未完成。当前仅保留本地`main`及远端`origin/main`；唯一remote仍为`origin`，Fetch/Push URL均为`git@github.com:xulong-jia/PathPlanningLab.git`，remote配置未修改，未创建tag或PR。
+S1至S4的实现checkpoint及hash账本commit已完整发布到`origin/main`。S4实现checkpoint为`733579b8d29d91bad6ae76e2c28ecd248ecff599`，hash账本commit为`ad2a107a7b9b5bb2cd312db68c19421b328f87cf`；首次S4 push后本地与远端均为账本hash且0/0分叉。当前仅保留本地`main`及远端`origin/main`；唯一remote仍为`origin`，Fetch/Push URL均为`git@github.com:xulong-jia/PathPlanningLab.git`，remote配置未修改，未创建tag或PR。publication记录commit待本条提交并再次普通push。
 
 ## 当前阶段
 
-阶段4已Verified且fresh独立re-review为Approved，等待controller checkpoint与publication；阶段1至阶段3保持Verified。
+阶段1至阶段4均Verified；S4 fresh独立re-review为Approved，实现与账本已发布；本轮停止在S5之前。
 
 ## 已完成任务
 
@@ -22,7 +22,7 @@ S1-T01至S4-T05，共21项Verified。
 
 ## 当前任务
 
-S4-T05 阶段4门禁 — Verified；fresh独立re-review已Approved，等待controller checkpoint。
+无任务处于In Progress；S4-T05已Verified并发布，S5-T01保持Not Started。
 
 ## 尚未完成任务
 
@@ -53,19 +53,19 @@ S4新增`src/path_planning/algorithms/genetic.py`、`configs/ga_baseline.yaml`�
 
 S4实现checkpoint：`733579b8d29d91bad6ae76e2c28ecd248ecff599` — `feat: implement grid-based genetic planner`。
 
-S4账本commit：待controller创建 — `docs: record stage 4 checkpoint`。
+S4账本commit：`ad2a107a7b9b5bb2cd312db68c19421b328f87cf` — `docs: record stage 4 checkpoint`。
 
 ## 未解决问题
 
-fresh review两项Important已按TDD修复，`common_node`最坏复杂度文档已更正为`O(L^2)`，fresh re-review已Approved；当前无已知实现问题。S4实现checkpoint已创建，hash账本commit和普通push尚未完成；正式legacy after清单仍只允许由S8-T06生成。
+fresh review两项Important已按TDD修复，`common_node`最坏复杂度文档已更正为`O(L^2)`，fresh re-review已Approved；当前无已知实现问题。S4实现checkpoint与hash账本commit已普通push；正式legacy after清单仍只允许由S8-T06生成。
 
 ## 风险
 
-S4候选仍未checkpoint或发布；controller提交前必须重新验证HEAD、远端分叉和staged范围。Standard Benchmark和调优耗时较长；现有`.git`、`origin`或`main`上游发生漂移，依赖扩大、旧材料变化、同一方案连续失败两次或关键门禁无法通过时必须停止。不得重新初始化仓库、替换`.git`、更换remote URL或强制推送。
+Standard Benchmark和调优耗时较长；后续若开始S5，现有`.git`、`origin`或`main`上游发生漂移，依赖扩大、旧材料变化、同一方案连续失败两次或关键门禁无法通过时必须停止。不得重新初始化仓库、替换`.git`、更换remote URL或强制推送。
 
 ## 下一步
 
-由controller创建S4 hash账本commit，普通push并远端复核；不得开始S5。
+本轮在S4 publication记录普通push和最终远端复核后停止；S5-T01保持Not Started。
 
 ## 新会话恢复指令
 
@@ -74,5 +74,5 @@ S4候选仍未checkpoint或发布；controller提交前必须重新验证HEAD、
 3. 查看`docs/progress/WORK_LOG.md`最后一个记录，并读取`results/verification/S4-stage-gate.txt`、`S4-coverage.json`和S4-T01至T04已有验证日志。
 4. 执行`git branch --show-current`、`git status --short`、`git status -sb`、`git remote -v`、`git log --oneline -5`。
 5. 确认当前为`main`、上游为`origin/main`、唯一remote为正确的`origin`、remote配置未修改，且本地和远端仅有`main`、无tag/PR/额外worktree。
-6. 对照计划确认S1-T01至S4-T05为Verified、S5-T01为Not Started；fresh re-review已Approved，checkpoint/publication仍pending，禁止提前开始S5。
+6. 对照计划确认S1-T01至S4-T05为Verified、S5-T01为Not Started；fresh re-review已Approved，S4实现与账本已发布，仅publication记录和最终远端复核待闭环，禁止提前开始S5。
 7. 不依据聊天记忆推测进度，不执行`git init`，不删除或替换`.git`，不修改remote，不自行commit或push。

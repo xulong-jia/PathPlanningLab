@@ -703,3 +703,10 @@
 - 范围：24个S4白名单文件，包含GA实现/导出、baseline配置、五个测试文件、算法文档、四份记录及S4任务/阶段证据；4617 insertions、58 deletions。
 - 提交后现场：工作树clean，本地`main`相对`origin/main`ahead 1；未push，remote URL未变，未创建branch/worktree/tag/PR，未开始S5。
 - 下一步：以独立`docs: record stage 4 checkpoint`提交记录实现hash，然后在再次fetch确认远端未漂移后普通push。
+
+## 2026-07-19 01:32 — S4 checkpoint首次publication
+
+- 提交：实现checkpoint `733579b8d29d91bad6ae76e2c28ecd248ecff599`；hash账本commit `ad2a107a7b9b5bb2cd312db68c19421b328f87cf`。
+- 发布前：再次`git fetch origin`确认远端仍为基线`e73a1bef42b9bd06cabd28e4f37b5d03daaa3184`，本地仅ahead 2、远端ahead 0，基线为本地祖先。
+- 发布：执行普通`git push origin main`，无force、rebase、merge或tag；随后fetch复核本地与`origin/main`均为账本hash，分叉0/0。
+- 本记录：写回两笔完整hash和S4 published状态，将以独立publication commit提交并再次普通push；S5-T01保持Not Started。

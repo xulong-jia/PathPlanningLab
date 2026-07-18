@@ -36,6 +36,7 @@ branch = true
 source = ["path_planning"]
 
 [tool.coverage.report]
+precision = 2
 show_missing = true
 
 [tool.ruff]
@@ -46,7 +47,6 @@ target-version = "py311"
 select = ["B", "E", "F", "I", "UP"]
 
 [tool.mypy]
-python_version = "3.11"
 strict = true
 
 [[tool.mypy.overrides]]

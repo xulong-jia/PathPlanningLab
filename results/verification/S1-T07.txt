@@ -1,0 +1,27 @@
+......................                                                   [100%]
+22 passed in 0.73s
+All checks passed!
+Would reformat: src/path_planning/maps/generation.py
+Would reformat: tests/integration/test_map_suites.py
+2 files would be reformatted, 12 files already formatted
+final_gate_exit_code=1
+
+--- FINAL VERIFICATION ---
+......................                                                   [100%]
+22 passed in 0.70s
+All checks passed!
+14 files already formatted
+src/path_planning/maps/suites.py:4: error: Library stubs not installed for "yaml"  [import-untyped]
+src/path_planning/maps/suites.py:4: note: Hint: "python3 -m pip install types-PyYAML"
+src/path_planning/maps/suites.py:4: note: (or run "mypy --install-types" to install all missing stub packages)
+src/path_planning/maps/suites.py:4: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
+Found 1 error in 1 file (checked 4 source files)
+final_gate_exit_code=1
+
+--- CORRECTED FINAL VERIFICATION ---
+......................                                                   [100%]
+22 passed in 0.70s
+All checks passed!
+14 files already formatted
+Success: no issues found in 4 source files
+corrected_final_gate_exit_code=0

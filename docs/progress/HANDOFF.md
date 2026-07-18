@@ -6,27 +6,27 @@
 
 ## 当前分支
 
-`feature/path-planning-100`，从`main`的`23f08f5a61b8317d6837c0157057904637a58447`创建；远程上游将在S1完成并获本轮目标授权推送时设置。
+`feature/path-planning-100`，从`main`的`23f08f5a61b8317d6837c0157057904637a58447`创建；本轮获授权的最终push将设置远程上游为`origin/feature/path-planning-100`。
 
 ## Git状态
 
-当前feature分支包含S1-T01与S1-T02实现checkpoint；唯一远程仍为`origin`，Fetch/Push URL均为`git@github.com:xulong-jia/PathPlanningLab.git`；remote配置未修改。
+S1实现已完成并通过阶段门禁，等待创建S1-T08实现checkpoint及账本commit；唯一远程仍为`origin`，Fetch/Push URL均为`git@github.com:xulong-jia/PathPlanningLab.git`；remote配置未修改，`main`与`origin/main`仍停留在`23f08f5a61b8317d6837c0157057904637a58447`。
 
 ## 当前阶段
 
-阶段1；S1-T01至S1-T02已Verified。
+阶段1已Verified；阶段2尚未开始。
 
 ## 已完成任务
 
-S1-T01、S1-T02，共2项Verified。
+S1-T01至S1-T08，共8项Verified。
 
 ## 当前任务
 
-S1-T03 GridMap 与移动规则 — Not Started。
+S2-T01 Dijkstra — Not Started。
 
 ## 尚未完成任务
 
-S1-T03 至 S8-T06，共40项。
+S2-T01至S8-T06，共34项。
 
 ## 关键设计决策
 
@@ -41,19 +41,19 @@ S1-T03 至 S8-T06，共40项。
 
 ## 创建和修改的文件
 
-S1-T01的只读旧材料基线与证据已纳入checkpoint。S1-T02创建`pyproject.toml`、`requirements.lock`、项目内`.venv`（忽略）、最小`src`包骨架、包导入测试和验证日志；未创建算法实现。
+S1建立工程依赖与`src`包骨架，完成只读旧材料哈希基线、GridMap/移动规则、统一Planner/PlanningResult、路径验证/指标、schema v1地图I/O、6张手工地图、9张evaluation地图、4张tuning地图、固定隔离seeds及`docs/architecture.md`。未创建Dijkstra、A*或其他具体算法实现。
 
 ## 最近验证命令及结果
 
-2026-07-18 20:08 AEST完成S1-T02：包导入测试1 passed，`pip check`、Ruff、format、strict mypy和diff检查均通过；32条lock无绝对路径；证据见`results/verification/S1-T02*.txt`。
+2026-07-18 20:39 AEST完成Stage1门禁：132 passed、0 skipped/xfail，core/maps分支覆盖率100.00%；Ruff、format、strict mypy、pip check、wheel build、diff与记录完整性门禁退出0。旧材料75文件只读重算与before基线`cmp`退出0，聚合哈希仍为`f534b2543beb31e8f0253001b96494b0086b4b085a340d8d4ae4d33e10c91e8e`。证据见`results/verification/S1-stage-gate.txt`和`S1-coverage.json`。
 
 ## 最近checkpoint commit
 
-`f86dab5d9240248ec356697499e960aa398a828e` — `chore: initialize path planning lab`
+S1-T08实现checkpoint待Verified状态落地后创建；完整hash由后续只追加账本记录补记。
 
 ## 未解决问题
 
-无。旧材料哈希未变化验收项仅完成before基线部分，须待S8-T06生成after并比较后才能整体Verified。
+无S1遗留问题。旧材料哈希未变化验收项虽已完成before基线和S1结束复核，但须待S8-T06生成正式after并比较后才能整体Verified。
 
 ## 风险
 
@@ -61,7 +61,7 @@ Standard Benchmark 和调优耗时较长；现有`.git`、`origin`或`main`上�
 
 ## 下一步
 
-下一任务为S1-T03 GridMap 与移动规则；S1阶段目标继续执行，S2仍Not Started。
+下一任务为S2-T01 Dijkstra，但本轮明确停止；S2保持Not Started。
 
 ## 新会话恢复指令
 
@@ -69,6 +69,6 @@ Standard Benchmark 和调优耗时较长；现有`.git`、`origin`或`main`上�
 2. 完整读取`docs/superpowers/plans/2026-07-18-path-planning-lab.md`、`docs/superpowers/specs/2026-07-18-four-algorithm-path-planning-design.md`、`docs/progress/PROJECT_STATUS.md`和`docs/progress/HANDOFF.md`。
 3. 查看`docs/progress/WORK_LOG.md`最后一个记录，并读取S1已有验证日志。
 4. 执行`git branch --show-current`、`git status --short`、`git status -sb`、`git remote -v`、`git log --oneline -5`。
-5. 确认当前为`feature/path-planning-100`、唯一remote为正确的`origin`、remote配置未修改，最近实现checkpoint为`f86dab5d9240248ec356697499e960aa398a828e`。
-6. 对照计划确认S1-T01至S1-T02已Verified；第一个未勾选且前置任务已Verified的任务应为S1-T03。
+5. 确认当前为`feature/path-planning-100`、上游为`origin/feature/path-planning-100`、唯一remote为正确的`origin`、remote配置未修改，`main`基线仍为`23f08f5a61b8317d6837c0157057904637a58447`。
+6. 对照计划确认S1-T01至S1-T08已Verified；第一个未勾选任务应为S2-T01且状态必须仍为Not Started。
 7. 不依据聊天记忆推测进度，不执行`git init`，不删除或替换`.git`，不修改remote。

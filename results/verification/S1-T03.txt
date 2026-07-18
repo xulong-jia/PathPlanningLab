@@ -1,0 +1,46 @@
+$ .venv/bin/python -m pytest tests/unit/test_grid.py tests/unit/test_movement.py -q
+......................                                                   [100%]
+22 passed in 0.04s
+[pytest_exit_code] 0
+
+$ .venv/bin/ruff check src/path_planning/core tests/unit/test_grid.py tests/unit/test_movement.py
+E501 Line too long (94 > 88)
+  --> src/path_planning/core/grid.py:57:89
+   |
+55 |         if not isinstance(point, tuple) or len(point) != 2:
+56 |             raise TypeError("point must be a two-item tuple")
+57 |         if any(isinstance(value, bool) or not isinstance(value, Integral) for value in point):
+   |                                                                                         ^^^^^^
+58 |             raise TypeError("point coordinates must be integers")
+59 |         return int(point[0]), int(point[1])
+   |
+
+Found 1 error.
+[ruff_exit_code] 1
+
+$ .venv/bin/ruff format --check src/path_planning/core tests/unit/test_grid.py tests/unit/test_movement.py
+Would reformat: src/path_planning/core/grid.py
+1 file would be reformatted, 5 files already formatted
+[format_exit_code] 1
+
+$ .venv/bin/mypy src/path_planning/core
+.venv/lib/python3.12/site-packages/numpy/__init__.pyi:737: error: Type statement is only supported in Python 3.12 and greater  [syntax]
+Found 1 error in 1 file (errors prevented further checking)
+[mypy_exit_code] 2
+
+--- FINAL VERIFICATION ---
+......................                                                   [100%]
+22 passed in 0.04s
+All checks passed!
+6 files already formatted
+src/path_planning/core/movement.py:41: error: Incompatible types in assignment (expression has type "tuple[tuple[int, int], tuple[int, int], tuple[int, int], tuple[int, int], tuple[int, int], tuple[int, int], tuple[int, int], tuple[int, int]]", variable has type "tuple[tuple[int, int], tuple[int, int], tuple[int, int], tuple[int, int]]")  [assignment]
+Found 1 error in 1 file (checked 4 source files)
+final_gate_exit_code=0
+
+--- CORRECTED FAIL-FAST FINAL VERIFICATION ---
+......................                                                   [100%]
+22 passed in 0.04s
+All checks passed!
+6 files already formatted
+Success: no issues found in 4 source files
+corrected_final_gate_exit_code=0

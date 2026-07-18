@@ -1,0 +1,28 @@
+
+==================================== ERRORS ====================================
+__________________ ERROR collecting tests/unit/test_result.py __________________
+ImportError while importing test module '/Users/jiaxulong/Desktop/PathPlanningLab/tests/unit/test_result.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/opt/homebrew/Cellar/python@3.12/3.12.2_1/Frameworks/Python.framework/Versions/3.12/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/unit/test_result.py:6: in <module>
+    from path_planning.core.result import PlanningResult
+E   ModuleNotFoundError: No module named 'path_planning.core.result'
+___________ ERROR collecting tests/regression/test_result_schema.py ____________
+ImportError while importing test module '/Users/jiaxulong/Desktop/PathPlanningLab/tests/regression/test_result_schema.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/opt/homebrew/Cellar/python@3.12/3.12.2_1/Frameworks/Python.framework/Versions/3.12/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/regression/test_result_schema.py:7: in <module>
+    from path_planning.algorithms.base import Planner
+E   ModuleNotFoundError: No module named 'path_planning.algorithms.base'
+=========================== short test summary info ============================
+ERROR tests/unit/test_result.py
+ERROR tests/regression/test_result_schema.py
+!!!!!!!!!!!!!!!!!!! Interrupted: 2 errors during collection !!!!!!!!!!!!!!!!!!!!
+2 errors in 0.10s
+[exit_code] 2

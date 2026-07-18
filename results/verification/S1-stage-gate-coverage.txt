@@ -1,0 +1,22 @@
+........................................................................ [ 54%]
+............................................................             [100%]
+================================ tests coverage ================================
+_______________ coverage: platform darwin, python 3.12.2-final-0 _______________
+
+Name                                   Stmts   Miss Branch BrPart    Cover   Missing
+------------------------------------------------------------------------------------
+src/path_planning/core/__init__.py         7      0      0      0  100.00%
+src/path_planning/core/grid.py            45      0     12      0  100.00%
+src/path_planning/core/metrics.py         31      0     18      0  100.00%
+src/path_planning/core/movement.py        39      0     18      0  100.00%
+src/path_planning/core/result.py          62      0     30      0  100.00%
+src/path_planning/core/types.py           18      0     12      0  100.00%
+src/path_planning/core/validation.py      59      0     38      0  100.00%
+src/path_planning/maps/__init__.py         4      0      0      0  100.00%
+src/path_planning/maps/generation.py      57      0     24      0  100.00%
+src/path_planning/maps/io.py              53      0     18      0  100.00%
+src/path_planning/maps/suites.py          77      0     30      0  100.00%
+------------------------------------------------------------------------------------
+TOTAL                                    452      0    200      0  100.00%
+Required test coverage of 90% reached. Total coverage: 100.00%
+132 passed in 4.33s

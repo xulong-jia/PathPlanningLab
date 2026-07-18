@@ -1,0 +1,23 @@
+.............................                                            [100%]
+29 passed in 0.05s
+B905 `zip()` without an explicit `strict=` parameter
+  --> src/path_planning/core/metrics.py:28:53
+   |
+26 |         for current, following in zip(path, path[1:], strict=False)
+27 |     ]
+28 |     return sum(first != second for first, second in zip(directions, directions[1:]))
+   |                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+help: Add explicit value for parameter `strict=`
+
+Found 1 error.
+No fixes available (1 hidden fix can be enabled with the `--unsafe-fixes` option).
+final_gate_exit_code=1
+
+--- FINAL VERIFICATION ---
+.............................                                            [100%]
+29 passed in 0.05s
+All checks passed!
+9 files already formatted
+Success: no issues found in 7 source files
+final_gate_exit_code=0

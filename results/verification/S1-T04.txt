@@ -1,0 +1,50 @@
+....................                                                     [100%]
+20 passed in 0.12s
+E501 Line too long (93 > 88)
+  --> src/path_planning/core/result.py:62:89
+   |
+60 |         else:
+61 |             if self.path or self.path_length is not None:
+62 |                 raise ValueError("failed results require an empty path and null path_length")
+   |                                                                                         ^^^^^
+63 |             if not self.failure_reason:
+64 |                 raise ValueError("failed results require a failure_reason")
+   |
+
+E501 Line too long (96 > 88)
+   --> src/path_planning/core/result.py:109:89
+    |
+107 |                 not isinstance(point, tuple)
+108 |                 or len(point) != 2
+109 |                 or any(isinstance(value, bool) or not isinstance(value, int) for value in point)
+    |                                                                                         ^^^^^^^^
+110 |             ):
+111 |                 raise TypeError("path must contain integer coordinate tuples")
+    |
+
+I001 [*] Import block is un-sorted or un-formatted
+ --> tests/regression/test_result_schema.py:1:1
+  |
+1 | / import inspect
+2 | | import json
+3 | | import subprocess
+4 | | import sys
+5 | | from dataclasses import fields
+6 | |
+7 | | from path_planning.algorithms.base import Planner
+8 | | from path_planning.core.result import PlanningResult
+  | |____________________________________________________^
+  |
+help: Organize imports
+
+Found 3 errors.
+[*] 1 fixable with the `--fix` option.
+final_gate_exit_code=1
+
+--- FINAL VERIFICATION ---
+....................                                                     [100%]
+20 passed in 0.12s
+All checks passed!
+7 files already formatted
+Success: no issues found in 2 source files
+final_gate_exit_code=0

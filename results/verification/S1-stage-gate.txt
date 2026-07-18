@@ -1,0 +1,160 @@
+S1-T08 Stage 1 integration gate
+Run: 2026-07-18 20:39 AEST (+1000)
+Branch: feature/path-planning-100
+Base: 23f08f5a61b8317d6837c0157057904637a58447
+
+PRE-GATE
+Command:
+  .venv/bin/python -m pytest tests -q --cov=path_planning.core --cov=path_planning.maps --cov-report=term-missing --cov-fail-under=90
+Result:
+  99 passed; exact branch coverage 89.72%; rejected as below threshold.
+  The initial pytest-cov integer presentation/threshold behavior did not provide a
+  reliable non-zero shell result at this precision, so this run was not accepted.
+  Full output: results/verification/S1-stage-gate-pre.txt
+Action:
+  Added existing validation-boundary tests and configured coverage precision=2.
+
+FINAL TEST AND COVERAGE GATE
+Command:
+  .venv/bin/python -m pytest tests -q --cov=path_planning.core --cov=path_planning.maps --cov-report=term-missing --cov-report=json:results/verification/S1-coverage.json --cov-fail-under=90
+Exit code: 0
+Key output:
+  132 passed, 0 failed, 0 skipped, 0 xfailed
+  core/maps: 452 statements, 0 missed; 200 branches, 0 partial
+  total branch coverage: 100.00%
+  coverage threshold: 90%
+Evidence:
+  results/verification/S1-coverage.json
+  results/verification/S1-stage-gate-coverage.txt
+
+STATIC AND ENVIRONMENT GATES
+Command: .venv/bin/ruff check .
+Exit code: 0
+Output: All checks passed!
+
+Command: .venv/bin/ruff format --check .
+Exit code: 0
+Output: 27 files already formatted
+
+Command: .venv/bin/mypy src
+Exit code: 0
+Output: Success: no issues found in 17 source files
+
+Command: .venv/bin/python -m pip check
+Exit code: 0
+Output: No broken requirements found.
+
+BUILD GATE
+Command:
+  .venv/bin/python -m pip wheel . --no-deps --wheel-dir dist
+Exit code: 0
+Output:
+  Successfully built path-planning-lab
+  dist/path_planning_lab-0.1.0-py3-none-any.whl
+Wheel SHA-256:
+  2a6058e5d80240586234404f075535e321c061335d95612ed431450d1a3943f8
+
+LEGACY READ-ONLY REVIEW
+Reproduction command:
+  legacy_tmp=.tmp/legacy_hashes.stage1.sha256
+  (
+    cd ../论文与实习
+    find . -type f -print0 \
+      | LC_ALL=C sort -z \
+      | while IFS= read -r -d '' legacy_path; do
+          legacy_hash=$(shasum -a 256 "$legacy_path")
+          printf '%s  %s\n' "${legacy_hash%% *}" "${legacy_path#./}"
+        done
+  ) > "$legacy_tmp"
+Exit code: 0
+
+Command:
+  cmp docs/audit/legacy_hashes.before.sha256 "$legacy_tmp"
+Exit code: 0
+
+Command:
+  grep -F '/Users/jiaxulong/' docs/audit/legacy_hashes.before.sha256
+Exit code: 1 (expected success condition: no absolute path match)
+
+Command:
+  unlink "$legacy_tmp"
+Exit code: 0
+
+Command:
+  test ! -e "$legacy_tmp"
+Exit code: 0
+
+Read-only review output:
+  baseline lines: 75
+  recomputed lines: 75
+  ordinary files: 75
+  subdirectories: 21
+  ordinary-file bytes: 74097025
+  baseline aggregate SHA-256:
+    f534b2543beb31e8f0253001b96494b0086b4b085a340d8d4ae4d33e10c91e8e
+  recomputed aggregate SHA-256:
+    f534b2543beb31e8f0253001b96494b0086b4b085a340d8d4ae4d33e10c91e8e
+  legacy code executed: no
+  legacy files modified: no
+  temporary files created in legacy directory: no
+
+INTEGRITY AND SCOPE GATES
+Command:
+  rg -c '^- \[[ x]\] S[1-8]-T[0-9]{2} ' docs/superpowers/plans/2026-07-18-path-planning-lab.md
+Exit code: 0
+Output: 42
+
+Command:
+  rg -c '^### S[1-8]-T[0-9]{2} ' docs/superpowers/plans/2026-07-18-path-planning-lab.md
+Exit code: 0
+Output: 42
+
+Command:
+  sed -n '/^## 5\. 100%验收映射表/,/^## 6\./p' docs/superpowers/plans/2026-07-18-path-planning-lab.md | rg -c '^\| [^|-].* \| S[1-8]-'
+Exit code: 0
+Output: 29
+
+Commands:
+  find maps/handcrafted -type f -name '*.json' | wc -l
+  find maps/generated/evaluation -type f -name '*.json' | wc -l
+  find maps/generated/tuning -type f -name '*.json' | wc -l
+Exit codes: 0, 0, 0
+Outputs: 6, 9, 4
+
+Command:
+  rg -n 'skip|xfail' tests
+Exit code: 1 (expected success condition: no matches)
+
+Commands:
+  test ! -e src/path_planning/algorithms/dijkstra.py
+  test ! -e src/path_planning/algorithms/astar.py
+Exit codes: 0, 0
+
+Command: git diff --check
+Exit code: 0
+Output: empty
+
+Command: git status --short
+Exit code: 0
+Output: only legal, uncommitted S1 files before the S1 checkpoint
+
+GIT SAFETY REVIEW
+Commands and outputs:
+  git branch --show-current
+    feature/path-planning-100 (exit 0)
+  git merge-base main feature/path-planning-100
+    23f08f5a61b8317d6837c0157057904637a58447 (exit 0)
+  git rev-parse main
+    23f08f5a61b8317d6837c0157057904637a58447 (exit 0)
+  git rev-parse origin/main
+    23f08f5a61b8317d6837c0157057904637a58447 (exit 0)
+  git remote | wc -l
+    1 (exit 0)
+  git remote get-url origin
+    git@github.com:xulong-jia/PathPlanningLab.git (exit 0)
+  git rev-parse --abbrev-ref '@{upstream}'
+    exit 128, expected before the first authorized feature-branch push
+
+RESULT
+All effective Stage 1 gates passed. S1-T01 through S1-T08 may be marked
+Verified. S2-T01 remains Not Started and no S2 implementation exists.

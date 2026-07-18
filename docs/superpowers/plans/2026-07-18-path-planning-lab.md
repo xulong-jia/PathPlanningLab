@@ -12,12 +12,12 @@
 
 - [x] S1-T01 安全门禁与记录制度落地
 - [x] S1-T02 Python工程与 feature 分支初始化
-- [ ] S1-T03 GridMap 与移动规则
-- [ ] S1-T04 统一结果与 Planner 接口
-- [ ] S1-T05 路径验证与统一指标
-- [ ] S1-T06 地图 I/O 与手工地图
-- [ ] S1-T07 可复现随机地图和数据集隔离
-- [ ] S1-T08 阶段1集成门禁
+- [x] S1-T03 GridMap 与移动规则
+- [x] S1-T04 统一结果与 Planner 接口
+- [x] S1-T05 路径验证与统一指标
+- [x] S1-T06 地图 I/O 与手工地图
+- [x] S1-T07 可复现随机地图和数据集隔离
+- [x] S1-T08 阶段1集成门禁
 - [ ] S2-T01 Dijkstra
 - [ ] S2-T02 A* 与启发函数
 - [ ] S2-T03 确定性算法回归矩阵
@@ -319,12 +319,12 @@ flowchart LR
 |---|---|---|---|---|---|---|---|---|
 | S1-T01 | 1 | 安全门禁与记录制度落地 | 无 | 旧材料基线哈希、安全门禁记录 | 路径、Git、记录结构、旧哈希检查 | Verified | `S1-T01.txt`、`legacy_hashes.before.sha256` | 不单独提交 |
 | S1-T02 | 1 | Python工程与 feature 分支初始化 | S1-T01 | `pyproject.toml`、`.venv`、lock、包骨架、feature分支 | 安装、import、pip check、Ruff、mypy、分支基点 | Verified | `S1-T02.txt` | `chore: initialize path planning lab` |
-| S1-T03 | 1 | GridMap 与移动规则 | S1-T02 | `types.py`、`grid.py`、`movement.py` | 单元测试、Ruff、mypy | Not Started | `S1-T03.txt` | 归入 S1-T08 |
-| S1-T04 | 1 | 统一结果与 Planner 接口 | S1-T03 | `result.py`、`base.py` | 结果不变量、JSON、import 测试 | Not Started | `S1-T04.txt` | 归入 S1-T08 |
-| S1-T05 | 1 | 路径验证与统一指标 | S1-T04 | `validation.py`、`metrics.py` | 合法/非法/无路径边界测试 | Not Started | `S1-T05.txt` | 归入 S1-T08 |
-| S1-T06 | 1 | 地图 I/O 与手工地图 | S1-T05 | `io.py`、6 张手工地图 | round-trip、地图特性测试 | Not Started | `S1-T06.txt` | 归入 S1-T08 |
-| S1-T07 | 1 | 可复现随机地图和数据集隔离 | S1-T06 | `generation.py`、`suites.py`、13 张随机地图 | seed、密度、可达、集合隔离 | Not Started | `S1-T07.txt` | 归入 S1-T08 |
-| S1-T08 | 1 | 阶段1集成门禁 | S1-T07 | `architecture.md`、HANDOFF | 全测、≥90%阶段覆盖、Ruff、mypy、build | Not Started | `S1-stage-gate.txt` | `feat: add grid map and core planning models` |
+| S1-T03 | 1 | GridMap 与移动规则 | S1-T02 | `types.py`、`grid.py`、`movement.py` | 单元测试、Ruff、mypy | Verified | `S1-T03.txt` | 归入 S1-T08 |
+| S1-T04 | 1 | 统一结果与 Planner 接口 | S1-T03 | `result.py`、`base.py` | 结果不变量、JSON、import 测试 | Verified | `S1-T04.txt` | 归入 S1-T08 |
+| S1-T05 | 1 | 路径验证与统一指标 | S1-T04 | `validation.py`、`metrics.py` | 合法/非法/无路径边界测试 | Verified | `S1-T05.txt` | 归入 S1-T08 |
+| S1-T06 | 1 | 地图 I/O 与手工地图 | S1-T05 | `io.py`、6 张手工地图 | round-trip、地图特性测试 | Verified | `S1-T06.txt` | 归入 S1-T08 |
+| S1-T07 | 1 | 可复现随机地图和数据集隔离 | S1-T06 | `generation.py`、`suites.py`、13 张随机地图 | seed、密度、可达、集合隔离 | Verified | `S1-T07.txt` | 归入 S1-T08 |
+| S1-T08 | 1 | 阶段1集成门禁 | S1-T07 | `architecture.md`、HANDOFF | 全测、≥90%阶段覆盖、Ruff、mypy、build | Verified | `S1-stage-gate.txt` | `feat: add grid map and core planning models` |
 | S2-T01 | 2 | Dijkstra | S1-T08 | `dijkstra.py`、配置与单测 | 已知最短路、4/8方向、无路径 | Not Started | `S2-T01.txt` | 归入 S2-T04 |
 | S2-T02 | 2 | A* 与启发函数 | S2-T01 | `astar.py`、配置与单测 | g/h/f、启发兼容、最优成本 | Not Started | `S2-T02.txt` | 归入 S2-T04 |
 | S2-T03 | 2 | 确定性算法回归矩阵 | S2-T02 | 集成和回归测试 | 四/八方向、墙角、复杂/无路径 | Not Started | `S2-T03.txt` | 归入 S2-T04 |
@@ -478,7 +478,7 @@ flowchart LR
 13. **风险：**不得在各算法中另写邻居规则。
 14. **Checkpoint：**不允许。
 15. **Commit：**归入 S1-T08。
-16. **状态：**Not Started。
+16. **状态：**Verified。
 
 ### S1-T04 统一结果与 Planner 接口
 
@@ -508,7 +508,7 @@ flowchart LR
 13. **风险：**后续若要增加字段，只能向后兼容，不重命名既定字段。
 14. **Checkpoint：**不允许。
 15. **Commit：**归入 S1-T08。
-16. **状态：**Not Started。
+16. **状态：**Verified。
 
 ### S1-T05 路径验证与统一指标
 
@@ -537,7 +537,7 @@ flowchart LR
 13. **风险：**BFS 计入随机算法 runtime，但不计为其最优路径结果。
 14. **Checkpoint：**不允许。
 15. **Commit：**归入 S1-T08。
-16. **状态：**Not Started。
+16. **状态：**Verified。
 
 ### S1-T06 地图 I/O 与手工地图
 
@@ -565,7 +565,7 @@ flowchart LR
 13. **风险：**不以图片替代 JSON 地图证据。
 14. **Checkpoint：**不允许。
 15. **Commit：**归入 S1-T08。
-16. **状态：**Not Started。
+16. **状态：**Verified。
 
 ### S1-T07 可复现随机地图和数据集隔离
 
@@ -594,7 +594,7 @@ flowchart LR
 13. **风险：**若目标障碍数超过非保护格容量，配置校验直接失败。
 14. **Checkpoint：**不允许。
 15. **Commit：**归入 S1-T08。
-16. **状态：**Not Started。
+16. **状态：**Verified。
 
 ### S1-T08 阶段1集成门禁
 
@@ -622,7 +622,7 @@ flowchart LR
 13. **风险：**缓存、wheel 和虚拟环境必须被 `.gitignore` 排除。
 14. **Checkpoint：**允许。
 15. **Commit：**`feat: add grid map and core planning models`。
-16. **状态：**Not Started。
+16. **状态：**Verified。
 
 ### S2-T01 Dijkstra
 

@@ -1,0 +1,109 @@
+schema_version: 1
+
+evaluation:
+  - name: evaluation_20x20_d10
+    rows: 20
+    columns: 20
+    target_density: 0.10
+    seed: 1101
+    start: [0, 0]
+    goal: [19, 19]
+    guarantee_reachable: true
+  - name: evaluation_20x20_d20
+    rows: 20
+    columns: 20
+    target_density: 0.20
+    seed: 1201
+    start: [0, 0]
+    goal: [19, 19]
+    guarantee_reachable: true
+  - name: evaluation_20x20_d30
+    rows: 20
+    columns: 20
+    target_density: 0.30
+    seed: 1301
+    start: [0, 0]
+    goal: [19, 19]
+    guarantee_reachable: true
+  - name: evaluation_50x50_d10
+    rows: 50
+    columns: 50
+    target_density: 0.10
+    seed: 2101
+    start: [0, 0]
+    goal: [49, 49]
+    guarantee_reachable: true
+  - name: evaluation_50x50_d20
+    rows: 50
+    columns: 50
+    target_density: 0.20
+    seed: 2201
+    start: [0, 0]
+    goal: [49, 49]
+    guarantee_reachable: true
+  - name: evaluation_50x50_d30
+    rows: 50
+    columns: 50
+    target_density: 0.30
+    seed: 2301
+    start: [0, 0]
+    goal: [49, 49]
+    guarantee_reachable: true
+  - name: evaluation_100x100_d10
+    rows: 100
+    columns: 100
+    target_density: 0.10
+    seed: 3101
+    start: [0, 0]
+    goal: [99, 99]
+    guarantee_reachable: true
+  - name: evaluation_100x100_d20
+    rows: 100
+    columns: 100
+    target_density: 0.20
+    seed: 3201
+    start: [0, 0]
+    goal: [99, 99]
+    guarantee_reachable: true
+  - name: evaluation_100x100_d30
+    rows: 100
+    columns: 100
+    target_density: 0.30
+    seed: 3301
+    start: [0, 0]
+    goal: [99, 99]
+    guarantee_reachable: true
+
+tuning:
+  - name: tuning_20x20_d10
+    rows: 20
+    columns: 20
+    target_density: 0.10
+    seed: 4101
+    start: [0, 0]
+    goal: [19, 19]
+    guarantee_reachable: true
+  - name: tuning_20x20_d30
+    rows: 20
+    columns: 20
+    target_density: 0.30
+    seed: 4201
+    start: [0, 0]
+    goal: [19, 19]
+    guarantee_reachable: true
+  - name: tuning_50x50_d20
+    rows: 50
+    columns: 50
+    target_density: 0.20
+    seed: 4301
+    start: [0, 0]
+    goal: [49, 49]
+    guarantee_reachable: true
+  - name: tuning_50x50_d30
+    rows: 50
+    columns: 50
+    target_density: 0.30
+    seed: 4401
+    start: [0, 0]
+    goal: [49, 49]
+    guarantee_reachable: true

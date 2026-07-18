@@ -2,7 +2,7 @@
 
 ## 当前总体状态
 
-Stage 2 Verified — publication pending; stopped before Stage 3
+Stage 2 Verified and published — stopped before Stage 3
 
 ## 当前分支
 
@@ -23,7 +23,8 @@ S3-T01 ACO 配置、构路和历史缺陷基线 — Not Started
 - Upstream：`main` → `origin/main`
 - S1原feature tip：`1e5a10debbb4eab4004f7fa9372ad046834fb4f8`，已通过fast-forward完整进入`main`
 - 分支现场：`main`跟踪`origin/main`；临时feature分支的本地与远端引用均已安全删除
-- S2实施方式：按本轮明确授权直接在`main`完成；实现checkpoint为`22f479342a7edf1b5329c45ace59ba91ba6b19b7`；hash账本提交与普通push待本轮后续步骤完成
+- S2实施方式：按本轮明确授权直接在`main`完成；实现checkpoint为`22f479342a7edf1b5329c45ace59ba91ba6b19b7`；hash账本commit为`1f820c331262f88eba697b836e24f0c26838fc66`
+- 发布状态：实现与账本commit已普通push到`origin/main`；本最终状态记录随同轮最终普通push发布
 
 ## 任务统计
 
@@ -48,6 +49,8 @@ S3-T01 ACO 配置、构路和历史缺陷基线 — Not Started
 ## 最近一个checkpoint commit
 
 `22f479342a7edf1b5329c45ace59ba91ba6b19b7` — `feat: implement dijkstra and astar planners`
+
+账本commit：`1f820c331262f88eba697b836e24f0c26838fc66` — `docs: record stage 2 checkpoint`
 
 ## 下一项任务
 

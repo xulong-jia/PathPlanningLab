@@ -10,7 +10,7 @@
 
 ## Git状态
 
-S1已完整位于本地和远端`main`。S2实现和任务级验收已完成，实现checkpoint `22f479342a7edf1b5329c45ace59ba91ba6b19b7`已创建；当前仅有hash账本记录改动，账本提交和普通push仍待本轮后续步骤完成。当前仅保留本地`main`及远端`origin/main`；唯一remote仍为`origin`，Fetch/Push URL均为`git@github.com:xulong-jia/PathPlanningLab.git`，remote配置未修改。
+S1与S2均已完整发布到`origin/main`。S2实现checkpoint为`22f479342a7edf1b5329c45ace59ba91ba6b19b7`，hash账本commit为`1f820c331262f88eba697b836e24f0c26838fc66`；本交接记录随同轮最终普通push发布。当前仅保留本地`main`及远端`origin/main`；唯一remote仍为`origin`，Fetch/Push URL均为`git@github.com:xulong-jia/PathPlanningLab.git`，remote配置未修改，未创建tag或PR。
 
 ## 当前阶段
 
@@ -51,7 +51,7 @@ S2新增stdlib `heapq` Dijkstra、独立g/h/f A*、Manhattan/Euclidean/广义Oct
 
 `22f479342a7edf1b5329c45ace59ba91ba6b19b7` — `feat: implement dijkstra and astar planners`
 
-S2账本commit：待本轮只追加记录提交完成后由Git现场确认。
+S2账本commit：`1f820c331262f88eba697b836e24f0c26838fc66` — `docs: record stage 2 checkpoint`
 
 ## 未解决问题
 
@@ -63,7 +63,7 @@ Standard Benchmark 和调优耗时较长；现有`.git`、`origin`或`main`上�
 
 ## 下一步
 
-先完成S2实现checkpoint、hash账本提交、普通push及远端复核，然后立即停止；不得开始S3，S3-T01保持Not Started。
+S2发布与远端复核完成后立即停止；不得开始S3，S3-T01保持Not Started。
 
 ## 新会话恢复指令
 

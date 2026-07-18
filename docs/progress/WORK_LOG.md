@@ -382,3 +382,12 @@
 - 包含范围：S2-T01至S2-T04的算法、配置、测试、文档、进度和完整验证证据。
 - 账本commit：本条与PROJECT_STATUS、HANDOFF及实施计划checkpoint表更新将以`docs: record stage 2 checkpoint`独立提交。
 - 下一步：普通push本地`main`到`origin/main`，重新fetch并完成最终现场复核；S3-T01保持Not Started。
+
+## 2026-07-18 21:33 — S2首次发布与最终状态记录
+
+- 操作性质：发布S2合法提交并只追加最终状态记录，不改变任务或验收状态，不开始S3。
+- 提交：实现checkpoint `22f479342a7edf1b5329c45ace59ba91ba6b19b7`；hash账本commit `1f820c331262f88eba697b836e24f0c26838fc66`。
+- Push：fetch确认远端未领先、本地仅安全领先2个提交后，执行普通`git push origin main`成功；范围为`36d5676..1f820c3`，未force。
+- Remote：唯一remote及Fetch/Push URL未变化；未创建分支、PR或tag。
+- 本记录：修正PROJECT_STATUS与HANDOFF中的publication pending状态，补记账本hash；将以`docs: record stage 2 publication`提交并在同轮执行最终普通push。
+- 下一步：最终push后重新fetch，确认本地`main`与`origin/main`完全一致、工作区干净且S3-T01仍Not Started，然后立即停止。

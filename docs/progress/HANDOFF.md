@@ -10,7 +10,7 @@
 
 ## Git状态
 
-S1实现已完成并通过阶段门禁，等待创建S1-T08实现checkpoint及账本commit；唯一远程仍为`origin`，Fetch/Push URL均为`git@github.com:xulong-jia/PathPlanningLab.git`；remote配置未修改，`main`与`origin/main`仍停留在`23f08f5a61b8317d6837c0157057904637a58447`。
+S1实现已完成并通过阶段门禁；实现checkpoint为`811956118dd33e05261a16479ac03272a0937180`，当前仅待账本commit及本轮获授权的最终push。唯一远程仍为`origin`，Fetch/Push URL均为`git@github.com:xulong-jia/PathPlanningLab.git`；remote配置未修改，`main`与`origin/main`仍停留在`23f08f5a61b8317d6837c0157057904637a58447`。
 
 ## 当前阶段
 
@@ -49,7 +49,7 @@ S1建立工程依赖与`src`包骨架，完成只读旧材料哈希基线、Grid
 
 ## 最近checkpoint commit
 
-S1-T08实现checkpoint待Verified状态落地后创建；完整hash由后续只追加账本记录补记。
+`811956118dd33e05261a16479ac03272a0937180` — `feat: add grid map and core planning models`
 
 ## 未解决问题
 

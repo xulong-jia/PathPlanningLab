@@ -245,3 +245,10 @@
 - 已知问题：无。
 - 完成度：8/42 Verified，19.05%；2/29最终验收Verified，6.90%。
 - 下一任务：S2-T01 Dijkstra — Not Started；本轮停止，不开始Stage2。
+
+## 2026-07-18 20:42 — S1-T08 checkpoint账本补记
+
+- 操作性质：只追加checkpoint hash记录，不改变任务完成状态。
+- 实现checkpoint：`811956118dd33e05261a16479ac03272a0937180` — `feat: add grid map and core planning models`
+- 账本commit：本条与PROJECT_STATUS、HANDOFF及实施计划checkpoint表更新将以`docs: record stage 1 checkpoint`独立提交。
+- 下一任务：S2-T01 Dijkstra — Not Started；本轮不开始。

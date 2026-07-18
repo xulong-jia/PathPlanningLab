@@ -46,7 +46,7 @@ S2-T01 Dijkstra — Not Started
 
 ## 最近一个checkpoint commit
 
-S1-T08实现checkpoint将在本条Verified状态落地后创建，完整hash由只追加账本记录补记。
+`811956118dd33e05261a16479ac03272a0937180` — `feat: add grid map and core planning models`
 
 ## 下一项任务
 

@@ -1829,7 +1829,7 @@ Git commit 的 hash 取决于提交内容，因此不能在同一个 commit 中�
 | 阶段/任务 | 分支 | 实现checkpoint | 账本commit |
 |---|---|---|---|
 | S1-T02 | feature/path-planning-100 | `f86dab5d9240248ec356697499e960aa398a828e` — `chore: initialize path planning lab` | `docs: record bootstrap checkpoint` |
-| S1-T08 | feature/path-planning-100 | `feat: add grid map and core planning models` | `docs: record stage 1 checkpoint` |
+| S1-T08 | feature/path-planning-100 | `811956118dd33e05261a16479ac03272a0937180` — `feat: add grid map and core planning models` | `docs: record stage 1 checkpoint` |
 | S2-T04 | feature | `feat: implement dijkstra and astar planners` | `docs: record stage 2 checkpoint` |
 | S3-T04 | feature | `feat: implement grid-based ant colony planner` | `docs: record stage 3 checkpoint` |
 | S4-T05 | feature | `feat: implement grid-based genetic planner` | `docs: record stage 4 checkpoint` |

@@ -46,7 +46,7 @@ S1-T01 安全门禁与记录制度落地 — Not Started；本轮没有正式开
 
 ## 最近一个checkpoint commit
 
-`f2c9703ca6652843713efae28b59e6ab5ecbffd3` — `docs: record planning baseline checkpoint`
+`ba9112c1b3d7aa6b362241400748a5078a7f78b7` — `docs: reconcile repository baseline after remote setup`
 
 ## 下一项任务
 

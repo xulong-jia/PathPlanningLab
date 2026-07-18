@@ -10,7 +10,7 @@
 
 ## Git状态
 
-项目目录与本地Git仓库均已创建，工作区在本次对齐前为干净状态，并将在两次文档提交后再次验证干净。唯一远程为`origin`，Fetch/Push URL均为`git@github.com:xulong-jia/PathPlanningLab.git`；计划基线已推送，`main`与`origin/main`一致。
+项目目录与本地Git仓库均已创建；仓库状态对齐采用“修订提交＋hash账本提交”，完成后工作区已复验干净。唯一远程为`origin`，Fetch/Push URL均为`git@github.com:xulong-jia/PathPlanningLab.git`；`main`跟踪`origin/main`。
 
 ## 当前阶段
 
@@ -49,7 +49,7 @@ S1-T01 至 S8-T06，共42项。
 
 ## 最近checkpoint commit
 
-`f2c9703ca6652843713efae28b59e6ab5ecbffd3` — `docs: record planning baseline checkpoint`
+`ba9112c1b3d7aa6b362241400748a5078a7f78b7` — `docs: reconcile repository baseline after remote setup`
 
 ## 未解决问题
 

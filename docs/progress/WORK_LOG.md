@@ -114,3 +114,10 @@
 - 已知问题：无。
 - 完成度：2/42 Verified，4.76%。
 - 下一任务：S1-T03 GridMap 与移动规则 — Not Started。
+
+## 2026-07-18 20:10 — S1-T02 checkpoint账本补记
+
+- 操作性质：只追加checkpoint hash记录，不改变任务完成状态。
+- 实现checkpoint：`f86dab5d9240248ec356697499e960aa398a828e` — `chore: initialize path planning lab`
+- 包含范围：S1-T01全部合法未提交成果与S1-T02工程初始化、验证证据和任务记录。
+- 下一任务：S1-T03 GridMap 与移动规则 — Not Started。

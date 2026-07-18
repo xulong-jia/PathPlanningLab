@@ -6,27 +6,27 @@
 
 ## 当前分支
 
-`main`，跟踪`origin/main`。`feature/path-planning-100`尚未创建。
+`feature/path-planning-100`，从`main`的`23f08f5a61b8317d6837c0157057904637a58447`创建；远程上游将在S1完成并获本轮目标授权推送时设置。
 
 ## Git状态
 
-当前为`main`，跟踪`origin/main`；HEAD与`origin/main`均为`23f08f5a61b8317d6837c0157057904637a58447`。唯一远程为`origin`，Fetch/Push URL均为`git@github.com:xulong-jia/PathPlanningLab.git`。S1-T01按计划未提交，当前工作区预期仅包含S1-T01合法修改。
+当前feature分支包含S1-T01与S1-T02实现checkpoint；唯一远程仍为`origin`，Fetch/Push URL均为`git@github.com:xulong-jia/PathPlanningLab.git`；remote配置未修改。
 
 ## 当前阶段
 
-阶段1；S1-T01已Verified。
+阶段1；S1-T01至S1-T02已Verified。
 
 ## 已完成任务
 
-S1-T01 安全门禁与记录制度落地 — Verified。
+S1-T01、S1-T02，共2项Verified。
 
 ## 当前任务
 
-S1-T02 Python工程与 feature 分支初始化 — Not Started。
+S1-T03 GridMap 与移动规则 — Not Started。
 
 ## 尚未完成任务
 
-S1-T02 至 S8-T06，共41项。
+S1-T03 至 S8-T06，共40项。
 
 ## 关键设计决策
 
@@ -41,15 +41,15 @@ S1-T02 至 S8-T06，共41项。
 
 ## 创建和修改的文件
 
-S1-T01创建`docs/audit/legacy_hashes.before.sha256`、`docs/audit/legacy_baseline_metadata.md`和`results/verification/S1-T01.txt`；修改实施计划及三个进度记录文件。未创建工程代码、虚拟环境或feature分支。
+S1-T01的只读旧材料基线与证据已纳入checkpoint。S1-T02创建`pyproject.toml`、`requirements.lock`、项目内`.venv`（忽略）、最小`src`包骨架、包导入测试和验证日志；未创建算法实现。
 
 ## 最近验证命令及结果
 
-2026-07-18 19:50 AEST完成S1-T01：前置Git门禁通过；旧材料只读基线含75个普通文件、21个子目录、74,097,025字节，清单聚合SHA-256为`f534b2543beb31e8f0253001b96494b0086b4b085a340d8d4ae4d33e10c91e8e`；二次重算`cmp`通过；执行清单/详细任务/验收映射为42/42/29；证据见`results/verification/S1-T01.txt`。
+2026-07-18 20:08 AEST完成S1-T02：包导入测试1 passed，`pip check`、Ruff、format、strict mypy和diff检查均通过；32条lock无绝对路径；证据见`results/verification/S1-T02*.txt`。
 
 ## 最近checkpoint commit
 
-当前HEAD为`23f08f5a61b8317d6837c0157057904637a58447`；S1-T01没有独立checkpoint commit，修改将按计划归入S1-T02工程初始化checkpoint。
+`f86dab5d9240248ec356697499e960aa398a828e` — `chore: initialize path planning lab`
 
 ## 未解决问题
 
@@ -61,14 +61,14 @@ Standard Benchmark 和调优耗时较长；现有`.git`、`origin`或`main`上�
 
 ## 下一步
 
-下一任务为S1-T02 Python工程与 feature 分支初始化，但尚未开始；本轮到此停止。
+下一任务为S1-T03 GridMap 与移动规则；S1阶段目标继续执行，S2仍Not Started。
 
 ## 新会话恢复指令
 
 1. 执行`cd /Users/jiaxulong/Desktop/PathPlanningLab`。
 2. 完整读取`docs/superpowers/plans/2026-07-18-path-planning-lab.md`、`docs/superpowers/specs/2026-07-18-four-algorithm-path-planning-design.md`、`docs/progress/PROJECT_STATUS.md`和`docs/progress/HANDOFF.md`。
-3. 查看`docs/progress/WORK_LOG.md`最后一个记录，并读取`results/verification/S1-T01.txt`及`docs/audit/legacy_baseline_metadata.md`。
+3. 查看`docs/progress/WORK_LOG.md`最后一个记录，并读取S1已有验证日志。
 4. 执行`git branch --show-current`、`git status --short`、`git status -sb`、`git remote -v`、`git log --oneline -5`。
-5. 确认当前为`main`、工作区只含S1-T01合法未提交修改、唯一remote为正确的`origin`、上游为`origin/main`、本地/远程HEAD仍为`23f08f5a61b8317d6837c0157057904637a58447`，且feature分支尚未创建。
-6. 对照计划确认S1-T01已Verified；第一个未勾选且前置任务已Verified的任务应为S1-T02，但不要依据本交接自动开始。
+5. 确认当前为`feature/path-planning-100`、唯一remote为正确的`origin`、remote配置未修改，最近实现checkpoint为`f86dab5d9240248ec356697499e960aa398a828e`。
+6. 对照计划确认S1-T01至S1-T02已Verified；第一个未勾选且前置任务已Verified的任务应为S1-T03。
 7. 不依据聊天记忆推测进度，不执行`git init`，不删除或替换`.git`，不修改remote。

@@ -46,7 +46,7 @@ S1-T03 GridMap 与移动规则 — Not Started
 
 ## 最近一个checkpoint commit
 
-`23f08f5a61b8317d6837c0157057904637a58447` — `docs: record repository baseline reconciliation`；S1-T01按计划未创建commit。
+`f86dab5d9240248ec356697499e960aa398a828e` — `chore: initialize path planning lab`
 
 ## 下一项任务
 

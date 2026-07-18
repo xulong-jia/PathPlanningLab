@@ -19,3 +19,11 @@ class Planner(Protocol[ConfigT]):
         config: ConfigT,
         seed: int | None = None,
     ) -> PlanningResult: ...
+
+
+def reconstruct_path(came_from: dict[Point, Point], goal: Point) -> tuple[Point, ...]:
+    path = [goal]
+    while path[-1] in came_from:
+        path.append(came_from[path[-1]])
+    path.reverse()
+    return tuple(path)

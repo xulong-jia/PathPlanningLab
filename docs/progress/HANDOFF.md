@@ -6,27 +6,27 @@
 
 ## 当前分支
 
-`main`，跟踪`origin/main`。S1原feature tip `1e5a10debbb4eab4004f7fa9372ad046834fb4f8`已通过fast-forward完整进入`main`；临时feature分支的本地和远端引用均已安全删除。
+`main`，跟踪`origin/main`。S2按本轮明确授权直接在`main`工作树实施；未创建feature分支、额外worktree、PR或tag。
 
 ## Git状态
 
-S1实现、阶段门禁和主分支整合均已完成；`main`与`origin/main`一致并完整包含全部S1提交，工作区干净。当前仅保留本地`main`及远端`origin/main`；唯一remote仍为`origin`，Fetch/Push URL均为`git@github.com:xulong-jia/PathPlanningLab.git`，remote配置未修改，未创建tag或PR。
+S1已完整位于本地和远端`main`。S2实现和任务级验收已完成，当前工作树仅含待创建阶段checkpoint的合法S2改动；checkpoint、账本提交和普通push仍待本轮后续步骤完成。当前仅保留本地`main`及远端`origin/main`；唯一remote仍为`origin`，Fetch/Push URL均为`git@github.com:xulong-jia/PathPlanningLab.git`，remote配置未修改。
 
 ## 当前阶段
 
-阶段1已Verified；阶段2尚未开始。
+阶段2已Verified；阶段1保持Verified；阶段3尚未开始。
 
 ## 已完成任务
 
-S1-T01至S1-T08，共8项Verified。
+S1-T01至S2-T04，共12项Verified。
 
 ## 当前任务
 
-S2-T01 Dijkstra — Not Started。
+S3-T01 ACO 配置、构路和历史缺陷基线 — Not Started。
 
 ## 尚未完成任务
 
-S2-T01至S8-T06，共34项。
+S3-T01至S8-T06，共30项。
 
 ## 关键设计决策
 
@@ -41,11 +41,11 @@ S2-T01至S8-T06，共34项。
 
 ## 创建和修改的文件
 
-S1建立工程依赖与`src`包骨架，完成只读旧材料哈希基线、GridMap/移动规则、统一Planner/PlanningResult、路径验证/指标、schema v1地图I/O、6张手工地图、9张evaluation地图、4张tuning地图、固定隔离seeds及`docs/architecture.md`。未创建Dijkstra、A*或其他具体算法实现。
+S2新增stdlib `heapq` Dijkstra、独立g/h/f A*、Manhattan/Euclidean/广义Octile启发函数、两份默认YAML、共享路径重建、确定性算法单元/集成/回归矩阵及`docs/algorithms.md`。未创建ACO、GA或其他S3范围文件。
 
 ## 最近验证命令及结果
 
-2026-07-18 20:54 AEST在fast-forward后的`main`重新完成Stage1门禁：完整pytest及coverage门禁各132 passed、0 skipped/xfail，core/maps分支覆盖率100.00%；Ruff、format、strict mypy、pip check、wheel build和diff门禁均退出0。旧材料75文件只读重算与before基线`cmp`退出0，聚合哈希仍为`f534b2543beb31e8f0253001b96494b0086b4b085a340d8d4ae4d33e10c91e8e`。
+2026-07-18 21:24 AEST完成S2更正预门禁：S1原始测试132 passed，完整S1+S2测试203 passed；core/algorithms分支覆盖率99.33%且每个非空模块≥90%；Ruff、format、strict mypy、pip check、wheel构建与隔离安装、`git diff --check`均通过。旧材料只读重算仍为75文件、21子目录、74,097,025字节，与before清单逐字节一致，聚合哈希仍为`f534b2543beb31e8f0253001b96494b0086b4b085a340d8d4ae4d33e10c91e8e`。
 
 ## 最近checkpoint commit
 
@@ -55,7 +55,7 @@ S1建立工程依赖与`src`包骨架，完成只读旧材料哈希基线、Grid
 
 ## 未解决问题
 
-无S1遗留问题。旧材料哈希未变化验收项虽已完成before基线和S1结束复核，但须待S8-T06生成正式after并比较后才能整体Verified。
+无S1或S2遗留问题。旧材料哈希未变化验收项虽持续复核一致，但正式after清单仍只允许由S8-T06生成。
 
 ## 风险
 
@@ -63,14 +63,14 @@ Standard Benchmark 和调优耗时较长；现有`.git`、`origin`或`main`上�
 
 ## 下一步
 
-下一任务为S2-T01 Dijkstra，但本轮明确停止；S2保持Not Started。
+先完成S2实现checkpoint、hash账本提交、普通push及远端复核，然后立即停止；不得开始S3，S3-T01保持Not Started。
 
 ## 新会话恢复指令
 
 1. 执行`cd /Users/jiaxulong/Desktop/PathPlanningLab`。
 2. 完整读取`docs/superpowers/plans/2026-07-18-path-planning-lab.md`、`docs/superpowers/specs/2026-07-18-four-algorithm-path-planning-design.md`、`docs/progress/PROJECT_STATUS.md`和`docs/progress/HANDOFF.md`。
-3. 查看`docs/progress/WORK_LOG.md`最后一个记录，并读取S1已有验证日志。
+3. 查看`docs/progress/WORK_LOG.md`最后一个记录，并读取S1/S2已有验证日志。
 4. 执行`git branch --show-current`、`git status --short`、`git status -sb`、`git remote -v`、`git log --oneline -5`。
 5. 确认当前为`main`、上游为`origin/main`、唯一remote为正确的`origin`、remote配置未修改，且本地和远端均不存在`feature/path-planning-100`。
-6. 对照计划确认S1-T01至S1-T08已Verified；第一个未勾选任务应为S2-T01且状态必须仍为Not Started。
+6. 对照计划确认S1-T01至S2-T04已Verified；第一个未勾选任务应为S3-T01且状态必须仍为Not Started。
 7. 不依据聊天记忆推测进度，不执行`git init`，不删除或替换`.git`，不修改remote。

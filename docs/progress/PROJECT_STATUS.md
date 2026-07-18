@@ -2,7 +2,7 @@
 
 ## 当前总体状态
 
-Stage 1 Verified — stopped before Stage 2
+Stage 2 Verified — publication pending; stopped before Stage 3
 
 ## 当前分支
 
@@ -10,11 +10,11 @@ Stage 1 Verified — stopped before Stage 2
 
 ## 当前阶段
 
-阶段1 — Verified
+阶段2 — Verified（S1保持Verified；未开始阶段3）
 
 ## 当前任务
 
-S2-T01 Dijkstra — Not Started
+S3-T01 ACO 配置、构路和历史缺陷基线 — Not Started
 
 ## Repository Status
 
@@ -23,26 +23,27 @@ S2-T01 Dijkstra — Not Started
 - Upstream：`main` → `origin/main`
 - S1原feature tip：`1e5a10debbb4eab4004f7fa9372ad046834fb4f8`，已通过fast-forward完整进入`main`
 - 分支现场：`main`跟踪`origin/main`；临时feature分支的本地与远端引用均已安全删除
+- S2实施方式：按本轮明确授权直接在`main`工作树完成；实现checkpoint与普通push待本轮后续步骤完成
 
 ## 任务统计
 
 - 全部任务数：42
-- 已完成任务数：8
-- Verified任务数：8
+- 已完成任务数：12
+- Verified任务数：12
 - In Progress任务数：0
 - Partially Verified任务数：0
 - Blocked任务数：0
-- 实施任务完成度：19.05%
+- 实施任务完成度：28.57%
 
 ## 100%验收统计
 
 - 全部验收项：29
-- Verified验收项：2
-- 验收完成度：6.90%
+- Verified验收项：4
+- 验收完成度：13.79%
 
 ## 最近一次验证
 
-2026-07-18 20:54 AEST在fast-forward后的`main`重新完成S1验证：完整pytest及coverage门禁各132 passed，core/maps分支覆盖率100.00%，Ruff、format、strict mypy、pip check、wheel build和diff门禁全部通过；旧材料75文件只读重算与before基线逐字节一致。随后`origin/main`完整性复核通过，临时feature分支已从本地和远端安全删除。
+2026-07-18 21:24 AEST完成S2阶段更正预门禁：原始S1回归132 passed，完整S1+S2覆盖率门禁203 passed；core/algorithms分支覆盖率99.33%且每个非空模块均≥90%；Ruff、format、strict mypy、pip check、wheel构建与隔离安装、diff、旧材料和Git安全门禁全部通过。首次预门禁仅因shell把制表符当字面`\\t`比较而退出1，修正解析后完整重跑退出0。
 
 ## 最近一个checkpoint commit
 
@@ -50,7 +51,7 @@ S2-T01 Dijkstra — Not Started
 
 ## 下一项任务
 
-S2-T01 Dijkstra（Not Started）；本轮停止，不开始Stage 2。
+S3-T01 ACO 配置、构路和历史缺陷基线（Not Started）；本轮不得开始。
 
 ## Blocked原因
 
@@ -60,8 +61,8 @@ S2-T01 Dijkstra（Not Started）；本轮停止，不开始Stage 2。
 
 | 验收项 | 状态 | 对应任务 | 当前证据 |
 |---|---|---|---|
-| Dijkstra完整栅格实现 | Not Started | S2-T01、S2-T03 | 尚无执行证据 |
-| A*完整栅格实现 | Not Started | S2-T02、S2-T03 | 尚无执行证据 |
+| Dijkstra完整栅格实现 | Verified | S2-T01、S2-T03 | `dijkstra.py`、Dijkstra单元测试、确定性集成/最优性回归及S2证据 |
+| A*完整栅格实现 | Verified | S2-T02、S2-T03 | `astar.py`、A*单元测试、确定性集成/最优性回归及S2证据 |
 | ACO完整栅格实现 | Not Started | S3-T01–S3-T04 | 尚无执行证据 |
 | GA完整栅格实现 | Not Started | S4-T01–S4-T05 | 尚无执行证据 |
 | 统一地图 | Verified | S1-T03、S1-T06、S1-T07 | `docs/architecture.md`、地图JSON、Stage1 pytest与coverage证据 |

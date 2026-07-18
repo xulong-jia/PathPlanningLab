@@ -18,10 +18,10 @@
 - [x] S1-T06 地图 I/O 与手工地图
 - [x] S1-T07 可复现随机地图和数据集隔离
 - [x] S1-T08 阶段1集成门禁
-- [ ] S2-T01 Dijkstra
-- [ ] S2-T02 A* 与启发函数
-- [ ] S2-T03 确定性算法回归矩阵
-- [ ] S2-T04 阶段2门禁与算法文档
+- [x] S2-T01 Dijkstra
+- [x] S2-T02 A* 与启发函数
+- [x] S2-T03 确定性算法回归矩阵
+- [x] S2-T04 阶段2门禁与算法文档
 - [ ] S3-T01 ACO 配置、构路和历史缺陷基线
 - [ ] S3-T02 ACO 信息素更新与收敛
 - [ ] S3-T03 ACO 完整 Planner 集成
@@ -325,10 +325,10 @@ flowchart LR
 | S1-T06 | 1 | 地图 I/O 与手工地图 | S1-T05 | `io.py`、6 张手工地图 | round-trip、地图特性测试 | Verified | `S1-T06.txt` | 归入 S1-T08 |
 | S1-T07 | 1 | 可复现随机地图和数据集隔离 | S1-T06 | `generation.py`、`suites.py`、13 张随机地图 | seed、密度、可达、集合隔离 | Verified | `S1-T07.txt` | 归入 S1-T08 |
 | S1-T08 | 1 | 阶段1集成门禁 | S1-T07 | `architecture.md`、HANDOFF | 全测、≥90%阶段覆盖、Ruff、mypy、build | Verified | `S1-stage-gate.txt` | `feat: add grid map and core planning models` |
-| S2-T01 | 2 | Dijkstra | S1-T08 | `dijkstra.py`、配置与单测 | 已知最短路、4/8方向、无路径 | Not Started | `S2-T01.txt` | 归入 S2-T04 |
-| S2-T02 | 2 | A* 与启发函数 | S2-T01 | `astar.py`、配置与单测 | g/h/f、启发兼容、最优成本 | Not Started | `S2-T02.txt` | 归入 S2-T04 |
-| S2-T03 | 2 | 确定性算法回归矩阵 | S2-T02 | 集成和回归测试 | 四/八方向、墙角、复杂/无路径 | Not Started | `S2-T03.txt` | 归入 S2-T04 |
-| S2-T04 | 2 | 阶段2门禁与算法文档 | S2-T03 | `algorithms.md` 确定性章节 | 全测、覆盖率、Ruff、mypy、diff | Not Started | `S2-stage-gate.txt` | `feat: implement dijkstra and astar planners` |
+| S2-T01 | 2 | Dijkstra | S1-T08 | `dijkstra.py`、配置与单测 | 已知最短路、4/8方向、无路径 | Verified | `S2-T01.txt` | 归入 S2-T04 |
+| S2-T02 | 2 | A* 与启发函数 | S2-T01 | `astar.py`、配置与单测 | g/h/f、启发兼容、最优成本 | Verified | `S2-T02.txt` | 归入 S2-T04 |
+| S2-T03 | 2 | 确定性算法回归矩阵 | S2-T02 | 集成和回归测试 | 四/八方向、墙角、复杂/无路径 | Verified | `S2-T03.txt` | 归入 S2-T04 |
+| S2-T04 | 2 | 阶段2门禁与算法文档 | S2-T03 | `algorithms.md` 确定性章节 | 全测、覆盖率、Ruff、mypy、diff | Verified | `S2-stage-gate.txt` | `feat: implement dijkstra and astar planners` |
 | S3-T01 | 3 | ACO 配置、构路和历史缺陷基线 | S2-T04 | `aco.py` 第一闭环、`legacy_baseline.md` | 合法构路、预算、死路终止 | Not Started | `S3-T01.txt` | 归入 S3-T04 |
 | S3-T02 | 3 | ACO 信息素更新与收敛 | S3-T01 | 挥发、强化、精英、上下限 | 非均匀更新、短路强化更强 | Not Started | `S3-T02.txt` | 归入 S3-T04 |
 | S3-T03 | 3 | ACO 完整 Planner 集成 | S3-T02 | 完整 `AntColonyPlanner` | seed、无路径、配置生效、合法路径 | Not Started | `S3-T03.txt` | 归入 S3-T04 |
@@ -650,7 +650,7 @@ flowchart LR
 13. **风险：**不得用 NetworkX 或其他第三方最短路替代。
 14. **Checkpoint：**不允许。
 15. **Commit：**归入 S2-T04。
-16. **状态：**Not Started。
+16. **状态：**Verified。
 
 ### S2-T02 A* 与启发函数
 
@@ -678,7 +678,7 @@ flowchart LR
 13. **风险：**浮点成本使用明确容差，不通过放宽最优性标准解决失败。
 14. **Checkpoint：**不允许。
 15. **Commit：**归入 S2-T04。
-16. **状态：**Not Started。
+16. **状态：**Verified。
 
 ### S2-T03 确定性算法回归矩阵
 
@@ -700,7 +700,7 @@ flowchart LR
 13. **风险：**测试超时上限只防死循环，不作为性能结论。
 14. **Checkpoint：**不允许。
 15. **Commit：**归入 S2-T04。
-16. **状态：**Not Started。
+16. **状态：**Verified。
 
 ### S2-T04 阶段2门禁与算法文档
 
@@ -726,7 +726,7 @@ flowchart LR
 13. **风险：**文档不得声称未测性能。
 14. **Checkpoint：**允许。
 15. **Commit：**`feat: implement dijkstra and astar planners`。
-16. **状态：**Not Started。
+16. **状态：**Verified。
 
 ### S3-T01 ACO 配置、构路和历史缺陷基线
 
@@ -1972,4 +1972,4 @@ git log -5 --oneline
 - S1最初停留在临时`feature/path-planning-100`；经2026-07-18后续明确授权，已使用`--ff-only`完整整合至`main`并在远端复核后安全删除临时分支；全程未rebase、force push或创建tag。
 - 使用“实现 checkpoint + hash 账本 commit”的双提交记录协议。
 
-S1-T01至S1-T08已Verified并完整位于`main`；当前下一任务为S2-T01，状态为Not Started。
+S1-T01至S1-T08及S2-T01至S2-T04已Verified；S2已完成任务级验收并停止在阶段边界，S3-T01保持Not Started。

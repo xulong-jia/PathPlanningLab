@@ -1,0 +1,4 @@
+movement:
+  connectivity: 4
+  diagonal_cost: 1.4142135623730951
+  allow_corner_cutting: false

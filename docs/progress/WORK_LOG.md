@@ -274,3 +274,103 @@
 - 发布约束：未force push，未创建PR或tag；唯一remote及URL未修改。
 - 文档更新：仅修正PROJECT_STATUS、HANDOFF及计划中已被本次明确授权替代的分支事实；本条只追加记录将在`main`以普通commit提交并push。
 - 下一任务：S2-T01 Dijkstra — Not Started；本轮不开始。
+
+## 2026-07-18 21:10 — S2-T01 Dijkstra
+
+- 开始状态：Not Started
+- 完成状态：Verified
+- 创建文件：`src/path_planning/algorithms/dijkstra.py`、`configs/dijkstra.yaml`、`tests/unit/test_dijkstra.py`、`results/verification/S2-T01-red.txt`、`results/verification/S2-T01.txt`
+- 修改文件：`src/path_planning/algorithms/base.py`、`src/path_planning/algorithms/__init__.py`、实施计划、PROJECT_STATUS、WORK_LOG
+- 实施内容：使用stdlib `heapq`实现统一权重栅格Dijkstra；维护g-score、closed和came_from，goal出队时提前终止；复用统一邻居、端点和路径验证；成功/失败均返回稳定`PlanningResult`，记录完整plan runtime和首次关闭节点数；确定性算法忽略seed并保持结果seed为null；添加可审计默认YAML。
+- RED命令：`.venv/bin/python -m pytest tests/unit/test_dijkstra.py -q`，退出2；预期原因`path_planning.algorithms.dijkstra`模块不存在。
+- 执行命令：Dijkstra目标pytest、完整`tests`回归pytest、任务范围Ruff check/format、strict mypy和`git diff --check`。
+- 命令退出码：最终fail-fast任务门禁全部0，`task_gate_exit_code=0`。
+- 测试结果：目标9 passed；完整S1+S2回归141 passed；0 failed、0 skipped、0 xfailed。
+- Ruff结果：通过；3 files already formatted。
+- mypy结果：通过；2个算法source files无问题。
+- 覆盖率：本任务不设独立覆盖率阈值；S2-T04统一验证core/algorithms覆盖率≥90%。
+- Diff审查：`git diff --check`退出0；改动仅包含Dijkstra、共享路径重建、算法导出、配置、测试、证据和进度记录，无S3内容。
+- 完成证据：`results/verification/S2-T01-red.txt`、`results/verification/S2-T01.txt`及`tests/unit/test_dijkstra.py`。
+- Commit：归入S2-T04阶段checkpoint。
+- 已知问题：无。
+- 完成度：9/42 Verified，21.43%；Dijkstra最终验收待S2-T03回归矩阵后完成，当前最终验收仍为2/29 Verified。
+- 下一任务：S2-T02 A* 与启发函数 — Not Started。
+
+## 2026-07-18 21:15 — S2-T02 A* 与启发函数
+
+- 开始状态：Not Started
+- 完成状态：Verified
+- 创建文件：`src/path_planning/algorithms/astar.py`、`configs/astar.yaml`、`tests/unit/test_astar.py`、`results/verification/S2-T02-red.txt`、`results/verification/S2-T02.txt`
+- 修改文件：`src/path_planning/algorithms/__init__.py`、实施计划、PROJECT_STATUS、WORK_LOG
+- 实施内容：实现独立g/h/f open heap、g-score、closed和came_from的A*搜索循环，并复用统一邻居、路径重建、端点与路径验证；实现Manhattan、Euclidean和广义Octile下界；4/8方向自动选择兼容默认值，拒绝8方向Manhattan、4方向Octile及未知启发；Euclidean按自定义对角移动的最低单位欧氏成本缩放，Octile按实际对角成本处理低于1、1至2和不低于2三类合法移动成本；添加可审计默认YAML。
+- RED命令：`.venv/bin/python -m pytest tests/unit/test_astar.py -q`，退出2；预期原因`path_planning.algorithms.astar`模块不存在。
+- 执行命令：A*与Dijkstra目标pytest、完整`tests`回归pytest、算法范围Ruff check/format、strict mypy和`git diff --check`。
+- 命令退出码：首次聚合门禁因算法包导出import排序的Ruff I001退出1；机械调整后相同门禁全部0，最终`task_gate_exit_code=0`。
+- 测试结果：目标30 passed；完整S1+S2回归162 passed；0 failed、0 skipped、0 xfailed。
+- Ruff结果：最终通过；5 files already formatted。
+- mypy结果：通过；4个算法source files无问题。
+- 覆盖率：本任务不设独立覆盖率阈值；S2-T04统一验证core/algorithms覆盖率≥90%。
+- Diff审查：`git diff --check`退出0；改动仅包含A*、算法导出、配置、测试、证据和进度记录，无S3内容。
+- 完成证据：`results/verification/S2-T02-red.txt`、`results/verification/S2-T02.txt`及`tests/unit/test_astar.py`。
+- Commit：归入S2-T04阶段checkpoint。
+- 已知问题：无。
+- 完成度：10/42 Verified，23.81%；A*最终验收待S2-T03回归矩阵后完成，当前最终验收仍为2/29 Verified。
+- 下一任务：S2-T03 确定性算法回归矩阵 — Not Started。
+
+## 2026-07-18 21:18 — S2-T03 确定性算法回归矩阵
+
+- 开始状态：Not Started
+- 完成状态：Verified
+- 创建文件：`tests/integration/test_deterministic_planners.py`、`tests/regression/test_optimality.py`、`tests/regression/test_no_path.py`、`results/verification/S2-T03.txt`
+- 修改文件：实施计划、PROJECT_STATUS、WORK_LOG；无生产代码修改。
+- 实施内容：参数化六张handcrafted地图和4/8方向，双方成功路径均调用统一`validate_path()`；对Manhattan、Euclidean和Octile兼容组合逐图比较A*与Dijkstra最优成本；验证允许/禁止墙角、无路径有限失败及端点失败语义一致。
+- RED命令：不适用；本任务只冻结S2-T01/T02已实现行为，不新增生产行为，三个新测试文件首次运行41 passed，未人为制造失败。
+- 执行命令：三个新增集成/回归文件pytest、完整`tests`回归pytest、全项目Ruff check/format、strict mypy和`git diff --check`。
+- 命令退出码：全部最终门禁为0，`task_gate_exit_code=0`。
+- 测试结果：新增矩阵41 passed；完整S1+S2回归203 passed；0 failed、0 skipped、0 xfailed。
+- Ruff结果：通过；34 files already formatted。
+- mypy结果：通过；19个source files无问题。
+- 覆盖率：本任务不设独立覆盖率阈值；S2-T04统一验证core/algorithms覆盖率≥90%。
+- Diff审查：`git diff --check`退出0；本任务只新增计划规定的三个测试文件、证据和进度记录，无生产代码或S3内容。
+- 完成证据：`results/verification/S2-T03.txt`及三个新增集成/回归测试文件。
+- Commit：归入S2-T04阶段checkpoint。
+- 已知问题：无。
+- 完成度：11/42 Verified，26.19%；Dijkstra和A*两项最终验收均已Verified，当前最终验收4/29 Verified（13.79%）。
+- 下一任务：S2-T04 阶段2门禁与算法文档 — Not Started。
+
+## 2026-07-18 21:24 — S2-T04 阶段2门禁与算法文档
+
+- 开始状态：Not Started
+- 完成状态：Verified
+- 创建文件：`docs/algorithms.md`、`results/verification/S2-stage-gate-pre.txt`、`S2-stage-gate-pre-corrected.txt`、`S2-pre-coverage.json`、`S2-pre-coverage-corrected.json`
+- 修改文件：README、实施计划、PROJECT_STATUS、WORK_LOG、HANDOFF。
+- 实施内容：记录Dijkstra/A*伪代码级流程、复杂度、统一指标语义、三种启发公式、4/8方向兼容矩阵、自定义对角成本下界及明确限制；审查完整S2范围；未声称未经Benchmark验证的性能。
+- RED命令：不适用；本任务不新增生产行为，运行Stage1+2完整门禁。
+- 执行命令：原始S1回归、完整pytest与core/algorithms分支覆盖率、逐模块覆盖率断言、Ruff check/format、strict mypy、pip check、wheel构建、隔离target安装与import、任务/验收计数、skip/xfail和绝对路径检查、S3边界、Git安全检查、旧材料只读哈希重算比较及`git diff --check`。
+- 命令退出码：首次预门禁的所有项目检查均通过，但最终Git分叉shell断言把制表符与字面`\\t`比较而退出1；保留失败证据后改为分别解析左右计数，完整重跑`pre_gate_exit_code=0`。
+- 测试结果：S1原始回归132 passed；完整S1+S2覆盖率门禁203 passed；0 failed、0 skipped、0 xfailed。
+- Ruff结果：通过；34 files already formatted。
+- mypy结果：通过；19个source files无问题。
+- 覆盖率：core/algorithms 419 statements、178 branches，仅2条防御语句/分支未覆盖，精确分支覆盖率99.33%；每个非空core/algorithm模块均≥90%。
+- 构建与依赖：`pip check`通过；wheel构建成功；更正预门禁wheel SHA-256为`7e86db7c19400fe0e2e830ddbfe94b9a8ac6c57708c21839c913ffffb5283ed4`；通过隔离target安装并从该路径import版本0.1.0。
+- 旧材料复核：只读重算75文件、21子目录、74,097,025字节，与before清单逐字节一致；聚合哈希仍为`f534b2543beb31e8f0253001b96494b0086b4b085a340d8d4ae4d33e10c91e8e`；未执行、修改或在旧目录创建文件。
+- 完整性：唯一清单42项、详细任务42项、100%验收映射29项；S1-T01至S2-T04现均Verified；Dijkstra和A*两项最终验收Verified，当前4/29。
+- Diff审查：`git diff --check`退出0；S3专属实现/配置不存在，S3勾选数为0，S3-T01保持Not Started。
+- 完成证据：`docs/algorithms.md`、`results/verification/S2-stage-gate-pre-corrected.txt`、`S2-pre-coverage-corrected.json`及S2-T01至T03证据；最终记录更新后门禁将另存`S2-stage-gate.txt`和`S2-coverage.json`。
+- Commit：`feat: implement dijkstra and astar planners`待最终记录门禁通过后创建；完整hash由后续只追加账本记录补记。
+- 已知问题：无。
+- 完成度：12/42 Verified，28.57%；4/29最终验收Verified，13.79%。
+- 下一任务：S3-T01 ACO 配置、构路和历史缺陷基线 — Not Started；本轮不得开始，先完成S2 checkpoint与push后停止。
+
+## 2026-07-18 21:29 — S2最终阶段门禁复核
+
+- 操作性质：S2-T04完成后的只追加最终记录复核，不改变任务状态，不开始S3。
+- 新鲜验证：Dijkstra/A*单元测试30 passed；确定性集成/最优性/无路径矩阵41 passed；原始S1回归132 passed；完整S1+S2覆盖率门禁203 passed。
+- 覆盖率：core/algorithms精确分支覆盖率99.33%，每个非空core/algorithm模块均≥90%；证据为`results/verification/S2-coverage.json`。
+- 其他门禁：Ruff、format、strict mypy、pip check、wheel构建、隔离target安装、旧材料哈希、任务/验收计数、S3边界和Git安全检查均通过。
+- 构建：最终门禁wheel SHA-256为`d1ff5285e58b3fe6ef6cf1f2938fe33388e462631dae432b9fe56ef9fd82fbdb`；隔离安装后从目标目录成功import版本0.1.0。
+- 旧材料：75文件、21子目录、74,097,025字节，与before清单逐字节一致；聚合哈希仍为`f534b2543beb31e8f0253001b96494b0086b4b085a340d8d4ae4d33e10c91e8e`。
+- 记录完整性：42项唯一清单、42项详细任务、29项验收映射；12项任务Verified，4项最终验收Verified；第一个未勾选任务为S3-T01且保持Not Started。
+- 脚本更正：最终门禁主体首次因详细状态计数只匹配“状态”、遗漏S1-T01既有“当前状态”字段而退出1；项目检查此前均通过。更正表达式同时接受两种既有字段名，剩余记录/S3/Git审计退出0；失败与更正输出均保留在同一证据文件中。
+- 最终结论：`results/verification/S2-stage-gate.txt`末尾`S2_FINAL_STAGE_GATE_RESULT=PASS`且`records_scope_gate_exit_code=0`；S2阶段门禁Verified。
+- 下一步：创建S2实现checkpoint与hash账本提交，普通push并复核后立即停止；S3-T01仍为Not Started。

@@ -1,0 +1,115 @@
+S2_FINAL_STAGE_GATE_START=2026-07-18T21:27:12+1000
+..............................                                           [100%]
+30 passed in 0.10s
+.........................................                                [100%]
+41 passed in 1.28s
+........................................................................ [ 54%]
+............................................................             [100%]
+132 passed in 0.83s
+........................................................................ [ 35%]
+........................................................................ [ 70%]
+...........................................................              [100%]
+================================ tests coverage ================================
+_______________ coverage: platform darwin, python 3.12.2-final-0 _______________
+
+Name                                       Stmts   Miss Branch BrPart   Cover   Missing
+---------------------------------------------------------------------------------------
+src/path_planning/algorithms/__init__.py       4      0      0      0 100.00%
+src/path_planning/algorithms/astar.py         89      1     34      1  98.37%   101
+src/path_planning/algorithms/base.py          14      0      2      0 100.00%
+src/path_planning/algorithms/dijkstra.py      51      1     14      1  96.92%   56
+src/path_planning/core/__init__.py             7      0      0      0 100.00%
+src/path_planning/core/grid.py                45      0     12      0 100.00%
+src/path_planning/core/metrics.py             31      0     18      0 100.00%
+src/path_planning/core/movement.py            39      0     18      0 100.00%
+src/path_planning/core/result.py              62      0     30      0 100.00%
+src/path_planning/core/types.py               18      0     12      0 100.00%
+src/path_planning/core/validation.py          59      0     38      0 100.00%
+---------------------------------------------------------------------------------------
+TOTAL                                        419      2    178      2  99.33%
+Coverage JSON written to file results/verification/S2-coverage.json
+Required test coverage of 90% reached. Total coverage: 99.33%
+203 passed in 8.33s
+{'coverage_total': 99.32998324958123, 'modules_below_90': {}}
+All checks passed!
+34 files already formatted
+Success: no issues found in 19 source files
+No broken requirements found.
+Looking in indexes: http://mirrors.aliyun.com/pypi/simple/
+Processing /Users/jiaxulong/Desktop/PathPlanningLab
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Building wheels for collected packages: path-planning-lab
+  Building wheel for path-planning-lab (pyproject.toml): started
+  Building wheel for path-planning-lab (pyproject.toml): finished with status 'done'
+  Created wheel for path-planning-lab: filename=path_planning_lab-0.1.0-py3-none-any.whl size=17811 sha256=d1ff5285e58b3fe6ef6cf1f2938fe33388e462631dae432b9fe56ef9fd82fbdb
+  Stored in directory: /Users/jiaxulong/Desktop/PathPlanningLab/.tmp/pip-ephem-wheel-cache-d84or9lj/wheels/2b/7c/be/6e4937c822bf5b41a63e10f7b5a1f9fc645f367b4703bc0243
+Successfully built path-planning-lab
+
+[notice] A new release of pip is available: 24.0 -> 26.1.2
+[notice] To update, run: /Users/jiaxulong/Desktop/PathPlanningLab/.venv/bin/python -m pip install --upgrade pip
+wheel=/Users/jiaxulong/Desktop/PathPlanningLab/.tmp/s2-final-wheel.A8HyC0/path_planning_lab-0.1.0-py3-none-any.whl wheel_sha256=d1ff5285e58b3fe6ef6cf1f2938fe33388e462631dae432b9fe56ef9fd82fbdb
+Looking in indexes: http://mirrors.aliyun.com/pypi/simple/
+Processing ./.tmp/s2-final-wheel.A8HyC0/path_planning_lab-0.1.0-py3-none-any.whl
+Installing collected packages: path-planning-lab
+Successfully installed path-planning-lab-0.1.0
+
+[notice] A new release of pip is available: 24.0 -> 26.1.2
+[notice] To update, run: /Users/jiaxulong/Desktop/PathPlanningLab/.venv/bin/python -m pip install --upgrade pip
+{'installed_package': '/Users/jiaxulong/Desktop/PathPlanningLab/.tmp/s2-final-install.9GTRgP/path_planning/__init__.py', 'version': '0.1.0'}
+legacy_files=75 legacy_directories=21 legacy_bytes=74097025 legacy_manifest_sha256=f534b2543beb31e8f0253001b96494b0086b4b085a340d8d4ae4d33e10c91e8e legacy_cmp=PASS
+stage_gate_exit_code=1
+
+S2_FINAL_STAGE_GATE_RECORD_CHECK_CORRECTION=2026-07-18T21:28:43+1000
+correction_reason=S1-T01 uses current-status label; remaining tasks use status label
+32:- Verified任务数：12
+33:- In Progress任务数：0
+36:- 实施任务完成度：28.57%
+41:- Verified验收项：4
+42:- 验收完成度：13.79%
+docs/progress/HANDOFF.md:21:S1-T01至S2-T04，共12项Verified。
+docs/progress/HANDOFF.md:25:S3-T01 ACO 配置、构路和历史缺陷基线 — Not Started。
+docs/progress/HANDOFF.md:66:先完成S2实现checkpoint、hash账本提交、普通push及远端复核，然后立即停止；不得开始S3，S3-T01保持Not Started。
+docs/progress/HANDOFF.md:75:6. 对照计划确认S1-T01至S2-T04已Verified；第一个未勾选任务应为S3-T01且状态必须仍为Not Started。
+docs/progress/WORK_LOG.md:357:- 完整性：唯一清单42项、详细任务42项、100%验收映射29项；S1-T01至S2-T04现均Verified；Dijkstra和A*两项最终验收Verified，当前4/29。
+docs/progress/WORK_LOG.md:358:- Diff审查：`git diff --check`退出0；S3专属实现/配置不存在，S3勾选数为0，S3-T01保持Not Started。
+docs/progress/WORK_LOG.md:363:- 下一任务：S3-T01 ACO 配置、构路和历史缺陷基线 — Not Started；本轮不得开始，先完成S2 checkpoint与push后停止。
+task_checklist=42 detailed_tasks=42 acceptance_mappings=29 verified_tasks=12 detailed_verified=12 project_acceptance_verified=4 first_unchecked=- [ ] S3-T01 ACO 配置、构路和历史缺陷基线
+332:| S3-T01 | 3 | ACO 配置、构路和历史缺陷基线 | S2-T04 | `aco.py` 第一闭环、`legacy_baseline.md` | 合法构路、预算、死路终止 | Not Started | `S3-T01.txt` | 归入 S3-T04 |
+29:16. **状态：**Not Started。
+ M README.md
+ M docs/progress/HANDOFF.md
+ M docs/progress/PROJECT_STATUS.md
+ M docs/progress/WORK_LOG.md
+ M docs/superpowers/plans/2026-07-18-path-planning-lab.md
+ M src/path_planning/algorithms/__init__.py
+ M src/path_planning/algorithms/base.py
+?? configs/astar.yaml
+?? configs/dijkstra.yaml
+?? docs/algorithms.md
+?? results/verification/S2-T01-red.txt
+?? results/verification/S2-T01.txt
+?? results/verification/S2-T02-red.txt
+?? results/verification/S2-T02.txt
+?? results/verification/S2-T03.txt
+?? results/verification/S2-coverage.json
+?? results/verification/S2-pre-coverage-corrected.json
+?? results/verification/S2-pre-coverage.json
+?? results/verification/S2-stage-gate-pre-corrected.txt
+?? results/verification/S2-stage-gate-pre.txt
+?? results/verification/S2-stage-gate.txt
+?? src/path_planning/algorithms/astar.py
+?? src/path_planning/algorithms/dijkstra.py
+?? tests/integration/test_deterministic_planners.py
+?? tests/regression/test_no_path.py
+?? tests/regression/test_optimality.py
+?? tests/unit/test_astar.py
+?? tests/unit/test_dijkstra.py
+git_divergence_local=0 git_divergence_remote=0 branch=main upstream=origin/main tags=0 local_branches=1
+records=PASS s3_boundary=PASS git_safety=PASS
+S2_FINAL_STAGE_GATE_RESULT=PASS
+records_scope_gate_exit_code=0

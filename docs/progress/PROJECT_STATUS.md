@@ -23,7 +23,7 @@ S3-T01 ACO 配置、构路和历史缺陷基线 — Not Started
 - Upstream：`main` → `origin/main`
 - S1原feature tip：`1e5a10debbb4eab4004f7fa9372ad046834fb4f8`，已通过fast-forward完整进入`main`
 - 分支现场：`main`跟踪`origin/main`；临时feature分支的本地与远端引用均已安全删除
-- S2实施方式：按本轮明确授权直接在`main`工作树完成；实现checkpoint与普通push待本轮后续步骤完成
+- S2实施方式：按本轮明确授权直接在`main`完成；实现checkpoint为`22f479342a7edf1b5329c45ace59ba91ba6b19b7`；hash账本提交与普通push待本轮后续步骤完成
 
 ## 任务统计
 
@@ -47,7 +47,7 @@ S3-T01 ACO 配置、构路和历史缺陷基线 — Not Started
 
 ## 最近一个checkpoint commit
 
-`811956118dd33e05261a16479ac03272a0937180` — `feat: add grid map and core planning models`
+`22f479342a7edf1b5329c45ace59ba91ba6b19b7` — `feat: implement dijkstra and astar planners`
 
 ## 下一项任务
 

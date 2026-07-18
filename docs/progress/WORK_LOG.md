@@ -374,3 +374,11 @@
 - 脚本更正：最终门禁主体首次因详细状态计数只匹配“状态”、遗漏S1-T01既有“当前状态”字段而退出1；项目检查此前均通过。更正表达式同时接受两种既有字段名，剩余记录/S3/Git审计退出0；失败与更正输出均保留在同一证据文件中。
 - 最终结论：`results/verification/S2-stage-gate.txt`末尾`S2_FINAL_STAGE_GATE_RESULT=PASS`且`records_scope_gate_exit_code=0`；S2阶段门禁Verified。
 - 下一步：创建S2实现checkpoint与hash账本提交，普通push并复核后立即停止；S3-T01仍为Not Started。
+
+## 2026-07-18 21:31 — S2-T04 checkpoint账本补记
+
+- 操作性质：只追加checkpoint hash记录，不改变任务或验收状态，不开始S3。
+- 实现checkpoint：`22f479342a7edf1b5329c45ace59ba91ba6b19b7` — `feat: implement dijkstra and astar planners`。
+- 包含范围：S2-T01至S2-T04的算法、配置、测试、文档、进度和完整验证证据。
+- 账本commit：本条与PROJECT_STATUS、HANDOFF及实施计划checkpoint表更新将以`docs: record stage 2 checkpoint`独立提交。
+- 下一步：普通push本地`main`到`origin/main`，重新fetch并完成最终现场复核；S3-T01保持Not Started。

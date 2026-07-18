@@ -10,7 +10,7 @@
 
 ## Git状态
 
-S1已完整位于本地和远端`main`。S2实现和任务级验收已完成，当前工作树仅含待创建阶段checkpoint的合法S2改动；checkpoint、账本提交和普通push仍待本轮后续步骤完成。当前仅保留本地`main`及远端`origin/main`；唯一remote仍为`origin`，Fetch/Push URL均为`git@github.com:xulong-jia/PathPlanningLab.git`，remote配置未修改。
+S1已完整位于本地和远端`main`。S2实现和任务级验收已完成，实现checkpoint `22f479342a7edf1b5329c45ace59ba91ba6b19b7`已创建；当前仅有hash账本记录改动，账本提交和普通push仍待本轮后续步骤完成。当前仅保留本地`main`及远端`origin/main`；唯一remote仍为`origin`，Fetch/Push URL均为`git@github.com:xulong-jia/PathPlanningLab.git`，remote配置未修改。
 
 ## 当前阶段
 
@@ -49,9 +49,9 @@ S2新增stdlib `heapq` Dijkstra、独立g/h/f A*、Manhattan/Euclidean/广义Oct
 
 ## 最近checkpoint commit
 
-`811956118dd33e05261a16479ac03272a0937180` — `feat: add grid map and core planning models`
+`22f479342a7edf1b5329c45ace59ba91ba6b19b7` — `feat: implement dijkstra and astar planners`
 
-账本commit：`4a32073c9b3ca0499488438fe292d9cc6e9637d7` — `docs: record stage 1 checkpoint`
+S2账本commit：待本轮只追加记录提交完成后由Git现场确认。
 
 ## 未解决问题
 

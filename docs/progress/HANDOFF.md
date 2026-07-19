@@ -10,7 +10,7 @@
 
 ## Git状态
 
-S1至S4的实现checkpoint及hash账本commit已完整发布到`origin/main`。S4实现checkpoint为`733579b8d29d91bad6ae76e2c28ecd248ecff599`，hash账本commit为`ad2a107a7b9b5bb2cd312db68c19421b328f87cf`，publication记录commit为`6225b5cd5723088aacecadd5e58f8a36b881cf27`。S5完整实现、真实Smoke、方法文档、门禁与记录已获fresh独立复审批准，仍是未提交的单一阶段批次；当前HEAD与`origin/main`均为`7941b62739a7c7d5535bee1f2f9a72d0820e2fc1`，分叉0/0。唯一remote仍为`origin`，Fetch/Push URL均为`git@github.com:xulong-jia/PathPlanningLab.git`；无staged文件、tag、open PR、额外worktree或远端变更。
+S1至S4的实现checkpoint及hash账本commit已完整发布到`origin/main`。S5实现checkpoint `7e6b6285b4305a3ea281177a634b389d3c0feead`已在`main`创建，包含获批的37文件S5批次；尚未push，hash账本commit待创建。当前本地HEAD为该实现checkpoint，`origin/main`仍为S5前基线`7941b62739a7c7d5535bee1f2f9a72d0820e2fc1`，本地仅ahead 1。唯一remote仍为`origin`，Fetch/Push URL均为`git@github.com:xulong-jia/PathPlanningLab.git`；无staged文件、tag、open PR、额外worktree或远端变更。
 
 ## 当前阶段
 
@@ -22,7 +22,7 @@ S1-T01至S5-T05，共26项Verified。
 
 ## 当前任务
 
-无活动实施任务；S5-T05已Verified且controller最终提交前门禁通过，待checkpoint、hash账本和普通push。
+无活动实施任务；S5-T05已Verified且实现checkpoint已创建，待hash账本和普通push。
 
 ## 尚未完成任务
 
@@ -54,9 +54,9 @@ S5批次新增`benchmark` schema/runner/metadata/statistics模块，Smoke/Standa
 
 ## 最近checkpoint commit
 
-S4实现checkpoint：`733579b8d29d91bad6ae76e2c28ecd248ecff599` — `feat: implement grid-based genetic planner`。
+S5实现checkpoint：`7e6b6285b4305a3ea281177a634b389d3c0feead` — `feat: add reproducible benchmark pipeline`。
 
-S4账本commit：`ad2a107a7b9b5bb2cd312db68c19421b328f87cf` — `docs: record stage 4 checkpoint`。
+S5账本commit：待创建 — `docs: record stage 5 checkpoint`。
 
 ## 未解决问题
 
@@ -68,7 +68,7 @@ Standard Benchmark和调优耗时较长；后续现有`.git`、`origin`或`main`
 
 ## 下一步
 
-停止在S5边界；执行controller最终提交前门禁、精确暂存、Stage 5实现checkpoint/hash账本和普通push，不开始S6-T01。
+停止在S5边界；创建Stage 5 hash账本commit，再次fetch确认远端未漂移后普通push，不开始S6-T01。
 
 ## 新会话恢复指令
 

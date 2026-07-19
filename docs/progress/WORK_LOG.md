@@ -877,3 +877,10 @@
 - Legacy/记录/Git/S6：旧材料75文件、21目录、74,097,025字节、75/75和聚合哈希不变；计划42/42/42、26 Verified、0 In Progress，验收10/29；fetch/prune后main与origin/main仍为S5前基线且0/0，仅main、0 tag、0 PR、1 worktree、0 staged；S6-T01 Not Started且S6路径0。
 - 真实失败与更正：首个Smoke/coverage只读验证器误把顶层`totals`当作含`summary`的文件节点，修正结构分支后从头通过；首个wheel验证器误要求独立构建与上次wheel字节SHA相同，按ZIP时间元数据事实改为记录本次SHA并验证行为后通过；首个计划detail解析器未兼容S1-T01既有`当前状态`标签，收窄兼容两个现有标签并纠正checklist映射方向后从头通过；首次post-record脚本的`\d`被跨层双重转义而未匹配时间标题，改用等价`[0-9]`模式后64个唯一顺序标题与56/56 snapshot从头通过。以上均为controller只读校验器问题，未修改生产实现或正式Smoke产物。
 - 结论：`Verified`。S5已通过fresh独立复审和controller最终提交前门禁，允许精确暂存并创建checkpoint；仍无commit/push，S6未开始。
+
+## 2026-07-19 12:14 — S5实现checkpoint
+
+- 提交：`7e6b6285b4305a3ea281177a634b389d3c0feead` — `feat: add reproducible benchmark pipeline`。
+- 暂存审计：精确白名单37文件，0未暂存、0未跟踪、0个S6文件；`git diff --cached --check` exit 0。提交范围为5个配置、5个文档/进度文件、7个正式Smoke产物、10个S5验证证据、5个benchmark源码和5个测试文件，共6720 insertions、44 deletions。
+- 提交后现场：工作树clean，本地`main`相对`origin/main`仅ahead 1；未push，remote URL未变，未创建branch/worktree/tag/PR，S6-T01保持Not Started。
+- 下一步：仅用计划、PROJECT_STATUS、WORK_LOG和HANDOFF记录完整实现hash，创建`docs: record stage 5 checkpoint`账本commit，再次fetch确认远端未漂移后普通push。

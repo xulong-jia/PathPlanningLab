@@ -26,7 +26,8 @@ Stage 5 Verified — S5-T01 through S5-T05 Verified; fresh independent review Ap
 - S2实施方式：按本轮明确授权直接在`main`完成；实现checkpoint为`22f479342a7edf1b5329c45ace59ba91ba6b19b7`；hash账本commit为`1f820c331262f88eba697b836e24f0c26838fc66`
 - S3实施方式：按本轮明确授权直接在`main`完成；实现checkpoint为`8575a8e02c1c907a7205fe2b0cb854752bc46443`；hash账本commit为`f62a720197ba8dd48e87ee3ce48bb90d0de8b820`
 - S4实施方式：按本轮明确授权直接在`main`完成；实现checkpoint为`733579b8d29d91bad6ae76e2c28ecd248ecff599`；hash账本commit为`ad2a107a7b9b5bb2cd312db68c19421b328f87cf`
-- 发布状态：S1至S4的实现checkpoint与hash账本commit均已普通push到`origin/main`；S4 publication记录commit `6225b5cd5723088aacecadd5e58f8a36b881cf27`亦已普通push并完成0/0远端复核
+- S5实施方式：按本轮明确授权直接在`main`完成；实现checkpoint为`7e6b6285b4305a3ea281177a634b389d3c0feead`；hash账本commit待创建
+- 发布状态：S1至S4的实现checkpoint与hash账本commit均已普通push到`origin/main`；S5实现checkpoint已创建但尚未push，当前本地`main`相对`origin/main`仅ahead 1
 
 ## 任务统计
 
@@ -50,13 +51,13 @@ Stage 5 Verified — S5-T01 through S5-T05 Verified; fresh independent review Ap
 
 ## 最近一个checkpoint commit
 
-S4实现checkpoint：`733579b8d29d91bad6ae76e2c28ecd248ecff599` — `feat: implement grid-based genetic planner`
+S5实现checkpoint：`7e6b6285b4305a3ea281177a634b389d3c0feead` — `feat: add reproducible benchmark pipeline`
 
-S4账本commit：`ad2a107a7b9b5bb2cd312db68c19421b328f87cf` — `docs: record stage 4 checkpoint`
+S5账本commit：待创建 — `docs: record stage 5 checkpoint`
 
 ## 下一项任务
 
-停止在S5边界；执行controller最终提交前门禁、Stage 5 checkpoint/hash账本和普通push，不开始S6-T01。
+停止在S5边界；创建Stage 5 hash账本commit并在再次fetch确认远端未漂移后普通push，不开始S6-T01。
 
 ## Blocked原因
 

@@ -884,3 +884,10 @@
 - 暂存审计：精确白名单37文件，0未暂存、0未跟踪、0个S6文件；`git diff --cached --check` exit 0。提交范围为5个配置、5个文档/进度文件、7个正式Smoke产物、10个S5验证证据、5个benchmark源码和5个测试文件，共6720 insertions、44 deletions。
 - 提交后现场：工作树clean，本地`main`相对`origin/main`仅ahead 1；未push，remote URL未变，未创建branch/worktree/tag/PR，S6-T01保持Not Started。
 - 下一步：仅用计划、PROJECT_STATUS、WORK_LOG和HANDOFF记录完整实现hash，创建`docs: record stage 5 checkpoint`账本commit，再次fetch确认远端未漂移后普通push。
+
+## 2026-07-19 12:15 — S5 checkpoint首次publication
+
+- 提交：实现checkpoint `7e6b6285b4305a3ea281177a634b389d3c0feead`；hash账本commit `875587612bb4eb50c1137c5fa45fcb3bfd1e722a`。
+- 发布前：`git fetch --prune origin`确认远端仍为S5前基线`7941b62739a7c7d5535bee1f2f9a72d0820e2fc1`，本地仅ahead 2、远端ahead 0，且远端基线为本地祖先；工作树clean，branch、upstream和固定Fetch/Push URL均正确。
+- 发布：执行普通`git push origin main`，无force、pull、merge、rebase、tag或PR；随后再次fetch复核本地与`origin/main`均为账本hash，分叉0/0。
+- 本记录：补齐计划checkpoint表与进度记录中的两笔完整hash和published状态；不修改源码、测试、配置、Smoke产物、验证证据、任务/验收统计或S6边界。

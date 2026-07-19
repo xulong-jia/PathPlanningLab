@@ -1833,7 +1833,7 @@ Git commit 的 hash 取决于提交内容，因此不能在同一个 commit 中�
 | S2-T04 | main | `22f479342a7edf1b5329c45ace59ba91ba6b19b7` — `feat: implement dijkstra and astar planners` | `1f820c331262f88eba697b836e24f0c26838fc66` — `docs: record stage 2 checkpoint` |
 | S3-T04 | main | `8575a8e02c1c907a7205fe2b0cb854752bc46443` — `feat: implement grid-based ant colony planner` | `f62a720197ba8dd48e87ee3ce48bb90d0de8b820` — `docs: record stage 3 checkpoint` |
 | S4-T05 | main | `733579b8d29d91bad6ae76e2c28ecd248ecff599` — `feat: implement grid-based genetic planner` | `ad2a107a7b9b5bb2cd312db68c19421b328f87cf` — `docs: record stage 4 checkpoint` |
-| S5-T05 | main | `7e6b6285b4305a3ea281177a634b389d3c0feead` — `feat: add reproducible benchmark pipeline` | `docs: record stage 5 checkpoint` |
+| S5-T05 | main | `7e6b6285b4305a3ea281177a634b389d3c0feead` — `feat: add reproducible benchmark pipeline` | `875587612bb4eb50c1137c5fa45fcb3bfd1e722a` — `docs: record stage 5 checkpoint` |
 | S6-T04 | feature | `feat: add parameter tuning experiments` | `docs: record stage 6 checkpoint` |
 | S7-T06 | feature | `feat: add cli visualizations and documentation` | `docs: record stage 7 checkpoint` |
 | S8-T06 | feature | `test: complete independent verification` | `docs: record final verification checkpoint` |

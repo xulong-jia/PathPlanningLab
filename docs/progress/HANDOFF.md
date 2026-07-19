@@ -10,7 +10,7 @@
 
 ## Git状态
 
-S1至S4的实现checkpoint及hash账本commit已完整发布到`origin/main`。S5实现checkpoint `7e6b6285b4305a3ea281177a634b389d3c0feead`已在`main`创建，包含获批的37文件S5批次；尚未push，hash账本commit待创建。当前本地HEAD为该实现checkpoint，`origin/main`仍为S5前基线`7941b62739a7c7d5535bee1f2f9a72d0820e2fc1`，本地仅ahead 1。唯一remote仍为`origin`，Fetch/Push URL均为`git@github.com:xulong-jia/PathPlanningLab.git`；无staged文件、tag、open PR、额外worktree或远端变更。
+S1至S5的实现checkpoint及hash账本commit已完整发布到`origin/main`。S5实现checkpoint为`7e6b6285b4305a3ea281177a634b389d3c0feead`，包含获批的37文件批次；hash账本commit为`875587612bb4eb50c1137c5fa45fcb3bfd1e722a`。发布前fetch确认远端仍为S5前基线且为本地祖先；普通push后再次fetch，本地与远端均为账本hash、分叉0/0。唯一remote仍为`origin`，Fetch/Push URL均为`git@github.com:xulong-jia/PathPlanningLab.git`；无tag、open PR或额外worktree。
 
 ## 当前阶段
 
@@ -22,7 +22,7 @@ S1-T01至S5-T05，共26项Verified。
 
 ## 当前任务
 
-无活动实施任务；S5-T05已Verified且实现checkpoint已创建，待hash账本和普通push。
+无活动实施任务；S5-T05已Verified，实现checkpoint与hash账本均已普通push并完成0/0复核。
 
 ## 尚未完成任务
 
@@ -56,11 +56,11 @@ S5批次新增`benchmark` schema/runner/metadata/statistics模块，Smoke/Standa
 
 S5实现checkpoint：`7e6b6285b4305a3ea281177a634b389d3c0feead` — `feat: add reproducible benchmark pipeline`。
 
-S5账本commit：待创建 — `docs: record stage 5 checkpoint`。
+S5账本commit：`875587612bb4eb50c1137c5fa45fcb3bfd1e722a` — `docs: record stage 5 checkpoint`。
 
 ## 未解决问题
 
-S5获批候选无已知产品缺陷；仍缺checkpoint发布。新真实Smoke耗时35.735秒，不应从本次Smoke推导性能排名。pre-review run仅作拒收审计快照，不得与当前formal run混用。wheel独立构建的ZIP时间元数据会改变字节SHA，门禁记录每次实际构建hash而不宣称跨构建字节可复现。正式legacy after清单仍只允许由S8-T06生成。
+S5获批实现无已知产品缺陷。新真实Smoke耗时35.735秒，不应从本次Smoke推导性能排名。pre-review run仅作拒收审计快照，不得与当前formal run混用。wheel独立构建的ZIP时间元数据会改变字节SHA，门禁记录每次实际构建hash而不宣称跨构建字节可复现。正式legacy after清单仍只允许由S8-T06生成。
 
 ## 风险
 
@@ -68,7 +68,7 @@ Standard Benchmark和调优耗时较长；后续现有`.git`、`origin`或`main`
 
 ## 下一步
 
-停止在S5边界；创建Stage 5 hash账本commit，再次fetch确认远端未漂移后普通push，不开始S6-T01。
+停止在S5边界；保持S6-T01为Not Started，不执行任何S6实现、测试、配置、证据或实验。
 
 ## 新会话恢复指令
 

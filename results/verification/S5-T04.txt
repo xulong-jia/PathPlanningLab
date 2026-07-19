@@ -1,0 +1,65 @@
+S5-T04 automatic statistics and normalization — implementation candidate
+Recorded: 2026-07-19 10:53:13 AEST
+Status: In Progress; independent review pending
+
+TDD GREEN
+
+Command: .venv/bin/python -m pytest tests/unit/test_statistics.py -q
+Exit: 0
+.......                                                                  [100%]
+7 passed in 0.26s
+
+S5 focused
+
+Command: .venv/bin/python -m pytest tests/unit/test_benchmark_schemas.py tests/unit/test_statistics.py tests/integration/test_benchmark_runner.py tests/integration/test_benchmark_persistence.py tests/regression/test_benchmark_fairness.py -q
+Exit: 0
+.......................................                                  [100%]
+39 passed in 0.83s
+
+Full tests
+
+Command: .venv/bin/python -m pytest tests -q
+Exit: 0
+361 passed in 3.69s
+
+Static and environment gates
+
+Command: .venv/bin/ruff check .
+Exit: 0
+All checks passed!
+
+Command: .venv/bin/ruff format --check .
+Exit: 0
+56 files already formatted
+
+Command: .venv/bin/mypy src
+Exit: 0
+Success: no issues found in 25 source files
+
+Command: .venv/bin/python -m pip check
+Exit: 0
+No broken requirements found.
+
+Command: git diff --check
+Exit: 0
+(no output)
+
+Git boundary
+
+- Branch: main
+- HEAD: 7941b62739a7c7d5535bee1f2f9a72d0820e2fc1
+- HEAD...origin/main: 0 0
+- Worktrees: one, /Users/jiaxulong/Desktop/PathPlanningLab
+- Tags: none
+- No commit, push, branch, worktree, tag, PR, dependency installation,
+  HANDOFF edit, old-material access, T05 output, or S6 work was performed.
+
+Observed corrections
+
+- First GREEN attempt was 1 failed, 6 passed because pandas represented seeded
+  integers as integral floats when deterministic null seeds shared a frame;
+  seed validation was corrected to accept only finite, non-negative integral
+  numeric values, then all seven statistics tests passed.
+- First target Ruff check found one E501 line; it was mechanically wrapped.
+- The next format check identified three files; Ruff formatted those files,
+  after which target tests, lint, format, and mypy all passed.

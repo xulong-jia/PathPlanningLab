@@ -1,0 +1,123 @@
+S5-T02 GREEN — 2026-07-19 AEST
+
+Focused behavior verification
+Command:
+.venv/bin/python -m pytest tests/integration/test_benchmark_runner.py tests/regression/test_benchmark_fairness.py -q
+
+Exit: 0
+Output:
+...                                                                      [100%]
+3 passed in 0.09s
+
+Focused schema/runner/static verification
+Commands:
+.venv/bin/ruff check src/path_planning/benchmark/runner.py src/path_planning/benchmark/__init__.py tests/integration/test_benchmark_runner.py tests/regression/test_benchmark_fairness.py
+.venv/bin/ruff format --check src/path_planning/benchmark/runner.py src/path_planning/benchmark/__init__.py tests/integration/test_benchmark_runner.py tests/regression/test_benchmark_fairness.py
+.venv/bin/mypy src/path_planning/benchmark/runner.py
+.venv/bin/python -m pytest tests/unit/test_benchmark_schemas.py tests/integration/test_benchmark_runner.py tests/regression/test_benchmark_fairness.py -q
+git diff --check
+
+Exit: 0
+Output:
+All checks passed!
+4 files already formatted
+Success: no issues found in 1 source file
+....................                                                     [100%]
+20 passed in 0.11s
+
+Full repository verification
+Commands:
+.venv/bin/python -m pytest tests -q
+.venv/bin/ruff check .
+.venv/bin/ruff format --check .
+.venv/bin/mypy src
+git diff --check
+
+Exit: 0
+Output:
+........................................................................ [ 21%]
+........................................................................ [ 42%]
+........................................................................ [ 63%]
+........................................................................ [ 84%]
+......................................................                   [100%]
+342 passed in 2.91s
+All checks passed!
+52 files already formatted
+Success: no issues found in 23 source files
+
+Status: In Progress pending independent review; not self-marked Verified.
+Boundary: no commit, push, branch, worktree, tag, PR, dependency install, S5-T03, or S6 work.
+
+Independent-review fixes GREEN — 2026-07-19 AEST
+
+Focused command:
+.venv/bin/python -m pytest tests/unit/test_benchmark_schemas.py tests/integration/test_benchmark_runner.py tests/regression/test_benchmark_fairness.py -q
+
+Exit: 0
+Output:
+.........................                                                [100%]
+25 passed in 0.12s
+
+Focused static commands:
+.venv/bin/ruff check src/path_planning/benchmark tests/unit/test_benchmark_schemas.py tests/integration/test_benchmark_runner.py tests/regression/test_benchmark_fairness.py
+.venv/bin/ruff format --check src/path_planning/benchmark tests/unit/test_benchmark_schemas.py tests/integration/test_benchmark_runner.py tests/regression/test_benchmark_fairness.py
+.venv/bin/mypy src
+
+Exit: 0
+Output:
+All checks passed!
+6 files already formatted
+Success: no issues found in 23 source files
+
+Full repository commands:
+.venv/bin/python -m pytest tests -q
+.venv/bin/ruff check .
+.venv/bin/ruff format --check .
+.venv/bin/mypy src
+git diff --check
+new-file trailing-whitespace check
+
+Exit: 0
+Output:
+........................................................................ [ 20%]
+........................................................................ [ 41%]
+........................................................................ [ 62%]
+........................................................................ [ 82%]
+...........................................................              [100%]
+347 passed in 2.94s
+All checks passed!
+52 files already formatted
+Success: no issues found in 23 source files
+
+Review findings closed locally:
+- A* benchmark config uses explicit auto semantics and records the dedicated relative config identity plus resolved heuristic metadata; incompatible explicit heuristics propagate AStarConfig errors.
+- Only formal planner.run exceptions become failed records; warmup planner exceptions and validator/protocol/serialization defects propagate.
+- BenchmarkArtifacts uses JSON null for uncreated paths; T02 returns only records_json and creates no placeholder artifacts.
+
+Status remains In Progress pending fresh independent re-review; not self-marked Verified.
+
+Final post-record verification — 2026-07-19 AEST
+
+Required target:
+.venv/bin/python -m pytest tests/integration/test_benchmark_runner.py tests/regression/test_benchmark_fairness.py -q
+.......                                                                  [100%]
+7 passed in 0.12s
+
+T01+T02 focused:
+.venv/bin/python -m pytest tests/unit/test_benchmark_schemas.py tests/integration/test_benchmark_runner.py tests/regression/test_benchmark_fairness.py -q
+.........................                                                [100%]
+25 passed in 0.13s
+
+Full repository:
+.venv/bin/python -m pytest tests -q
+........................................................................ [ 20%]
+........................................................................ [ 41%]
+........................................................................ [ 62%]
+........................................................................ [ 82%]
+...........................................................              [100%]
+347 passed in 2.96s
+
+Ruff check: All checks passed.
+Ruff format: 52 files already formatted.
+Strict mypy: Success, no issues in 23 source files.
+git diff --check and new-file trailing-whitespace check: passed.

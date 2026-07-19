@@ -31,11 +31,11 @@
 - [x] S4-T03 GA 选择、精英和演化循环
 - [x] S4-T04 GA 集成与复现性
 - [x] S4-T05 阶段4门禁
-- [ ] S5-T01 Benchmark schema 与任务展开
-- [ ] S5-T02 公平 Benchmark Runner
-- [ ] S5-T03 原始结果与环境元数据
-- [ ] S5-T04 自动统计和归一化
-- [ ] S5-T05 真实 Smoke Benchmark 与阶段门禁
+- [x] S5-T01 Benchmark schema 与任务展开
+- [x] S5-T02 公平 Benchmark Runner
+- [x] S5-T03 原始结果与环境元数据
+- [x] S5-T04 自动统计和归一化
+- [x] S5-T05 真实 Smoke Benchmark 与阶段门禁
 - [ ] S6-T01 调优集合、参数空间和选择规则
 - [ ] S6-T02 ACO 参数调优
 - [ ] S6-T03 GA 参数调优
@@ -338,11 +338,11 @@ flowchart LR
 | S4-T03 | 4 | GA 选择、精英和演化循环 | S4-T02 | 完整演化主循环 | 选择方法、精英保留、收敛 | Verified | `S4-T03.txt` | 归入 S4-T05 |
 | S4-T04 | 4 | GA 集成与复现性 | S4-T03 | GA 集成/回归测试 | seed、无路径、配置生效、终止 | Verified | `S4-T04.txt` | 归入 S4-T05 |
 | S4-T05 | 4 | 阶段4门禁 | S4-T04 | GA 算法文档与 HANDOFF | 全测、覆盖率、Ruff、mypy、diff | Verified | `S4-stage-gate.txt` | `feat: implement grid-based genetic planner` |
-| S5-T01 | 5 | Benchmark schema 与任务展开 | S4-T05 | `schemas.py`、smoke/standard 配置 | 任务数量、字段和配置校验 | Not Started | `S5-T01.txt` | 归入 S5-T05 |
-| S5-T02 | 5 | 公平 Benchmark Runner | S5-T01 | `runner.py` | 同图同规则、预算、预热、失败保留 | Not Started | `S5-T02.txt` | 归入 S5-T05 |
-| S5-T03 | 5 | 原始结果与环境元数据 | S5-T02 | `metadata.py`、CSV/JSON/manifest | schema 一致、元数据完整、无覆盖 | Not Started | `S5-T03.txt` | 归入 S5-T05 |
-| S5-T04 | 5 | 自动统计和归一化 | S5-T03 | `statistics.py` | mean/std/min/max/median/best/worst | Not Started | `S5-T04.txt` | 归入 S5-T05 |
-| S5-T05 | 5 | 真实 Smoke Benchmark 与阶段门禁 | S5-T04 | `results/smoke/stage5-baseline`、方法文档 | Smoke、全测、静态检查、diff | Not Started | Smoke 原始及汇总结果 | `feat: add reproducible benchmark pipeline` |
+| S5-T01 | 5 | Benchmark schema 与任务展开 | S4-T05 | `schemas.py`、smoke/standard 配置 | 任务数量、字段和配置校验 | Verified | `S5-T01.txt` | 归入 S5-T05 |
+| S5-T02 | 5 | 公平 Benchmark Runner | S5-T01 | `runner.py` | 同图同规则、预算、预热、失败保留 | Verified | `S5-T02.txt` | 归入 S5-T05 |
+| S5-T03 | 5 | 原始结果与环境元数据 | S5-T02 | `metadata.py`、CSV/JSON/manifest | schema 一致、元数据完整、无覆盖 | Verified | `S5-T03.txt` | 归入 S5-T05 |
+| S5-T04 | 5 | 自动统计和归一化 | S5-T03 | `statistics.py` | mean/std/min/max/median/best/worst | Verified | `S5-T04.txt` | 归入 S5-T05 |
+| S5-T05 | 5 | 真实 Smoke Benchmark 与阶段门禁 | S5-T04 | `results/smoke/stage5-baseline`、方法文档 | Smoke、全测、静态检查、diff | Verified | Smoke 原始及汇总结果 | `feat: add reproducible benchmark pipeline` |
 | S6-T01 | 6 | 调优集合、参数空间和选择规则 | S5-T05 | `spaces.py`、`tuning.yaml` | 调优/评测隔离、所有参数覆盖 | Not Started | `S6-T01.txt` | 归入 S6-T04 |
 | S6-T02 | 6 | ACO 参数调优 | S6-T01 | ACO 粗调/联合调优原始结果、tuned 配置 | 多 seed、全部组合留存、选择可追溯 | Not Started | `results/tuning/aco` | 归入 S6-T04 |
 | S6-T03 | 6 | GA 参数调优 | S6-T01 | GA 粗调/联合调优原始结果、tuned 配置 | 多 seed、全部组合留存、选择可追溯 | Not Started | `results/tuning/ga` | 归入 S6-T04 |
@@ -1001,7 +1001,7 @@ flowchart LR
 13. **风险：**S6 才把真实 tuned 配置接入 Standard，不预造 tuned 文件。
 14. **Checkpoint：**不允许。
 15. **Commit：**归入 S5-T05。
-16. **状态：**Not Started。
+16. **状态：**Verified。
 
 ### S5-T02 公平 Benchmark Runner
 
@@ -1029,7 +1029,7 @@ flowchart LR
 13. **风险：**默认串行；不增加 multiprocessing。
 14. **Checkpoint：**不允许。
 15. **Commit：**归入 S5-T05。
-16. **状态：**Not Started。
+16. **状态：**Verified。
 
 ### S5-T03 原始结果与环境元数据
 
@@ -1055,7 +1055,7 @@ flowchart LR
 13. **风险：**不写旧目录，不上传任何结果。
 14. **Checkpoint：**不允许。
 15. **Commit：**归入 S5-T05。
-16. **状态：**Not Started。
+16. **状态：**Verified。
 
 ### S5-T04 自动统计和归一化
 
@@ -1084,7 +1084,7 @@ flowchart LR
 13. **风险：**运行时间比较文档必须说明硬件和进程噪声。
 14. **Checkpoint：**不允许。
 15. **Commit：**归入 S5-T05。
-16. **状态：**Not Started。
+16. **状态：**Verified。
 
 ### S5-T05 真实 Smoke Benchmark 与阶段门禁
 
@@ -1111,7 +1111,7 @@ flowchart LR
 13. **风险：**超过合理资源或持续不终止时停止并定位具体算法。
 14. **Checkpoint：**允许。
 15. **Commit：**`feat: add reproducible benchmark pipeline`。
-16. **状态：**Not Started。
+16. **状态：**Verified。
 
 ### S6-T01 调优集合、参数空间和选择规则
 
@@ -1833,7 +1833,7 @@ Git commit 的 hash 取决于提交内容，因此不能在同一个 commit 中�
 | S2-T04 | main | `22f479342a7edf1b5329c45ace59ba91ba6b19b7` — `feat: implement dijkstra and astar planners` | `1f820c331262f88eba697b836e24f0c26838fc66` — `docs: record stage 2 checkpoint` |
 | S3-T04 | main | `8575a8e02c1c907a7205fe2b0cb854752bc46443` — `feat: implement grid-based ant colony planner` | `f62a720197ba8dd48e87ee3ce48bb90d0de8b820` — `docs: record stage 3 checkpoint` |
 | S4-T05 | main | `733579b8d29d91bad6ae76e2c28ecd248ecff599` — `feat: implement grid-based genetic planner` | `ad2a107a7b9b5bb2cd312db68c19421b328f87cf` — `docs: record stage 4 checkpoint` |
-| S5-T05 | feature | `feat: add reproducible benchmark pipeline` | `docs: record stage 5 checkpoint` |
+| S5-T05 | main | `feat: add reproducible benchmark pipeline` | `docs: record stage 5 checkpoint` |
 | S6-T04 | feature | `feat: add parameter tuning experiments` | `docs: record stage 6 checkpoint` |
 | S7-T06 | feature | `feat: add cli visualizations and documentation` | `docs: record stage 7 checkpoint` |
 | S8-T06 | feature | `test: complete independent verification` | `docs: record final verification checkpoint` |
@@ -1972,4 +1972,4 @@ git log -5 --oneline
 - S1最初停留在临时`feature/path-planning-100`；经2026-07-18后续明确授权，已使用`--ff-only`完整整合至`main`并在远端复核后安全删除临时分支；全程未rebase、force push或创建tag。
 - 使用“实现 checkpoint + hash 账本 commit”的双提交记录协议。
 
-S1-T01至S4-T05已Verified；fresh review两项Important已按TDD修复并完成新鲜重验，fresh re-review结论为`Verified`、质量`Approved`、`Ready to checkpoint: Yes`；S4实现checkpoint与账本commit已普通push，S5-T01保持Not Started。
+S1-T01至S5-T05均已Verified；阶段5已通过fresh独立复审，controller最终提交前门禁待执行；S6-T01及后续保持Not Started。

@@ -1,0 +1,146 @@
+{
+  "ordering": {
+    "best": [
+      "path_length asc",
+      "turning_count asc",
+      "seed asc"
+    ],
+    "worst": [
+      "path_length desc",
+      "turning_count desc",
+      "seed asc"
+    ]
+  },
+  "cohorts": [
+    {
+      "algorithm": "aco",
+      "config_name": "configs/aco_smoke.yaml",
+      "map_name": "maze_30",
+      "map_path": "maps/handcrafted/maze_30.json",
+      "start_row": 0,
+      "start_column": 0,
+      "goal_row": 29,
+      "goal_column": 29,
+      "connectivity": 4,
+      "diagonal_cost": 1.4142135623730951,
+      "allow_corner_cutting": false,
+      "best": {
+        "seed": 11,
+        "path_length": 310.0,
+        "normalized_path_cost": 1.8674698795180722,
+        "turning_count": 173
+      },
+      "worst": {
+        "seed": 47,
+        "path_length": 342.0,
+        "normalized_path_cost": 2.0602409638554215,
+        "turning_count": 213
+      }
+    },
+    {
+      "algorithm": "aco",
+      "config_name": "configs/aco_smoke.yaml",
+      "map_name": "no_path_20",
+      "map_path": "maps/handcrafted/no_path_20.json",
+      "start_row": 0,
+      "start_column": 0,
+      "goal_row": 19,
+      "goal_column": 19,
+      "connectivity": 4,
+      "diagonal_cost": 1.4142135623730951,
+      "allow_corner_cutting": false,
+      "best": null,
+      "worst": null
+    },
+    {
+      "algorithm": "aco",
+      "config_name": "configs/aco_smoke.yaml",
+      "map_name": "open_20",
+      "map_path": "maps/handcrafted/open_20.json",
+      "start_row": 0,
+      "start_column": 0,
+      "goal_row": 19,
+      "goal_column": 19,
+      "connectivity": 4,
+      "diagonal_cost": 1.4142135623730951,
+      "allow_corner_cutting": false,
+      "best": {
+        "seed": 29,
+        "path_length": 44.0,
+        "normalized_path_cost": 1.1578947368421053,
+        "turning_count": 23
+      },
+      "worst": {
+        "seed": 11,
+        "path_length": 56.0,
+        "normalized_path_cost": 1.4736842105263157,
+        "turning_count": 31
+      }
+    },
+    {
+      "algorithm": "ga",
+      "config_name": "configs/ga_smoke.yaml",
+      "map_name": "maze_30",
+      "map_path": "maps/handcrafted/maze_30.json",
+      "start_row": 0,
+      "start_column": 0,
+      "goal_row": 29,
+      "goal_column": 29,
+      "connectivity": 4,
+      "diagonal_cost": 1.4142135623730951,
+      "allow_corner_cutting": false,
+      "best": {
+        "seed": 11,
+        "path_length": 228.0,
+        "normalized_path_cost": 1.3734939759036144,
+        "turning_count": 122
+      },
+      "worst": {
+        "seed": 29,
+        "path_length": 248.0,
+        "normalized_path_cost": 1.4939759036144578,
+        "turning_count": 133
+      }
+    },
+    {
+      "algorithm": "ga",
+      "config_name": "configs/ga_smoke.yaml",
+      "map_name": "no_path_20",
+      "map_path": "maps/handcrafted/no_path_20.json",
+      "start_row": 0,
+      "start_column": 0,
+      "goal_row": 19,
+      "goal_column": 19,
+      "connectivity": 4,
+      "diagonal_cost": 1.4142135623730951,
+      "allow_corner_cutting": false,
+      "best": null,
+      "worst": null
+    },
+    {
+      "algorithm": "ga",
+      "config_name": "configs/ga_smoke.yaml",
+      "map_name": "open_20",
+      "map_path": "maps/handcrafted/open_20.json",
+      "start_row": 0,
+      "start_column": 0,
+      "goal_row": 19,
+      "goal_column": 19,
+      "connectivity": 4,
+      "diagonal_cost": 1.4142135623730951,
+      "allow_corner_cutting": false,
+      "best": {
+        "seed": 11,
+        "path_length": 38.0,
+        "normalized_path_cost": 1.0,
+        "turning_count": 11
+      },
+      "worst": {
+        "seed": 29,
+        "path_length": 46.0,
+        "normalized_path_cost": 1.2105263157894737,
+        "turning_count": 20
+      }
+    }
+  ]
+}

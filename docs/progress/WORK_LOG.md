@@ -717,3 +717,163 @@
 - 更正：仅将两处当前状态改为publication记录已发布，并写入其完整hash；不修改实现、测试、门禁、任务状态或验收统计。
 - 提交与发布：本措辞更正将作为独立文档commit普通push，随后重新执行最终clean/0/0/remote/S5/legacy现场审计。
 - S5边界：S5-T01保持Not Started，本轮不开始S5。
+
+## 2026-07-19 09:21 — S5-T01 Benchmark schema 与任务展开
+
+- 状态：S5-T01由Not Started置为In Progress；实现候选待独立复核，未标记Verified。S5-T02及后续任务保持Not Started，未开始S6。
+- RED：先新增`tests/unit/test_benchmark_schemas.py`，运行目标pytest因`path_planning.benchmark.schemas`不存在而以exit 2失败；失败原因与命令记录在`results/verification/S5-T01-red.txt`。
+- 实现：新增`benchmark/schemas.py`，提供严格YAML解析的`BenchmarkConfig`、可序列化的`BenchmarkRunRecord`、`BenchmarkArtifacts`及最小`BenchmarkTask`；包导出同步更新。配置使用相对路径，区分确定性算法的预热/测量运行预算与随机算法固定seed预算。
+- 配置：新增Smoke配置（open、maze、no_path，四方向；随机算法seeds 11/29/47；确定性测量一次）与Standard配置（15张基础图四方向、6张指定代表图八方向，合计21任务；确定性预热3次/测量10次；20个固定随机seeds）。仅引用baseline配置，未创建或引用tuned配置。
+- GREEN/静态：目标pytest 7 passed；Ruff check通过；strict mypy在2个benchmark source files中无问题；Ruff format check确认3 files formatted；`git diff --check` exit 0。完整输出在`results/verification/S5-T01.txt`。
+- 边界：无commit、push、branch、worktree、tag或PR；未安装依赖，未改HANDOFF，未触碰旧材料或`../论文与实习`。独立reviewer批准前不得将S5-T01标记Verified。
+
+## 2026-07-19 09:28 — S5-T01 独立review finding修复
+
+- 状态：S5-T01保持In Progress，未自评Verified；S5-T02及后续仍Not Started，未开始S6。
+- RED：独立review指出绝对路径、bool schema version和冻结record依赖映射别名问题后，先追加直接构造/非法YAML/外部变异回归；旧实现真实结果为9 failed、7 passed，已追加至`results/verification/S5-T01-red.txt`。
+- 修复：`BenchmarkTask`和`BenchmarkArtifacts`在`__post_init__`拒绝所有绝对路径（含figures）；schema version显式拒绝bool并要求int 1；`BenchmarkRunRecord`构造时复制dependencies，`to_dict()`返回独立副本。
+- GREEN：focused pytest为16 passed；目标Ruff、strict mypy、format和`git diff --check`均通过，结果追加至`results/verification/S5-T01.txt`和任务报告。
+- 边界：无commit、push、branch、worktree、tag、PR或依赖安装；未改HANDOFF、S6或旧材料。仍待独立reviewer批准。
+
+## 2026-07-19 09:32 — S5-T01 独立review剩余Minor修复
+
+- 状态：S5-T01保持In Progress，未标记Verified；未开始S5-T02、S6或旧材料工作。
+- RED：新增直接写入`record.dependencies`必须触发`TypeError`的回归，旧实现真实结果为1 failed、16 passed（未触发异常），已追加至`results/verification/S5-T01-red.txt`。
+- 修复：dependencies公共类型改为`Mapping[str, str]`，构造时继续防御性复制并封装为标准库`MappingProxyType`；`to_dict()`保持输出普通独立dict，JSON语义不变。
+- GREEN：focused pytest 17 passed；目标Ruff、strict mypy、format和`git diff --check`通过，结果追加至`results/verification/S5-T01.txt`与任务报告。
+- 边界：无commit、push、branch、worktree、tag、PR或依赖安装；未改HANDOFF，仍待独立reviewer批准。
+
+## 2026-07-19 09:35 — S5-T01 fresh re-review批准与controller复验
+
+- Fresh re-review：原一项Important和两项Minor全部关闭；无Critical、Important或Minor findings，结论spec compliant，Task quality为Approved。绝对路径入口均被拒绝，schema version严格拒绝bool，dependencies为防御性复制后的只读mapping且`to_dict()`保持普通独立dict。
+- Controller复验：目标schema测试17 passed；完整测试339 passed，0 failed；目标Ruff check、format check、strict mypy、`git diff --check`及当前Git main/origin 0/0边界均exit 0。
+- 状态迁移：S5-T01由In Progress置为Verified；22/42任务Verified，52.38%，0项In Progress；多任务映射的最终验收项尚未满足，仍为9/29。S5-T02保持Not Started。
+- 边界：无commit、push、branch、worktree、tag、PR或依赖安装；未改HANDOFF、未触碰旧材料、未开始S6。
+
+## 2026-07-19 09:44 — S5-T02 公平 Benchmark Runner 实现候选
+
+- 状态：S5-T02由Not Started置为In Progress；实现候选待独立reviewer批准，未标记Verified。S5-T03及后续保持Not Started，未开始S6。
+- RED：先新增`tests/integration/test_benchmark_runner.py`与`tests/regression/test_benchmark_fairness.py`，目标pytest因`path_planning.benchmark.runner`不存在而以exit 2失败；完整输出保存于`results/verification/S5-T02-red.txt`。
+- 实现：新增串行`run_benchmark`，每个任务只加载一次scenario，并向四算法传入同一只读grid/start/goal及同一个`MovementConfig`；Dijkstra/A*执行不落盘warmup与精确measurement次数，ACO/GA按配置seed各运行一次，无隐藏重跑。
+- 失败保留：每个正式成功结果再次通过共享`validate_path`；planner异常、planner失败结果和路径复验失败均转换为保留`status/error`的记录，不删除失败或outlier。T02仅写最小`raw_runs.json`，未实现T03的CSV、metadata、manifest、hash或完整持久化。
+- GREEN/门禁：目标测试3 passed；含S5-T01 schema的focused测试20 passed；完整测试342 passed；全仓Ruff、format、strict mypy（23 source files）及`git diff --check`通过。
+- 边界：无commit、push、branch、worktree、tag、PR或依赖安装；未改HANDOFF，未触碰或执行旧材料，未开始S5-T03、S6或`../论文与实习`。
+
+## 2026-07-19 09:58 — S5-T02 独立review三项Important修复
+
+- 状态：独立review结论为Needs fixes / Partially Verified；三项Important已按TDD在本地关闭，S5-T02仍保持In Progress并等待fresh re-review，未自评Verified；S5-T03与S6保持Not Started。
+- RED：先补artifact未创建路径JSON null、专用A* auto配置与resolved metadata可追溯、显式不兼容heuristic拒绝、warmup planner异常传播、共享validator异常传播回归；旧实现为8 failed、17 passed，证据追加至`results/verification/S5-T02-red.txt`。
+- A*可追溯：新增`configs/astar_benchmark.yaml`，仅声明`heuristic: auto`；Smoke/Standard显式引用该相对配置。runner仅对显式auto使用`AStarConfig`现有movement默认启发式，记录仍保留专用config identity且嵌套result metadata给出实际manhattan/octile；其他显式值不再转换，不兼容值由`AStarConfig`拒绝。S1-S4的`configs/astar.yaml`未修改。
+- 异常边界：正式运行的`try/except`仅包围`planner.run(...)`本身；共享validator、PlanningResult协议访问、record构造和序列化异常均传播。warmup不记录，但planner与validator异常均传播，不再吞掉。
+- Artifact真实性：`BenchmarkArtifacts`五个路径字段改为`Path | None`，所有非None仍拒绝绝对路径，`to_dict()`对未创建项输出JSON null；T02仅返回非None的`records_json`并只创建`raw_runs.json`，不创建T03 placeholder。
+- GREEN/门禁：focused 25 passed；完整347 passed；全仓Ruff、format、strict mypy（23 source files）、`git diff --check`和新文件空白检查均通过。结果追加至`results/verification/S5-T02.txt`及任务报告。
+- 边界：无commit、push、branch、worktree、tag、PR或依赖安装；未改HANDOFF、未触碰或执行旧材料，未开始S5-T03、S6或`../论文与实习`。
+
+## 2026-07-19 10:04 — S5-T02 fresh re-review批准与controller复验
+
+- Fresh re-review：原三项Important全部关闭，无Critical、Important或Minor findings；结论Verified，Task quality为Approved。专用A* auto配置、收窄异常边界和artifact null语义均符合任务与S5边界。
+- Controller复验：S5-T02目标7 passed；S5-T01+T02 focused 25 passed；完整347 passed，0 failed；全仓Ruff、format、strict mypy、`pip check`、`git diff --check`及当前main/origin 0/0边界均exit 0。
+- 状态迁移：S5-T02由In Progress置为Verified；23/42任务Verified，54.76%，0项In Progress；最终验收矩阵仍为9/29。S5-T03保持Not Started。
+- 边界：无commit、push、branch、worktree、tag、PR或依赖安装；未改HANDOFF、未触碰旧材料、未开始S6。
+
+## 2026-07-19 10:12 — S5-T03 原始结果与环境元数据实现候选
+
+- 状态：S5-T03由Not Started置为In Progress，等待fresh独立review，未自评Verified；S5-T04、S5-T05与S6保持Not Started。
+- RED：先新增`tests/integration/test_benchmark_persistence.py`并等价迁移T02 nested raw断言到flat字段；目标命令真实得到2 failed、1 passed，缺失项为CSV/metadata/manifest及artifact schema，重复目录前置拒绝已通过。证据在`results/verification/S5-T03-red.txt`。
+- Raw schema：`raw_runs.csv`与`raw_runs.json`使用同一25字段顺序和同一记录源；起终点、movement、配置、seed、status/error及work指标均为标量，path/convergence/result metadata为确定性JSON字符串。planner异常行完整保留且result列为JSON null/CSV空字段；invalid/failed `PlanningResult`仍保留全部result审计信息，无NaN/Infinity。
+- Metadata/manifest：`run_metadata.json`记录一次生成并复用的UUID run id、benchmark配置原始字节SHA-256、当前Git commit、Python、平台、pyproject直接依赖实际版本、lock解析后的环境实际版本和显式UTC时间；不记录绝对路径或凭据。`manifest.json`复用run id/config hash，并对raw CSV、raw JSON、metadata最终字节逐一SHA-256；按非循环约定不自哈希。
+- Artifact/边界：`BenchmarkArtifacts`新增可选相对`metadata_json`；T03返回四个非None相对路径，summary/figures保持None/空且未创建。已有输出目录仍在读取config或调用planner之前拒绝，测试复核既有四个文件字节均未改变。
+- GREEN/门禁：目标3 passed；T01–T03 focused 29 passed；完整351 passed；全仓Ruff、format、strict mypy（24 source files）、`git diff --check`及目标新增文件尾随空白检查均通过。首次目标静态检查仅发现import排序/换行/formatter差异，按最小机械格式修正后通过，无行为变更。
+- 边界：无commit、push、branch、worktree、tag、PR或依赖安装；未改HANDOFF，未触碰或执行旧材料，未创建summary/statistics/Smoke结果，未开始S5-T04、S5-T05或S6。
+
+## 2026-07-19 10:33 — S5-T03 fresh-review四项Important修复
+
+- 状态：fresh reviewer结论为Needs fixes / Partially Verified；四项Important已按TDD本地关闭，S5-T03保持In Progress等待fresh独立re-review，未自评Verified；S5-T04、S5-T05与S6保持Not Started。
+- RED：先演进公共raw contract、provenance、lock mismatch和config bytes回归，T01–T03 focused真实得到7 failed/23 passed；失败分别证明旧`BenchmarkRunRecord`与raw脱节、exception无wall runtime、metadata缺dirty/source/lock provenance、lock mismatch晚于planner且不拒绝、config在planner内变化后hash绑定后写内容。自审再补snapshot override不重读config测试，旧`dict.get` eager default真实得到1 failed。两轮证据均append于`S5-T03-red.txt`。
+- 公共record：`BenchmarkRunRecord`现为唯一26字段flat schema，删除run-level Git/Python/dependencies/time并新增完整输入身份、status/error、独立`wall_runtime_ms`和可空result列；`runner._execute`返回该类型，CSV fieldnames从dataclass推导，CSV/JSON均只消费同一批`to_dict()`。planner exception保留输入/error并用外部`perf_counter`给出诚实wall time，result自报`runtime_ms`独立保留；failed/invalid result继续保留全量审计字段。
+- Git/source provenance：metadata新增`git_dirty`；运行前对`src/path_planning/**/*.py`、`configs/**/*.yaml`、`maps/**/*.json`、`pyproject.toml`、`requirements.lock`生成repo相对路径到逐文件SHA-256的排序mapping，并对紧凑canonical JSON mapping再做aggregate SHA-256。scope包含untracked S5源码/配置，不含WORK_LOG/测试结果，不存绝对路径、文件内容或凭据。
+- Lock provenance：metadata新增`requirements_lock_sha256`，resolved dependency逐项记录`locked`与`installed`；缺失或不一致抛出RuntimeError。mismatch回归证明在output目录创建和任何planner调用之前拒绝。
+- Config snapshot：runner在任何planner前只读取benchmark YAML bytes一次，`parse_benchmark_config`、config SHA-256和正式config source-snapshot条目均使用同一bytes；metadata不重读config。planner内改写config的回归仍证明metadata/manifest hash绑定原解析bytes；显式snapshot override回归证明无隐藏重读。
+- 顺序/边界：existing-output拒绝仍为第一步；随后read/parse config bytes、collect lock/Git/source metadata、prepare inputs、mkdir、planner。validator/protocol/serialization缺陷继续传播；manifest最后写；summary/statistics/Smoke/T04/T05/S6均未创建或开始。
+- GREEN/门禁：目标persistence 6 passed；T01–T03 focused 31 passed；完整353 passed；全仓Ruff、format、strict mypy（24 source files）、pip check、`git diff --check`及边界通过。中间唯一机械更正为formatter要求runner dataclass前补空行，无重复行为失败。
+- Git/范围：HEAD保持`7941b62739a7c7d5535bee1f2f9a72d0820e2fc1`；无commit、push、branch、worktree、tag、PR、依赖安装、HANDOFF或旧材料操作。
+
+## 2026-07-19 10:40 — S5-T03 fresh re-review批准与controller复验
+
+- Fresh re-review：原四项Important全部从根因关闭，无Critical、Important或Minor代码findings；唯一raw record schema、dirty/untracked source provenance、lock/installed dependency provenance和config bytes单次读取均通过复核，结论Verified，Task quality为Approved。
+- Controller复验：persistence目标6 passed；S5-T01至T03 focused 31 passed；完整353 passed，0 failed；全仓Ruff、format、strict mypy（24 source files）、`pip check`、`git diff --check`和main/origin/worktree/tag边界均exit 0。
+- 状态迁移：S5-T03由In Progress置为Verified；24/42任务Verified，57.14%，0项In Progress；最终验收矩阵仍为9/29。下一任务为S5-T04自动统计和归一化。
+- 审查备注：首次follow-up指向了不存在的`S5-T03-report.md`，reviewer改用同目录唯一实际报告`task-S5-T03-report.md`完成复核；后续统一使用实际报告路径。
+- 边界：无commit、push、branch、worktree、tag、PR或依赖安装；未改HANDOFF、未触碰旧材料，S5-T04、S5-T05与S6仍未开始。
+
+## 2026-07-19 10:53 — S5-T04 自动统计和归一化实现候选
+
+- 状态：S5-T04由Not Started置为In Progress；实现候选等待fresh独立reviewer批准，未自评Verified。S5-T05与S6保持Not Started。
+- RED：先新增`tests/unit/test_statistics.py`，目标pytest因`path_planning.benchmark.statistics`缺失以exit 2失败；再先演进artifact与runner断言，旧实现为13 failed、16 passed，证明未创建汇总/最佳最差产物且artifact schema缺少对应路径。两轮证据均写入`results/verification/S5-T04-red.txt`。
+- 统计：新增`benchmark/statistics.py`，按algorithm、config与map/start/goal/movement精确任务身份分组；所有原始行进入success-rate分母，只有正式保留成功且指标非空的行进入指标样本。八类指标分别输出mean/sample-std/min/max/median，singleton std为JSON null，失败不变为数0。
+- 归一化/路径：同任务有效Dijkstra成功成本取确定min；start==goal的0成本明确得到1.0，无可用最优成本时保持null。`path_json`的JSON/schema错误直接传播；turning count忽略零移动，统计路径长度小于3为0。
+- 产物：runner从全部raw records生成稳定`summary.csv`、`summary.json`和`best_worst.json`；CSV/JSON共用同一summary rows与null语义。best/worst仅在algorithm+config+exact-task的seeded cohort内选正式成功行，按path length、turning count、seed稳定打破平局；无候选为null且不会删除raw/summary seed。所有最终bytes在写入前构建，manifest最后写并包含新产物hash。
+- GREEN/门禁：目标7 passed；S5 focused 39 passed；完整361 passed；全仓Ruff、format、strict mypy（25 source files）、pip check、`git diff --check`与Git边界均通过。首轮GREEN暴露pandas将混合null的seed升格为integral float，已收窄接受非负整值numeric；静态门禁曾发现一处E501与三个formatter差异，均机械更正后重验通过。
+- 边界：HEAD仍为`7941b62739a7c7d5535bee1f2f9a72d0820e2fc1`，`main...origin/main` 0/0；无commit、push、branch、worktree、tag、PR、依赖安装、HANDOFF、旧材料、T05或S6操作。
+
+## 2026-07-19 10:59 — S5-T04 fresh review批准与controller复验
+
+- Fresh review：无Critical、Important或Minor findings；exact-task/cohort分组、失败成功率分母、Dijkstra归一化、sample std/null、turning count、三类work指标、best/worst稳定排序、summary同源及manifest-last/hash均通过审查，结论Verified，Task quality为Approved。
+- Controller复验：统计目标7 passed；S5 focused 39 passed；完整361 passed，0 failed；全仓Ruff、format（56 files）、strict mypy（25 source files）、`pip check`、`git diff --check`和Git边界均exit 0。
+- 状态迁移：S5-T04由In Progress置为Verified；25/42任务Verified，59.52%，0项In Progress；“自动统计”最终验收项置为Verified，当前10/29、34.48%。下一任务为S5-T05真实Smoke Benchmark与阶段门禁。
+- 边界：无commit、push、branch、worktree、tag、PR或依赖安装；未改HANDOFF、未触碰旧材料，S5-T05与S6仍未开始。
+
+## 2026-07-19 11:01 — S5-T05 真实 Smoke Benchmark 与阶段门禁开始
+
+- 状态：S5-T05由Not Started置为In Progress；S5-T01至S5-T04保持Verified，S5阶段仍待fresh独立review，未自评Verified。
+- 实施范围：先重跑已批准的schema、runner、persistence、fairness与statistics专项，再通过公开Python API创建一次不覆盖的`results/smoke/stage5-baseline/`，编写benchmark methodology，最后从新鲜起点执行Stage 5完整门禁。
+- 保护边界：仅在当前`main`未提交阶段批次内工作；不commit/push，不创建branch/worktree/tag/PR，不安装依赖，不执行或改写旧材料，S6-T01保持Not Started。
+
+## 2026-07-19 11:20 — S5-T05 真实 Smoke 与阶段门禁实施候选
+
+- 状态：S5-T05保持In Progress，未自评Verified；S5-T01至S5-T04保持Verified，S6-T01保持Not Started。
+- 前置测试：确认`results/smoke/stage5-baseline`不存在后，schema/statistics/runner/persistence/fairness专项39 passed、exit 0，才允许启动真实Smoke。
+- 真实Smoke：精确使用计划规定的公开Python API运行一次；UTC开始`2026-07-19T01:02:44Z`、结束`2026-07-19T01:08:31Z`，耗时347秒，exit 0。运行略高于1–5分钟目标，但远低于10分钟停止上限；未调整预算、未重试、未重复正式运行。
+- 产物核验：严格验证7文件、24 raw、12 summary、6 best/worst cohort；行数分布为Dijkstra 3、A* 3、ACO 9、GA 9和每地8条；确定性seed为null，随机seed精确为11/29/47；`no_path_20`8条全部失败且保留，Dijkstra/A*为`no_path`、ACO/GA为`no_path_precheck`。raw/summary CSV与JSON行及null语义匹配，summary分母与raw一致，best/worst形状与空cohort正确。
+- 可追溯性：config SHA-256为`2833298d883fa683c05c0d2b2ab52b08fa483d71f2549c24a4c03036c1fb26f8`；run id为`4cf8a8a96f0f4115bc81b2193519cef2`；manifest六个非自身产物hash、manifest-last、无绝对路径泄漏全部通过。source snapshot对54文件逐一SHA-256与当前最终S5 source/config/map/pyproject/lock字节匹配，聚合哈希为`b2a5f3a829d14d9f1e3fbbc4a7b36165422e8ccd2a62582d57477af049cb55e9`；`git_dirty: true`与未提交阶段批次相符。
+- Methodology：新增`docs/benchmark_methodology.md`，记录Smoke/Standard任务与seed设计、预热/测量语义、公平输入/验证、失败/outlier保留、work字段分离、exact-task Dijkstra归一化、sample std/null/best-worst语义、metadata/source/lock/manifest追溯、不覆盖、串行、UTC/硬件/进程噪声限制，并明确S6调优隔离尚未实现。
+- Coverage RED/GREEN：首次完整branch coverage中361 tests全部通过且全仓93.03%，但S5独立模块门禁如实失败：`metadata.py` 86.02%、`schemas.py` 77.54%。不降低阈值、不加排除或pragma；仅在schema与persistence测试补充现有校验/错误/provenance契约。目标59 passed，最终S5 focused 73 passed，完整395 passed，0 failed/skipped/xfailed，全仓combined 96.27%；`schemas.py` 100.00%、`runner.py` 92.61%、`metadata.py` 100.00%、`statistics.py` 91.55%。
+- 阶段回归：S1 core/maps/package为132 passed，S2 deterministic/optimality为64 passed，S3 ACO/legacy/seed/no-path为50 passed，S4 GA/seed/no-path为83 passed；无未授权skip/xfail marker。
+- 静态与构建：全仓Ruff check、Ruff format（56 files）、strict mypy（25 source files）、`pip check`和`git diff --check`全部exit 0。构建精确一个`path_planning_lab-0.1.0-py3-none-any.whl`，SHA-256为`27ae888c306211242178598749261d0c2e4a601fc8e89bec3cfc5594252f661c`；用`--no-deps`安装到仓库外fresh temporary target，从temporary cwd以`-P`验证import来自target、版本0.1.0及最小Dijkstra成功，临时树已清理。
+- Legacy：从旧材料根目录只读复核75个普通文件、21个子目录、74,097,025字节，`shasum -a 256 -c`为75/75 OK，canonical manifest聚合哈希仍为`f534b2543beb31e8f0253001b96494b0086b4b085a340d8d4ae4d33e10c91e8e`，正式after清单不存在；未执行或写入旧材料。
+- 记录/Git/S6：计划为42唯一checklist、42唯一主表任务、42唯一detail和29验收行；WORK_LOG完整包含HEAD字节前缀，本条落盘后61个时间标题唯一且递增。fetch/prune后`main`/`origin/main`均为`7941b62739a7c7d5535bee1f2f9a72d0820e2fc1`且0/0，唯一origin Fetch/Push URL正确，本地/远端仅main，0 tag、0 open PR、1 worktree、0 staged、0 tracked cache/build/temp产物，无远端变更。S6实现/测试/配置/证据/数据路径0，S6-T01为Not Started。
+- 真实失败与更正：首次独立产物验证器把失败码误假设为统一`unreachable`，按实际契约更正为`no_path`/`no_path_precheck`后通过；首次新测试format check要求机械格式化2文件，处理后重跑通过；首次wheel shell尝试因安全策略拒绝`rm` trap，没有开始构建，改用自动清理的`TemporaryDirectory`后精确构建一个wheel；首次计划解析把主表status列误写为索引7，根据实际九列schema更正为索引6后通过；首次Git聚合脚本把`origin/HEAD`符号引用误算为remote branch，改用`ls-remote --heads`和显式symref核验确认远端仅main。
+- 文件：新增`results/smoke/stage5-baseline/`七个真实产物、`docs/benchmark_methodology.md`、`results/verification/S5-stage-gate.txt`和`S5-coverage.json`；仅为coverage补强修改`tests/unit/test_benchmark_schemas.py`与`tests/integration/test_benchmark_persistence.py`，并更新计划、PROJECT_STATUS、WORK_LOG和HANDOFF。
+- 当前边界：无commit/push/branch/worktree/tag/PR/remotes/dependency变更；未修改Smoke绑定的S5 source/config/map/pyproject/lock字节；待fresh独立reviewer批准前S5-T05保持In Progress，S6保持Not Started。
+
+## 2026-07-19 11:49 — S5-T05 fresh review findings修复候选
+
+- 状态：fresh review结论Needs fixes / not ready；findings已按TDD本地修复，S5-T05仍为In Progress并等待fresh re-review，未自评Verified；S6-T01保持Not Started。
+- 旧产物：确认拒收目标不存在后，将旧results/smoke/stage5-baseline整体可恢复移动到.tmp/s5-sdd/rejected-stage5-baseline-pre-review，7文件完整；旧manifest SHA-256为4a5f661b46040e05fd28f0b9c93f2063b02269d7344beab2d9463c0552c9a7a7。原因是旧run早于raw identity、path/seed协议与Smoke预算修复，只保留为审计历史。
+- 主RED/GREEN：11项review目标在旧实现上真实11 failed/0 passed，证明缺map_path、同名不同路径合并/交叉归一化、999自报成本仍成功、formal/warmup seed mismatch未拒绝、Smoke仍引用baseline、专用预算文件缺失及全null成功result未拒绝；最小实现后同选择11 passed。
+- 实现：BenchmarkRunRecord演进为27字段；runner原样传递repository-relative map_path；statistics按map_path+端点+movement精确分组和归一化。formal/warmup要求result.seed精确等于requested seed（含None）；成功路径以rel_tol=1e-12/abs_tol=1e-12核对共享validator复算成本，mismatch保留为稳定失败且不进统计。status=success同时要求非null且result.success=True。
+- Smoke预算：新增aco_smoke.yaml与ga_smoke.yaml，仅下调显式执行预算，所有非预算值与baseline相同；Smoke引用专用配置，Standard继续引用baseline，没有tuned配置、替代算法或S6工作。
+- 自审TDD：新增“普通失败warmup不应误中止Standard”RED真实1 failed，拆分protocol/formal failure语义后GREEN；controller补充status=success/result.success=False直接RED真实1 failed，最小schema guard后GREEN。最终S5 focused 83 passed。
+- 新formal Smoke：前置确认formal目录不存在、拒收快照存在、diff及4项配置/runner契约通过后，经同一公开run_benchmark API精确运行一次；UTC 2026-07-19T01:45:17.044782Z至2026-07-19T01:45:52.779640Z，35.735秒、exit 0，0重试。
+- 新产物：27-field raw、24 raw、12 summary、6 seeded cohort；16条成功路径逐条共享validator/成本复算通过，8条no_path失败全保留，24条请求/result seed相等。run id 776b745d43614e08b3e6ff5e11fe1a8c；config SHA-256 456916f678da9c27e1e5621f5fbc30a13d2c3110d580384a399cd0e0081326b3；manifest SHA-256 4459ec594412ff6630b75ab4413564ad9d2eb1a2146fc76754949fc82d013ae2；56文件snapshot聚合9e00d0fb3f89df84de65390834bea1e2343f56d547702c22ec09fbf56b6333b5。
+- 验算更正：首个只读验算器过度假设8条无路错误码相同而exit 1；实际仍为Dijkstra/A* no_path和ACO/GA no_path_precheck。修正验算断言后全通过，产物字节未变，Smoke未重跑。
+- 门禁：完整405 passed，combined branch coverage 96.26%；schemas/runner/metadata/statistics为99.42%/93.59%/100%/91.55%。S1至S5分段132/64/50/83/83 passed；Ruff、format、strict mypy、pip check、diff通过。唯一新wheel SHA-256为9df2c8846e5c9ff840ca3d081953a804ed02a315be1fc62fafa205545a266577，仓库外隔离安装/版本/最小Dijkstra通过。
+- 边界：legacy只读75文件、21目录、74,097,025字节、75/75 OK，before聚合仍为f534b2543beb31e8f0253001b96494b0086b4b085a340d8d4ae4d33e10c91e8e。fetch/prune后main与origin/main均为7941b62739a7c7d5535bee1f2f9a72d0820e2fc1且0/0；仅main、0 tag、0 open PR、1 worktree、0 staged。无commit/push/remote/dependency变更，S6实现/测试/配置/证据/数据路径0。
+
+## 2026-07-19 12:03 — S5-T05 fresh独立复审批准
+
+- Fresh re-review：原5项Important与1项Minor全部从根因关闭；无新Critical、Important或Minor finding；结论`Spec compliant: Yes`、`Approved: Yes`、`Ready to checkpoint: Yes`、`Verified`。
+- 独立复核：reviewer重新验证当前formal Smoke的27字段、24 raw、12 summary、6 seeded cohort、16条成功路径、8条失败、24组requested/result seed、CSV/JSON、manifest六文件hash、56文件source snapshot、Dijkstra归一化和best/worst，并确认11项修复回归通过。
+- 状态迁移：S5-T05由In Progress置为Verified；S1-T01至S5-T05共26/42项Verified，61.90%，0项In Progress；最终验收仍为10/29、34.48%，因为重复实验、raw CSV/JSON与Smoke最终验收仍需S8对应任务闭环。
+- 下一步：仅执行controller最终提交前门禁、精确暂存、S5实现checkpoint/hash账本和普通push；S6-T01保持Not Started，S6实现/测试/配置/证据/数据路径仍为0。
+- Git边界：本次状态迁移无commit/push/branch/worktree/tag/PR/remote/dependency变更；当前S5批次仍未暂存。
+
+## 2026-07-19 12:11 — S5 controller最终提交前门禁
+
+- 测试与coverage：S5专项83 passed；S1–S4分段132/64/50/83 passed；完整405 passed、0 failed/skipped/xfailed，combined branch coverage 96.26%；`schemas.py`/`runner.py`/`metadata.py`/`statistics.py`为99.42%/93.59%/100.00%/91.55%，均≥90%。
+- 静态与依赖：Ruff check、56文件format check、25 source files strict mypy、`pip check`、`git diff --check`和未授权skip/xfail扫描均exit 0。
+- Smoke只读复核：run id、config hash、manifest六文件hash、56/56 source snapshot、24 raw、12 summary、6 cohort、16条成功路径、8条失败、24组requested/result seed及四模块coverage全部通过；manifest SHA-256保持`4459ec594412ff6630b75ab4413564ad9d2eb1a2146fc76754949fc82d013ae2`。
+- 构建：仓库外`TemporaryDirectory`中精确构建一个`path_planning_lab-0.1.0-py3-none-any.whl`，本轮SHA-256为`9c3dc36f1732e0ac9d93ba6f6eeb690ed4b2f95064df4642c3b3dfceaabb0370`；`--no-deps`隔离安装、目标路径import、版本0.1.0和最小Dijkstra通过，临时树自动清理。
+- Legacy/记录/Git/S6：旧材料75文件、21目录、74,097,025字节、75/75和聚合哈希不变；计划42/42/42、26 Verified、0 In Progress，验收10/29；fetch/prune后main与origin/main仍为S5前基线且0/0，仅main、0 tag、0 PR、1 worktree、0 staged；S6-T01 Not Started且S6路径0。
+- 真实失败与更正：首个Smoke/coverage只读验证器误把顶层`totals`当作含`summary`的文件节点，修正结构分支后从头通过；首个wheel验证器误要求独立构建与上次wheel字节SHA相同，按ZIP时间元数据事实改为记录本次SHA并验证行为后通过；首个计划detail解析器未兼容S1-T01既有`当前状态`标签，收窄兼容两个现有标签并纠正checklist映射方向后从头通过；首次post-record脚本的`\d`被跨层双重转义而未匹配时间标题，改用等价`[0-9]`模式后64个唯一顺序标题与56/56 snapshot从头通过。以上均为controller只读校验器问题，未修改生产实现或正式Smoke产物。
+- 结论：`Verified`。S5已通过fresh独立复审和controller最终提交前门禁，允许精确暂存并创建checkpoint；仍无commit/push，S6未开始。

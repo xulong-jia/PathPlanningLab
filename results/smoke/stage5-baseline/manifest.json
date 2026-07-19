@@ -1,0 +1,13 @@
+{
+  "config_sha256": "456916f678da9c27e1e5621f5fbc30a13d2c3110d580384a399cd0e0081326b3",
+  "files": {
+    "best_worst.json": "26eb112197ac836af89270508d52e106ac72b858e1d2a2e305ed33f7ff1e45a0",
+    "raw_runs.csv": "96ee491bf733f75363429c1594cda9a5d043a990dbf416395a18e4e2a8f5e03b",
+    "raw_runs.json": "938fee0a6667da026435ddbd1ca8667b8088919ca1625981c5e3d2f07508967c",
+    "run_metadata.json": "2b8b28483ad2add114fcfefde05bef0e0977a025a300e9dd34c84bbdb3b40827",
+    "summary.csv": "55217a23f30a7764269027f9baf9c3efb1a5e5d7a8ccaeb12489857f967b3dc1",
+    "summary.json": "fb06c53e7cb09037b12671cbc1a2bab988a33c46394d5abb553db26441f61c8c"
+  },
+  "run_id": "776b745d43614e08b3e6ff5e11fe1a8c",
+  "schema_version": 1
+}

@@ -1,0 +1,41 @@
+S5-T01 RED verification
+
+Command:
+.venv/bin/python -m pytest tests/unit/test_benchmark_schemas.py -q
+
+Exit code: 2
+
+Expected failure:
+ModuleNotFoundError: No module named 'path_planning.benchmark.schemas'
+
+Interpretation: the test suite was added before the benchmark schema module;
+the required production API did not yet exist.
+
+S5-T01 reviewer-fix RED verification
+
+Command:
+.venv/bin/python -m pytest tests/unit/test_benchmark_schemas.py -q
+
+Exit code: 1
+
+Result: 9 failed, 7 passed in 0.11s
+
+Expected failures:
+- `BenchmarkTask` accepted an absolute map path.
+- `BenchmarkArtifacts` accepted absolute paths for every artifact field and for figures.
+- `BenchmarkRunRecord` reflected mutations to the caller's dependency mapping and to the mapping returned by `to_dict()`.
+- YAML `schema_version: true` was accepted because `True == 1`.
+
+S5-T01 reviewer-fix-2 RED verification
+
+Command:
+.venv/bin/python -m pytest tests/unit/test_benchmark_schemas.py -q
+
+Exit code: 1
+
+Result: 1 failed, 16 passed in 0.09s
+
+Expected failure:
+`test_run_record_dependencies_cannot_be_mutated_through_public_attribute`
+failed with `Failed: DID NOT RAISE TypeError`, proving that the frozen record
+still exposed a mutable dependency dictionary.

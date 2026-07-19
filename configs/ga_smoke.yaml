@@ -1,0 +1,22 @@
+movement:
+  connectivity: 8
+  diagonal_cost: 1.4142135623730951
+  allow_corner_cutting: false
+population_size: 24
+generations: 25
+crossover_probability: 0.8
+mutation_probability: 0.25
+selection_method: tournament
+crossover_method: common_node
+mutation_method: reroute_segment
+tournament_size: 3
+elite_size: 4
+max_initialization_steps: 10000
+initialization_attempts: 5
+stagnation_generations: 8
+path_length_penalty: 1.0
+turn_penalty: 0.1
+repeat_penalty: 2.0
+unreachable_base_penalty: 1000000.0
+collision_penalty: 1000.0
+remaining_distance_penalty: 100.0

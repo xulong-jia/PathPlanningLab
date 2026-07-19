@@ -1,0 +1,85 @@
+S5-T03 RED — 2026-07-19 AEST
+
+Command:
+.venv/bin/python -m pytest tests/integration/test_benchmark_persistence.py -q
+
+Exit: 1
+
+Output:
+FF.                                                                      [100%]
+=================================== FAILURES ===================================
+__________ test_run_benchmark_persists_matching_raw_rows_and_failures __________
+
+Expected persistence contract differed from the T02 result:
+- `records_csv` was None instead of `raw_runs.csv`.
+- `manifest_json` was None instead of `manifest.json`.
+- `metadata_json` was absent from `BenchmarkArtifacts`.
+
+___ test_run_benchmark_records_environment_metadata_and_verifiable_manifest ____
+
+Reading `output/run_metadata.json` raised FileNotFoundError because T02 only
+created `raw_runs.json`.
+
+=========================== short test summary info ============================
+FAILED tests/integration/test_benchmark_persistence.py::test_run_benchmark_persists_matching_raw_rows_and_failures
+FAILED tests/integration/test_benchmark_persistence.py::test_run_benchmark_records_environment_metadata_and_verifiable_manifest
+2 failed, 1 passed in 0.14s
+
+Interpretation: the persistence tests fail for the intended missing T03
+artifacts and artifact schema. The existing pre-load duplicate-directory guard
+already passes and remains a required regression.
+
+S5-T03 fresh-review fixes RED — 2026-07-19 AEST
+
+Command:
+.venv/bin/python -m pytest tests/unit/test_benchmark_schemas.py tests/integration/test_benchmark_runner.py tests/regression/test_benchmark_fairness.py tests/integration/test_benchmark_persistence.py -q
+
+Exit: 1
+
+Output summary:
+F.........F...........F..FF.FF                                           [100%]
+
+7 failed, 23 passed in 0.41s
+
+Expected failures:
+- `BenchmarkRunRecord` still exposed the obsolete nested movement and
+  run-level commit/Python/dependencies/timestamp contract and rejected the
+  flat input/result fields.
+- persisted CSV fieldnames were independent from the public dataclass and had
+  no externally measured `wall_runtime_ms`; exception rows therefore lacked
+  an honest non-null wall duration.
+- metadata lacked `git_dirty`, the execution-source file hash snapshot,
+  aggregate source hash, and `requirements_lock_sha256`.
+- resolved dependencies were plain installed-version strings instead of
+  locked/installed pairs.
+- a monkeypatched numpy version mismatch reached the planner rather than
+  failing before planner execution and output-directory creation.
+- when a planner modified the benchmark YAML during the run, metadata hashed
+  the post-write file rather than the original bytes used to parse the run.
+
+Exact failing tests:
+- `test_benchmark_schema_fields_are_serializable_and_complete`
+- `test_run_record_serializes_exception_with_null_result_fields`
+- `test_runner_reuses_inputs_and_keeps_every_recorded_failure`
+- `test_run_benchmark_persists_matching_raw_rows_and_failures`
+- `test_run_benchmark_records_environment_metadata_and_verifiable_manifest`
+- `test_dependency_mismatch_fails_before_output_or_planner`
+- `test_config_hash_uses_bytes_parsed_before_planner_mutation`
+
+S5-T03 config-snapshot self-review RED — 2026-07-19 AEST
+
+Command:
+.venv/bin/python -m pytest tests/integration/test_benchmark_persistence.py::test_source_snapshot_uses_supplied_config_bytes_without_rereading -q
+
+Exit: 1
+
+Output:
+F                                                                        [100%]
+FAILED tests/integration/test_benchmark_persistence.py::test_source_snapshot_uses_supplied_config_bytes_without_rereading
+1 failed in 0.12s
+
+Expected failure:
+`_source_snapshot` used `overrides.get(relative, path.read_bytes())`; Python
+evaluated the default eagerly and reread the benchmark config even though the
+original parsed bytes were supplied. The test raised
+`AssertionError: benchmark config was reread` from that exact call path.

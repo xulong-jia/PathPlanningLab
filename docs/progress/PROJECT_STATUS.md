@@ -2,7 +2,7 @@
 
 ## 当前总体状态
 
-Stage 4 Verified and published — stopped before Stage 5
+Stage 5 Verified — S5-T01 through S5-T05 Verified; fresh independent review Approved
 
 ## 当前分支
 
@@ -10,11 +10,11 @@ Stage 4 Verified and published — stopped before Stage 5
 
 ## 当前阶段
 
-阶段4 — Verified（fresh re-review Approved；S1、S2、S3保持Verified）
+阶段5 — Verified（S5-T01至S5-T05均已Verified；S1至S4保持Verified）
 
 ## 当前任务
 
-无实施任务处于In Progress；S4-T05已Verified并发布，S5-T01保持Not Started
+无活动实施任务；S5-T05真实Smoke Benchmark与阶段门禁已获fresh独立复审批准且controller最终提交前门禁通过，待checkpoint和普通push
 
 ## Repository Status
 
@@ -31,22 +31,22 @@ Stage 4 Verified and published — stopped before Stage 5
 ## 任务统计
 
 - 全部任务数：42
-- 已完成任务数：21
-- Verified任务数：21
+- 已完成任务数：26
+- Verified任务数：26
 - In Progress任务数：0
 - Partially Verified任务数：0
 - Blocked任务数：0
-- 实施任务完成度：50.00%
+- 实施任务完成度：61.90%
 
 ## 100%验收统计
 
 - 全部验收项：29
-- Verified验收项：9
-- 验收完成度：31.03%
+- Verified验收项：10
+- 验收完成度：34.48%
 
 ## 最近一次验证
 
-2026-07-19 01:27 AEST完成fresh独立re-review与controller提交前复验：reviewer确认此前2项Important与1项Minor全部关闭，无Critical、Important或Minor findings，结论`Verified`、质量`Approved`、`Ready to checkpoint: Yes`。controller重跑修复focused 4 passed、S4专项76 passed、完整coverage 322 passed；总coverage 95.75%，`genetic.py`合计93.58%；Ruff、format、strict mypy、pip、diff、legacy、Git、记录和S5边界均通过。尚未commit/push。
+2026-07-19 12:11 AEST完成S5 controller最终提交前门禁：S5专项83 passed，S1–S4分段132/64/50/83 passed，完整405 passed且combined branch coverage 96.26%，四个S5生产模块99.42%/93.59%/100.00%/91.55%；Ruff、format、strict mypy、pip、diff和skip/xfail检查通过。当前Smoke的manifest、56文件snapshot、24/12/6、16条成功路径、8条失败与24组seed全部只读复核通过；本轮精确构建一个wheel并完成隔离import/0.1.0/最小Dijkstra，SHA-256为`9c3dc36f1732e0ac9d93ba6f6eeb690ed4b2f95064df4642c3b3dfceaabb0370`。Legacy、42/42/42记录、10/29验收、Git远端与S6边界均通过；待checkpoint和普通push。
 
 ## 最近一个checkpoint commit
 
@@ -56,7 +56,7 @@ S4账本commit：`ad2a107a7b9b5bb2cd312db68c19421b328f87cf` — `docs: record st
 
 ## 下一项任务
 
-S5-T01 Benchmark schema 与任务展开（Not Started）；本轮在S4结束后停止，不开始S5。
+停止在S5边界；执行controller最终提交前门禁、Stage 5 checkpoint/hash账本和普通push，不开始S6-T01。
 
 ## Blocked原因
 
@@ -79,7 +79,7 @@ S5-T01 Benchmark schema 与任务展开（Not Started）；本轮在S4结束后�
 | 重复实验 | Not Started | S5-T01、S8-T04 | 尚无执行证据 |
 | 参数调优 | Not Started | S6-T01–S6-T04 | 尚无执行证据 |
 | 原始CSV和JSON | Not Started | S5-T03、S8-T04 | 尚无执行证据 |
-| 自动统计 | Not Started | S5-T04 | 尚无执行证据 |
+| 自动统计 | Verified | S5-T04 | `statistics.py`手算统计/归一化回归、summary CSV/JSON与best/worst持久化测试、S5-T04证据 |
 | 自动可视化 | Not Started | S7-T01、S7-T02、S8-T05 | 尚无执行证据 |
 | pytest | Not Started | S8-T02 | 尚无执行证据 |
 | 覆盖率≥90% | Not Started | S8-T02 | 尚无执行证据 |

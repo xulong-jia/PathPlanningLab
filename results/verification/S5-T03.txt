@@ -1,0 +1,135 @@
+S5-T03 GREEN verification — 2026-07-19 AEST
+
+Status: Partially Verified locally; S5-T03 remains In Progress pending fresh
+independent review.
+
+Target persistence test
+Command:
+.venv/bin/python -m pytest tests/integration/test_benchmark_persistence.py -q
+
+Exit: 0
+Output:
+...                                                                      [100%]
+3 passed in 0.21s
+
+S5-T01 through S5-T03 focused tests
+Command:
+.venv/bin/python -m pytest tests/unit/test_benchmark_schemas.py tests/integration/test_benchmark_runner.py tests/regression/test_benchmark_fairness.py tests/integration/test_benchmark_persistence.py -q
+
+Exit: 0
+Output:
+.............................                                            [100%]
+29 passed in 0.33s
+
+Full repository tests
+Command:
+.venv/bin/python -m pytest tests -q
+
+Exit: 0
+Output:
+........................................................................ [ 20%]
+........................................................................ [ 41%]
+........................................................................ [ 61%]
+........................................................................ [ 82%]
+...............................................................          [100%]
+351 passed in 3.20s
+
+Full static and boundary gate
+Commands:
+.venv/bin/ruff check .
+.venv/bin/ruff format --check .
+.venv/bin/mypy src
+git diff --check
+target changed/new-file trailing-whitespace check
+absence checks for statistics.py, summary.csv, summary.json, best_worst.json
+
+Exit: 0
+Output:
+All checks passed!
+54 files already formatted
+Success: no issues found in 24 source files
+
+The successful git diff, whitespace, and absence checks produced no stdout.
+
+Persistence assertions verify:
+- CSV/JSON have the same 8 rows and exact 25-field flat schema.
+- JSON null maps to an empty CSV field; non-null values stringify identically.
+- A formal planner exception remains a failed row with seed/error and null result.
+- Path, convergence history, and result metadata remain auditable JSON strings.
+- Metadata records Git/Python/platform/direct dependencies/resolved environment
+  dependencies/UTC time without absolute paths.
+- The run id and config SHA-256 are reused in metadata and manifest.
+- Manifest SHA-256 values match the exact final bytes of raw CSV, raw JSON, and
+  run metadata; manifest intentionally does not hash itself.
+- A second call rejects the existing directory before reading a missing config
+  and leaves all four artifact byte hashes unchanged.
+
+No commit, push, branch, worktree, tag, PR, dependency installation, summary,
+statistics, Smoke result, T04, T05, or S6 work was performed.
+
+S5-T03 fresh-review fixes final verification — 2026-07-19 AEST
+
+Status: Partially Verified locally; S5-T03 remains In Progress pending fresh
+independent re-review.
+
+Target persistence test
+Command:
+.venv/bin/python -m pytest tests/integration/test_benchmark_persistence.py -q
+
+Exit: 0
+Output:
+......                                                                   [100%]
+6 passed in 0.33s
+
+S5-T01 through S5-T03 focused tests
+Command:
+.venv/bin/python -m pytest tests/unit/test_benchmark_schemas.py tests/integration/test_benchmark_runner.py tests/regression/test_benchmark_fairness.py tests/integration/test_benchmark_persistence.py -q
+
+Exit: 0
+Output:
+...............................                                          [100%]
+31 passed in 0.60s
+
+Full repository tests
+Command:
+.venv/bin/python -m pytest tests -q
+
+Exit: 0
+Output:
+........................................................................ [ 20%]
+........................................................................ [ 40%]
+........................................................................ [ 61%]
+........................................................................ [ 81%]
+.................................................................        [100%]
+353 passed in 3.44s
+
+Full static/dependency/diff gate
+Command:
+.venv/bin/ruff check . && .venv/bin/ruff format --check . && .venv/bin/mypy src && .venv/bin/pip check && git diff --check
+
+Exit: 0
+Output:
+All checks passed!
+54 files already formatted
+Success: no issues found in 24 source files
+No broken requirements found.
+
+The successful git diff check produced no stdout.
+
+Review fixes verified:
+- `BenchmarkRunRecord` is the single public 26-field flat raw contract;
+  `_execute` returns it and CSV/JSON both consume its `to_dict()` rows.
+- exception rows retain all input/error identity, null result fields, and a
+  non-negative externally measured `wall_runtime_ms`; result `runtime_ms`
+  remains separately auditable.
+- metadata records Git dirty state, requirements lock hash, locked/installed
+  dependency pairs, and a canonical execution-source snapshot covering all
+  scoped source/config/map/project/lock inputs including untracked files.
+- dependency missing/mismatch fails before output-directory creation and any
+  planner call.
+- benchmark YAML bytes are read once, parsed from those bytes, hashed from the
+  same bytes, and supplied as the source-snapshot override without rereading.
+- existing output rejection, fairness, null semantics, manifest-last hashing,
+  narrowed exception boundaries, and T04 artifact absence remain covered.
+
+No commit or out-of-scope action was performed.

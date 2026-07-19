@@ -1,0 +1,209 @@
+{
+  "config_sha256": "456916f678da9c27e1e5621f5fbc30a13d2c3110d580384a399cd0e0081326b3",
+  "direct_dependencies": {
+    "deap": "1.4.4",
+    "matplotlib": "3.11.0",
+    "numpy": "2.5.1",
+    "pandas": "3.0.3",
+    "pyyaml": "6.0.3"
+  },
+  "executed_at_utc": "2026-07-19T01:45:17.098373+00:00",
+  "git_commit": "7941b62739a7c7d5535bee1f2f9a72d0820e2fc1",
+  "git_dirty": true,
+  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "python_version": "3.12.2",
+  "requirements_lock_sha256": "05d81444c95e7ac2c6ff90f9dafaf62304a8835495c9dd5b5505099fccebe1d2",
+  "resolved_dependencies": {
+    "ast-serialize": {
+      "installed": "0.6.0",
+      "locked": "0.6.0"
+    },
+    "cffi": {
+      "installed": "2.1.0",
+      "locked": "2.1.0"
+    },
+    "contourpy": {
+      "installed": "1.3.3",
+      "locked": "1.3.3"
+    },
+    "coverage": {
+      "installed": "7.15.2",
+      "locked": "7.15.2"
+    },
+    "cycler": {
+      "installed": "0.12.1",
+      "locked": "0.12.1"
+    },
+    "deap": {
+      "installed": "1.4.4",
+      "locked": "1.4.4"
+    },
+    "fonttools": {
+      "installed": "4.63.0",
+      "locked": "4.63.0"
+    },
+    "iniconfig": {
+      "installed": "2.3.0",
+      "locked": "2.3.0"
+    },
+    "kiwisolver": {
+      "installed": "1.5.0",
+      "locked": "1.5.0"
+    },
+    "librt": {
+      "installed": "0.13.0",
+      "locked": "0.13.0"
+    },
+    "matplotlib": {
+      "installed": "3.11.0",
+      "locked": "3.11.0"
+    },
+    "moocore": {
+      "installed": "0.3.2",
+      "locked": "0.3.2"
+    },
+    "mypy": {
+      "installed": "2.3.0",
+      "locked": "2.3.0"
+    },
+    "mypy-extensions": {
+      "installed": "1.1.0",
+      "locked": "1.1.0"
+    },
+    "numpy": {
+      "installed": "2.5.1",
+      "locked": "2.5.1"
+    },
+    "packaging": {
+      "installed": "26.2",
+      "locked": "26.2"
+    },
+    "pandas": {
+      "installed": "3.0.3",
+      "locked": "3.0.3"
+    },
+    "pathspec": {
+      "installed": "1.1.1",
+      "locked": "1.1.1"
+    },
+    "pillow": {
+      "installed": "12.3.0",
+      "locked": "12.3.0"
+    },
+    "pip": {
+      "installed": "24.0",
+      "locked": "24.0"
+    },
+    "platformdirs": {
+      "installed": "4.10.0",
+      "locked": "4.10.0"
+    },
+    "pluggy": {
+      "installed": "1.6.0",
+      "locked": "1.6.0"
+    },
+    "pycparser": {
+      "installed": "3.0",
+      "locked": "3.0"
+    },
+    "pygments": {
+      "installed": "2.20.0",
+      "locked": "2.20.0"
+    },
+    "pyparsing": {
+      "installed": "3.3.2",
+      "locked": "3.3.2"
+    },
+    "pytest": {
+      "installed": "9.1.1",
+      "locked": "9.1.1"
+    },
+    "pytest-cov": {
+      "installed": "7.1.0",
+      "locked": "7.1.0"
+    },
+    "python-dateutil": {
+      "installed": "2.9.0.post0",
+      "locked": "2.9.0.post0"
+    },
+    "pyyaml": {
+      "installed": "6.0.3",
+      "locked": "6.0.3"
+    },
+    "ruff": {
+      "installed": "0.15.22",
+      "locked": "0.15.22"
+    },
+    "six": {
+      "installed": "1.17.0",
+      "locked": "1.17.0"
+    },
+    "typing-extensions": {
+      "installed": "4.16.0",
+      "locked": "4.16.0"
+    }
+  },
+  "run_id": "776b745d43614e08b3e6ff5e11fe1a8c",
+  "schema_version": 1,
+  "source_snapshot": {
+    "files": {
+      "configs/aco_baseline.yaml": "fed8b01b99fb57565414c451bd69295b73451f4372727f4e74b851efe8f80a3f",
+      "configs/aco_smoke.yaml": "009ab5f2194050136e555c76087737793c5f192d676294438199f69c94754b05",
+      "configs/astar.yaml": "b32a8c06967d05ecbcf83b20bdba38a3a6fb4abb1a8ebff620adc864ea70afa4",
+      "configs/astar_benchmark.yaml": "4f2746fe2e81756e98bbd94dac25896d5064f28e035adff7e208190742528a42",
+      "configs/benchmark_smoke.yaml": "456916f678da9c27e1e5621f5fbc30a13d2c3110d580384a399cd0e0081326b3",
+      "configs/benchmark_standard.yaml": "c2a92a641797ce5f0f813cf8b3f89173f1d653b3a45d630c9db06410fc3366c2",
+      "configs/dijkstra.yaml": "6dd018d34b561f54d7eb80ff8161aefe1a35e32d47ed75671a391332e44ffaf1",
+      "configs/ga_baseline.yaml": "7420d476afd69334c4dfced0c49e44067a52ed331a6146f7e631ef1386f4eaa5",
+      "configs/ga_smoke.yaml": "c1f1d806d174644152de52066597e1bd52d3df5544fde4f0a4435a31e0b468fb",
+      "configs/map_generation.yaml": "fba96bcbe822338df10007adfa8729fda1485105ef6afa8a775690fe528d059f",
+      "maps/generated/evaluation/evaluation_100x100_d10.json": "adbaa6c5f653d77ef9abd2863bf09252337a51d658bdbee29008d8988b1dd168",
+      "maps/generated/evaluation/evaluation_100x100_d20.json": "69a60c9a353e575fa013d9045ec627c1eb1766f40e1f91be43b024334e339d70",
+      "maps/generated/evaluation/evaluation_100x100_d30.json": "7fc0b4370625d2498512d3d01375492f34d595d81817e6dd77e7f9961c022877",
+      "maps/generated/evaluation/evaluation_20x20_d10.json": "6ab244cdbfd0ac2a3922e22a9fa3d52ff063db5337cb1de71c8b2d906e420fa0",
+      "maps/generated/evaluation/evaluation_20x20_d20.json": "c0a5741ee473e117a2c0d35f89cbd01717664f55a17911215bc4c2d48a3b2928",
+      "maps/generated/evaluation/evaluation_20x20_d30.json": "066448189c8dceb12e5f38491d379c2d308cccf7debb3227ddb674442e53b996",
+      "maps/generated/evaluation/evaluation_50x50_d10.json": "372ccc2d788da0bf894233c5633598b7485f19470a577df089662f30b6d0b767",
+      "maps/generated/evaluation/evaluation_50x50_d20.json": "ec270a23dab3cd8c3540f9b9e8895bedcef719425f579f185bd447af9d84c320",
+      "maps/generated/evaluation/evaluation_50x50_d30.json": "b65230db22065bc14e1c0448e92fb7386a962887fd656a4c4aa63812ad6de33f",
+      "maps/generated/tuning/tuning_20x20_d10.json": "d2506ddf8f3e066491c90561eda247ffb1714426c93cc4cfcd67b562090bacf0",
+      "maps/generated/tuning/tuning_20x20_d30.json": "c58e7630616c1491a6eb98d59c69376301628797fc61977ec43532d3bd60bbf6",
+      "maps/generated/tuning/tuning_50x50_d20.json": "eb90b623bb6e4ed802601239f8baf37b686c2735458387004a3c95b107500e7b",
+      "maps/generated/tuning/tuning_50x50_d30.json": "1e13220cc170eaadf317ac4c7d2b2ac1f8521e104c73dafd1875d4c809e3de59",
+      "maps/handcrafted/bottleneck_50.json": "a87f80084a13d4de9227a4f153ec6b372da735c8030db456f1522943823c0118",
+      "maps/handcrafted/dead_ends_30.json": "cc22109e5c964f8ace297d4afc5e2e54235907935212f0e233323e5b6d1518d2",
+      "maps/handcrafted/maze_30.json": "3c93d9ca70f9808fc484c3e6f1d8cd5c50d75cf1f3cad8e8f20343756e103975",
+      "maps/handcrafted/narrow_channel_20.json": "2793373172bf63693f4efa6caa6d38056d9319e442ae992bcb4d3236f213d294",
+      "maps/handcrafted/no_path_20.json": "9a83c8cd3e0fbc535615ff7f05a6c8e2b03f37dcc410a30f8b887edfd9eafbf7",
+      "maps/handcrafted/open_20.json": "3087f69771eff57022229339a4e88b37d2b7ff6fa9a705c6c519c9c57423673b",
+      "pyproject.toml": "abcbc7b7ba9cbb801319f9337b3808f325a666ec217d14c9d56583da6068fd9e",
+      "requirements.lock": "05d81444c95e7ac2c6ff90f9dafaf62304a8835495c9dd5b5505099fccebe1d2",
+      "src/path_planning/__init__.py": "8951e929da78ec4e9d7e06fe79453dd003013404e235aa04ba907ed7fe299c1b",
+      "src/path_planning/algorithms/__init__.py": "ecffb39737962ab80e7e27f4ffa1e39a9e20586d3571a37a4c66d22c1c7a19f0",
+      "src/path_planning/algorithms/aco.py": "e66a765d2e4dead353e1c183729f136455da33834c2f5fd48bca0730e23937c7",
+      "src/path_planning/algorithms/astar.py": "850bdd7ad2a0f4ab0095eb7b292d578aa456f59d2e23a98fa0736207f2543b4a",
+      "src/path_planning/algorithms/base.py": "1e84a5dfe720c9b45d88cce7b0da80e893149ad56f501ee53e6b7ee63934dbd6",
+      "src/path_planning/algorithms/dijkstra.py": "18ade39df830a6af8dd66262ccddee98c948d339a8ebfb1e8022b1b15ce32c95",
+      "src/path_planning/algorithms/genetic.py": "5639612400e2b6cccb0328e6fcea883aebc128e58d8b6789986759e44203f980",
+      "src/path_planning/benchmark/__init__.py": "9167abb48ee163fdf90bb1d09f65b04cc4977dc9b6e1f8353d65a6fcc81626f3",
+      "src/path_planning/benchmark/metadata.py": "abe6dfff6f137d40aae282dd5aadf03d89a5ad0fdae46623f55e2ea52aca1e5c",
+      "src/path_planning/benchmark/runner.py": "35c0f7e908e43d167b5c52a85d3295cffab6251639d7b2e1ef30ff2a64da7fd4",
+      "src/path_planning/benchmark/schemas.py": "c321c6a03c48122df0acedde766f7202d65ee8219784e19c6363c91bfb83c9da",
+      "src/path_planning/benchmark/statistics.py": "22590c891b68088b39fa2ce5381a362ea52acc3f3a72752375605000646e8e2d",
+      "src/path_planning/core/__init__.py": "57147f8acff468b70e3aa15e48188658892d59d867c3f1950964cdeca6d70640",
+      "src/path_planning/core/grid.py": "27444aa565aad40b1c9ade841d3558ebeb5901db15172c028a0121368c6e6605",
+      "src/path_planning/core/metrics.py": "351985c772ba559ee749fde3873c83dd44e06a144f60cef1865ae30414598148",
+      "src/path_planning/core/movement.py": "1dcb376c9c50031db310cbaf7ebb1c7c7c03ab4c4c45f55a3fd0f8e4c219d7d6",
+      "src/path_planning/core/result.py": "b0e6bef2df9d796b19be1bb4e2f5779aaadae9ad00efd98a2fdd4892a708c995",
+      "src/path_planning/core/types.py": "abaab805b1f05d5b8cba57e7612353fa91ba755eb90b08bcf67650b5825a0633",
+      "src/path_planning/core/validation.py": "3b57d8fb4cef9e035d906fa68269a5a24ad150e03724a76bb2ac1f035e5b9b80",
+      "src/path_planning/maps/__init__.py": "4a338ae55fcf0fe4d3dbdedfc80439a80dc0e7bd0cf07a7831879030a37b347a",
+      "src/path_planning/maps/generation.py": "683cd51d55dfe97d59cfe79c40f9113196dfee32444a65842b0dc97651a83c08",
+      "src/path_planning/maps/io.py": "b128af236db31abc459da8a7fa2feff460d0e6a3f48218d8900d758714cf2301",
+      "src/path_planning/maps/suites.py": "ac034c52af4f94eb24cd5c5625d29eb06c3bed808b1fff920f547c37713e91a0",
+      "src/path_planning/tuning/__init__.py": "e488f24ea2892c48e79092fdb157f2374d7bc5d9b41fffb089d581608c111b60",
+      "src/path_planning/visualization/__init__.py": "1cf431f87dabd358bca8c1da28453f70828701acc7e49dec5f6803899b90f8b4"
+    },
+    "sha256": "9e00d0fb3f89df84de65390834bea1e2343f56d547702c22ec09fbf56b6333b5"
+  }
+}

@@ -1,0 +1,68 @@
+S5-T02 RED — 2026-07-19 AEST
+
+Command:
+.venv/bin/python -m pytest tests/integration/test_benchmark_runner.py tests/regression/test_benchmark_fairness.py -q
+
+Exit: 2
+
+Output:
+
+==================================== ERRORS ====================================
+_________ ERROR collecting tests/integration/test_benchmark_runner.py __________
+ImportError while importing test module '/Users/jiaxulong/Desktop/PathPlanningLab/tests/integration/test_benchmark_runner.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/opt/homebrew/Cellar/python@3.12/3.12.2_1/Frameworks/Python.framework/Versions/3.12/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/integration/test_benchmark_runner.py:6: in <module>
+    from path_planning.benchmark.runner import run_benchmark
+E   ModuleNotFoundError: No module named 'path_planning.benchmark.runner'
+_________ ERROR collecting tests/regression/test_benchmark_fairness.py _________
+ImportError while importing test module '/Users/jiaxulong/Desktop/PathPlanningLab/tests/regression/test_benchmark_fairness.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/opt/homebrew/Cellar/python@3.12/3.12.2_1/Frameworks/Python.framework/Versions/3.12/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/regression/test_benchmark_fairness.py:10: in <module>
+    from path_planning.benchmark.runner import run_benchmark
+E   ModuleNotFoundError: No module named 'path_planning.benchmark.runner'
+=========================== short test summary info ============================
+ERROR tests/integration/test_benchmark_runner.py
+ERROR tests/regression/test_benchmark_fairness.py
+!!!!!!!!!!!!!!!!!!! Interrupted: 2 errors during collection !!!!!!!!!!!!!!!!!!!!
+2 errors in 0.14s
+
+S5-T02 independent-review fixes RED — 2026-07-19 AEST
+
+Command:
+.venv/bin/python -m pytest tests/unit/test_benchmark_schemas.py tests/integration/test_benchmark_runner.py tests/regression/test_benchmark_fairness.py -q
+
+Exit: 1
+
+Output summary:
+........F........FFFF.FFF                                                [100%]
+
+FAILED tests/unit/test_benchmark_schemas.py::test_benchmark_artifacts_serialize_uncreated_paths_as_null
+AttributeError: 'NoneType' object has no attribute 'is_absolute'
+
+FAILED tests/unit/test_benchmark_schemas.py::test_benchmark_configs_name_each_algorithm_configuration
+AssertionError: {'astar': 'configs/astar.yaml'} != {'astar': 'configs/astar_benchmark.yaml'}
+
+FAILED tests/integration/test_benchmark_runner.py::test_run_benchmark_records_exact_formal_run_count
+FAILED tests/integration/test_benchmark_runner.py::test_auto_astar_config_resolves_to_traceable_eight_way_default
+FAILED tests/regression/test_benchmark_fairness.py::test_runner_reuses_inputs_and_keeps_every_recorded_failure
+ValueError: invalid astar config schema
+
+FAILED tests/integration/test_benchmark_runner.py::test_explicit_incompatible_astar_heuristic_is_rejected
+Expected: Manhattan heuristic requires 4-way
+Actual: invalid astar config schema
+
+FAILED tests/regression/test_benchmark_fairness.py::test_warmup_planner_exception_propagates
+Failed: DID NOT RAISE RuntimeError
+
+FAILED tests/regression/test_benchmark_fairness.py::test_shared_validator_exception_propagates
+Failed: DID NOT RAISE RuntimeError
+
+8 failed, 17 passed in 0.19s

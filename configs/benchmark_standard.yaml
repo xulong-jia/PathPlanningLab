@@ -1,0 +1,67 @@
+schema_version: 1
+name: standard
+
+algorithm_configs:
+  dijkstra: configs/dijkstra.yaml
+  astar: configs/astar_benchmark.yaml
+  aco: configs/aco_baseline.yaml
+  ga: configs/ga_baseline.yaml
+
+deterministic:
+  warmup_runs: 3
+  measurement_runs: 10
+
+stochastic:
+  seeds:
+    [101, 102, 103, 104, 105, 106, 107, 108, 109, 110,
+     111, 112, 113, 114, 115, 116, 117, 118, 119, 120]
+
+tasks:
+  - map: maps/handcrafted/open_20.json
+    movement: &four_way
+      connectivity: 4
+      diagonal_cost: 1.4142135623730951
+      allow_corner_cutting: false
+  - map: maps/handcrafted/narrow_channel_20.json
+    movement: *four_way
+  - map: maps/handcrafted/maze_30.json
+    movement: *four_way
+  - map: maps/handcrafted/dead_ends_30.json
+    movement: *four_way
+  - map: maps/handcrafted/bottleneck_50.json
+    movement: *four_way
+  - map: maps/handcrafted/no_path_20.json
+    movement: *four_way
+  - map: maps/generated/evaluation/evaluation_20x20_d10.json
+    movement: *four_way
+  - map: maps/generated/evaluation/evaluation_20x20_d20.json
+    movement: *four_way
+  - map: maps/generated/evaluation/evaluation_20x20_d30.json
+    movement: *four_way
+  - map: maps/generated/evaluation/evaluation_50x50_d10.json
+    movement: *four_way
+  - map: maps/generated/evaluation/evaluation_50x50_d20.json
+    movement: *four_way
+  - map: maps/generated/evaluation/evaluation_50x50_d30.json
+    movement: *four_way
+  - map: maps/generated/evaluation/evaluation_100x100_d10.json
+    movement: *four_way
+  - map: maps/generated/evaluation/evaluation_100x100_d20.json
+    movement: *four_way
+  - map: maps/generated/evaluation/evaluation_100x100_d30.json
+    movement: *four_way
+  - map: maps/handcrafted/maze_30.json
+    movement: &eight_way
+      connectivity: 8
+      diagonal_cost: 1.4142135623730951
+      allow_corner_cutting: false
+  - map: maps/handcrafted/bottleneck_50.json
+    movement: *eight_way
+  - map: maps/handcrafted/no_path_20.json
+    movement: *eight_way
+  - map: maps/generated/evaluation/evaluation_20x20_d20.json
+    movement: *eight_way
+  - map: maps/generated/evaluation/evaluation_50x50_d20.json
+    movement: *eight_way
+  - map: maps/generated/evaluation/evaluation_100x100_d20.json
+    movement: *eight_way

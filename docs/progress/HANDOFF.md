@@ -6,27 +6,27 @@
 
 ## 当前分支
 
-`main`，跟踪`origin/main`。S4按本轮明确授权直接在现有`main`工作树实施；未创建feature分支、额外worktree、PR或tag。
+`main`，跟踪`origin/main`。S5按本轮明确授权直接在现有`main`工作树实施；未创建feature分支、额外worktree、PR或tag。
 
 ## Git状态
 
-S1至S4的实现checkpoint及hash账本commit已完整发布到`origin/main`。S4实现checkpoint为`733579b8d29d91bad6ae76e2c28ecd248ecff599`，hash账本commit为`ad2a107a7b9b5bb2cd312db68c19421b328f87cf`，publication记录commit为`6225b5cd5723088aacecadd5e58f8a36b881cf27`；三者均已普通push并完成0/0远端复核。当前仅保留本地`main`及远端`origin/main`；唯一remote仍为`origin`，Fetch/Push URL均为`git@github.com:xulong-jia/PathPlanningLab.git`，remote配置未修改，未创建tag或PR。
+S1至S4的实现checkpoint及hash账本commit已完整发布到`origin/main`。S4实现checkpoint为`733579b8d29d91bad6ae76e2c28ecd248ecff599`，hash账本commit为`ad2a107a7b9b5bb2cd312db68c19421b328f87cf`，publication记录commit为`6225b5cd5723088aacecadd5e58f8a36b881cf27`。S5完整实现、真实Smoke、方法文档、门禁与记录已获fresh独立复审批准，仍是未提交的单一阶段批次；当前HEAD与`origin/main`均为`7941b62739a7c7d5535bee1f2f9a72d0820e2fc1`，分叉0/0。唯一remote仍为`origin`，Fetch/Push URL均为`git@github.com:xulong-jia/PathPlanningLab.git`；无staged文件、tag、open PR、额外worktree或远端变更。
 
 ## 当前阶段
 
-阶段1至阶段4均Verified；S4 fresh独立re-review为Approved，实现与账本已发布；本轮停止在S5之前。
+阶段1至阶段5均Verified。S5-T05的原5项Important与1项Minor已按TDD从根因修复，fresh独立复审无新finding并给出`Approved`、`Ready to checkpoint: Yes`；controller最终提交前门禁已通过。
 
 ## 已完成任务
 
-S1-T01至S4-T05，共21项Verified。
+S1-T01至S5-T05，共26项Verified。
 
 ## 当前任务
 
-无任务处于In Progress；S4-T05已Verified并发布，S5-T01保持Not Started。
+无活动实施任务；S5-T05已Verified且controller最终提交前门禁通过，待checkpoint、hash账本和普通push。
 
 ## 尚未完成任务
 
-S5-T01至S8-T06，共21项；S5-T01保持Not Started。
+S6-T01至S8-T06，共16项未Verified。S6-T01仍精确为Not Started，不存在S6实现、测试、配置、证据或数据路径。
 
 ## 关键设计决策
 
@@ -40,14 +40,17 @@ S5-T01至S8-T06，共21项；S5-T01保持Not Started。
 - 调优集与评测集 seeds 完全分离。
 - Standard Benchmark 默认串行。
 - 不保证 tuned 一定优于 baseline。
+- Benchmark对每个精确任务共享grid/start/goal/movement，确定性预热不落盘，所有正式失败与outlier保留，默认串行且拒绝覆盖已有输出目录。
+- Smoke固定3个4-way任务，Dijkstra/A*各1次，ACO/GA各使用11/29/47三个seed；Standard固定21任务，确定性3次预热/10次测量，随机算法20个seed。
+- raw CSV/JSON、summary CSV/JSON、best/worst、metadata和manifest由同一runner产生；Dijkstra仅按exact-task成本归一化，sample std的singleton为null，best/worst仅描述不用于筛seed。
 
 ## 创建和修改的文件
 
-S4新增`src/path_planning/algorithms/genetic.py`、`configs/ga_baseline.yaml`、五个GA测试文件及S4任务/阶段证据，并修改算法导出、`docs/algorithms.md`、实施计划和三个进度记录。GA实现包含坐标路径染色体、有界随机DFS初始化/修复、严格fitness支配、tournament/roulette、两类交叉/变异、精英、代数/停滞预算、统一结果和trajectory digest。未创建S5 schema、runner、配置、测试或占位文件。
+S5批次新增`benchmark` schema/runner/metadata/statistics模块，Smoke/Standard/A* benchmark配置，以及只缩减显式运行预算的`aco_smoke.yaml`/`ga_smoke.yaml`；新增单元/集成/回归测试、`docs/benchmark_methodology.md`、`results/smoke/stage5-baseline/`七个新真实产物、S5任务与阶段证据，并更新计划和进度记录。pre-review formal run已整体拒收到`.tmp/s5-sdd/rejected-stage5-baseline-pre-review/`，未删除。此批次已获fresh独立复审批准但仍未commit/push，未创建S6路径。
 
 ## 最近验证命令及结果
 
-2026-07-19 01:27 AEST完成fresh独立re-review与controller提交前复验：此前2项Important与1项Minor全部关闭，review无Critical、Important或Minor findings，结论`Verified`、质量`Approved`、`Ready to checkpoint: Yes`。controller重跑focused 4 passed、S4专项76 passed、完整322 passed，0 failed/skipped/xfailed；core/algorithms合计95.75%（1155 statements、444 branches），`genetic.py`合计93.58%（492 statements、178 branches），各非空模块≥90%；Ruff、format、strict mypy、pip、diff、legacy、Git、记录和S5边界通过。修复wheel SHA-256为`1f4e9d4dd786eb9206a89ec2e69f9c53ea5cd49b3a28c682920f6ac39fcac7f2`。
+2026-07-19 12:11 AEST完成S5 controller最终提交前门禁：S5专项83 passed；S1–S4分段132/64/50/83 passed；完整405 passed、combined branch coverage 96.26%，四个S5模块99.42%/93.59%/100.00%/91.55%。Ruff、format（56 files）、strict mypy（25 source files）、pip、diff和skip/xfail通过。只读复核当前formal Smoke的manifest、56/56 snapshot、24/12/6、16条成功路径、8条失败、24组seed及四模块coverage通过。本轮唯一wheel SHA-256为`9c3dc36f1732e0ac9d93ba6f6eeb690ed4b2f95064df4642c3b3dfceaabb0370`，隔离import、0.1.0和最小Dijkstra通过；Legacy、42/42/42记录、10/29验收、Git与S6边界通过。
 
 ## 最近checkpoint commit
 
@@ -57,22 +60,22 @@ S4账本commit：`ad2a107a7b9b5bb2cd312db68c19421b328f87cf` — `docs: record st
 
 ## 未解决问题
 
-fresh review两项Important已按TDD修复，`common_node`最坏复杂度文档已更正为`O(L^2)`，fresh re-review已Approved；当前无已知实现问题。S4实现checkpoint与hash账本commit已普通push；正式legacy after清单仍只允许由S8-T06生成。
+S5获批候选无已知产品缺陷；仍缺checkpoint发布。新真实Smoke耗时35.735秒，不应从本次Smoke推导性能排名。pre-review run仅作拒收审计快照，不得与当前formal run混用。wheel独立构建的ZIP时间元数据会改变字节SHA，门禁记录每次实际构建hash而不宣称跨构建字节可复现。正式legacy after清单仍只允许由S8-T06生成。
 
 ## 风险
 
-Standard Benchmark和调优耗时较长；后续若开始S5，现有`.git`、`origin`或`main`上游发生漂移，依赖扩大、旧材料变化、同一方案连续失败两次或关键门禁无法通过时必须停止。不得重新初始化仓库、替换`.git`、更换remote URL或强制推送。
+Standard Benchmark和调优耗时较长；后续现有`.git`、`origin`或`main`上游发生漂移，依赖扩大、旧材料变化、Smoke绑定的source/config/map/pyproject/lock变化、同一方案连续失败两次或关键门禁无法通过时必须停止。不得重新初始化仓库、替换`.git`、更换remote URL或强制推送。
 
 ## 下一步
 
-本轮在S4 publication记录普通push和最终远端复核后停止；S5-T01保持Not Started。
+停止在S5边界；执行controller最终提交前门禁、精确暂存、Stage 5实现checkpoint/hash账本和普通push，不开始S6-T01。
 
 ## 新会话恢复指令
 
 1. 执行`cd /Users/jiaxulong/Desktop/PathPlanningLab`。
-2. 完整读取`docs/superpowers/plans/2026-07-18-path-planning-lab.md`、`docs/superpowers/specs/2026-07-18-four-algorithm-path-planning-design.md`、`docs/progress/PROJECT_STATUS.md`和`docs/progress/HANDOFF.md`。
-3. 查看`docs/progress/WORK_LOG.md`最后一个记录，并读取`results/verification/S4-stage-gate.txt`、`S4-coverage.json`和S4-T01至T04已有验证日志。
+2. 完整读取`docs/superpowers/plans/2026-07-18-path-planning-lab.md`、`docs/superpowers/specs/2026-07-18-four-algorithm-path-planning-design.md`、`docs/progress/PROJECT_STATUS.md`、`docs/progress/HANDOFF.md`和`docs/benchmark_methodology.md`。
+3. 查看`docs/progress/WORK_LOG.md`最后一个记录，并读取`results/verification/S5-stage-gate.txt`、`S5-coverage.json`、S5-T01至T04验证日志及`results/smoke/stage5-baseline/manifest.json`。
 4. 执行`git branch --show-current`、`git status --short`、`git status -sb`、`git remote -v`、`git log --oneline -5`。
-5. 确认当前为`main`、上游为`origin/main`、唯一remote为正确的`origin`、remote配置未修改，且本地和远端仅有`main`、无tag/PR/额外worktree。
-6. 对照计划确认S1-T01至S4-T05为Verified、S5-T01为Not Started；fresh re-review已Approved，S4实现与账本已发布，仅publication记录和最终远端复核待闭环，禁止提前开始S5。
-7. 不依据聊天记忆推测进度，不执行`git init`，不删除或替换`.git`，不修改remote，不自行commit或push。
+5. 确认当前为`main`、上游为`origin/main`、唯一remote为正确的`origin`、remote配置未修改，本地/远端HEAD为S5前基线，且本地和远端仅有`main`、无tag/PR/额外worktree、无staged文件。
+6. 对照计划确认S1-T01至S5-T05为Verified、S6-T01为Not Started；复核Smoke 27-field raw、24/12/6结构、manifest和56文件source snapshot与当前输入一致。
+7. 不依据聊天记忆推测进度，不执行`git init`，不删除或替换`.git`，不修改remote，不自行commit/push，不开始S6。

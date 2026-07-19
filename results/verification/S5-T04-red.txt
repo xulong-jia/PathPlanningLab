@@ -1,0 +1,49 @@
+2026-07-19 10:47:11 AEST
+Command: .venv/bin/python -m pytest tests/unit/test_statistics.py -q
+Exit: 2
+
+==================================== ERRORS ====================================
+________________ ERROR collecting tests/unit/test_statistics.py ________________
+ImportError while importing test module '/Users/jiaxulong/Desktop/PathPlanningLab/tests/unit/test_statistics.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/opt/homebrew/Cellar/python@3.12/3.12.2_1/Frameworks/Python.framework/Versions/3.12/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/unit/test_statistics.py:7: in <module>
+    from path_planning.benchmark.statistics import best_worst_runs, summarize_runs
+E   ModuleNotFoundError: No module named 'path_planning.benchmark.statistics'
+=========================== short test summary info ============================
+ERROR tests/unit/test_statistics.py
+!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+1 error in 6.84s
+
+2026-07-19 AEST — runner/artifact RED
+Command: .venv/bin/python -m pytest tests/unit/test_benchmark_schemas.py tests/integration/test_benchmark_runner.py tests/integration/test_benchmark_persistence.py -q
+Exit: 1
+
+F.FFFFFFFFF........F...FF....                                            [100%]
+
+First expected failure:
+tests/unit/test_benchmark_schemas.py:58: AssertionError
+Extra items in the expected BenchmarkArtifacts schema: 'best_worst_json'
+
+Additional expected failures proved that the old runner did not create or
+return summary.csv, summary.json, or best_worst.json, and did not hash them in
+manifest.json. The old BenchmarkArtifacts constructor rejected the new field.
+
+=========================== short test summary info ============================
+FAILED tests/unit/test_benchmark_schemas.py::test_benchmark_schema_fields_are_serializable_and_complete
+FAILED tests/unit/test_benchmark_schemas.py::test_benchmark_artifacts_reject_absolute_artifact_paths[records_csv]
+FAILED tests/unit/test_benchmark_schemas.py::test_benchmark_artifacts_reject_absolute_artifact_paths[records_json]
+FAILED tests/unit/test_benchmark_schemas.py::test_benchmark_artifacts_reject_absolute_artifact_paths[metadata_json]
+FAILED tests/unit/test_benchmark_schemas.py::test_benchmark_artifacts_reject_absolute_artifact_paths[summary_csv]
+FAILED tests/unit/test_benchmark_schemas.py::test_benchmark_artifacts_reject_absolute_artifact_paths[summary_json]
+FAILED tests/unit/test_benchmark_schemas.py::test_benchmark_artifacts_reject_absolute_artifact_paths[best_worst_json]
+FAILED tests/unit/test_benchmark_schemas.py::test_benchmark_artifacts_reject_absolute_artifact_paths[manifest_json]
+FAILED tests/unit/test_benchmark_schemas.py::test_benchmark_artifacts_reject_absolute_figure_paths
+FAILED tests/unit/test_benchmark_schemas.py::test_benchmark_artifacts_serialize_uncreated_paths_as_null
+FAILED tests/integration/test_benchmark_runner.py::test_run_benchmark_records_exact_formal_run_count
+FAILED tests/integration/test_benchmark_persistence.py::test_run_benchmark_persists_matching_raw_rows_and_failures
+FAILED tests/integration/test_benchmark_persistence.py::test_run_benchmark_records_environment_metadata_and_verifiable_manifest
+13 failed, 16 passed in 0.58s

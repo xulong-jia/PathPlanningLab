@@ -1,0 +1,461 @@
+S5_STAGE_GATE_START=2026-07-19T11:01:00+1000
+S5_TASK_STATUS=IN_PROGRESS
+S5_STAGE_STATUS=REVIEW_PENDING
+baseline_commit=7941b62739a7c7d5535bee1f2f9a72d0820e2fc1
+
+[Pre-Smoke focused gate]
+command=test ! -e results/smoke/stage5-baseline
+exit_code=0
+command=.venv/bin/python -m pytest tests/unit/test_benchmark_schemas.py tests/unit/test_statistics.py tests/integration/test_benchmark_runner.py tests/integration/test_benchmark_persistence.py tests/regression/test_benchmark_fairness.py -q
+exit_code=0
+result=39 passed in 0.87s; failed=0; skipped=0; xfailed=0
+
+[Real Smoke: exactly one formal invocation]
+command=.venv/bin/python -c "from pathlib import Path; from path_planning.benchmark.runner import run_benchmark; run_benchmark(Path('configs/benchmark_smoke.yaml'), Path('results/smoke/stage5-baseline'))"
+started_at_utc=2026-07-19T01:02:44Z
+finished_at_utc=2026-07-19T01:08:31Z
+duration_seconds=347
+exit_code=0
+retry_count=0
+budget_changes=0
+note=347 seconds is slightly above the approximate 1-5 minute target but below the independently set 10-minute stop bound; process remained active and completed without errors
+
+[Real Smoke artifact validation: assertion-script correction]
+initial_command=.venv/bin/python - <<'PY' (assert exact artifact/raw/summary/extrema/metadata/manifest/source semantics, but assume every no-path reason is `unreachable`) PY
+initial_exit_code=1
+failure=the validator made an incorrect audit assumption; real deterministic results use `no_path`, while ACO/GA use the documented shared reachability precheck code `no_path_precheck`
+correction=assert each retained no-path row has matching error/failure_reason beginning with `no_path`, while preserving the exact per-algorithm codes; no artifact or production byte changed
+corrected_command=.venv/bin/python - <<'PY' (assert the same complete artifact contract with exact `no_path`/`no_path_precheck` semantics) PY
+corrected_exit_code=0
+artifact_files=7
+raw_rows=24
+summary_rows=12
+best_worst_cohorts=6
+algorithm_rows=dijkstra:3,astar:3,aco:9,ga:9
+map_rows=open_20:8,maze_30:8,no_path_20:8
+deterministic_seeds=null
+stochastic_seeds=11,29,47 for each algorithm/task cohort
+no_path_failures=8/8 retained
+raw_csv_json_rows_and_nulls=identical
+summary_csv_json_rows_and_nulls=identical
+summary_denominators=match all raw rows
+best_worst_shape=2 seeded algorithms x 3 exact tasks; no-path extrema null
+run_id=4cf8a8a96f0f4115bc81b2193519cef2
+config_sha256=2833298d883fa683c05c0d2b2ab52b08fa483d71f2549c24a4c03036c1fb26f8
+git_commit=7941b62739a7c7d5535bee1f2f9a72d0820e2fc1
+git_dirty=true
+source_snapshot_files=54/54 verified
+source_snapshot_sha256=b2a5f3a829d14d9f1e3fbbc4a7b36165422e8ccd2a62582d57477af049cb55e9
+manifest_payload_hashes=6/6 verified
+manifest_last=verified by nanosecond mtime and write contract
+absolute_path_leakage=none
+
+[S1 original/core/maps/package regression]
+command=.venv/bin/python -m pytest tests/test_package_import.py tests/unit/test_grid.py tests/unit/test_movement.py tests/unit/test_result.py tests/unit/test_validation.py tests/unit/test_metrics.py tests/unit/test_map_io.py tests/unit/test_map_generation.py tests/integration/test_map_suites.py tests/regression/test_result_schema.py -q
+exit_code=0
+result=132 passed in 0.90s; failed=0; skipped=0; xfailed=0
+
+[S2 deterministic/optimality regression]
+command=.venv/bin/python -m pytest tests/unit/test_dijkstra.py tests/unit/test_astar.py tests/integration/test_deterministic_planners.py tests/regression/test_optimality.py -q
+exit_code=0
+result=64 passed in 1.27s; failed=0; skipped=0; xfailed=0
+
+[S3 ACO/legacy/seed/no-path regression]
+command=.venv/bin/python -m pytest tests/unit/test_aco_construction.py tests/unit/test_aco_pheromone.py tests/unit/test_aco_planner.py tests/integration/test_aco_integration.py tests/regression/test_legacy_aco_failures.py tests/regression/test_seed_reproducibility.py tests/regression/test_no_path.py -q
+exit_code=0
+result=50 passed in 0.30s; failed=0; skipped=0; xfailed=0
+
+[S4 GA/seed/no-path regression]
+command=.venv/bin/python -m pytest tests/unit/test_ga_fitness.py tests/unit/test_ga_operators.py tests/unit/test_ga_planner.py tests/integration/test_ga_integration.py tests/regression/test_ga_seed_reproducibility.py tests/regression/test_no_path.py -q
+exit_code=0
+result=83 passed in 0.73s; failed=0; skipped=0; xfailed=0
+
+[Full branch coverage: real S5 module-threshold RED]
+command=.venv/bin/python -m pytest tests -q --cov=path_planning --cov-branch --cov-report=term-missing --cov-report=json:results/verification/S5-coverage.json --cov-fail-under=90
+exit_code=0
+result=361 passed in 13.28s; failed=0; skipped=0; xfailed=0
+overall_combined_coverage=93.03%
+schemas_combined_coverage=77.54%
+runner_combined_coverage=92.61%
+metadata_combined_coverage=86.02%
+statistics_combined_coverage=91.55%
+gate_result=FAIL because schemas.py and metadata.py were below the required per-module 90% threshold even though pytest and the overall threshold passed
+remediation=add direct tests for existing schema validation, raw-record invariants, nested parser boundaries, project-relative config provenance, malformed dependency metadata, and missing-package reporting; no production code, exclusions, pragma, or threshold changes
+
+[Coverage-remediation focused tests and formatting correction]
+command=.venv/bin/python -m pytest tests/unit/test_benchmark_schemas.py tests/integration/test_benchmark_persistence.py -q
+exit_code=0
+result=59 passed in 0.59s
+command=.venv/bin/ruff check tests/unit/test_benchmark_schemas.py tests/integration/test_benchmark_persistence.py
+exit_code=0
+command=.venv/bin/ruff format --check tests/unit/test_benchmark_schemas.py tests/integration/test_benchmark_persistence.py
+exit_code=1
+failure=both edited test files required only mechanical Ruff formatting
+correction_command=.venv/bin/ruff format tests/unit/test_benchmark_schemas.py tests/integration/test_benchmark_persistence.py
+correction_exit_code=0
+retry_commands=.venv/bin/ruff check tests/unit/test_benchmark_schemas.py tests/integration/test_benchmark_persistence.py; .venv/bin/ruff format --check tests/unit/test_benchmark_schemas.py tests/integration/test_benchmark_persistence.py; .venv/bin/python -m pytest tests/unit/test_benchmark_schemas.py tests/integration/test_benchmark_persistence.py -q
+retry_exit_code=0
+retry_result=59 passed in 0.59s; 2 files already formatted
+
+[Full branch coverage: final GREEN]
+command=.venv/bin/python -m pytest tests -q --cov=path_planning --cov-branch --cov-report=term-missing --cov-report=json:results/verification/S5-coverage.json --cov-fail-under=90
+exit_code=0
+result=395 passed in 13.46s; failed=0; skipped=0; xfailed=0
+coverage_statements=1983 total; 1930 covered; 53 missing
+coverage_branches=728 total; 680 covered; 48 missing/partial
+overall_combined_coverage=96.27%
+module=src/path_planning/benchmark/schemas.py statements=232 branches=102 combined=100.00%
+module=src/path_planning/benchmark/runner.py statements=167 branches=36 combined=92.61%
+module=src/path_planning/benchmark/metadata.py statements=77 branches=16 combined=100.00%
+module=src/path_planning/benchmark/statistics.py statements=155 branches=58 combined=91.55%
+command=.venv/bin/python - <<'PY' (parse S5-coverage.json; assert total and each non-empty S5 module combined statement+branch percentage >=90) PY
+exit_code=0
+command=rg -n 'pytest\.mark\.(skip|skipif|xfail)|@unittest\.skip|pytest\.skip\(' tests
+exit_code=1
+result=no unauthorized skip/xfail marker; expected no-match exit
+
+[Final S5 focused suite]
+command=.venv/bin/python -m pytest tests/unit/test_benchmark_schemas.py tests/unit/test_statistics.py tests/integration/test_benchmark_runner.py tests/integration/test_benchmark_persistence.py tests/regression/test_benchmark_fairness.py -q
+exit_code=0
+result=73 passed in 0.88s; failed=0; skipped=0; xfailed=0
+
+[Static, dependency, and diff gates]
+command=.venv/bin/ruff check .
+exit_code=0 result=All checks passed
+command=.venv/bin/ruff format --check .
+exit_code=0 result=56 files already formatted
+command=.venv/bin/mypy src
+exit_code=0 result=Success: no issues found in 25 source files
+command=.venv/bin/python -m pip check
+exit_code=0 result=No broken requirements found
+command=git diff --check
+exit_code=0
+
+[Wheel build and isolated installed-package verification]
+initial_shell_command=create validated mktemp tree; trap cleanup with rm; pip wheel; pip install; isolated import/run
+execution_status=rejected before process start by the command safety layer because the cleanup trap contained rm; zero wheels built and no state changed
+correction=use Python standard-library TemporaryDirectory for automatic fresh-tree cleanup, while invoking the exact pip wheel/install commands as checked subprocesses
+command=.venv/bin/python - <<'PY' (TemporaryDirectory; subprocess `[python, -m, pip, wheel, ., --no-deps, --wheel-dir, wheel_dir]`; assert exactly one wheel; SHA-256; subprocess `[python, -m, pip, install, --no-deps, --target, install_dir, wheel]`; from fresh temp cwd run interpreter with `-P` and PYTHONPATH=install_dir; assert import root, version, and minimal Dijkstra) PY
+exit_code=0
+wheel_count=1
+wheel_name=path_planning_lab-0.1.0-py3-none-any.whl
+wheel_sha256=27ae888c306211242178598749261d0c2e4a601fc8e89bec3cfc5594252f661c
+install_mode=--no-deps into fresh repository-external temporary target
+installed_import=verified under temporary target, not source checkout
+installed_version=0.1.0
+minimal_dijkstra=success,path_length:1.0
+temporary_build_tree_removed=yes
+tracked_or_untracked_build_artifacts=0
+
+[Plan/WORK_LOG/S6 structural gate: parser correction]
+initial_command=.venv/bin/python - <<'PY' (parse 42 checklist/main/detail, 29 acceptance, statuses, WORK_LOG prefix/timestamps, and S6 paths; read main-table status from zero-based column 7) PY
+initial_exit_code=1
+failure=the audit parser selected the evidence column because the real nine-column table's status is zero-based column 6
+correction=use the actual main-table schema and status column 6; no repository record content changed
+corrected_command=.venv/bin/python - <<'PY' (same assertions with main-table status column 6) PY
+corrected_exit_code=0
+checklist_tasks=42 unique
+main_table_tasks=42 unique
+detailed_task_sections=42 unique
+acceptance_rows=29
+statuses=S1-S4 Verified; S5-T01-T04 Verified; only S5-T05 In Progress; S6-T01 Not Started
+work_log_head_prefix=verified; HEAD bytes=84803
+work_log_timestamp_headings_before_candidate_append=60 unique and chronological
+s6_implementation_test_config_evidence_data_paths=0
+
+[Legacy read-only gate]
+commands=find /Users/jiaxulong/Desktop/论文与实习 -type f -print0 | tr -cd '\0' | wc -c; find same-root -mindepth 1 -type d -print0 | tr -cd '\0' | wc -c; find same-root -type f -exec stat -f '%z' -- {} + | awk sum; wc -l before manifest; shasum -a 256 before manifest; from legacy root run shasum -a 256 -c against absolute before manifest; assert formal after manifest absent
+exit_code=0
+legacy_files=75
+legacy_directories=21
+legacy_bytes=74097025
+legacy_manifest_entries=75
+legacy_manifest_check=75/75 OK
+legacy_canonical_aggregate_sha256=f534b2543beb31e8f0253001b96494b0086b4b085a340d8d4ae4d33e10c91e8e
+legacy_after_manifest=absent
+legacy_code_executed=no
+legacy_writes=no
+
+[Git safety gate: symref audit correction]
+command=git fetch --prune origin; assert branch/upstream/HEAD/origin divergence; unique remote and URLs; local/tracking/remote branches; tags; PRs; worktrees; staging; tracked/untracked build artifacts
+initial_exit_code=1
+failure=the first aggregate audit compared presentation short names and counted the normal symbolic `origin/HEAD` display name `origin` as a remote-tracking branch
+correction=inspect `%(symref)` explicitly and use `git ls-remote --heads origin` for actual remote branches; no Git state changed
+corrected_commands=git branch --show-current; git status -sb; git rev-parse upstream/HEAD/origin-main; git rev-list --left-right --count; git remote -v; git ls-remote --heads origin; git ls-remote --tags origin; git for-each-ref with symref; git worktree list --porcelain; gh pr list --state open --json number; git diff --cached --name-only; git ls-files artifact scan; git status untracked-build scan
+corrected_exit_code=0
+branch=main
+upstream=origin/main
+HEAD=7941b62739a7c7d5535bee1f2f9a72d0820e2fc1
+origin_main=7941b62739a7c7d5535bee1f2f9a72d0820e2fc1
+divergence=0/0
+remote=origin
+fetch_url=git@github.com:xulong-jia/PathPlanningLab.git
+push_url=git@github.com:xulong-jia/PathPlanningLab.git
+local_branches=main
+remote_heads=main
+non_symbolic_remote_tracking=origin/main
+local_tags=0
+remote_tags=0
+open_prs=0
+worktrees=1
+staged_files=0
+tracked_cache_build_temp_artifacts=0
+untracked_build_artifacts=0
+remote_changes=none
+
+[Final Smoke input-freshness recheck]
+command=.venv/bin/python - <<'PY' (re-hash six manifest payloads, benchmark config, all source-snapshot files, and canonical aggregate against final candidate bytes) PY
+exit_code=0
+manifest_payload_hashes=6/6 verified
+smoke_config_hash=verified
+source_snapshot_files=54/54 verified
+source_snapshot_sha256=b2a5f3a829d14d9f1e3fbbc4a7b36165422e8ccd2a62582d57477af049cb55e9
+source_config_map_pyproject_lock_changed_after_smoke=no
+
+[Candidate conclusion]
+implementation_candidate=PASS
+smoke_candidate=PASS
+methodology_candidate=PASS
+coverage_candidate=PASS
+static_build_legacy_git_records_boundary_candidate=PASS
+S5_T05=In Progress
+S5_stage=review pending; not self-marked Verified
+S6_T01=Not Started
+commit_created=no
+push_performed=no
+fresh_independent_review_required=yes
+
+[Post-record final integrity and quality]
+commands=.venv/bin/ruff check .; .venv/bin/ruff format --check .; .venv/bin/mypy src; .venv/bin/python -m pip check; git diff --check
+exit_code=0
+result=Ruff passed; 56 files formatted; strict mypy passed for 25 source files; dependencies healthy; diff clean
+command=.venv/bin/python - <<'PY' (assert final 42/42/42 unique records, 29 acceptance rows, 25 Verified and only S5-T05 In Progress, WORK_LOG HEAD prefix and 61 unique chronological headings, required S5 artifacts, zero S6 paths, and unchanged 54-file Smoke source snapshot) PY
+exit_code=0
+result=final plan 42/42/42; acceptance 29; Verified 25; In Progress 1; WORK_LOG 61 unique chronological headings; S5 evidence present; source snapshot 54/54 unchanged; S6 paths zero
+command=git diff --cached --quiet
+exit_code=0 result=staged files 0
+S5_STAGE_GATE_END=2026-07-19T11:20:00+1000
+S5_STAGE_GATE_CANDIDATE_RESULT=PASS_AWAITING_FRESH_REVIEW
+
+S5_FRESH_REVIEW_REMEDIATION_APPEND_START=2026-07-19T11:49:00+1000
+
+[Fresh review disposition and rejected pre-review run]
+review_result=Needs fixes / not ready
+findings=raw map identity; validated path-length protocol; formal/warmup seed integrity; dedicated Smoke budgets; plan status; null and contradictory success record invariants
+action=moved entire pre-review formal run recoverably before source/config changes
+rejected_path=.tmp/s5-sdd/rejected-stage5-baseline-pre-review
+rejected_files=7
+rejected_manifest_sha256=4a5f661b46040e05fd28f0b9c93f2063b02269d7344beab2d9463c0552c9a7a7
+rejection_reason=artifact predates required identity, path/seed protocol, and Smoke-budget fixes; audit history only, not formal evidence
+formal_output_absent_before_new_run=yes
+
+[Primary review RED and GREEN]
+red_command=focused 11-case schema/config/runner/path/seed/statistics selection
+red_exit_code=1
+red_result=11 failed, 0 passed in 0.65s
+red_failures=missing map_path; Smoke still baseline; missing dedicated configs; raw missing map_path; 999 cost remained success; formal/warmup seed mismatches accepted; distinct same-named maps merged/cross-normalized; null-result success accepted
+green_command=same focused selection
+green_exit_code=0
+green_result=11 passed in 0.53s
+implementation=27-field raw with repository-relative map_path; exact map_path+endpoint+movement cohorts; path rel_tol=1e-12 and abs_tol=1e-12; exact requested/result seed including None; budget-only aco_smoke/ga_smoke; successful null-result rejection
+
+[Additional TDD cycles]
+warmup_red=1 failed; first remediation incorrectly aborted an ordinary unsuccessful warmup
+warmup_green=protocol checks separated from ordinary planner failure semantics; unsuccessful matching-seed warmup stays unrecorded/nonfatal
+schema_consistency_red=1 failed, 1 passed; status=success/result.success=False did not raise
+schema_consistency_green=2 passed; successful status requires result.success=True
+fresh_S5_focused=83 passed in 1.16s
+
+[New formal Smoke preflight and exactly one run]
+preflight=exit 0; formal output absent; rejected snapshot present; diff clean; 4 config/budget/runner cases passed
+public_api=run_benchmark(Path('configs/benchmark_smoke.yaml'), Path('results/smoke/stage5-baseline'))
+started_at_utc=2026-07-19T01:45:17.044782+00:00
+finished_at_utc=2026-07-19T01:45:52.779640+00:00
+duration_seconds=35.735
+exit_code=0
+formal_retries=0
+formal_duplicate_runs=0
+
+[New formal Smoke independent verification]
+initial_exit_code=1
+initial_failure=read-only verifier overconstrained all no-path errors to literal no_path; actual established codes are Dijkstra/A*=no_path and ACO/GA=no_path_precheck
+correction=accept documented algorithm-specific codes and independently validate all successful paths/costs; no artifact changed and Smoke was not rerun
+corrected_exit_code=0
+raw_field_count=27
+raw_rows=24
+summary_rows=12
+best_worst_cohorts=6
+successful_rows=16
+independently_validated_success_paths=16/16
+failed_no_path_rows=8/8 retained
+requested_result_seed_equality=24/24
+aco_config=configs/aco_smoke.yaml
+ga_config=configs/ga_smoke.yaml
+manifest_payload_hashes=6/6 verified
+run_id=776b745d43614e08b3e6ff5e11fe1a8c
+config_sha256=456916f678da9c27e1e5621f5fbc30a13d2c3110d580384a399cd0e0081326b3
+manifest_sha256=4459ec594412ff6630b75ab4413564ad9d2eb1a2146fc76754949fc82d013ae2
+source_snapshot_files=56/56 verified
+source_snapshot_sha256=9e00d0fb3f89df84de65390834bea1e2343f56d547702c22ec09fbf56b6333b5
+
+[Fresh full tests, coverage, segmented regressions]
+full_command=.venv/bin/python -m pytest tests -q --cov=path_planning --cov-branch --cov-report=term-missing --cov-report=json:results/verification/S5-coverage.json --cov-fail-under=90
+full_exit_code=0
+full_result=405 passed in 14.06s; failed=0; skipped=0; xfailed=0
+coverage_statements=2008 total; 1954 covered; 54 missing
+coverage_branches=746 total; 697 covered; 49 missing/partial
+overall_combined_coverage=96.26%
+schemas_combined_coverage=99.42%
+runner_combined_coverage=93.59%
+metadata_combined_coverage=100.00%
+statistics_combined_coverage=91.55%
+per_S5_module_threshold=all non-empty modules >=90%
+S1=132 passed
+S2=64 passed
+S3=50 passed
+S4=83 passed
+S5=83 passed
+
+[Fresh static, dependency, diff, wheel]
+ruff_check=exit 0; All checks passed
+ruff_format=exit 0; 56 files already formatted
+strict_mypy=exit 0; 25 source files
+pip_check=exit 0; No broken requirements found
+git_diff_check=exit 0
+wheel_count=1
+wheel_name=path_planning_lab-0.1.0-py3-none-any.whl
+wheel_sha256=9df2c8846e5c9ff840ca3d081953a804ed02a315be1fc62fafa205545a266577
+isolated_install=verified from repository-external TemporaryDirectory; version 0.1.0; minimal Dijkstra success/path_length 1.0
+temporary_build_tree_removed=yes
+
+[Fresh legacy, Git, records, and S6 boundary]
+legacy=75 files; 21 directories; 74097025 bytes; 75/75 OK
+legacy_canonical_aggregate_sha256=f534b2543beb31e8f0253001b96494b0086b4b085a340d8d4ae4d33e10c91e8e
+legacy_after_manifest=absent
+git_fetch_prune=exit 0
+branch=main
+upstream=origin/main
+HEAD=7941b62739a7c7d5535bee1f2f9a72d0820e2fc1
+origin_main=7941b62739a7c7d5535bee1f2f9a72d0820e2fc1
+divergence=0/0
+remote=origin
+local_remote_heads=main/main
+tags=0
+open_prs=0
+worktrees=1
+staged_files=0
+S5_T05=In Progress
+S6_T01=Not Started
+commit_created=no
+push_performed=no
+
+S5_FRESH_REVIEW_REMEDIATION_APPEND_END=2026-07-19T11:49:00+1000
+S5_FRESH_REVIEW_REMEDIATION_RESULT=PASS_AWAITING_FRESH_REREVIEW
+
+=== S5 FRESH INDEPENDENT RE-REVIEW APPROVAL (2026-07-19 12:03 AEST) ===
+REVIEW_SCOPE=complete remediation diff, current formal Smoke artifacts, methodology, task/stage evidence, S6 boundary
+ORIGINAL_FINDINGS=5 Important + 1 Minor
+ROOT_CLOSED=6/6
+NEW_FINDINGS=0
+INDEPENDENT_ARTIFACT_REVALIDATION=27 fields; 24 raw; 12 summary; 6 cohorts; 16 success paths; 8 failures; 24 seed pairs; CSV/JSON; manifest 6; source snapshot 56; normalization; best/worst
+FOCUSED_REMEDIATION_TESTS=11 passed
+SPEC_COMPLIANT=Yes
+APPROVED=Yes
+READY_TO_CHECKPOINT=Yes
+CONCLUSION=Verified
+S5_T05_STATUS=Verified
+S6_T01_STATUS=Not Started
+COMMIT_PUSH=None at review approval
+
+=== S5 CONTROLLER FINAL PRE-COMMIT GATE (2026-07-19 12:11 AEST) ===
+[Tests and coverage]
+S5_focused=83 passed; exit 0
+S1_segment=132 passed; exit 0
+S2_segment=64 passed; exit 0
+S3_segment=50 passed; exit 0
+S4_segment=83 passed; exit 0
+full_branch_coverage=405 passed; 0 failed/skipped/xfailed; exit 0
+overall_combined_coverage=96.26%
+schemas_combined_coverage=99.42%
+runner_combined_coverage=93.59%
+metadata_combined_coverage=100.00%
+statistics_combined_coverage=91.55%
+unauthorized_skip_xfail_markers=0
+
+[Static and dependency gates]
+ruff_check=exit 0; All checks passed
+ruff_format=exit 0; 56 files already formatted
+strict_mypy=exit 0; 25 source files
+pip_check=exit 0; no broken requirements
+git_diff_check=exit 0
+
+[Smoke artifact and input freshness]
+first_controller_validator_exit=1
+first_controller_validator_failure=coverage totals were incorrectly treated as a file node containing a nested summary mapping; all preceding artifact assertions had passed
+correction=read top-level coverage totals directly and retain nested summary access only for file nodes; rerun the entire validator from the first assertion
+corrected_validator_exit=0
+run_id=776b745d43614e08b3e6ff5e11fe1a8c
+manifest_sha256=4459ec594412ff6630b75ab4413564ad9d2eb1a2146fc76754949fc82d013ae2
+manifest_payload_hashes=6/6
+source_snapshot=56/56
+source_snapshot_sha256=9e00d0fb3f89df84de65390834bea1e2343f56d547702c22ec09fbf56b6333b5
+raw_summary_cohorts=24/12/6
+success_failed=16/8
+requested_result_seed_pairs=24/24
+successful_paths_revalidated=16/16
+absolute_path_leaks=0
+
+[Build and isolated installation]
+first_controller_build_exit=1
+first_controller_build_failure=the verifier incorrectly required an independent wheel build to equal the prior build SHA-256; ZIP build timestamps make that cross-build byte equality non-contractual
+first_controller_build_cleanup=automatic TemporaryDirectory cleanup completed; installation did not start
+correction=require exactly one correctly named wheel, record the current build SHA, and verify isolated installation behavior without a false cross-build hash assertion
+corrected_build_exit=0
+wheel_count=1
+wheel_name=path_planning_lab-0.1.0-py3-none-any.whl
+wheel_sha256=9c3dc36f1732e0ac9d93ba6f6eeb690ed4b2f95064df4642c3b3dfceaabb0370
+isolated_import=PASS
+installed_version=0.1.0
+minimal_dijkstra_path_length=1.0
+temporary_tree_cleaned=PASS
+
+[Legacy, records, Git, and S6 boundary]
+legacy=75 files; 21 directories; 74097025 bytes; 75/75 OK
+legacy_canonical_aggregate_sha256=f534b2543beb31e8f0253001b96494b0086b4b085a340d8d4ae4d33e10c91e8e
+legacy_after_manifest=absent
+first_record_validator_exit=1
+first_record_validator_failure=the regex accepted only `状态` while the existing S1-T01 detail label is `当前状态`
+correction=accept the two existing exact label forms and rerun all record assertions; also map checklist task ids to marks in the intended direction
+corrected_record_validator_exit=0
+plan_counts=42/42/42
+task_status=26 Verified; 0 In Progress; 16 Not Started
+acceptance=10/29 Verified
+work_log_headings=63 unique and chronological before this final-gate record
+git_fetch_prune=exit 0
+branch=main
+upstream=origin/main
+HEAD=7941b62739a7c7d5535bee1f2f9a72d0820e2fc1
+origin_main=7941b62739a7c7d5535bee1f2f9a72d0820e2fc1
+divergence=0/0
+remote=origin
+fetch_push_url=git@github.com:xulong-jia/PathPlanningLab.git
+local_remote_heads=main/main
+tags=0
+open_prs=0
+worktrees=1
+staged_files=0
+tracked_cache_build_temp_artifacts=0
+S5_T05=Verified
+S5_STAGE=Verified
+S6_T01=Not Started
+S6_PATHS=0
+CONTROLLER_FINAL_PRE_COMMIT_GATE=PASS
+
+[Post-record gate correction]
+first_post_record_gate_exit=1
+failure=the JavaScript-to-shell command string double-escaped `\d`, so the Python regex matched a literal backslash sequence, found no WORK_LOG headings, and raised IndexError before source-snapshot checks
+correction=use an equivalent `[0-9]` timestamp regex without cross-layer backslash escaping and rerun the complete post-record log/snapshot assertion
+corrected_exit=0
+work_log_headings=64 unique; latest 2026-07-19 12:11
+source_snapshot=56/56 unchanged
+POST_RECORD_GATE=PASS

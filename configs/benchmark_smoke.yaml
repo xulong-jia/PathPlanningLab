@@ -1,0 +1,32 @@
+schema_version: 1
+name: smoke
+
+algorithm_configs:
+  dijkstra: configs/dijkstra.yaml
+  astar: configs/astar_benchmark.yaml
+  aco: configs/aco_smoke.yaml
+  ga: configs/ga_smoke.yaml
+
+deterministic:
+  warmup_runs: 0
+  measurement_runs: 1
+
+stochastic:
+  seeds: [11, 29, 47]
+
+tasks:
+  - map: maps/handcrafted/open_20.json
+    movement:
+      connectivity: 4
+      diagonal_cost: 1.4142135623730951
+      allow_corner_cutting: false
+  - map: maps/handcrafted/maze_30.json
+    movement:
+      connectivity: 4
+      diagonal_cost: 1.4142135623730951
+      allow_corner_cutting: false
+  - map: maps/handcrafted/no_path_20.json
+    movement:
+      connectivity: 4
+      diagonal_cost: 1.4142135623730951
+      allow_corner_cutting: false
